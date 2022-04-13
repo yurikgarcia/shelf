@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid, GridToolbar, GridCellEditStopReasons  } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
@@ -11,8 +11,24 @@ import CheckoutDrawer from "./CheckoutDrawer.js";
 export default function RowsGrid(props) {
   const [status, setStatus] = React.useState('connected')
 
-
-
+        //fetch for inventory items
+        useEffect(() => {
+          fetchResults();
+      }, []);
+  
+      const [results, setResults] = useState ([]);
+  
+      const fetchResults = async () => {
+          const data = await fetch(
+              'https://postgres-apr.herokuapp.com/inventory'
+          );
+  
+          const results = await data.json();
+          setResults(results);
+        };
+        
+        
+        console.log(results);
   return (
     <Box sx={{ display: 'flex', justifyContent: "center", width: '90%', overflow: 'hidden', ml: 7 }}>
       <div style={{height: 530, width: '100%' }}>

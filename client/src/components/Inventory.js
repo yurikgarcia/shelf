@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState, useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
@@ -19,11 +19,8 @@ function Inventory() {
       const [AddModalOpen, setAddModalOpen] = React.useState(false);
       const handleAddOpen = () => setAddModalOpen(true);
       const handleCloseAddModal = () => setAddModalOpen(false);
-  
 
   return (
-
-
 <div>
 
     <Modal
