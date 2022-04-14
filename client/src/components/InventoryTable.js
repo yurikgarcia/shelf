@@ -19,7 +19,7 @@ export default function RowsGrid(props) {
               columns={[
                 {
                   field: 'Details', minWidth: 10, renderCell: () =>
-                    <DotDropDown inventory={props.inventory}/>,
+                    <DotDropDown inventory={props.inventory} />,
                 },
                 { field: 'Name', minWidth: 130, },
                 { field: 'Brand', minWidth: 150, },

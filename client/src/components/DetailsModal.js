@@ -25,10 +25,6 @@ export default function ReturnModal({ inventory }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  React.useEffect(() =>{
-    console.log('Details', inventory);
-  }, []);
-
   return (
     <div>
 

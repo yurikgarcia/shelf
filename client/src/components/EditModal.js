@@ -18,7 +18,6 @@ export default function ReturnModal({ inventory }) {
   const handleClose = () => setOpen(false);
 
   React.useEffect(() => {
-    console.log('Edit', inventory);
   }, []);
 
 

@@ -14,8 +14,12 @@ export default function ReturnModal({ inventory }) {
   const handleClose = () => setOpen(false);
 
   React.useEffect(() => {
-    console.log('Delete', inventory);
+    console.log('Delete', inventory.item_id);
   }, []);
+
+  const onDelete = async (id) => {
+    console.log(id)
+  };
 
   return (
     <div>
@@ -47,7 +51,7 @@ export default function ReturnModal({ inventory }) {
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
-              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />}>
+              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />} onClick={(e)=> onDelete(inventory.item_id)}>
                 Delete
               </Button>
               <Button color='secondary' variant="contained" startIcon={<CancelIcon />}>

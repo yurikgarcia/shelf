@@ -71,7 +71,9 @@ app.delete('/inventory', (req, res) => {
       if (error) {
         res.send('error' + error)
       }
-      res.send(results.rows)
+    console.log('removed from DB')
+    res.status(200)
+    res.send("Success")
     })
 })
 

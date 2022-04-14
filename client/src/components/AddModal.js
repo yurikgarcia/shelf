@@ -39,9 +39,9 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
     axios.post('http://localhost:3000/inventory', { item: newInventory })
       .then(res => {
         if (res.status === 200) {
-          setAddModalOpen(false)
           setInventory([...inventory, newInventory])
           fetchInventory()
+          setAddModalOpen(false)
         }
       })
       .catch(err => {
@@ -49,6 +49,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
         console.log('err', err);
       })
   };
+
   return (
     <div>
       <Box sx={{ ml: 15, mt: 1 }}>
