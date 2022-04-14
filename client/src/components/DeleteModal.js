@@ -14,12 +14,9 @@ export default function ReturnModal({ inventory }) {
   const handleClose = () => setOpen(false);
 
   React.useEffect(() => {
-    console.log('Delete', inventory.item_id);
+    //console.log('Delete', inventory.item_id);
   }, []);
 
-  const onDelete = async (id) => {
-    console.log(id)
-  };
 
   return (
     <div>
@@ -47,11 +44,11 @@ export default function ReturnModal({ inventory }) {
             Are You Sure You Want To Delete?
           </Typography>
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
-            Data from this item will be <Typography variant="h5" > PERMENENTLY </Typography> DELETED!
+            Data from this item will be <Typography > PERMENENTLY </Typography> DELETED!
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
-              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />} onClick={(e)=> onDelete(inventory.item_id)}>
+              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />}>
                 Delete
               </Button>
               <Button color='secondary' variant="contained" startIcon={<CancelIcon />}>

@@ -18,7 +18,7 @@ function Inventory() {
    * fetches DB after any changes to the resutls array from the user on the front end
    */
   const fetchInventory = async () => {
-    axios.get('https://postgres-apr.herokuapp.com/inventory')
+    axios.get('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory')
       .then(res => {
         setInventory(res.data);
       })
@@ -38,7 +38,7 @@ function Inventory() {
             <CheckoutDrawer />
           </Box>
           <Box sx={{ ml: 8, mt: 1 }}>
-            <InventoryTable inventory={inventory} />
+            <InventoryTable inventory={inventory} fetchInventory={fetchInventory}/>
           </Box>
             <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
         </main>

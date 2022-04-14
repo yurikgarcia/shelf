@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import DeleteModal from "./DeleteModal.js";
 import DetailsModal from "./DetailsModal.js";
@@ -17,6 +17,11 @@ export default function DotDropDown({ inventory }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    // console.log('inventory', inventory);
+    // console.log('id', id)
+  }, [])
   //Modal for Delete View
   // const [DeleteModalOpen, setDeleteModalOpen] = React.useState(false);
   // const handleDeleteOpen = () => setDeleteModalOpen(true);

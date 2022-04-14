@@ -65,7 +65,8 @@ app.post('/inventory', (req, res) => {
  * Deletes item from the inventory table
  */
 app.delete('/inventory', (req, res) => {
-  const item_id = req.body.item_id;
+  const item_id = req.body.id;
+  console.log(item_id);
   pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
     (error, results) => {
       if (error) {
@@ -76,8 +77,6 @@ app.delete('/inventory', (req, res) => {
     res.send("Success")
     })
 })
-
-
 
 
 //----------------------------------DEPLOYENT TABLE--------------------------------------------------------------------------------------------------------------

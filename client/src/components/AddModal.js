@@ -36,7 +36,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
    */
   const addItemToInventory = async () => {
     const newInventory = addedItem;
-    axios.post('http://localhost:3000/inventory', { item: newInventory })
+    axios.post('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory', { item: newInventory })
       .then(res => {
         if (res.status === 200) {
           setInventory([...inventory, newInventory])
