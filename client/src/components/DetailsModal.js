@@ -20,11 +20,14 @@ const style = {
   p: 4,
 };
 
-export default function ReturnModal() {
+export default function ReturnModal({ inventory }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  React.useEffect(() =>{
+    console.log('Details', inventory);
+  }, []);
 
   return (
     <div>

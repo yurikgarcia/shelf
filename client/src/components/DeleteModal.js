@@ -8,17 +8,18 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 
-export default function ReturnModal() {
+export default function ReturnModal({ inventory }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  React.useEffect(() => {
+    console.log('Delete', inventory);
+  }, []);
 
   return (
     <div>
-
       <Button onClick={handleOpen}> Delete </Button>
-
       <Modal
         open={open}
         onClose={handleClose}
@@ -36,26 +37,23 @@ export default function ReturnModal() {
           borderRadius: '16px',
           boxShadow: 19,
           p: 4,
-          borderColor: "#c62828", }} >
-
-          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{display:'flex', justifyContent:'center'}}>
+          borderColor: "#c62828",
+        }} >
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
             Are You Sure You Want To Delete?
           </Typography>
-
           <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
             Data from this item will be <Typography variant="h5" > PERMENENTLY </Typography> DELETED!
           </Typography>
-
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
-                <Button color = 'secondary' variant="contained" startIcon={<DeleteIcon />}>
-                  Delete
-                </Button>
-
-                <Button color = 'secondary'  variant="contained" startIcon={<CancelIcon />}>
-                  Cancel
-                </Button>
-              </Stack>
+              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />}>
+                Delete
+              </Button>
+              <Button color='secondary' variant="contained" startIcon={<CancelIcon />}>
+                Cancel
+              </Button>
+            </Stack>
           </Box>
         </Box>
       </Modal>

@@ -6,7 +6,7 @@ import ReturnModal from "./ReturnModal.js";
 
 
 export default function RowsGrid(props) {
-  const [status, setStatus] = React.useState('connected')
+  // const [status, setStatus] = React.useState('connected')
 
 
   return (

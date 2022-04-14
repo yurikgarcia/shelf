@@ -10,8 +10,6 @@ import {ThemeProvider} from "@mui/material/styles";
 import Users from "./components/Users.js";
 import NavDrawer from './components/NavDrawer';
 
-
-
 const customTheme = createTheme ({
   palette: {
     primary: {
@@ -24,8 +22,6 @@ const customTheme = createTheme ({
     },
   },
 });
-
-
 
 function App() {
   return (
@@ -47,5 +43,4 @@ function App() {
   </ThemeProvider>
   );
 }
-
 export default App;
