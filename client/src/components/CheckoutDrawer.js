@@ -41,7 +41,7 @@ export default function SwipeableTemporaryDrawer() {
     <div>
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Tooltip title= 'Issue Item'>
+          <Tooltip title= 'Shopping Cart'>
             <ShoppingCartIcon  sx={{color:'black'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
           </Tooltip>
           <Drawer

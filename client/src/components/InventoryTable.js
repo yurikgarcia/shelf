@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
-import Box from "@mui/material/Box";
-import DotDropDown from "./DotDropDown.js";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SecurityIcon from "@mui/icons-material/Security";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DotDropDown from "./DotDropDown.js";
+import EditIcon from '@mui/icons-material/Edit';
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
   const onDelete = async (params) => {
@@ -79,18 +79,32 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     ),
                   },
                   { field: "Initial", minWidth: 100 },
-                  {
-                    field: "Issue",
-                    renderCell: () => <AddIcon sx={{ cursor: "pointer" }} />,
-                  },
+                  // {
+                  //   field: "Issue",
+                  //   renderCell: () => <AddIcon sx={{ cursor: "pointer" }} />,
+                  // },
                   {
                     field: "Delete",
                     minWidth: 10,
                     renderCell: (params) => (
-                      <DeleteIcon
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => onDelete(params)}
-                      />
+                      <Tooltip title= 'Delete Item'>
+                        <DeleteIcon
+                          sx={{ cursor: "pointer", color: '#ef5350' }}
+                          onClick={() => onDelete(params)}
+                        />
+                      </Tooltip>
+                    ),
+                  },
+                  {
+                    field: "Edit",
+                    minWidth: 10,
+                    renderCell: (params) => (
+                      <Tooltip title= 'Edit Item'>
+                        <EditIcon
+                          sx={{ cursor: "pointer", color: '#fdd835' }}
+                          // onClick={() => onDelete(params)}
+                        />
+                      </Tooltip>
                     ),
                   },
                 ]}
@@ -98,6 +112,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   return {
                     id: index,
                     Delete: row.item_id,
+                    Edit: row.item_id,
                     Name: row.item_name,
                     Brand: row.brand,
                     NSN: row.nsn,
