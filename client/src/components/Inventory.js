@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function Inventory() {
   const [inventory, setInventory] = useState([]); //inventory state
+  const [spinner, setSpinner] = useState(false); //spinner state
  
   //initial call to grab inventory from DB on load
   useEffect(() => {
@@ -18,12 +19,15 @@ function Inventory() {
    * fetches DB after any changes to the resutls array from the user on the front end
    */
   const fetchInventory = async () => {
+    setSpinner(true);
     axios.get('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory')
       .then(res => {
         setInventory(res.data);
+        setSpinner(false);
       })
       .catch(err => {
         console.log(err);
+        setSpinner(false);
       })
   };
 
@@ -38,7 +42,7 @@ function Inventory() {
             <CheckoutDrawer />
           </Box>
           <Box sx={{ ml: 8, mt: 1 }}>
-            <InventoryTable inventory={inventory} fetchInventory={fetchInventory}/>
+            <InventoryTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner}/>
           </Box>
             <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
         </main>
