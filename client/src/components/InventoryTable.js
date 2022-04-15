@@ -6,12 +6,43 @@ import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DotDropDown from "./DotDropDown.js";
 import EditIcon from '@mui/icons-material/Edit';
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import EditModal from "./EditModal.js";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Tooltip from '@mui/material/Tooltip';
 
+
+import Button from '@mui/material/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+import Modal from '@mui/material/Modal';
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import TextField from "@mui/material/TextField";
+
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
+
+  const [editedItem, setEditedItem] = useState({
+    Name: '',
+    Brand: '',
+    NSN: '',
+    Bldg: '',
+    Size: '',
+    Count: 0,
+    Gender: '',
+    Aisle: '',
+    Initial: false,
+    MinCount: 0,
+    Ordered: 0,
+    Returnable: false
+  });
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const onDelete = async (params) => {
-    console.log(params.formattedValue);
     let id = params.formattedValue;
     axios({
       method: "delete",
@@ -32,6 +63,42 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
         console.log("err", err);
       });
   };
+
+  const onEditOpen = (params) => {
+    setEditedItem(params.row)
+    setOpen(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setOpen(false);
+    // axios({
+    //   method: "put",
+    //   url:
+    //     "http://localhost:3000/inventory" ||
+    //     "https://postgres-apr.herokuapp.com/inventory",
+    //   data: {
+    //     Name: editedItem.Name,
+    //     Brand: editedItem.Brand,
+    //     NSN: editedItem.NSN,
+    //     Bldg: editedItem.Bldg,
+    //     Size: editedItem.Size,
+    //     Count: editedItem.Count,
+    //     Gender: editedItem.Gender,
+    //     Aisle: editedItem.Aisle,
+    //     Initial: editedItem.Initial,
+    //     MinCount: editedItem.MinCount,
+    //     Ordered: editedItem.Ordered,
+    //     Returnable: editedItem.Returnable
+    //   }
+    // })
+    // .then( () =>{
+    //   console.log('sent it')
+    // })
+    // .catch((err) => {
+    //   console.log('err', err)
+    // })
+  }
 
   return (
     <Box
@@ -70,24 +137,20 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     renderCell: () => (
                       <FiberManualRecordIcon
                         fontSize="small"
-                        // sx={{
-                        //   mr: 2,
-                        //   color:
-                        //     props.status === "connected" ? "#4caf50" : "#d9182e",
-                        // }}
+                      // sx={{
+                      //   mr: 2,
+                      //   color:
+                      //     props.status === "connected" ? "#4caf50" : "#d9182e",
+                      // }}
                       />
                     ),
                   },
                   { field: "Initial", minWidth: 100 },
-                  // {
-                  //   field: "Issue",
-                  //   renderCell: () => <AddIcon sx={{ cursor: "pointer" }} />,
-                  // },
                   {
                     field: "Delete",
                     minWidth: 10,
                     renderCell: (params) => (
-                      <Tooltip title= 'Delete Item'>
+                      <Tooltip title='Delete Item'>
                         <DeleteIcon
                           sx={{ cursor: "pointer", color: '#ef5350' }}
                           onClick={() => onDelete(params)}
@@ -98,13 +161,13 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   {
                     field: "Edit",
                     minWidth: 10,
+                    editable: true,
                     renderCell: (params) => (
-                      <Tooltip title= 'Edit Item'>
-                        <EditIcon
-                          sx={{ cursor: "pointer", color: '#fdd835' }}
-                          // onClick={() => onDelete(params)}
-                        />
-                      </Tooltip>
+                      <EditIcon
+                        sx={{ cursor: "pointer", color: '#fdd835' }}
+                        onClick={() => onEditOpen(params)}
+                      />
+
                     ),
                   },
                 ]}
@@ -122,13 +185,137 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     Gender: row.gender,
                     Aisle: row.aisle,
                     Initial: row.intial_gear,
+                    MinCount: row.minimum_count,
+                    Ordered: row.ordered,
+                    Returnable: row.returnable_item
                   };
                 })}
               />
+
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 425,
+                  bgcolor: 'background.paper',
+                  border: '6px solid #000',
+                  borderRadius: '16px',
+                  boxShadow: 19,
+                  p: 4,
+                  borderColor: '#f57c00'
+                }} >
+                  <CardContent>
+                    <Box>
+
+                      <Box sx={{ mb: 2 }}>
+                        <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
+                          Edit Details
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box
+                      id="modal-modal-description"
+                      component="form"
+                      sx={{
+                        "& .MuiTextField-root": { m: 1, width: "15ch" }, mt: 2
+                      }}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <div>
+                        <TextField
+                          diabled={false}
+                          id="filled"
+                          variant="filled"
+                          label="Name"
+                          value={editedItem?.Name}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="NSN"
+                          value={editedItem?.NSN}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Location"
+                          value={editedItem?.Bldg}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Size"
+                          value={editedItem?.Size}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="On Hand"
+                          value={editedItem?.Count}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Minimum Count"
+                          value={editedItem?.MinCount}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Returnable Item"
+                          value={editedItem?.Returnable}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Ordered"
+                          value={editedItem?.Ordered}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                        />
+                      </div>
+                    </Box>
+                  </CardContent>
+                  <CardActions>
+                    <Box sx={{ ml: 9, mt: 1 }}>
+                      <Stack direction="row" spacing={2}>
+                        <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} onClick={(e) => handleSubmit(e)}>
+                          Save
+                        </Button>
+
+                        <Button color='secondary' variant="contained" startIcon={<CancelIcon />} onClick={() => setOpen(false)}>
+                          Cancel
+                        </Button>
+                      </Stack>
+                    </Box>
+                  </CardActions>
+                </Box>
+              </Modal>
             </div>
           </div>
         </div>
-      )}
-    </Box>
+      )
+      }
+    </Box >
   );
 }

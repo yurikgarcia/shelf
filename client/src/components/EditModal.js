@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
@@ -11,20 +13,23 @@ import Typography from '@mui/material/Typography';
 import TextField from "@mui/material/TextField";
 
 
-export default function ReturnModal({ inventory }) {
+export default function ReturnModal({ inventory, params }) {
   const [editedItem, setEditedItem] = React.useState();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   React.useEffect(() => {
+    // console.log('params', params);
   }, []);
 
 
 
   return (
     <div>
-      <Button onClick={handleOpen}> Edit</Button>
+        <IconButton onClick={handleOpen}>
+          <EditIcon />
+        </IconButton>    
       <Modal
         open={open}
         onClose={handleClose}
@@ -46,6 +51,7 @@ export default function ReturnModal({ inventory }) {
         }} >
           <CardContent>
             <Box>
+
               <Box sx={{ mb: 2 }}>
                 <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
                   Edit Details
