@@ -115,7 +115,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               <TextField
                 id="outlined-error-helper-text"
                 label="Size"
-                onChange={(e) => setAddedItem({ ...addedItem, size: e.target.value })}
+                onChange={(e) => setAddedItem({ ...addedItem, item_size: e.target.value })}
               />
             </div>
             <div>

@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import Tooltip from '@mui/material/Tooltip';
-
-
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import TextField from "@mui/material/TextField";
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
@@ -126,7 +124,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       }}
     >
       {spinner ? (
-        <h1>Im fucking trying! Fucking AFNET</h1>
+        <h1>I'm trying...don't hate me'</h1>
       ) : (
         <div style={{ height: 530, width: "100%" }}>
           <div style={{ display: "flex", height: "100%" }}>
