@@ -61,22 +61,58 @@ app.post('/inventory', (req, res) => {
   })
 });
 
+
 /**
- * Deletes item from the inventory table
+ * updates the inventory table with the new item matched at its ID
  */
-app.delete('/inventory', (req, res) => {
-  const item_id = req.body.id;
-  console.log(item_id);
-  pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
-    (error, results) => {
-      if (error) {
-        res.send('error' + error)
-      }
-    console.log('removed from DB')
-    res.status(200)
+app.patch('/inventory', (req, res) => {
+  let params = {
+    item_id: req.body.Delete,
+    item_name: req.body.Name,
+    brand: req.body.Brand,
+    nsn: req.body.NSN,
+    building: req.body.Bldg,
+    aisle: req.body.Aisle,
+    item_size: req.body.Size,
+    item_count: req.body.Count,
+    gender: req.body.Gender,
+    initial_gear: req.body.Initial,
+    minimum_count: req.body.MinCount,
+    ordered: req.body.Ordered,
+    returnable_item: req.body.Returnable
+  }
+  console.log(params)
+  pool.query(
+    `UPDATE inventory 
+      SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item} 
+       WHERE item_id = '${params.item_id}'`, (error, results) => {
+    if (error) {
+      res.send('error' + error)
+    }
+    console.log('updated in DB')
+    res.status(204)
     res.send("Success")
-    })
+  })
 })
+
+
+
+
+  /**
+   * Deletes item from the inventory table
+   */
+  app.delete('/inventory', (req, res) => {
+    const item_id = req.body.id;
+    pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
+      (error, results) => {
+        if (error) {
+          res.send('error' + error)
+        }
+        console.log('removed from DB')
+        res.status(200)
+        res.send("Success")
+      })
+  })
 
 
 //----------------------------------DEPLOYENT TABLE--------------------------------------------------------------------------------------------------------------

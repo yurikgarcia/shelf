@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DotDropDown from "./DotDropDown.js";
 import EditIcon from '@mui/icons-material/Edit';
-import EditModal from "./EditModal.js";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -15,7 +12,6 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
@@ -25,6 +21,22 @@ import TextField from "@mui/material/TextField";
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
   const [editedItem, setEditedItem] = useState({
+    Name: '',
+    Brand: '',
+    NSN: '',
+    Bldg: '',
+    Size: '',
+    Count: 0,
+    Gender: '',
+    Aisle: '',
+    Initial: false,
+    MinCount: 0,
+    Ordered: 0,
+    Returnable: false
+  });
+
+  const [newValue, setNewValue] = useState({
+    Delete: '',
     Name: '',
     Brand: '',
     NSN: '',
@@ -66,38 +78,41 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
   const onEditOpen = (params) => {
     setEditedItem(params.row)
+    setNewValue(params.row)
     setOpen(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setOpen(false);
-    // axios({
-    //   method: "put",
-    //   url:
-    //     "http://localhost:3000/inventory" ||
-    //     "https://postgres-apr.herokuapp.com/inventory",
-    //   data: {
-    //     Name: editedItem.Name,
-    //     Brand: editedItem.Brand,
-    //     NSN: editedItem.NSN,
-    //     Bldg: editedItem.Bldg,
-    //     Size: editedItem.Size,
-    //     Count: editedItem.Count,
-    //     Gender: editedItem.Gender,
-    //     Aisle: editedItem.Aisle,
-    //     Initial: editedItem.Initial,
-    //     MinCount: editedItem.MinCount,
-    //     Ordered: editedItem.Ordered,
-    //     Returnable: editedItem.Returnable
-    //   }
-    // })
-    // .then( () =>{
-    //   console.log('sent it')
-    // })
-    // .catch((err) => {
-    //   console.log('err', err)
-    // })
+    axios({
+      method: "patch",
+      url:
+        "http://localhost:3000/inventory" ||
+        "https://postgres-apr.herokuapp.com/inventory",
+      data: {
+        Delete: newValue.Delete,
+        Name: newValue.Name,
+        Brand: newValue.Brand,
+        NSN: newValue.NSN,
+        Bldg: newValue.Bldg,
+        Size: newValue.Size,
+        Count: newValue.Count,
+        Gender: newValue.Gender,
+        Aisle: newValue.Aisle,
+        Initial: newValue.Initial,
+        MinCount: newValue.MinCount,
+        Ordered: newValue.Ordered,
+        Returnable: newValue.Returnable
+      }
+    })
+      .then(() => {
+        console.log("success");
+        fetchInventory();
+      })
+      .catch((err) => {
+        console.log('err', err)
+      })
   }
 
   return (
@@ -231,19 +246,21 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     >
                       <div>
                         <TextField
-                          diabled={false}
+                          disabled={false}
                           id="filled"
                           variant="filled"
                           label="Name"
-                          value={editedItem?.Name}
+                          defaultValue={editedItem?.Name}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Name: e.target.value })}
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="NSN"
-                          value={editedItem?.NSN}
+                          defaultValue={editedItem?.NSN}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, NSN: e.target.value })}
                         />
                       </div>
                       <div>
@@ -251,15 +268,17 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           id="filled"
                           variant="filled"
                           label="Location"
-                          value={editedItem?.Bldg}
+                          defaultValue={editedItem?.Bldg}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Bldg: e.target.value })}
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Size"
-                          value={editedItem?.Size}
+                          defaultValue={editedItem?.Size}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Size: e.target.value })}
                         />
                       </div>
                       <div>
@@ -267,15 +286,17 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           id="filled"
                           variant="filled"
                           label="On Hand"
-                          value={editedItem?.Count}
+                          defaultValue={editedItem?.Count}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Minimum Count"
-                          value={editedItem?.MinCount}
+                          defaultValue={editedItem?.MinCount}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, MinCount: e.target.value })}
                         />
                       </div>
                       <div>
@@ -283,15 +304,17 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           id="filled"
                           variant="filled"
                           label="Returnable Item"
-                          value={editedItem?.Returnable}
+                          defaultValue={editedItem?.Returnable}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Ordered"
-                          value={editedItem?.Ordered}
+                          defaultValue={editedItem?.Ordered}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
                         />
                       </div>
                     </Box>
