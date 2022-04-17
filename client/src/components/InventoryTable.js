@@ -124,12 +124,20 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       }}
     >
       {spinner ? (
-        <h1>I'm trying...don't hate me'</h1>
+        <h1>I'm trying...don't hate me!</h1>
       ) : (
         <div style={{ height: 530, width: "100%" }}>
           <div style={{ display: "flex", height: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'Name', sort: 'asc' }],
+                  },
+                  pagination: {
+                    pageSize: 25,
+                  },
+                }}
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "ratin", sortable: false }]}
                 columns={[
@@ -229,7 +237,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
                       <Box sx={{ mb: 2 }}>
                         <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
-                          Edit Details
+                          Edit Item: {editedItem?.Name} {editedItem.Brand}  {editedItem?.Size}
                         </Typography>
                       </Box>
                     </Box>
@@ -273,31 +281,41 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                         <TextField
                           id="filled"
                           variant="filled"
+                          label="Aisle"
+                          defaultValue={editedItem?.Aisle}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Aisle: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
                           label="Size"
                           defaultValue={editedItem?.Size}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Size: e.target.value })}
                         />
-                      </div>
-                      <div>
                         <TextField
                           id="filled"
                           variant="filled"
-                          label="On Hand"
+                          label="In Stock"
+                          type="number"
                           defaultValue={editedItem?.Count}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
                         />
+                        </div>  
+                        <div>                     
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Minimum Count"
+                          type="number"
                           defaultValue={editedItem?.MinCount}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, MinCount: e.target.value })}
                         />
-                      </div>
-                      <div>
                         <TextField
                           id="filled"
                           variant="filled"
@@ -306,10 +324,13 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
                         />
+                        </div>
+                        <div>
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Ordered"
+                          type="number"
                           defaultValue={editedItem?.Ordered}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}

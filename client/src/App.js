@@ -13,7 +13,7 @@ import NavDrawer from './components/NavDrawer';
 const customTheme = createTheme ({
   palette: {
     primary: {
-      main: '#1075C1',
+      main: '#155E9C',
       light: '#5ca3f4',
       dark: '#004a90'
     },

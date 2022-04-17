@@ -35,16 +35,22 @@ function Inventory() {
     <div>
       <div>
         <main>
-          <Box sx={{ ml: 15, mt: 2 }}>
+        <Box sx={{ml: 15, mt: 2}}>
             <h1>Current Inventory</h1>
           </Box>
-          <Box sx={{ mt: 2, ml: 165 }}>
-            <CheckoutDrawer />
+
+          <Box sx={{display:"flex", flexDirection: 'row'}}>
+              <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
+
+{/*           
+              <CheckoutDrawer sx={{display:"flex", alignContent: 'center', pt:1}} /> */}
+          
           </Box>
+
+
           <Box sx={{ ml: 8, mt: 1 }}>
             <InventoryTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner}/>
           </Box>
-            <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
         </main>
       </div>
     </div>

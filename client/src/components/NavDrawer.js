@@ -98,6 +98,7 @@ const closedMixin = (theme) => ({
 
 // necessary for content to be below app bar
 const DrawerHeader = styled("div")(({ theme }) => ({
+  backgroundColor: '#155E9C',
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
@@ -153,7 +154,7 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -196,14 +197,14 @@ export default function MiniDrawer() {
             <Button  sx={{mr:1}} variant="contained">Deployment</Button>
           </Link>
 
-          <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
+          {/* <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
             <Button  sx={{mr:1}} variant="contained">Users</Button>
           </Link>
 
 
           <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
             <Button  sx={{mr:1}} variant="contained">Orders</Button>
-          </Link>
+          </Link> */}
 
 
           <Search sx={{mr:1}}>
@@ -223,8 +224,8 @@ export default function MiniDrawer() {
       </AppBar>
 
 
-      <Drawer variant="permanent" open={open} sx={{bgcolor: '#145F99'}}>
-        <DrawerHeader>
+      <Drawer variant="permanent" open={open} >
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -235,7 +236,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
 
-        <List>
+        <List >
             <Link to="/" style={{ textDecoration: 'none', color: 'black'}}>
               <ListItem disablePadding>
                 <ListItemButton>
@@ -254,7 +255,7 @@ export default function MiniDrawer() {
                     <ListItemButton>
                       <ListItemIcon>
                       <Tooltip title="Inventory" placement="right-end">
-                        <InventoryIcon  />
+                        <InventoryIcon />
                       </Tooltip>
                       </ListItemIcon>
                       <ListItemText primary="Inventory" />
@@ -267,7 +268,7 @@ export default function MiniDrawer() {
                     <ListItemButton>
                       <ListItemIcon>
                       <Tooltip title="Deployment Gear" placement="right-end">
-                        <PublicIcon  />
+                        <PublicIcon />
                       </Tooltip>
                       </ListItemIcon>
                       <ListItemText primary="Deployment" />
@@ -275,38 +276,34 @@ export default function MiniDrawer() {
               </ListItem>
             </Link>              
 
-            <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+            {/* <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
               <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                       < Tooltip title="Users" placement="right-end">              
-                        <GroupIcon  />
+                        <GroupIcon sx={{color: "white"}}  />
                       </Tooltip>
                       </ListItemIcon>
                       <ListItemText primary="Users" />
                     </ListItemButton>
               </ListItem>
-            </Link>  
+            </Link>   */}
 
-            <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
+            {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
               <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                       <Tooltip title="Orders" placement="right-end">
-                        <FlightLandIcon   />
+                        <FlightLandIcon sx={{color: "white"}}   />
                       </Tooltip>
                       </ListItemIcon>
                       <ListItemText primary="Users" />
                     </ListItemButton>
               </ListItem>
-            </Link>  
-
-
-
+            </Link>   */}
         </List>
-
-
-        <Divider />
+        {/* <Divider /> */}
+        {/* <List sx={{backgroundColor: "#155E9C"}}></List> */}
       </Drawer>
         <DrawerHeader />
     </Box>
