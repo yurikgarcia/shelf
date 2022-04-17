@@ -184,10 +184,12 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
+                      <Tooltip title='Edit Item'>
                       <EditIcon
                         sx={{ cursor: "pointer", color: '#fdd835' }}
                         onClick={() => onEditOpen(params)}
                       />
+                      </Tooltip>
 
                     ),
                   },
