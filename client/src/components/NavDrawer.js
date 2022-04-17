@@ -28,6 +28,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
+import shelfLogo from './shelfLogo.png'
+
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -158,7 +161,7 @@ export default function MiniDrawer() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -171,14 +174,19 @@ export default function MiniDrawer() {
           <Tooltip title="Expand Sidebar" placement="right-end">
             <MenuIcon />
           </Tooltip>  
-          </IconButton>
+          </IconButton> */}
+
+          <Box sx={{mr:2}}>
+            <img src={shelfLogo} width='30' height='30'/>
+          </Box>
 
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
+
           <Link to="/" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
             Shelf
             </Link>
@@ -226,6 +234,7 @@ export default function MiniDrawer() {
 
       <Drawer variant="permanent" open={open} >
         <DrawerHeader >
+          <img src={shelfLogo} width='30' height='30'/>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
