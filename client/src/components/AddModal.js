@@ -56,6 +56,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
         <Button variant="contained"
           startIcon={<AddIcon />}
           onClick={handleAddOpen}
+          color='secondary'
         >
           ADD ITEM
         </Button>
@@ -73,7 +74,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
           transform: 'translate(-50%, -50%)',
           width: 400,
           bgcolor: 'background.paper',
-          border: '6px solid #000',
+          border: '3px solid',
           borderRadius: '16px',
           boxShadow: 19,
           p: 4,
@@ -152,13 +153,11 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 type="number"
                 onChange={(e) => setAddedItem({ ...addedItem, minimum_count: e.target.value })}
               />
-              <TextField
+              {/* <TextField
                 id="outlined-error-helper-text"
                 label="Count Status"
                 onChange={(e) => setAddedItem({ ...addedItem, count_status: e.target.value })}
-              />
-            </div>
-            <div>
+              /> */}
               <TextField
                 id="outlined-error-helper-text"
                 label="Ordered"
@@ -166,6 +165,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 type="Number"
                 onChange={(e) => setAddedItem({ ...addedItem, ordered: e.target.value })}
               />
+            </div>
+            <div>
               <TextField
                 id="outlined-error"
                 label="Initial Gear"

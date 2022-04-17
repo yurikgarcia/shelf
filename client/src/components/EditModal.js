@@ -43,7 +43,7 @@ export default function ReturnModal({ inventory, params }) {
           transform: 'translate(-50%, -50%)',
           width: 425,
           bgcolor: 'background.paper',
-          border: '6px solid #000',
+          border: '3px solid',
           borderRadius: '16px',
           boxShadow: 19,
           p: 4,

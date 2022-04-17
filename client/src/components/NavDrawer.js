@@ -223,7 +223,7 @@ export default function MiniDrawer() {
       </AppBar>
 
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} sx={{bgcolor: '#145F99'}}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (

@@ -218,7 +218,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   transform: 'translate(-50%, -50%)',
                   width: 425,
                   bgcolor: 'background.paper',
-                  border: '6px solid #000',
+                  border: '3px solid',
                   borderRadius: '16px',
                   boxShadow: 19,
                   p: 4,
@@ -318,7 +318,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     </Box>
                   </CardContent>
                   <CardActions>
-                    <Box sx={{ ml: 9, mt: 1 }}>
+                    <Box sx={{ ml: 7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
                         <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} onClick={(e) => handleSubmit(e)}>
                           Save
