@@ -25,11 +25,11 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
 import SearchIcon from '@mui/icons-material/Search';
+
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
 import shelfLogo from './shelfLogo.png'
-
 
 
 
@@ -48,6 +48,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
+// -----------------search-------------
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -75,8 +76,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// -----------------search-------------
 
-const drawerWidth = 240;
+const drawerWidth = 190
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -134,6 +136,7 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  backgroundColor: '#155E9C',
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme)
@@ -157,164 +160,165 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex", }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          {/* <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" })
-            }}
-          >
-          <Tooltip title="Expand Sidebar" placement="right-end">
-            <MenuIcon />
-          </Tooltip>  
-          </IconButton> */}
+      <Box sx={{ display: "flex", }}>
+        <CssBaseline/>
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            {/* <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" })
+              }}
+            >
+            <Tooltip title="Expand Sidebar" placement="right-end">
+              <MenuIcon />
+            </Tooltip>  
+            </IconButton> */}
 
-          <Box sx={{mr:2}}>
-            <img src={shelfLogo} width='30' height='30'/>
-          </Box>
+            <Box sx={{mr:2}}>
+              <img src={shelfLogo} width='30' height='30'/>
+            </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
 
-          <Link to="/" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
-            Shelf
+            <Link to="/" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
+              Shelf
+              </Link>
+            </Typography>
+
+          
+            <Link to="/" style={{ textDecoration: 'none', color: 'white'}}>
+              <Button sx={{mr:1}} variant="contained">Home</Button>
             </Link>
-          </Typography>
 
-        
-          <Link to="/" style={{ textDecoration: 'none', color: 'white'}}>
-            <Button sx={{mr:1}} variant="contained">Home</Button>
-          </Link>
+            <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
+              <Button sx={{mr:1}} variant="contained">Inventory</Button>
+            </Link>
 
-          <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
-            <Button sx={{mr:1}} variant="contained">Inventory</Button>
-          </Link>
+            <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Deployment</Button>
+            </Link>
 
-          <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
-            <Button  sx={{mr:1}} variant="contained">Deployment</Button>
-          </Link>
-
-          {/* <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
-            <Button  sx={{mr:1}} variant="contained">Users</Button>
-          </Link>
+            {/* <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Users</Button>
+            </Link>
 
 
-          <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
-            <Button  sx={{mr:1}} variant="contained">Orders</Button>
-          </Link> */}
+            <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Orders</Button>
+            </Link> */}
 
 
-          <Search sx={{mr:1}}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+            <Search sx={{mr:1}}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+              
+            </Search>
+            <ProfileMenu
+            color = "black"
             />
-            
-          </Search>
-          <ProfileMenu
-          color = "black"
-          />
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
 
 
-      <Drawer variant="permanent" open={open} >
-        <DrawerHeader >
-          <img src={shelfLogo} width='30' height='30'/>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader >
+            <img src={shelfLogo} width='30' height='30'/>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
 
-        <List >
-            <Link to="/" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                  <Tooltip title="Home" placement="right-end">
-                    <   HomeIcon  />
-                  </Tooltip>
-                  </ListItemIcon>
-                <ListItemText primary="Home" />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+          <List >
+              <Link to="/" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                    <Tooltip title="Home" placement="right-end">
+                      <   HomeIcon sx={{color: 'white'}} />
+                    </Tooltip>
+                    </ListItemIcon>
+                  <ListItemText primary="Home" />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
 
-            <Link to="/inventory" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      <Tooltip title="Inventory" placement="right-end">
-                        <InventoryIcon />
-                      </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="Inventory" />
-                    </ListItemButton>
-              </ListItem>
-            </Link>   
-            
-            <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      <Tooltip title="Deployment Gear" placement="right-end">
-                        <PublicIcon />
-                      </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="Deployment" />
-                    </ListItemButton>
-              </ListItem>
-            </Link>              
+              <Link to="/inventory" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        <Tooltip title="Inventory" placement="right-end">
+                          <InventoryIcon sx={{color: 'white'}} />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Inventory" />
+                      </ListItemButton>
+                </ListItem>
+              </Link>   
+              
+              <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        <Tooltip title="Deployment Gear" placement="right-end">
+                          <PublicIcon sx={{color: 'white'}} />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Deployment" />
+                      </ListItemButton>
+                </ListItem>
+              </Link>              
 
-            {/* <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      < Tooltip title="Users" placement="right-end">              
-                        <GroupIcon sx={{color: "white"}}  />
-                      </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="Users" />
-                    </ListItemButton>
-              </ListItem>
-            </Link>   */}
+              {/* <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        < Tooltip title="Users" placement="right-end">              
+                          <GroupIcon sx={{color: "white"}}  />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Users" />
+                      </ListItemButton>
+                </ListItem>
+              </Link>   */}
 
-            {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      <Tooltip title="Orders" placement="right-end">
-                        <FlightLandIcon sx={{color: "white"}}   />
-                      </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="Users" />
-                    </ListItemButton>
-              </ListItem>
-            </Link>   */}
-        </List>
-        {/* <Divider /> */}
-        {/* <List sx={{backgroundColor: "#155E9C"}}></List> */}
-      </Drawer>
-        <DrawerHeader />
-    </Box>
+              {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        <Tooltip title="Orders" placement="right-end">
+                          <FlightLandIcon sx={{color: "white"}}   />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Users" />
+                      </ListItemButton>
+                </ListItem>
+              </Link>   */}
+          </List>
+          {/* <Divider /> */}
+          {/* <List sx={{backgroundColor: "#155E9C"}}></List> */}
+        </Drawer>
+          <DrawerHeader />
+      </Box>
+
   );
 }

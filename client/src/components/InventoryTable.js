@@ -15,6 +15,8 @@ import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import rocket from './rocket.gif'
+
 
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
@@ -124,7 +126,11 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       }}
     >
       {spinner ? (
-        <h1>I'm trying...don't hate me!</h1>
+        <div>
+          {/* <h1>I'm trying...don't hate me!</h1> */}
+          <img src={rocket}/>
+        </div>
+
       ) : (
         <div style={{ height: 530, width: "100%" }}>
           <div style={{ display: "flex", height: "100%" }}>
@@ -186,7 +192,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     renderCell: (params) => (
                       <Tooltip title='Edit Item'>
                       <EditIcon
-                        sx={{ cursor: "pointer", color: '#fdd835' }}
+                        sx={{ cursor: "pointer", color: '#FF9A01' }}
                         onClick={() => onEditOpen(params)}
                       />
                       </Tooltip>
