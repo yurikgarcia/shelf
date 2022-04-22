@@ -11,6 +11,12 @@ import Modal from '@mui/material/Modal';
 import axios from 'axios';
 
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
 export default function AddModal({ inventory, setInventory, fetchInventory }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
@@ -50,6 +56,16 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
       })
   };
 
+  const [initial, setInitial] = useState('');
+  const handleChange = (event) => {
+    setInitial(event.target.value);
+  };
+
+  const [returnable, setReturnable] = useState('');
+  const handleReturnable = (event) => {
+    setReturnable(event.target.value);
+  };
+
   return (
     <div>
       <Box sx={{ ml: 15, mt: 1 }}>
@@ -84,7 +100,6 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add New Item
             </Typography>
-            <Box />
           </Box>
           <Box
             id="modal-modal-description"
@@ -179,6 +194,40 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               />
             </div>
           </Box>
+          <Stack direction="row" spacing={2}>
+          <Box sx={{ml: 1}}>
+              <FormControl sx={{ minWidth: 135 }}>
+                <InputLabel id="demo-simple-select-label">Initial</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={initial}
+                  label="Age"
+                  onChange={handleChange}
+                  
+                >
+                  <MenuItem value={true}>Yes</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+          </Box>
+          <Box sx={{ml: 1}}>
+              <FormControl sx={{ minWidth: 135 }}>
+                <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={returnable}
+                  label="Age"
+                  onChange={handleReturnable}
+                  
+                >
+                  <MenuItem value={true}>Yes</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+          </Box>
+          </Stack>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>

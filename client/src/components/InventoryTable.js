@@ -10,12 +10,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Modal from '@mui/material/Modal';
+import rocket from './rocket.gif'
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import rocket from './rocket.gif'
+import warehouse from './warehouse.gif'
 
 
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
@@ -128,7 +129,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       {spinner ? (
         <div>
           {/* <h1>I'm trying...don't hate me!</h1> */}
-          <img src={rocket}/>
+          <img src={warehouse} width="900" />
         </div>
 
       ) : (
@@ -136,6 +137,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
           <div style={{ display: "flex", height: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
+                checkboxSelection
+                disableSelectionOnClick
                 initialState={{
                   sorting: {
                     sortModel: [{ field: 'Name', sort: 'asc' }],
@@ -145,22 +148,18 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   },
                 }}
                 components={{ Toolbar: GridToolbar }}
-                stopColumnsSorts={[{ field: "ratin", sortable: false }]}
+                stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "Name", minWidth: 130 },
-                  { field: "Brand", minWidth: 150 },
+                  { field: "Name", minWidth: 150 },
+                  { field: "Brand", minWidth: 130 },
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
                   { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
-                  {
-                    field: "Count",
-                    minWidth: 100,
-                    editable: true,
-                  },
-                  {
-                    field: "Count Status",
+                  { field: "Count", minWidth: 100, },
+                  { field: "Ordered", minWidth: 100, },
+                  { field: "Count Status",
                     renderCell: () => (
                       <FiberManualRecordIcon
                         fontSize="small"
@@ -281,7 +280,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                         <TextField
                           id="filled"
                           variant="filled"
-                          label="Location"
+                          label="Building"
                           defaultValue={editedItem?.Bldg}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Bldg: e.target.value })}
@@ -327,23 +326,29 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                         <TextField
                           id="filled"
                           variant="filled"
-                          label="Returnable Item"
-                          defaultValue={editedItem?.Returnable}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
-                        />
-                        </div>
-                        <div>
-                        <TextField
-                          id="filled"
-                          variant="filled"
                           label="Ordered"
                           type="number"
                           defaultValue={editedItem?.Ordered}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
                         />
-                      </div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Returnable Item"
+                          defaultValue={editedItem?.Returnable}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Initial Gear"
+                          defaultValue={editedItem?.Initial}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
+                        />
+                        </div>
                     </Box>
                   </CardContent>
                   <CardActions>
