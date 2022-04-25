@@ -114,6 +114,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               <TextField
                 id="outlined-error"
                 label="Name"
+                required={true}
                 onChange={(e) => setAddedItem({ ...addedItem, item_name: e.target.value })}
               />
               <TextField
@@ -195,7 +196,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
             </div>
           </Box>
           <Stack direction="row" spacing={2}>
-          <Box sx={{ml: 1}}>
+          <Box sx={{ ml: 1 }}>
               <FormControl sx={{ minWidth: 135 }}>
                 <InputLabel id="demo-simple-select-label">Initial</InputLabel>
                 <Select

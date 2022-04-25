@@ -116,6 +116,19 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       })
   }
 
+  // const VISIBLE_FIELDS = [
+  //   "Name", 
+  //   "Brand",
+  //   "NSN", 
+  //   "Size", 
+  //   "Bldg", 
+  //   "Aisle", 
+  //   "Count", 
+  //   "Ordered", 
+  //   "Count Status",
+  // ];
+
+
   return (
     <Box
       sx={{
@@ -137,6 +150,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
           <div style={{ display: "flex", height: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
+              
                 checkboxSelection
                 disableSelectionOnClick
                 initialState={{
