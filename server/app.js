@@ -11,7 +11,7 @@ const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.HOST,
   database: process.env.DB,
-  password: "2186051b48a3165382eec15ee08503781fccfa3ed750774221b847ef754986e1",
+  password: process.env.PASSWORD,
   port: process.env.PRT,
   ssl: {
     rejectUnauthorized: false,
@@ -27,8 +27,10 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.listen(PORT, () => {
-  console.log(pool.password)
   connectToDB();
+  // setTimeout(() => {
+  //   console.log('pwd', process.env.PASSWORD)
+  // }, 600)
   console.log(`listening on ${PORT}`);
 });
 
@@ -99,21 +101,21 @@ app.patch('/inventory', (req, res) => {
 
 
 
-  /**
-   * Deletes item from the inventory table
-   */
-  app.delete('/inventory', (req, res) => {
-    const item_id = req.body.id;
-    pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
-      (error, results) => {
-        if (error) {
-          res.send('error' + error)
-        }
-        console.log('removed from DB')
-        res.status(200)
-        res.send("Success")
-      })
-  })
+/**
+ * Deletes item from the inventory table
+ */
+app.delete('/inventory', (req, res) => {
+  const item_id = req.body.id;
+  pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
+    (error, results) => {
+      if (error) {
+        res.send('error' + error)
+      }
+      console.log('removed from DB')
+      res.status(200)
+      res.send("Success")
+    })
+})
 
 
 //----------------------------------DEPLOYENT TABLE--------------------------------------------------------------------------------------------------------------
