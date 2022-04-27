@@ -101,8 +101,6 @@ app.patch('/inventory', (req, res) => {
 })
 
 
-
-
 /**
  * Deletes item from the inventory table
  */
@@ -171,6 +169,19 @@ app.get('/users', (_, res) => {
     res.send("Success")
   })
 });
+
+app.delete('/users', (req, res) => {
+  const dod_id = req.body.id;
+  pool.query(`DELETE FROM users WHERE dod_id='${dod_id}'`,
+    (error, results) => {
+      if (error) {
+        res.send('error' + error)
+      }
+      console.log('removed from DB')
+      res.status(200)
+      res.send("Success")
+    })
+})
 
 
 
