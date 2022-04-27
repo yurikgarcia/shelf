@@ -181,7 +181,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   borderRadius: '16px',
                   boxShadow: 19,
                   p: 4,
-                  borderColor: '#f57c00'
+                  borderColor: '#FF9A01'
                 }} >
                   <CardContent>
                     <Box>

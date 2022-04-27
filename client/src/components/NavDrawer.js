@@ -24,11 +24,10 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
 import SearchIcon from '@mui/icons-material/Search';
-
+import shelfLogo from './shelfLogo.png'
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from "@mui/material/Typography";
-import shelfLogo from './shelfLogo.png'
 
 
 
@@ -178,7 +177,9 @@ export default function MiniDrawer() {
             </IconButton> */}
 
             <Box sx={{mr:2}}>
-              <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
+              <Link to="/">
+                <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
+              </Link>
             </Box>
 
             <Typography
@@ -234,7 +235,7 @@ export default function MiniDrawer() {
 
         <Drawer variant="permanent" open={open}>
           <DrawerHeader >
-            <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
+              <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
