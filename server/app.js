@@ -196,10 +196,10 @@ app.patch('/users', (req, res) => {
   console.log(params)
   pool.query(
     `UPDATE users 
-      SET dod_id='${params.dod_id}, 'first_name='${params.first_name}', last_name='${params.last_name}', email='${params.item_email}'
-        WHERE dod_id = '${params.dod_id}'`, (error, results) => {
+      SET dod_id='${params.dod_id}', first_name='${params.first_name}', last_name='${params.last_name}', email='${params.email}' 
+      WHERE dod_id = '${params.dod_id}'`, (error, results) => {
     if (error) {
-      res.send('error' + error)
+    return  res.send('error' + error)
     }
     console.log('updated in DB')
     res.status(204)

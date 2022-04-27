@@ -72,7 +72,6 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       url:
         "http://localhost:3000/users" ,
       data: {
-        Delete: newValue.Delete,
         First: newValue.First,
         Last: newValue.Last,
         DoD: newValue.DoD,
