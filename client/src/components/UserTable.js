@@ -1,31 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
-// import Button from '@mui/material/Button';
-// import CancelIcon from '@mui/icons-material/Cancel';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import EditIcon from '@mui/icons-material/Edit';
-// import Modal from '@mui/material/Modal';
-// import rocket from './rocket.gif'
-// import SaveIcon from '@mui/icons-material/Save';
-// import Stack from '@mui/material/Stack';
-// import TextField from "@mui/material/TextField";
+import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
+import rocket from './rocket.gif'
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
-// import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography';
 import warehouse from './warehouse.gif'
 
 
 export default function RowsGrid({ users, fetchUsers, spinner}) {
 
-  // const [editedUser, setEditedUser] = useState({
-  //   First: '',
-  //   Last: '',
-  //   DoD: '',
-  //   Email: '',
-  // });
+  const [editedUser, setEditedUser] = useState({
+    First: '',
+    Last: '',
+    DoD: '',
+    Email: '',
+  });
 
   const [newValue, setNewValue] = useState({
     First: '',
@@ -58,11 +58,11 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       });
   };
 
-  // const onEditOpen = (params) => {
-  //   setEditedUser(params.row)
-  //   setNewValue(params.row)
-  //   setOpen(true);
-  // };
+  const onEditOpen = (params) => {
+    setEditedUser(params.row)
+    setNewValue(params.row)
+    setOpen(true);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,20 +124,20 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Last", minWidth: 130 },
                   { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 170 },
-                  // {
-                  //   field: "Edit",
-                  //   minWidth: 10,
-                  //   editable: true,
-                  //   renderCell: (params) => (
-                  //     <Tooltip title='Edit User'>
-                  //     <EditIcon
-                  //       sx={{ cursor: "pointer", color: '#FF9A01' }}
-                  //       onClick={() => onEditOpen(params)}
-                  //     />
-                  //     </Tooltip>
+                  {
+                    field: "Edit",
+                    minWidth: 10,
+                    editable: true,
+                    renderCell: (params) => (
+                      <Tooltip title='Edit User'>
+                      <EditIcon
+                        sx={{ cursor: "pointer", color: '#FF9A01' }}
+                        onClick={() => onEditOpen(params)}
+                      />
+                      </Tooltip>
 
-                  //   ),
-                  // },
+                    ),
+                  },
                   {
                     field: "Delete",
                     minWidth: 10,
@@ -164,7 +164,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                 })}
               />
 
-              {/* <Modal
+              <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -254,7 +254,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     </Box>
                   </CardActions>
                 </Box>
-              </Modal> */}
+              </Modal>
             </div>
           </div>
         </div>

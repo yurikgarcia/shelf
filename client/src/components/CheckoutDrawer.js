@@ -3,21 +3,22 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import List from "@mui/material/List";
 import ListItem from '@mui/material/ListItem';
 // import ListItemButton from "@mui/material/ListItemButton";
 // import ListItemIcon from "@mui/material/ListItemIcon";
 // import ListItemText from "@mui/material/ListItemText";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // import { styled, useTheme } from "@mui/material/styles";
+import shelfLogo from './shelfLogo.png'
+import Select from '@mui/material/Select';
 import Tooltip from '@mui/material/Tooltip';
 // import Typography from "@mui/material/Typography";
 import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { useColorScheme } from '@mui/material';
 
 const ITEM_HEIGHT = 48;
@@ -87,7 +88,7 @@ export default function CheckoutDrawer() {
    */
   const fetchUsers = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/users' || 'https://postgres-apr.herokuapp.com/inventory')
+    axios.get('http://localhost:3000/users')
       .then(res => {
         setUsers(res.data);
         setSpinner(false);
@@ -118,7 +119,8 @@ export default function CheckoutDrawer() {
             {list(anchor)}
             <List>
               <ListItem sx={{ display: 'flex', justifyContent: 'center', mt: 5}}> 
-                <h1>Checkout</h1>
+                <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
+                <h2>Checkout</h2>
               </ListItem>
                 <Divider/>
               <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center'}}> 
