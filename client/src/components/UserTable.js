@@ -214,7 +214,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                         <TextField
                           id="filled"
                           variant="filled"
-                          label="Last"
+                          label="Last Name"
                           defaultValue={editedUser?.Last}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Last: e.target.value })}

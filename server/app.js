@@ -183,6 +183,30 @@ app.delete('/users', (req, res) => {
     })
 })
 
+/**
+ * updates the users table with the new item matched at its Dod ID
+ */
+app.patch('/users', (req, res) => {
+  let params = {
+    dod_id: req.body.DoD,
+    first_name: req.body.First,
+    last_name: req.body.Last,
+    email: req.body.Email,
+  }
+  console.log(params)
+  pool.query(
+    `UPDATE users 
+      SET dod_id='${params.dod_id}, 'first_name='${params.first_name}', last_name='${params.last_name}', email='${params.item_email}'
+        WHERE dod_id = '${params.dod_id}'`, (error, results) => {
+    if (error) {
+      res.send('error' + error)
+    }
+    console.log('updated in DB')
+    res.status(204)
+    res.send("Success")
+  })
+})
+
 
 
 
