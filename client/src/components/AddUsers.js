@@ -17,16 +17,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
-export default function AddModal({ users, setUsers, fetchUsers }) {
-  const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
+export default function AddUser({ users, setUsers, fetchUsers }) {
+  const [AddUserOpen, setAddUserOpen] = useState(false); //Event Handler for Add Modal 
   const [addedUsers, setAddedUsers] = useState({
     dod_id: '',
     first_name: '',
     last_name: '',
     email: '',
   })
-  const handleAddOpen = () => setAddModalOpen(true);
-  const handleCloseAddModal = () => setAddModalOpen(false);
+  const handleUserOpen = () => setAddUserOpen(true);
+  const handleCloseAddUser = () => setAddUserOpen(false);
 
   /**
    * adds a new users to the DB based on the state set from the textfields
@@ -38,7 +38,7 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
         if (res.status === 200) {
           setUsers([...users, newUsers])
           fetchUsers()
-          setAddModalOpen(false)
+          setAddUserOpen(false)
         }
       })
       .catch(err => {
@@ -62,15 +62,15 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
       <Box sx={{ ml: 15, mt: 1 }}>
         <Button variant="contained"
           startIcon={<AddIcon />}
-          onClick={handleAddOpen}
+          onClick={handleUserOpen}
           color='secondary'
         >
           ADD Users
         </Button>
       </Box>
       <Modal
-        open={AddModalOpen}
-        onClose={handleCloseAddModal}
+        open={AddUserOpen}
+        onClose={handleCloseAddUser}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -111,6 +111,7 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
               <TextField
                 id="outlined-error"
                 label="Last Name"
+                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, last_name: e.target.value })}
               />
             </div>
@@ -136,7 +137,7 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
                 color='secondary'
                 variant="contained"
                 startIcon={<CancelIcon />}
-                onClick={handleCloseAddModal}
+                onClick={handleCloseAddUser}
               >
                 Cancel
               </Button>

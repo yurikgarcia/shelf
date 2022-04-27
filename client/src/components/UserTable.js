@@ -1,32 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+// import Button from '@mui/material/Button';
+// import CancelIcon from '@mui/icons-material/Cancel';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import Modal from '@mui/material/Modal';
-import rocket from './rocket.gif'
-import SaveIcon from '@mui/icons-material/Save';
-import Stack from '@mui/material/Stack';
-import TextField from "@mui/material/TextField";
+// import EditIcon from '@mui/icons-material/Edit';
+// import Modal from '@mui/material/Modal';
+// import rocket from './rocket.gif'
+// import SaveIcon from '@mui/icons-material/Save';
+// import Stack from '@mui/material/Stack';
+// import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import warehouse from './warehouse.gif'
 
 
 export default function RowsGrid({ users, fetchUsers, spinner}) {
 
-  const [editedUser, setEditedUser] = useState({
-    First: '',
-    Last: '',
-    DoD: '',
-    Email: '',
-  });
+  // const [editedUser, setEditedUser] = useState({
+  //   First: '',
+  //   Last: '',
+  //   DoD: '',
+  //   Email: '',
+  // });
 
   const [newValue, setNewValue] = useState({
     First: '',
@@ -43,8 +42,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "delete",
       url:
-        "http://localhost:3000/inventory" ||
-        "https://postgres-apr.herokuapp.com/inventory",
+        "http://localhost:3000/users", 
       data: {
         id: id,
       },
@@ -60,11 +58,11 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       });
   };
 
-  const onEditOpen = (params) => {
-    setEditedUser(params.row)
-    setNewValue(params.row)
-    setOpen(true);
-  };
+  // const onEditOpen = (params) => {
+  //   setEditedUser(params.row)
+  //   setNewValue(params.row)
+  //   setOpen(true);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,24 +70,13 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/inventory" ||
-        "https://postgres-apr.herokuapp.com/inventory",
+        "http://localhost:3000/users" ,
       data: {
         Delete: newValue.Delete,
-        Name: newValue.Name,
-        Brand: newValue.Brand,
-        NSN: newValue.NSN,
-        Bldg: newValue.Bldg,
-        Size: newValue.Size,
-        Count: newValue.Count,
-        Gender: newValue.Gender,
-        Aisle: newValue.Aisle,
-        Initial: newValue.Initial,
-        MinCount: newValue.MinCount,
-        Ordered: newValue.Ordered,
-        Returnable: newValue.Returnable,
-        Courier: newValue.Courier,
-        Tracking: newValue.Tracking
+        First: newValue.First,
+        Last: newValue.Last,
+        DoD: newValue.DoD,
+        Email: newValue.Email,
       }
     })
       .then(() => {
@@ -100,18 +87,6 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
         console.log('err', err)
       })
   }
-
-  // const VISIBLE_FIELDS = [
-  //   "Name", 
-  //   "Brand",
-  //   "NSN", 
-  //   "Size", 
-  //   "Bldg", 
-  //   "Aisle", 
-  //   "Count", 
-  //   "Ordered", 
-  //   "Count Status",
-  // ];
 
 
   return (
@@ -126,8 +101,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     >
       {spinner ? (
         <div>
-          {/* <h1>I'm trying...don't hate me!</h1> */}
-          <img src={warehouse} width="900" />
+          <img alt="warehouse" src={warehouse} width="900" />
         </div>
 
       ) : (
@@ -164,18 +138,18 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 
                   //   ),
                   // },
-                  // {
-                  //   field: "Delete",
-                  //   minWidth: 10,
-                  //   renderCell: (params) => (
-                  //     <Tooltip title='Delete User'>
-                  //       <DeleteIcon
-                  //         sx={{ cursor: "pointer", color: '#ef5350' }}
-                  //         onClick={() => onDelete(params)}
-                  //       />
-                  //     </Tooltip>
-                  //   ),
-                  // },
+                  {
+                    field: "Delete",
+                    minWidth: 10,
+                    renderCell: (params) => (
+                      <Tooltip title='Delete User'>
+                        <DeleteIcon
+                          sx={{ cursor: "pointer", color: '#ef5350' }}
+                          onClick={() => onDelete(params)}
+                        />
+                      </Tooltip>
+                    ),
+                  },
                 ]}
                 rows={users?.map((row, index) => {
                   return {
@@ -190,7 +164,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                 })}
               />
 
-              <Modal
+              {/* <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -280,7 +254,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     </Box>
                   </CardActions>
                 </Box>
-              </Modal>
+              </Modal> */}
             </div>
           </div>
         </div>
