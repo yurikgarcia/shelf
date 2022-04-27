@@ -24,7 +24,6 @@ export default function ReturnModal({ inventory, params }) {
   }, []);
 
 
-
   return (
     <div>
         <IconButton onClick={handleOpen}>
@@ -120,6 +119,22 @@ export default function ReturnModal({ inventory, params }) {
                   id="filled"
                   variant="filled"
                   label="Returnable Item"
+                  defaultValue="Yes"
+                  sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                />
+                <TextField
+                  id="filled"
+                  variant="filled"
+                  label="Ordered"
+                  defaultValue="25"
+                  sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                />
+              </div>
+              <div>
+                <TextField
+                  id="filled"
+                  variant="filled"
+                  label="Courier"
                   defaultValue="Yes"
                   sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                 />

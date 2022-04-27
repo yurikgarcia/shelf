@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import PublicIcon from '@mui/icons-material/Public';
+// import PublicIcon from '@mui/icons-material/Public';
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-import FlightLandIcon from '@mui/icons-material/FlightLand';
+// import FlightLandIcon from '@mui/icons-material/FlightLand';
 import GroupIcon from '@mui/icons-material/Group';
 import InputBase from '@mui/material/InputBase';
 import HomeIcon from '@mui/icons-material/Home';
@@ -20,7 +20,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
@@ -150,9 +149,9 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -179,7 +178,7 @@ export default function MiniDrawer() {
             </IconButton> */}
 
             <Box sx={{mr:2}}>
-              <img src={shelfLogo} width='30' height='30'/>
+              <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
             </Box>
 
             <Typography
@@ -203,16 +202,15 @@ export default function MiniDrawer() {
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
             </Link>
 
-            <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
+            {/* <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Deployment</Button>
-            </Link>
+            </Link> */}
 
-            {/* <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
+            <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Users</Button>
             </Link>
 
-
-            <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
+            {/* <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
             </Link> */}
 
@@ -236,7 +234,7 @@ export default function MiniDrawer() {
 
         <Drawer variant="permanent" open={open}>
           <DrawerHeader >
-            <img src={shelfLogo} width='30' height='30'/>
+            <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
@@ -274,7 +272,7 @@ export default function MiniDrawer() {
                 </ListItem>
               </Link>   
               
-              <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
+              {/* <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
@@ -285,9 +283,9 @@ export default function MiniDrawer() {
                         <ListItemText primary="Deployment" />
                       </ListItemButton>
                 </ListItem>
-              </Link>              
+              </Link>               */}
 
-              {/* <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+              <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
@@ -298,7 +296,7 @@ export default function MiniDrawer() {
                         <ListItemText primary="Users" />
                       </ListItemButton>
                 </ListItem>
-              </Link>   */}
+              </Link>  
 
               {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>

@@ -30,6 +30,12 @@ body {
   background: linear-gradient(to bottom,  #155E9D 100%, #155E9D);
 }
 
+.MuiDrawer-paperAnchorRight{
+  background: linear-gradient(to bottom,  whitesmoke 100%, whitesmoke);
+}
+
+
+
 
 
 

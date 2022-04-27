@@ -33,6 +33,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
     ordered: 0,
     intial_gear: false,
     returnable_item: true,
+    courier: '',
+    tracking: ''
   })
   const handleAddOpen = () => setAddModalOpen(true);
   const handleCloseAddModal = () => setAddModalOpen(false);
@@ -181,12 +183,22 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 type="Number"
                 onChange={(e) => setAddedItem({ ...addedItem, ordered: e.target.value })}
               />
+              <TextField
+                id="outlined-error-helper-text"
+                label="Courier"
+                onChange={(e) => setAddedItem({ ...addedItem, courier: e.target.value })}
+              />
+              <TextField
+                id="outlined-error-helper-text"
+                label="Tracking"
+                onChange={(e) => setAddedItem({ ...addedItem, tracking: e.target.value })}
+              />
             </div>
             <div>
               <TextField
                 id="outlined-error"
                 label="Initial Gear"
-                onChange={(e) => setAddedItem({ ...addedItem, initial_gear: e.target.value })}
+                onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
               />
               <TextField
                 id="outlined-error"

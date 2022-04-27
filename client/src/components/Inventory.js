@@ -8,7 +8,7 @@ import axios from 'axios';
 function Inventory() {
   const [inventory, setInventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
- 
+
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchInventory();
@@ -42,11 +42,8 @@ function Inventory() {
           <Box sx={{display:"flex", flexDirection: 'row'}}>
               <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
 
-{/*           
-              <CheckoutDrawer sx={{display:"flex", alignContent: 'center', pt:1}} /> */}
-          
+              <CheckoutDrawer sx={{display:"flex", alignContent: 'center', pt:1}} />          
           </Box>
-
 
           <Box sx={{ ml: 8, mt: 1 }}>
             <InventoryTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner}/>

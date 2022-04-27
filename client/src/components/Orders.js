@@ -1,10 +1,11 @@
+
 import * as React from "react";
 import Box from '@mui/material/Box';
 
 
 
 
-function Home() {
+function Orders() {
   
 
   return (
@@ -19,4 +20,6 @@ function Home() {
   );
 }
 
-export default Home;
+export default Orders;
+
+

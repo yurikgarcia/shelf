@@ -54,7 +54,7 @@ app.get('/inventory', (_, res) => {
  * Adds new items to the inventory table
  */
 app.post('/inventory', (req, res) => {
-  pool.query(`INSERT INTO inventory (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, intial_gear, returnable_item) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, ${req.body.item.intial_gear}, ${req.body.item.returnable_item})`, (error, results) => {
+  pool.query(`INSERT INTO inventory (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, intial_gear, returnable_item, courier, tracking) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, ${req.body.item.intial_gear}, ${req.body.item.returnable_item}, '${req.body.item.courier}', '${req.body.item.tracking}')`, (error, results) => {
     if (error) {
       res.send('error' + error)
     }
@@ -82,12 +82,14 @@ app.patch('/inventory', (req, res) => {
     initial_gear: req.body.Initial,
     minimum_count: req.body.MinCount,
     ordered: req.body.Ordered,
-    returnable_item: req.body.Returnable
+    returnable_item: req.body.Returnable,
+    courier: req.body.Courier,
+    tracking: req.body.Tracking
   }
   console.log(params)
   pool.query(
     `UPDATE inventory 
-      SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item} 
+      SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item}, courier='${params.courier}', tracking='${params.tracking}'
         WHERE item_id = '${params.item_id}'`, (error, results) => {
     if (error) {
       res.send('error' + error)
@@ -142,6 +144,33 @@ async function connectToDB() {
     console.log(err);
   }
 };
+
+//--------------------------------USERS TABLE----------------------------------------------------------------------------------------------------------------
+/**
+ * @returns all the rows from the User Table
+ */
+app.get('/users', (_, res) => {
+  pool.query('SELECT * FROM users', (error, results) => {
+    if (error) {
+      res.send('error' + error)
+    }
+    res.send(results.rows)
+  });
+});
+
+/**
+ * Adds new users to the users table
+ */
+//   app.post('/user', (req, res) => {
+//   pool.query(`INSERT INTO users (dod_id, first_name, last_name, email) values('${req.body.item.dod_id}', '${req.body.item.first_name}', '${req.body.last_name}', '${req.body.item.email}')`, (error, results) => {
+//     if (error) {
+//       res.send('error' + error)
+//     }
+//     console.log('placed in DB')
+//     res.status(200)
+//     res.send("Success")
+//   })
+// });
 
 
 
