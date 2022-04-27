@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddUsers from "./AddUsers.js";
 import Box from '@mui/material/Box';
-import UserItemTable from "./UserItemTable.js";
+import UserTable from "./UserTable.js";
 import axios from 'axios';
 
 function Inventory() {
@@ -23,6 +23,7 @@ function Inventory() {
       .then(res => {
         setUsers(res.data);
         setSpinner(false);
+        console.log(users)
       })
       .catch(err => {
         console.log(err);
@@ -39,11 +40,11 @@ function Inventory() {
           </Box>
 
           <Box sx={{display:"flex", flexDirection: 'row'}}>
-              {/* <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>     */}
+              <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    
           </Box>
 
           <Box sx={{ ml: 8, mt: 1 }}>
-            {/* <UserItemTable users={users} fetchUsers={fetchUsers} spinner={spinner}/> */}
+            <UserTable users={users} fetchUsers={fetchUsers} spinner={spinner}/>
           </Box>
         </main>
       </div>

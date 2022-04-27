@@ -161,16 +161,16 @@ app.get('/users', (_, res) => {
 /**
  * Adds new users to the users table
  */
-//   app.post('/user', (req, res) => {
-//   pool.query(`INSERT INTO users (dod_id, first_name, last_name, email) values('${req.body.item.dod_id}', '${req.body.item.first_name}', '${req.body.last_name}', '${req.body.item.email}')`, (error, results) => {
-//     if (error) {
-//       res.send('error' + error)
-//     }
-//     console.log('placed in DB')
-//     res.status(200)
-//     res.send("Success")
-//   })
-// });
+  app.post('/users', (req, res) => {
+  pool.query(`INSERT INTO users (dod_id, first_name, last_name, email) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}')`, (error, results) => {
+    if (error) {
+      res.send('error' + error)
+    }
+    console.log('placed in DB')
+    res.status(200)
+    res.send("Success")
+  })
+});
 
 
 

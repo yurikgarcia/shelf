@@ -1,0 +1,291 @@
+import React, { useState } from "react";
+import axios from "axios";
+import Box from "@mui/material/Box";
+import Button from '@mui/material/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import Modal from '@mui/material/Modal';
+import rocket from './rocket.gif'
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+import TextField from "@mui/material/TextField";
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import warehouse from './warehouse.gif'
+
+
+export default function RowsGrid({ users, fetchUsers, spinner}) {
+
+  const [editedUser, setEditedUser] = useState({
+    First: '',
+    Last: '',
+    DoD: '',
+    Email: '',
+  });
+
+  const [newValue, setNewValue] = useState({
+    First: '',
+    Last: '',
+    DoD: '',
+    Email: '',
+  });
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const onDelete = async (params) => {
+    let id = params.formattedValue;
+    axios({
+      method: "delete",
+      url:
+        "http://localhost:3000/inventory" ||
+        "https://postgres-apr.herokuapp.com/inventory",
+      data: {
+        id: id,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          fetchUsers();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+  };
+
+  const onEditOpen = (params) => {
+    setEditedUser(params.row)
+    setNewValue(params.row)
+    setOpen(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setOpen(false);
+    axios({
+      method: "patch",
+      url:
+        "http://localhost:3000/inventory" ||
+        "https://postgres-apr.herokuapp.com/inventory",
+      data: {
+        Delete: newValue.Delete,
+        Name: newValue.Name,
+        Brand: newValue.Brand,
+        NSN: newValue.NSN,
+        Bldg: newValue.Bldg,
+        Size: newValue.Size,
+        Count: newValue.Count,
+        Gender: newValue.Gender,
+        Aisle: newValue.Aisle,
+        Initial: newValue.Initial,
+        MinCount: newValue.MinCount,
+        Ordered: newValue.Ordered,
+        Returnable: newValue.Returnable,
+        Courier: newValue.Courier,
+        Tracking: newValue.Tracking
+      }
+    })
+      .then(() => {
+        console.log("success");
+        fetchUsers();
+      })
+      .catch((err) => {
+        console.log('err', err)
+      })
+  }
+
+  // const VISIBLE_FIELDS = [
+  //   "Name", 
+  //   "Brand",
+  //   "NSN", 
+  //   "Size", 
+  //   "Bldg", 
+  //   "Aisle", 
+  //   "Count", 
+  //   "Ordered", 
+  //   "Count Status",
+  // ];
+
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: "90%",
+        overflow: "hidden",
+        ml: 7,
+      }}
+    >
+      {spinner ? (
+        <div>
+          {/* <h1>I'm trying...don't hate me!</h1> */}
+          <img src={warehouse} width="900" />
+        </div>
+
+      ) : (
+        <div style={{ display: "flex", justifyContent: "center", height: "75vh", width: "100%" }}>
+          <div style={{ display: "flex", height: "100%", width: "100%" }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'First', sort: 'asc' }],
+                  },
+                  pagination: {
+                    pageSize: 50,
+                  },
+                }}
+                components={{ Toolbar: GridToolbar }}
+                stopColumnsSorts={[{ field: "Delete", sortable: false }]}
+                columns={[
+                  { field: "First", minWidth: 150, },
+                  { field: "Last", minWidth: 130 },
+                  { field: "DoD", minWidth: 100 },
+                  { field: "Email", minWidth: 170 },
+                  // {
+                  //   field: "Edit",
+                  //   minWidth: 10,
+                  //   editable: true,
+                  //   renderCell: (params) => (
+                  //     <Tooltip title='Edit User'>
+                  //     <EditIcon
+                  //       sx={{ cursor: "pointer", color: '#FF9A01' }}
+                  //       onClick={() => onEditOpen(params)}
+                  //     />
+                  //     </Tooltip>
+
+                  //   ),
+                  // },
+                  // {
+                  //   field: "Delete",
+                  //   minWidth: 10,
+                  //   renderCell: (params) => (
+                  //     <Tooltip title='Delete User'>
+                  //       <DeleteIcon
+                  //         sx={{ cursor: "pointer", color: '#ef5350' }}
+                  //         onClick={() => onDelete(params)}
+                  //       />
+                  //     </Tooltip>
+                  //   ),
+                  // },
+                ]}
+                rows={users?.map((row, index) => {
+                  return {
+                    id: index,
+                    Delete: row.dod_id,
+                    Edit: row.dod_id,
+                    First: row.first_name,
+                    Last: row.last_name,
+                    DoD: row.dod_id,
+                    Email: row.email,
+                  };
+                })}
+              />
+
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 425,
+                  bgcolor: 'background.paper',
+                  border: '3px solid',
+                  borderRadius: '16px',
+                  boxShadow: 19,
+                  p: 4,
+                  borderColor: '#f57c00'
+                }} >
+                  <CardContent>
+                    <Box>
+
+                      <Box sx={{ mb: 2 }}>
+                        <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
+                          Edit User: {editedUser?.First} {editedUser.Last}  
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box
+                      id="modal-modal-description"
+                      component="form"
+                      sx={{
+                        "& .MuiTextField-root": { m: 1, width: "15ch" }, mt: 2
+                      }}
+                      noValidate
+                      autoComplete="off"
+                    >
+                      <div>
+                        <TextField
+                          disabled={false}
+                          id="filled"
+                          variant="filled"
+                          label="First Name"
+                          defaultValue={editedUser?.First}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, First: e.target.value })}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Last"
+                          defaultValue={editedUser?.Last}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Last: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Building"
+                          defaultValue={editedUser?.DoD}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, DoD: e.target.value })}
+                        />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Email"
+                          defaultValue={editedUser?.Email}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Email: e.target.value })}
+                        />
+                      </div>
+                    </Box>
+                  </CardContent>
+                  <CardActions>
+                    <Box sx={{ ml: 7, mt: 1 }}>
+                      <Stack direction="row" spacing={2}>
+                        <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} onClick={(e) => handleSubmit(e)}>
+                          Save
+                        </Button>
+
+                        <Button color='secondary' variant="contained" startIcon={<CancelIcon />} onClick={() => setOpen(false)}>
+                          Cancel
+                        </Button>
+                      </Stack>
+                    </Box>
+                  </CardActions>
+                </Box>
+              </Modal>
+            </div>
+          </div>
+        </div>
+      )
+      }
+    </Box >
+  );
+}

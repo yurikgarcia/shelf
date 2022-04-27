@@ -19,7 +19,7 @@ import Select from '@mui/material/Select';
 
 export default function AddModal({ users, setUsers, fetchUsers }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
-  const [addedItem, setAddedItem] = useState({
+  const [addedUsers, setAddedUsers] = useState({
     dod_id: '',
     first_name: '',
     last_name: '',
@@ -32,8 +32,8 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
    * adds a new users to the DB based on the state set from the textfields
    */
   const addUserToUserTable = async () => {
-    const newUsers = addedItem;
-    axios.post('http://localhost:3000/users', { item: newUsers })
+    const newUsers = addedUsers;
+    axios.post('http://localhost:3000/users', { users: newUsers })
       .then(res => {
         if (res.status === 200) {
           setUsers([...users, newUsers])
@@ -106,24 +106,24 @@ export default function AddModal({ users, setUsers, fetchUsers }) {
                 id="outlined-error"
                 label="First Name"
                 required={true}
-                onChange={(e) => setAddedItem({ ...addedItem, first_name: e.target.value })}
+                onChange={(e) => setAddedUsers({ ...addedUsers, first_name: e.target.value })}
               />
               <TextField
                 id="outlined-error"
                 label="Last Name"
-                onChange={(e) => setAddedItem({ ...addedItem, last_name: e.target.value })}
+                onChange={(e) => setAddedUsers({ ...addedUsers, last_name: e.target.value })}
               />
             </div>
             <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="DOD ID"
-                onChange={(e) => setAddedItem({ ...addedItem, dod_id: e.target.value })}
+                onChange={(e) => setAddedUsers({ ...addedUsers, dod_id: e.target.value })}
               />
               <TextField
                 id="outlined-error-helper-text"
                 label="E-Mail"
-                onChange={(e) => setAddedItem({ ...addedItem, email: e.target.value })}
+                onChange={(e) => setAddedUsers({ ...addedUsers, email: e.target.value })}
               />
             </div>
           </Box>
