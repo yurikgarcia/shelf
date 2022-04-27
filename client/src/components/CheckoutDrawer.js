@@ -120,32 +120,31 @@ export default function CheckoutDrawer() {
             <List>
               <ListItem sx={{ display: 'flex', justifyContent: 'center', mt: 5}}> 
                 <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
-                <h2>Checkout</h2>
+                <h2>Shopping Cart</h2>
               </ListItem>
                 <Divider/>
               <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center'}}> 
-
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-                <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-        >
-        {users.map((users) => (
-            <MenuItem
-              key={users.first_name}
-              value={users.dod_id}
-            >
-              {users.first_name} {users.last_name}
-            </MenuItem>
-          ))}
-        </Select>
-              </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+                    <Select
+                      labelId="demo-multiple-name-label"
+                      id="demo-multiple-name"
+                      multiple
+                      value={personName}
+                      onChange={handleChange}
+                      input={<OutlinedInput label="Name" />}
+                      MenuProps={MenuProps}
+                    >
+                      {users.map((users) => (
+                          <MenuItem
+                          key={users.dod_id}
+                          value={users.dod_id}
+                        >
+                            {users.first_name} {users.last_name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
               </ListItem>
             </List>
           </Drawer>
