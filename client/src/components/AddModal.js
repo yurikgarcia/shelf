@@ -34,7 +34,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
     intial_gear: false,
     returnable_item: true,
     courier: '',
-    tracking: ''
+    tracking: '',
+    contact: ''
   })
   const handleAddOpen = () => setAddModalOpen(true);
   const handleCloseAddModal = () => setAddModalOpen(false);
