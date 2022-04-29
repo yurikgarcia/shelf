@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import FormControl from '@mui/material/FormControl';
@@ -14,6 +15,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // import { styled, useTheme } from "@mui/material/styles";
+import SaveIcon from '@mui/icons-material/Save';
 import shelfLogo from './shelfLogo.png'
 import Select from '@mui/material/Select';
 import Tooltip from '@mui/material/Tooltip';
@@ -104,6 +106,8 @@ export default function CheckoutDrawer() {
     Delete: [],
   });
 
+  const number = [1,2,3,4,5,6,7,8,9,10]
+
   return (
     <div>
       {['right'].map((anchor) => (
@@ -146,7 +150,38 @@ export default function CheckoutDrawer() {
                     </Select>
                 </FormControl>
               </ListItem>
+              <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}> 
+              <Box sx={{ minWidth: 105 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
+                  <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-multiple-name"
+                      multiple
+                      value={personName}
+                      onChange={handleChange}
+                      input={<OutlinedInput label="Name" />}
+                      MenuProps={MenuProps}
+                    >
+                      {number.map((number) => (
+                          <MenuItem
+                          key={number}
+                          value={number}
+                        >
+                            {number} 
+                          </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+              </Box>
+              </ListItem>
+              <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', mt: 75 }}> 
+                <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >
+                  Checkout
+                </Button>
+              </ListItem>
             </List>
+
           </Drawer>
         </React.Fragment>
       ))}
