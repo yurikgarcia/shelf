@@ -122,12 +122,12 @@ export default function CheckoutDrawer() {
           >
             {list(anchor)}
             <List>
-              <ListItem sx={{ display: 'flex', justifyContent: 'center', mt: 5}}> 
+              <ListItem sx={{ display: 'flex', justifyContent: 'center', mt: 7}}> 
                 <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
                 <h2>Shopping Cart</h2>
               </ListItem>
-                <Divider/>
-              <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center'}}> 
+                <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+              <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-name-label">Name</InputLabel>
                     <Select
@@ -150,38 +150,65 @@ export default function CheckoutDrawer() {
                     </Select>
                 </FormControl>
               </ListItem>
+              <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
               <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}> 
-              <Box sx={{ minWidth: 105 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
-                  <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-multiple-name"
-                      multiple
-                      value={personName}
-                      onChange={handleChange}
-                      input={<OutlinedInput label="Name" />}
-                      MenuProps={MenuProps}
-                    >
-                      {number.map((number) => (
-                          <MenuItem
-                          key={number}
-                          value={number}
-                        >
-                            {number} 
-                          </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-              </Box>
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', mt: 75 }}> 
-                <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >
-                  Checkout
-                </Button>
-              </ListItem>
+                <Box sx={{ minWidth: 105 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-multiple-name"
+                        multiple
+                        value={personName}
+                        onChange={handleChange}
+                        input={<OutlinedInput label="Name" />}
+                        MenuProps={MenuProps}
+                      >
+                        {number.map((number) => (
+                            <MenuItem
+                            key={number}
+                            value={number}
+                          >
+                              {number} 
+                            </MenuItem>
+                          ))}
+                      </Select>
+                  </FormControl>
+                </Box>
+              </ListItem>         
+                <Divider sx={{mt:2}}/>
+                <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}> 
+                <Box sx={{ minWidth: 105 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-multiple-name"
+                        multiple
+                        value={personName}
+                        onChange={handleChange}
+                        input={<OutlinedInput label="Name" />}
+                        MenuProps={MenuProps}
+                      >
+                        {number.map((number) => (
+                            <MenuItem
+                            key={number}
+                            value={number}
+                          >
+                              {number} 
+                            </MenuItem>
+                          ))}
+                      </Select>
+                  </FormControl>
+                </Box>
+              </ListItem>     
+              <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
+                  <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >
+                    Checkout
+                  </Button>
+                </ListItem>
             </List>
-
           </Drawer>
         </React.Fragment>
       ))}
