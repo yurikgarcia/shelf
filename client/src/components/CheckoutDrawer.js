@@ -113,7 +113,7 @@ export default function CheckoutDrawer() {
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title= 'Shopping Cart'>
-            <ShoppingCartIcon  sx={{color:'black'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+            <ShoppingCartIcon  sx={{color:'white'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
           </Tooltip>
           <Drawer
             anchor={anchor}

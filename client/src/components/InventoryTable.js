@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
@@ -181,6 +182,21 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                     { field: "Ordered", minWidth: 100, },
                     { field: "Initial", minWidth: 100 },
                     { field: "Returnable", minWidth: 100 },
+                    {
+                      field: "Issue",
+                      minWidth: 10,
+                      editable: true,
+                      renderCell: (params) => (
+                        <Tooltip title='Isssue Item'>
+                        <AddCircleIcon
+                          sx={{ cursor: "pointer", color: '#4CAF50' }}
+                          onClick={() => onEditOpen(params)}
+
+                        />
+                        </Tooltip>
+  
+                      ),
+                    },
                   {
                     field: "Edit",
                     minWidth: 10,
@@ -188,7 +204,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                     renderCell: (params) => (
                       <Tooltip title='Edit Item'>
                       <EditIcon
-                        sx={{ cursor: "pointer", color: '#FF9A01' }}
+                        sx={{ cursor: "pointer", color: '#fb8c00' }}
                         onClick={() => onEditOpen(params)}
                       />
                       </Tooltip>

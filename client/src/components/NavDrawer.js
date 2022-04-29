@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import CheckoutDrawer from "./CheckoutDrawer.js";
 // import PublicIcon from '@mui/icons-material/Public';
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -227,9 +228,8 @@ export default function MiniDrawer() {
               />
               
             </Search>
-            <ProfileMenu
-            color = "black"
-            />
+            <ProfileMenu />
+            <CheckoutDrawer sx={{mr:1}}/>   
           </Toolbar>
         </AppBar>
 
@@ -316,8 +316,6 @@ export default function MiniDrawer() {
               </Link>  
 
           </List>
-          {/* <Divider /> */}
-          {/* <List sx={{backgroundColor: "#155E9C"}}></List> */}
         </Drawer>
           <DrawerHeader />
       </Box>

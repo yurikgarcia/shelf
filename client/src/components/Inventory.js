@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddModal from "./AddModal.js";
 import Box from '@mui/material/Box';
-import CheckoutDrawer from "./CheckoutDrawer.js";
 import InventoryTable from "./InventoryTable.js";
 import axios from 'axios';
 
@@ -40,9 +39,7 @@ function Inventory() {
           </Box>
 
           <Box sx={{display:"flex", flexDirection: 'row'}}>
-              <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>
-
-              <CheckoutDrawer sx={{display:"flex", alignContent: 'center', pt:1}} />          
+              <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>   
           </Box>
 
           <Box sx={{ ml: 8, mt: 1 }}>
