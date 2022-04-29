@@ -8,7 +8,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // import PublicIcon from '@mui/icons-material/Public';
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-// import FlightLandIcon from '@mui/icons-material/FlightLand';
+import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import GroupIcon from '@mui/icons-material/Group';
 import InputBase from '@mui/material/InputBase';
 import HomeIcon from '@mui/icons-material/Home';
@@ -199,6 +199,10 @@ export default function MiniDrawer() {
               <Button sx={{mr:1}} variant="contained">Home</Button>
             </Link>
 
+            <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Users</Button>
+            </Link>
+
             <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
             </Link>
@@ -207,13 +211,10 @@ export default function MiniDrawer() {
               <Button  sx={{mr:1}} variant="contained">Deployment</Button>
             </Link> */}
 
-            <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
-              <Button  sx={{mr:1}} variant="contained">Users</Button>
-            </Link>
 
-            {/* <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
+            <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
-            </Link> */}
+            </Link>
 
 
             <Search sx={{mr:1}}>
@@ -260,6 +261,19 @@ export default function MiniDrawer() {
                 </ListItem>
               </Link>
 
+              <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        < Tooltip title="Users" placement="right-end">              
+                          <GroupIcon sx={{color: "white"}}  />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Users" />
+                      </ListItemButton>
+                </ListItem>
+              </Link> 
+
               <Link to="/inventory" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
@@ -286,12 +300,14 @@ export default function MiniDrawer() {
                 </ListItem>
               </Link>               */}
 
-              <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+
+
+              <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                        < Tooltip title="Users" placement="right-end">              
-                          <GroupIcon sx={{color: "white"}}  />
+                        <Tooltip title="Orders" placement="right-end">
+                          <MarkunreadMailboxIcon sx={{color: "white"}}   />
                         </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary="Users" />
@@ -299,18 +315,6 @@ export default function MiniDrawer() {
                 </ListItem>
               </Link>  
 
-              {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        <Tooltip title="Orders" placement="right-end">
-                          <FlightLandIcon sx={{color: "white"}}   />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Users" />
-                      </ListItemButton>
-                </ListItem>
-              </Link>   */}
           </List>
           {/* <Divider /> */}
           {/* <List sx={{backgroundColor: "#155E9C"}}></List> */}

@@ -19,7 +19,7 @@ function Inventory() {
    */
   const fetchUsers = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/users' )
+    axios.get('http://localhost:3000/users')
       .then(res => {
         setUsers(res.data);
         setSpinner(false);

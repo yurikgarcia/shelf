@@ -36,7 +36,7 @@ function Inventory() {
       <div>
         <main>
         <Box sx={{ml: 15, mt: 2}}>
-            <h1>Current Inventory</h1>
+            <h1>Patrick Supply</h1>
           </Box>
 
           <Box sx={{display:"flex", flexDirection: 'row'}}>

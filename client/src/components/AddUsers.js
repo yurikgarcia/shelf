@@ -9,15 +9,13 @@ import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
 
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-
-
-export default function AddUser({ users, setUsers, fetchUsers }) {
+export default function AddUsers({ users, setUsers, fetchUsers }) {
   const [AddUserOpen, setAddUserOpen] = useState(false); //Event Handler for Add Modal 
   const [addedUsers, setAddedUsers] = useState({
     dod_id: '',
@@ -47,15 +45,15 @@ export default function AddUser({ users, setUsers, fetchUsers }) {
       })
   };
 
-  const [initial, setInitial] = useState('');
-  const handleChange = (event) => {
-    setInitial(event.target.value);
-  };
+  // const [initial, setInitial] = useState('');
+  // const handleChange = (event) => {
+  //   setInitial(event.target.value);
+  // };
 
-  const [returnable, setReturnable] = useState('');
-  const handleReturnable = (event) => {
-    setReturnable(event.target.value);
-  };
+  // const [returnable, setReturnable] = useState('');
+  // const handleReturnable = (event) => {
+  //   setReturnable(event.target.value);
+  // };
 
   return (
     <div>

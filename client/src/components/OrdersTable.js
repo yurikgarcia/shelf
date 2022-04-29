@@ -34,9 +34,9 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     Ordered: 0,
     Returnable: false,
     Courier: '-',
-    Tracking: '-'
+    Tracking: '-',
+    Contact: '-'
   });
-
 
   const [newValue, setNewValue] = useState({
     Delete: '',
@@ -53,7 +53,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     Ordered: 0,
     Returnable: true,
     Courier: '-',
-    Tracking: 'test'
+    Tracking: '-',
+    Contact: '-'
   });
   const [open, setOpen] = useState(false);
   // const handleOpen = () => setOpen(true);
@@ -110,7 +111,9 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
         Ordered: newValue.Ordered,
         Returnable: newValue.Returnable,
         Courier: newValue.Courier,
-        Tracking: newValue.Tracking
+        Tracking: newValue.Tracking,
+        Contact:newValue.Contact
+
       }
     })
       .then(() => {
@@ -121,6 +124,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
         console.log('err', err)
       })
   }
+
+
 
 
   return (
@@ -162,8 +167,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
-                  { field: "Bldg", minWidth: 100 },
-                  { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100, },
                   { field: "Count Status",
                   renderCell: () => (
@@ -174,13 +177,24 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                     //     color:
                     //       props.status === "connected" ? "#4caf50" : "#d9182e",
                     //   }}
-                    sx={{color: "#32FF04"}}
+                    sx={{color: "#d9182e"}}
                       />
                       ),
                     },
                     { field: "Ordered", minWidth: 100, },
-                    { field: "Initial", minWidth: 100 },
-                    { field: "Returnable", minWidth: 100 },
+                    { field: "Courier", minWidth: 100 },
+                    { field: "Tracking", minWidth: 100 },
+                    // { field: "Contact", minWidth: 200, cellClassName:'contact-content' },
+                    // {
+                    //   field: "Contact",
+                    //   width: 300,
+                    //   renderCell: () => (
+                    //     <div>
+                    //       <Typography>{inventory.item_name}</Typography>
+                    //       <Typography color="textSecondary"></Typography>
+                    //     </div>
+                    //   )
+                    // },
                   {
                     field: "Edit",
                     minWidth: 10,
@@ -216,15 +230,14 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                     Name: row.item_name,
                     Brand: row.brand,
                     NSN: row.nsn,
-                    Bldg: row.building,
                     Size: row.item_size,
                     Count: row.item_count,
                     Gender: row.gender,
-                    Aisle: row.aisle,
-                    Initial: row.intial_gear,
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
-                    Returnable: row.returnable_item,
+                    Courier: row.courier,
+                    Tracking: row.tracking,
+                    Contact: row.contact
                   };
                 })}
               />
@@ -341,7 +354,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
                         />
-                        {/* <TextField
+                        <TextField
                           id="filled"
                           variant="filled"
                           label="Courier"
@@ -356,7 +369,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           defaultValue={editedItem?.Tracking}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
-                        />  */}
+                        /> 
                           <TextField
                             id="filled"
                             variant="filled"
