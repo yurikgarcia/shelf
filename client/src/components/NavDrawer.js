@@ -229,7 +229,7 @@ export default function MiniDrawer() {
               
             </Search>
             <ProfileMenu />
-            <CheckoutDrawer sx={{mr:1}}/>   
+            <CheckoutDrawer sx={{}}/>   
           </Toolbar>
         </AppBar>
 

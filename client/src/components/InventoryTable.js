@@ -123,6 +123,34 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
       })
   }
 
+//-----------------COUNT STATUS------------------------------
+let [color, setColor] = useState();
+// let [count, setCount] = useState ({
+//     Count: inventory.count
+//   });
+// let [minCount, setMinCount] = useState ({
+//     MinCount: inventory.minimum_count
+//   });
+
+
+  let Count = inventory[0].item_count;
+  let MinCount = inventory[0].minimum_count;
+
+if (Count > MinCount + MinCount * 0.25) {
+  color = <FiberManualRecordIcon sx={{ color: "#008000" }} />;
+} else {
+  if (Count <= MinCount + MinCount * 0.25 && Count >= MinCount) {
+    color = <FiberManualRecordIcon sx={{ color: "#FFFF00" }} />;
+  } else {
+    if (Count < MinCount) {
+      color = <FiberManualRecordIcon sx={{ color: "#ff0000" }} />;
+    }
+  }
+}
+
+console.log(inventory)
+console.log(inventory[8].item_count)
+console.log(inventory.item_count)
 
   return (
     <Box
@@ -166,19 +194,15 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                   { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100, },
+
+
                   { field: "Count Status",
                   renderCell: () => (
-                    <FiberManualRecordIcon
-                    fontSize="small"
-                    // sx={{
-                    //     mr: 2,
-                    //     color:
-                    //       props.status === "connected" ? "#4caf50" : "#d9182e",
-                    //   }}
-                    sx={{color: "#32FF04"}}
-                      />
+                    <div> {color} </div>
                       ),
                     },
+
+
                     { field: "Ordered", minWidth: 100, },
                     { field: "Initial", minWidth: 100 },
                     { field: "Returnable", minWidth: 100 },
