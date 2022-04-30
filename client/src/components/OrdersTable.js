@@ -180,7 +180,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     ),
                   },
                   { field: "Ordered", minWidth: 100, },
-                  { field: "Initial", minWidth: 100 },
+                  { field: "Courier", minWidth: 100 },
+                  { field: "Tracking", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   {
                     field: "Issue",
