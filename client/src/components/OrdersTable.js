@@ -360,7 +360,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
                         />
-                        {/* <TextField
+                        <TextField
                           id="filled"
                           variant="filled"
                           label="Courier"
@@ -375,7 +375,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                           defaultValue={editedItem?.Tracking}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
-                        />  */}
+                        /> 
                         <TextField
                           id="filled"
                           variant="filled"
