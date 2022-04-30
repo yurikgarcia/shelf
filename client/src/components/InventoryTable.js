@@ -168,9 +168,9 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     renderCell: (params) => (
                       <div>
                         {params.row.Count > params.row.MinCount + params.row.MinCount * 0.25 ? (
-                          <FiberManualRecordIcon sx={{ color: "#008000" }} />
+                          <FiberManualRecordIcon sx={{ color: "#4CAF50" }} />
                         ) : params.row.Count <= params.row.MinCount + params.row.MinCount * 0.25 && params.row.Count >= params.row.MinCount ? (
-                          <FiberManualRecordIcon sx={{ color: "#FFFF00" }} />
+                          <FiberManualRecordIcon sx={{ color: "#fb8c00" }} />
                         ) : params.row.Count < params.row.MinCount ? (
                           <FiberManualRecordIcon sx={{ color: "#ff0000" }} />
                         ) : (

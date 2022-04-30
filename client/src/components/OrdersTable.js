@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
@@ -18,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import warehouse from './warehouse.gif'
 
 
-export default function RowsGrid({ inventory, fetchInventory, spinner}) {
+export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
   const [editedItem, setEditedItem] = useState({
     Name: '',
@@ -34,9 +35,9 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     Ordered: 0,
     Returnable: false,
     Courier: '-',
-    Tracking: '-',
-    Contact: '-'
+    Tracking: '-'
   });
+
 
   const [newValue, setNewValue] = useState({
     Delete: '',
@@ -53,11 +54,9 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     Ordered: 0,
     Returnable: true,
     Courier: '-',
-    Tracking: '-',
-    Contact: '-'
+    Tracking: '-'
   });
   const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onDelete = async (params) => {
@@ -111,9 +110,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
         Ordered: newValue.Ordered,
         Returnable: newValue.Returnable,
         Courier: newValue.Courier,
-        Tracking: newValue.Tracking,
-        Contact:newValue.Contact
-
+        Tracking: newValue.Tracking
       }
     })
       .then(() => {
@@ -124,9 +121,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
         console.log('err', err)
       })
   }
-
-
-
 
   return (
     <Box
@@ -140,7 +134,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     >
       {spinner ? (
         <div>
-          {/* <h1>I'm trying...don't hate me!</h1> */}
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
 
@@ -167,44 +160,53 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
+                  { field: "Bldg", minWidth: 100 },
+                  { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100, },
-                  { field: "Count Status",
-                  renderCell: () => (
-                    <FiberManualRecordIcon
-                    fontSize="small"
-                    // sx={{
-                    //     mr: 2,
-                    //     color:
-                    //       props.status === "connected" ? "#4caf50" : "#d9182e",
-                    //   }}
-                    sx={{color: "#d9182e"}}
-                      />
-                      ),
-                    },
-                    { field: "Ordered", minWidth: 100, },
-                    { field: "Courier", minWidth: 100 },
-                    { field: "Tracking", minWidth: 100 },
-                    // { field: "Contact", minWidth: 200, cellClassName:'contact-content' },
-                    // {
-                    //   field: "Contact",
-                    //   width: 300,
-                    //   renderCell: () => (
-                    //     <div>
-                    //       <Typography>{inventory.item_name}</Typography>
-                    //       <Typography color="textSecondary"></Typography>
-                    //     </div>
-                    //   )
-                    // },
+                  {
+                    field: "Count Status",
+                    renderCell: (params) => (
+                      <div>
+                        {params.row.Count > params.row.MinCount + params.row.MinCount * 0.25 ? (
+                          <FiberManualRecordIcon sx={{ color: "#4CAF50" }} />
+                        ) : params.row.Count <= params.row.MinCount + params.row.MinCount * 0.25 && params.row.Count >= params.row.MinCount ? (
+                          <FiberManualRecordIcon sx={{ color: "#fb8c00" }} />
+                        ) : params.row.Count < params.row.MinCount ? (
+                          <FiberManualRecordIcon sx={{ color: "#ff0000" }} />
+                        ) : (
+                          null
+                        )}
+                      </div>
+                    ),
+                  },
+                  { field: "Ordered", minWidth: 100, },
+                  { field: "Initial", minWidth: 100 },
+                  { field: "Returnable", minWidth: 100 },
+                  {
+                    field: "Issue",
+                    minWidth: 10,
+                    editable: true,
+                    renderCell: (params) => (
+                      <Tooltip title='Isssue Item'>
+                        <AddCircleIcon
+                          sx={{ cursor: "pointer", color: '#4CAF50' }}
+                          onClick={() => onEditOpen(params)}
+
+                        />
+                      </Tooltip>
+
+                    ),
+                  },
                   {
                     field: "Edit",
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
                       <Tooltip title='Edit Item'>
-                      <EditIcon
-                        sx={{ cursor: "pointer", color: '#FF9A01' }}
-                        onClick={() => onEditOpen(params)}
-                      />
+                        <EditIcon
+                          sx={{ cursor: "pointer", color: '#fb8c00' }}
+                          onClick={() => onEditOpen(params)}
+                        />
                       </Tooltip>
 
                     ),
@@ -230,14 +232,15 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                     Name: row.item_name,
                     Brand: row.brand,
                     NSN: row.nsn,
+                    Bldg: row.building,
                     Size: row.item_size,
                     Count: row.item_count,
                     Gender: row.gender,
+                    Aisle: row.aisle,
+                    Initial: row.intial_gear,
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
-                    Courier: row.courier,
-                    Tracking: row.tracking,
-                    Contact: row.contact
+                    Returnable: row.returnable_item,
                   };
                 })}
               />
@@ -334,8 +337,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
                         />
-                        </div>  
-                        <div>                     
+                      </div>
+                      <div>
                         <TextField
                           id="filled"
                           variant="filled"
@@ -354,7 +357,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
                         />
-                        <TextField
+                        {/* <TextField
                           id="filled"
                           variant="filled"
                           label="Courier"
@@ -369,15 +372,15 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           defaultValue={editedItem?.Tracking}
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
-                        /> 
-                          <TextField
-                            id="filled"
-                            variant="filled"
-                            label="Initial Gear"
-                            defaultValue={editedItem?.Initial}
-                            sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                            onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
-                          />
+                        />  */}
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Initial Gear"
+                          defaultValue={editedItem?.Initial}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
+                        />
                         <TextField
                           id="filled"
                           variant="filled"
@@ -386,7 +389,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
                         />
-                        </div>
+                      </div>
                     </Box>
                   </CardContent>
                   <CardActions>
@@ -407,8 +410,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
             </div>
           </div>
         </div>
-      )
-      }
+      )}
     </Box >
   );
 }
