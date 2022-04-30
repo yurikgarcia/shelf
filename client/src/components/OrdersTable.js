@@ -242,6 +242,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
                     Returnable: row.returnable_item,
+                    Courier: row.courier,
+                    Tracking: row.tracking,
                   };
                 })}
               />

@@ -33,6 +33,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
     ordered: 0,
     intial_gear: false,
     returnable_item: true,
+    initial: '',
+    returnable: '',
     courier: '',
     tracking: '',
     contact: ''
