@@ -9,6 +9,8 @@ import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -23,11 +25,17 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
     nsn: '',
     item_size: '',
     gender: '',
+    building: '',
+    aisle: '',
     item_count: 0,
+    minimum_count: 0,
     count_status: '',
     ordered: 0,
+    intial_gear: false,
+    returnable_item: true,
     courier: '',
-    tracking: ''
+    tracking: '',
+    contact: ''
   })
   const handleAddOpen = () => setAddModalOpen(true);
   const handleCloseAddModal = () => setAddModalOpen(false);
@@ -69,7 +77,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
           onClick={handleAddOpen}
           color='secondary'
         >
-          ADD ORDERS
+          ADD ITEM
         </Button>
       </Box>
       <Modal
@@ -138,6 +146,18 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               />
               <TextField
                 id="outlined-error-helper-text"
+                label="Building"
+                onChange={(e) => setAddedItem({ ...addedItem, building: e.target.value })}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-error-helper-text"
+                label="Aisle"
+                onChange={(e) => setAddedItem({ ...addedItem, aisle: e.target.value })}
+              />
+              <TextField
+                id="outlined-error-helper-text"
                 label="Item Count"
                 placeholder='Number'
                 type="number"
@@ -175,7 +195,53 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 onChange={(e) => setAddedItem({ ...addedItem, tracking: e.target.value })}
               />
             </div>
+            <div>
+              <TextField
+                id="outlined-error"
+                label="Initial Gear"
+                onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
+              />
+              <TextField
+                id="outlined-error"
+                label="Returnable Item"
+                onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
+              />
+            </div>
           </Box>
+          <Stack direction="row" spacing={2}>
+          <Box sx={{ ml: 1 }}>
+              <FormControl sx={{ minWidth: 135 }}>
+                <InputLabel id="demo-simple-select-label">Initial</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={initial}
+                  label="Age"
+                  onChange={handleChange}
+                  
+                >
+                  <MenuItem value={true}>Yes</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+          </Box>
+          <Box sx={{ml: 1}}>
+              <FormControl sx={{ minWidth: 135 }}>
+                <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={returnable}
+                  label="Age"
+                  onChange={handleReturnable}
+                  
+                >
+                  <MenuItem value={true}>Yes</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
+                </Select>
+              </FormControl>
+          </Box>
+          </Stack>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>
