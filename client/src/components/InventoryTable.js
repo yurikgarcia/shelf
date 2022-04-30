@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import warehouse from './warehouse.gif'
 
 
-export default function RowsGrid({ inventory, fetchInventory, spinner}) {
+export default function RowsGrid({ inventory, fetchInventory, spinner }) {
 
   const [editedItem, setEditedItem] = useState({
     Name: '',
@@ -57,7 +57,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
     Tracking: 'test'
   });
   const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onDelete = async (params) => {
@@ -123,35 +122,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner}) {
       })
   }
 
-//-----------------COUNT STATUS------------------------------
-let [color, setColor] = useState();
-// let [count, setCount] = useState ({
-//     Count: inventory.count
-//   });
-// let [minCount, setMinCount] = useState ({
-//     MinCount: inventory.minimum_count
-//   });
-
-
-  let Count = inventory[0].item_count;
-  let MinCount = inventory[0].minimum_count;
-
-if (Count > MinCount + MinCount * 0.25) {
-  color = <FiberManualRecordIcon sx={{ color: "#008000" }} />;
-} else {
-  if (Count <= MinCount + MinCount * 0.25 && Count >= MinCount) {
-    color = <FiberManualRecordIcon sx={{ color: "#FFFF00" }} />;
-  } else {
-    if (Count < MinCount) {
-      color = <FiberManualRecordIcon sx={{ color: "#ff0000" }} />;
-    }
-  }
-}
-
-console.log(inventory)
-console.log(inventory[8].item_count)
-console.log(inventory.item_count)
-
   return (
     <Box
       sx={{
@@ -164,7 +134,6 @@ console.log(inventory.item_count)
     >
       {spinner ? (
         <div>
-          {/* <h1>I'm trying...don't hate me!</h1> */}
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
 
@@ -194,43 +163,50 @@ console.log(inventory.item_count)
                   { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100, },
-
-
-                  { field: "Count Status",
-                  renderCell: () => (
-                    <div> {color} </div>
-                      ),
-                    },
-
-
-                    { field: "Ordered", minWidth: 100, },
-                    { field: "Initial", minWidth: 100 },
-                    { field: "Returnable", minWidth: 100 },
-                    {
-                      field: "Issue",
-                      minWidth: 10,
-                      editable: true,
-                      renderCell: (params) => (
-                        <Tooltip title='Isssue Item'>
+                  {
+                    field: "Count Status",
+                    renderCell: (params) => (
+                      <div>
+                        {params.row.Count > params.row.MinCount + params.row.MinCount * 0.25 ? (
+                          <FiberManualRecordIcon sx={{ color: "#008000" }} />
+                        ) : params.row.Count <= params.row.MinCount + params.row.MinCount * 0.25 && params.row.Count >= params.row.MinCount ? (
+                          <FiberManualRecordIcon sx={{ color: "#FFFF00" }} />
+                        ) : params.row.Count < params.row.MinCount ? (
+                          <FiberManualRecordIcon sx={{ color: "#ff0000" }} />
+                        ) : (
+                          null
+                        )}
+                      </div>
+                    ),
+                  },
+                  { field: "Ordered", minWidth: 100, },
+                  { field: "Initial", minWidth: 100 },
+                  { field: "Returnable", minWidth: 100 },
+                  {
+                    field: "Issue",
+                    minWidth: 10,
+                    editable: true,
+                    renderCell: (params) => (
+                      <Tooltip title='Isssue Item'>
                         <AddCircleIcon
                           sx={{ cursor: "pointer", color: '#4CAF50' }}
                           onClick={() => onEditOpen(params)}
 
                         />
-                        </Tooltip>
-  
-                      ),
-                    },
+                      </Tooltip>
+
+                    ),
+                  },
                   {
                     field: "Edit",
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
                       <Tooltip title='Edit Item'>
-                      <EditIcon
-                        sx={{ cursor: "pointer", color: '#fb8c00' }}
-                        onClick={() => onEditOpen(params)}
-                      />
+                        <EditIcon
+                          sx={{ cursor: "pointer", color: '#fb8c00' }}
+                          onClick={() => onEditOpen(params)}
+                        />
                       </Tooltip>
 
                     ),
@@ -361,8 +337,8 @@ console.log(inventory.item_count)
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
                         />
-                        </div>  
-                        <div>                     
+                      </div>
+                      <div>
                         <TextField
                           id="filled"
                           variant="filled"
@@ -397,14 +373,14 @@ console.log(inventory.item_count)
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
                         />  */}
-                          <TextField
-                            id="filled"
-                            variant="filled"
-                            label="Initial Gear"
-                            defaultValue={editedItem?.Initial}
-                            sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                            onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
-                          />
+                        <TextField
+                          id="filled"
+                          variant="filled"
+                          label="Initial Gear"
+                          defaultValue={editedItem?.Initial}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
+                        />
                         <TextField
                           id="filled"
                           variant="filled"
@@ -413,7 +389,7 @@ console.log(inventory.item_count)
                           sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
                         />
-                        </div>
+                      </div>
                     </Box>
                   </CardContent>
                   <CardActions>
@@ -434,8 +410,7 @@ console.log(inventory.item_count)
             </div>
           </div>
         </div>
-      )
-      }
+      )}
     </Box >
   );
 }
