@@ -54,7 +54,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
     Ordered: 0,
     Returnable: true,
     Courier: '-',
-    Tracking: 'test'
+    Tracking: '-'
   });
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
