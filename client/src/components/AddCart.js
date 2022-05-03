@@ -73,13 +73,13 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
   return (
     <div>
       <Box sx={{ ml: 15, mt: 1 }}>
-      <Tooltip title='Add Item to Inventory' placement="top">
-        <Button variant="contained"
+      <Tooltip title='Add Items to Cart' placement="top">
+        <Button variant="outlined"
           startIcon={<AddIcon />}
-          onClick={handleAddOpen}
+          // onClick={handleAddOpen}
           color='secondary'
         >
-          ADD ITEM
+          ADD To CART
         </Button>
       </Tooltip>
       </Box>

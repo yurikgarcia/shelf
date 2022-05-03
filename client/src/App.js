@@ -1,5 +1,5 @@
 import './App.css';
-import * as React from 'react';
+import React, { useState, useEffect} from 'react';
 import { createTheme } from '@mui/material/styles';
 import DeploymentGear from "./components/DeploymentGear";
 import Home from "./components/Home.js";
@@ -24,18 +24,30 @@ const customTheme = createTheme ({
 });
 
 
+
 function App() {
+
+  const [shoppingCart, setShoppingCart] = useState([{"ballsack":"ballsack"}]);
+
+  // useEffect(() => {
+  //   console.log("shopping cart", shoppingCart)
+  // },[]
+  // )
+
+  
+
+
   return (
 <ThemeProvider theme = {customTheme}> 
     <div>
       <header>
-        <NavDrawer />
+        <NavDrawer shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}/>
       </header>
       <main>
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/deploymentinventory" element={<DeploymentGear/>} /> 
-        <Route path="/inventory" element={<Inventory/>} /> 
+        <Route path="/inventory" element={<Inventory shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />} /> 
         <Route path="/users" element={<Users />} /> 
         <Route path="/orders" element={<Orders />} /> 
       </Routes>

@@ -23,6 +23,11 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import { useColorScheme } from '@mui/material';
 
+
+  /**
+   * 
+   * settings for user drop down css
+   */
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -35,11 +40,12 @@ const MenuProps = {
 };
 
 
-
-export default function CheckoutDrawer() {
+export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
   const [state, setState] = React.useState({
     right: false,
   });
+
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -106,6 +112,10 @@ export default function CheckoutDrawer() {
     Delete: [],
   });
 
+  /**
+   * 
+   * number array for quantity drop down
+   */
   const number = [1,2,3,4,5,6,7,8,9,10]
 
   return (

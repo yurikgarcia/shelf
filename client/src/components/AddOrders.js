@@ -79,7 +79,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
           onClick={handleAddOpen}
           color='secondary'
         >
-          ADD ITEM
+          ADD Order
         </Button>
       </Box>
       <Modal
@@ -103,7 +103,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
         }} >
           <Box>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add New Item
+              Add New Order
             </Typography>
           </Box>
           <Box

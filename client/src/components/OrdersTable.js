@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Modal from '@mui/material/Modal';
+import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
@@ -142,7 +143,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
-                checkboxSelection
                 disableSelectionOnClick
                 initialState={{
                   sorting: {
@@ -160,8 +160,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
-                  { field: "Bldg", minWidth: 100 },
-                  { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100, },
                   {
                     field: "Count Status",
@@ -182,18 +180,13 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                   { field: "Ordered", minWidth: 100, },
                   { field: "Courier", minWidth: 100 },
                   { field: "Tracking", minWidth: 100 },
-                  { field: "Returnable", minWidth: 100 },
                   {
-                    field: "Issue",
+                    field: "Received",
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
-                      <Tooltip title='Isssue Item'>
-                        <AddCircleIcon
-                          sx={{ cursor: "pointer", color: '#4CAF50' }}
-                          onClick={() => onEditOpen(params)}
-
-                        />
+                      <Tooltip title='Received Item'>
+                        <CallReceivedIcon/>
                       </Tooltip>
 
                     ),
@@ -233,15 +226,12 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     Name: row.item_name,
                     Brand: row.brand,
                     NSN: row.nsn,
-                    Bldg: row.building,
                     Size: row.item_size,
                     Count: row.item_count,
                     Gender: row.gender,
-                    Aisle: row.aisle,
                     Initial: row.intial_gear,
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
-                    Returnable: row.returnable_item,
                     Courier: row.courier,
                     Tracking: row.tracking,
                   };

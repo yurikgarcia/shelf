@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import AddCart from "./AddCart.js";
 import AddModal from "./AddModal.js";
 import Box from '@mui/material/Box';
 import InventoryTable from "./InventoryTable.js";
 import axios from 'axios';
 
-function Inventory() {
+function Inventory({shoppingCart, setShoppingCart}) {
   const [inventory, setInventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
@@ -30,6 +31,8 @@ function Inventory() {
       })
   };
 
+  
+
   return (
     <div>
       <div>
@@ -40,10 +43,11 @@ function Inventory() {
 
           <Box sx={{display:"flex", flexDirection: 'row'}}>
               <AddModal inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>   
+              <AddCart inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>   
           </Box>
 
           <Box sx={{ ml: 8, mt: 1 }}>
-            <InventoryTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner}/>
+            <InventoryTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner} shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />
           </Box>
         </main>
       </div>

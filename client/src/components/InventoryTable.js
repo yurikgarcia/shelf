@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CheckoutDrawer from "./CheckoutDrawer.js";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,7 +20,10 @@ import Typography from '@mui/material/Typography';
 import warehouse from './warehouse.gif'
 
 
-export default function RowsGrid({ inventory, fetchInventory, spinner }) {
+
+
+export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingCart, setShoppingCart }) {
+
 
   const [editedItem, setEditedItem] = useState({
     Name: '',
@@ -122,6 +126,40 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
       })
   }
 
+
+  /**
+   * 
+   * shopping cart functions
+   */
+
+  const [list, setList] = React.useState();
+  const [name, setName] = React.useState('');
+
+  function handleChange(event) {
+    setName(event.target.value);
+  }
+
+  function handleAdd() {
+    const newList = list.concat({ name });
+    setList(newList);
+  }
+
+  const handleAddtoCart = (params) => {
+  console.log("called")
+  console.log(params.row.Name)
+  console.log(params.row.Delete)
+  let itemName = params.row.Name
+  let id = params.row.Delete
+  let payload = {itemName: id}
+  // setShoppingCart([{...shoppingCart}, payload])
+  shoppingCart.push(payload)
+  setTimeout(()=> {
+    console.log('updated cart',shoppingCart)
+  })
+}
+
+
+
   return (
     <Box
       sx={{
@@ -190,8 +228,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                       <Tooltip title='Isssue Item'>
                         <AddCircleIcon
                           sx={{ cursor: "pointer", color: '#4CAF50' }}
-                          onClick={() => onEditOpen(params)}
-
+                          onClick={() => handleAddtoCart(params)}
                         />
                       </Tooltip>
 

@@ -145,7 +145,7 @@ const Drawer = styled(MuiDrawer, {
   })
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -153,9 +153,12 @@ export default function MiniDrawer() {
   //   setOpen(true);
   // };
 
+  
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
 
   return (
       <Box sx={{ display: "flex", }}>
@@ -229,7 +232,7 @@ export default function MiniDrawer() {
               
             </Search>
             <ProfileMenu />
-            <CheckoutDrawer sx={{}}/>   
+            <CheckoutDrawer shoppingCart={shoppingCart}/>   
           </Toolbar>
         </AppBar>
 
