@@ -27,7 +27,7 @@ const customTheme = createTheme ({
 
 function App() {
 
-  const [shoppingCart, setShoppingCart] = useState([{"ballsack":"ballsack"}]);
+  const [shoppingCart, setShoppingCart] = useState([]);
 
   // useEffect(() => {
   //   console.log("shopping cart", shoppingCart)

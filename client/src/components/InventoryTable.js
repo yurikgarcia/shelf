@@ -150,7 +150,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
   console.log(params.row.Delete)
   let itemName = params.row.Name
   let id = params.row.Delete
-  let payload = {itemName: id}
+  let payload = {itemName: itemName}
   // setShoppingCart([{...shoppingCart}, payload])
   shoppingCart.push(payload)
   setTimeout(()=> {

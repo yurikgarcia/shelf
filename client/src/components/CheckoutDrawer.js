@@ -23,6 +23,11 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import { useColorScheme } from '@mui/material';
 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 
   /**
    * 
@@ -45,6 +50,8 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
     right: false,
   });
 
+  console.log('cART', shoppingCart)
+  console.log('cart item name', shoppingCart[0].itemName)
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -118,6 +125,8 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
    */
   const number = [1,2,3,4,5,6,7,8,9,10]
 
+
+
   return (
     <div>
       {['right'].map((anchor) => (
@@ -149,7 +158,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                       input={<OutlinedInput label="Name" />}
                       MenuProps={MenuProps}
                     >
-                      {users.map((users) => (
+                      {users.map(() => (
                           <MenuItem
                           key={users.dod_id}
                           value={users.dod_id}
@@ -161,8 +170,44 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                 </FormControl>
               </ListItem>
               <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
-              <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}> 
-                <Box sx={{ minWidth: 105 }}>
+
+              <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
+                    {shoppingCart.map(() => {
+                return (
+              <div>
+              <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{display:'flex',  mr: 5}}>
+                {shoppingCart[2].itemName}
+                </Box>
+                  <Box sx={{ minWidth: 105 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
+                          <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-multiple-name"
+                          multiple
+                          value={personName}
+                          onChange={handleChange}
+                          input={<OutlinedInput label="Name" />}
+                          MenuProps={MenuProps}
+                        >
+                                      {/* {number.map((number) => (
+                                          <MenuItem
+                                          key={number}
+                                          value={number}
+                                        >
+                                            {number} 
+                                          </MenuItem>
+                                        ))} */}
+                        </Select>
+                      </FormControl>
+                    </Box>
+              </Box>
+              </div>
+                );
+              })}
+                            </ListItem>       
+                {/* <Box sx={{ minWidth: 105 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
                     <Select
@@ -184,11 +229,10 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                           ))}
                       </Select>
                   </FormControl>
-                </Box>
-              </ListItem>         
-                <Divider sx={{mt:2}}/>
-                <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}> 
-                <Box sx={{ minWidth: 105 }}>
+                </Box> */}        
+                {/* <Divider sx={{mt:2}}/>  */}
+                {/* <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}>  */}
+                {/* <Box sx={{ minWidth: 105 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
                     <Select
@@ -210,8 +254,8 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                           ))}
                       </Select>
                   </FormControl>
-                </Box>
-              </ListItem>     
+                </Box> */}
+              {/* </ListItem>      */}
               <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
                 <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
                   <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >

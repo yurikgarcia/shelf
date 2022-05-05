@@ -231,7 +231,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               />
               
             </Search>
-            <ProfileMenu />
+            <ProfileMenu/>
             <CheckoutDrawer shoppingCart={shoppingCart}/>   
           </Toolbar>
         </AppBar>
