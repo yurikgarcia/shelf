@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CheckoutDrawer from "./CheckoutDrawer.js";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';

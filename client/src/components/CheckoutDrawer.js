@@ -14,24 +14,17 @@ import ListItem from '@mui/material/ListItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-// import { styled, useTheme } from "@mui/material/styles";
 import SaveIcon from '@mui/icons-material/Save';
 import shelfLogo from './shelfLogo.png'
 import Select from '@mui/material/Select';
 import Tooltip from '@mui/material/Tooltip';
-// import Typography from "@mui/material/Typography";
-import { useTheme } from '@mui/material/styles';
-import { useColorScheme } from '@mui/material';
+import TextField from "@mui/material/TextField";
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 
 
   /**
    * 
-   * settings for user drop down css
+   * settings for user drop down css`
    */
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -73,7 +66,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
     </Box>
   );
 
-  const theme = useTheme();
+
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -182,6 +175,16 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                 return (
               <div key={index}>
                   <p>{item.itemName}</p>
+                  <TextField
+                    required
+                          id="filled"
+                          variant="outlined"
+                          label="Quantity"
+                          type="number"
+                          defaultValue=''
+                          // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                        />
             </div>
                 );
               })}
