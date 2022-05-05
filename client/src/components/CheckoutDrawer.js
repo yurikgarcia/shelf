@@ -146,7 +146,28 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                 <h2>Shopping Cart</h2>
               </ListItem>
                 <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-              <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
+              <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
+                    {shoppingCart?.map((item, index) => {
+                return (
+              <div key={index}>
+                  <p>{item.itemName}</p>
+                  <TextField
+                    required
+                    id="filled"
+                    variant="outlined"
+                    label="Quantity"
+                    type="number"
+                    defaultValue=''
+                    style = {{width: 100}}
+                          // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                        />
+            </div>
+                );
+              })}
+            </ListItem>     
+            <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
+            <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-name-label">Name</InputLabel>
                     <Select
@@ -169,81 +190,12 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                     </Select>
                 </FormControl>
               </ListItem>
-                <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
-              <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
-                    {shoppingCart?.map((item, index) => {
-                return (
-              <div key={index}>
-                  <p>{item.itemName}</p>
-                  <TextField
-                    required
-                          id="filled"
-                          variant="outlined"
-                          label="Quantity"
-                          type="number"
-                          defaultValue=''
-                          // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
-                        />
-            </div>
-                );
-              })}
-            </ListItem>     
-                {/* <Box sx={{ minWidth: 105 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-multiple-name"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={<OutlinedInput label="Name" />}
-                        MenuProps={MenuProps}
-                      >
-                        {number.map((number) => (
-                            <MenuItem
-                            key={number}
-                            value={number}
-                          >
-                              {number} 
-                            </MenuItem>
-                          ))}
-                      </Select>
-                  </FormControl>
-                </Box> */}        
-                {/* <Divider sx={{mt:2}}/>  */}
-                {/* <ListItem disablePadding sx={{ display: 'flex', ml:3, mt: 10}}>  */}
-                {/* <Box sx={{ minWidth: 105 }}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-multiple-name"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={<OutlinedInput label="Name" />}
-                        MenuProps={MenuProps}
-                      >
-                        {number.map((number) => (
-                            <MenuItem
-                            key={number}
-                            value={number}
-                          >
-                              {number} 
-                            </MenuItem>
-                          ))}
-                      </Select>
-                  </FormControl>
-                </Box> */}
-              {/* </ListItem>      */}
-              <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
-                  <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >
-                    Checkout
-                  </Button>
-                </ListItem>
+                <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                  <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
+                    <Button color='secondary' variant="contained" box-sizing="medium" startIcon={<SaveIcon />} >
+                      Checkout
+                    </Button>
+                  </ListItem>
             </List>
           </Drawer>
         </React.Fragment>
