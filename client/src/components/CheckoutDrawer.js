@@ -50,9 +50,6 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
     right: false,
   });
 
-  console.log('cART', shoppingCart)
-  console.log('cart item name', shoppingCart[0].itemName)
-
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -172,41 +169,14 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
               <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
 
               <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
-                    {shoppingCart.map(() => {
+                    {shoppingCart?.map((item, index) => {
                 return (
-              <div>
-              <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Box sx={{display:'flex',  mr: 5}}>
-                {shoppingCart[2].itemName}
-                </Box>
-                  <Box sx={{ minWidth: 105 }}>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
-                          <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-multiple-name"
-                          multiple
-                          value={personName}
-                          onChange={handleChange}
-                          input={<OutlinedInput label="Name" />}
-                          MenuProps={MenuProps}
-                        >
-                                      {/* {number.map((number) => (
-                                          <MenuItem
-                                          key={number}
-                                          value={number}
-                                        >
-                                            {number} 
-                                          </MenuItem>
-                                        ))} */}
-                        </Select>
-                      </FormControl>
-                    </Box>
-              </Box>
-              </div>
+              <div key={index}>
+                  <p>{item.itemName}</p>
+            </div>
                 );
               })}
-                            </ListItem>       
+            </ListItem>       
                 {/* <Box sx={{ minWidth: 105 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
