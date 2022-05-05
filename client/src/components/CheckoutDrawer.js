@@ -92,8 +92,10 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
   //initial call to grab users from DB on load
   useEffect(() => {
     fetchUsers();
+    console.log("userssss", users)
   }, []);
 
+  // console.log("namess", users[0].first_name)
   /**
    * @returns users
    * fetches DB after any changes to the resutls array from the user on the front end
@@ -155,18 +157,18 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                       input={<OutlinedInput label="Name" />}
                       MenuProps={MenuProps}
                     >
-                      {users.map(() => (
+                      {users.map((users) => (
                           <MenuItem
                           key={users.dod_id}
                           value={users.dod_id}
                         >
-                            {users.first_name} {users.last_name}
+                    {users.first_name} {users.last_name}
                           </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
               </ListItem>
-              <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
+              {/* <Divider sx={{mt:2, borderBottomWidth: 3 }}/> */}
 
               <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
                     {shoppingCart?.map((item, index) => {
@@ -176,7 +178,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
             </div>
                 );
               })}
-            </ListItem>       
+            </ListItem>        
                 {/* <Box sx={{ minWidth: 105 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Qnty</InputLabel>
