@@ -92,10 +92,9 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
   //initial call to grab users from DB on load
   useEffect(() => {
     fetchUsers();
-    console.log("userssss", users)
   }, []);
 
-  // console.log("namess", users[0].first_name)
+
   /**
    * @returns users
    * fetches DB after any changes to the resutls array from the user on the front end
@@ -106,7 +105,6 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
       .then(res => {
         setUsers(res.data);
         setSpinner(false);
-        console.log(users)
       })
       .catch(err => {
         console.log(err);
@@ -131,7 +129,17 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title= 'Shopping Cart'>
-            <ShoppingCartIcon  sx={{color:'white'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+            
+            {/* <ShoppingCartIcon  sx={{color:'white'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon> */}
+
+
+            {shoppingCart.length >= 1 ? (
+                      
+                          <ShoppingCartIcon  sx={{ color: "#4CAF50" }}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+                        ) : (
+                          <ShoppingCartIcon  sx={{ color: "white" }} onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon> ) }
+
+
           </Tooltip>
           <Drawer
             anchor={anchor}
@@ -168,8 +176,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                     </Select>
                 </FormControl>
               </ListItem>
-              {/* <Divider sx={{mt:2, borderBottomWidth: 3 }}/> */}
-
+                <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
               <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
                     {shoppingCart?.map((item, index) => {
                 return (
@@ -178,7 +185,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
             </div>
                 );
               })}
-            </ListItem>        
+            </ListItem>     
                 {/* <Box sx={{ minWidth: 105 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Qnty</InputLabel>

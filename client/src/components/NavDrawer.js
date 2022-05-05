@@ -160,6 +160,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   };
 
 
+
   return (
       <Box sx={{ display: "flex", }}>
         <CssBaseline/>

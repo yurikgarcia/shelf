@@ -145,9 +145,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
   }
 
   const handleAddtoCart = (params) => {
-  console.log("called")
-  console.log(params.row.Name)
-  console.log(params.row.Delete)
   let itemName = params.row.Name
   let id = params.row.Delete
   let payload = {itemName: itemName}
