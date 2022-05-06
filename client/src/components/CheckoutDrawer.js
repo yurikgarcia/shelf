@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import ClearIcon from '@mui/icons-material/Clear';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import FormControl from '@mui/material/FormControl';
@@ -122,17 +123,12 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
       {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title= 'Shopping Cart'>
-            
-            {/* <ShoppingCartIcon  sx={{color:'white'}}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon> */}
-
-
             {shoppingCart.length >= 1 ? (
                       
                           <ShoppingCartIcon  sx={{ color: "#4CAF50" }}  onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
                         ) : (
-                          <ShoppingCartIcon  sx={{ color: "white" }} onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon> ) }
-
-
+                          <ShoppingCartIcon  sx={{ color: "white" }} onClick={toggleDrawer(anchor, true)}>{anchor}</ShoppingCartIcon>
+                          )}
           </Tooltip>
           <Drawer
             anchor={anchor}
@@ -146,27 +142,47 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
                 <h2>Shopping Cart</h2>
               </ListItem>
                 <Divider sx={{mt:2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+
+
+
+
               <ListItem disablePadding sx={{ display: 'flex', mt: 2, flexDirection: 'column'}}> 
                     {shoppingCart?.map((item, index) => {
                 return (
-              <div key={index}>
-                  <p>{item.itemName}</p>
-                  <TextField
-                    required
-                    id="filled"
-                    variant="outlined"
-                    label="Quantity"
-                    type="number"
-                    defaultValue=''
-                    style = {{width: 100}}
-                          // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
-                        />
+              <div style={{"width" : "100%"}} key={index}>
+                <Box sx={{display:'flex', mt:2, ml: 3, flexDirection:'row', width:'1000'}}>
+                  <Box sx= {{width: 100}}>
+                    <p>{item.itemName}</p>
+                  </Box>
+                  <Box>
+                    <TextField
+                      required
+                      id="filled"
+                      variant="outlined"
+                      label="Quantity"
+                      type="number"
+                      defaultValue=''
+                      style = {{width: 95, height: 80}}
+                      sx={{ml:2}}
+                            // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                            // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                          />
+                  </Box>
+                  <Box sx={{display:'flex', alignContent:'center', ml:6}}>
+                    <ClearIcon fontSize="x-small"/>
+                  </Box>
+                </Box>
+                <Divider sx={{borderBottomWidth: 2, }}/>     
             </div>
                 );
               })}
             </ListItem>     
-            <Divider sx={{mt:2, borderBottomWidth: 3 }}/>
+
+
+
+
+
+            <Divider sx={{mt:2, borderBottomWidth: 3, bgcolor: "#155E9C" }}/>  
             <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-name-label">Name</InputLabel>
