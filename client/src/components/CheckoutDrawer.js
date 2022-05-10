@@ -23,6 +23,7 @@ import TextField from "@mui/material/TextField";
 
 
 
+
   /**
    * 
    * settings for user drop down css`
@@ -40,6 +41,10 @@ const MenuProps = {
 
 
 export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
+
+  const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
+  const [spinner, setSpinner] = useState(false); //spinner state
+
   const [state, setState] = React.useState({
     right: false,
   });
@@ -81,7 +86,7 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
   };
 
   const [users, setUsers] = useState([]); //users state
-  const [spinner, setSpinner] = useState(false); //spinner state
+
 
   //initial call to grab users from DB on load
   useEffect(() => {
@@ -117,6 +122,47 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
   const number = [1,2,3,4,5,6,7,8,9,10]
 
 
+
+
+/**
+ * shopping Cart fetch
+ */
+  const fetchNewShoppingCart = async () => {
+    setSpinner(true);
+    axios.get('http://localhost:3000/shopping-cart')
+      .then(res => {
+        setNewShoppingCart(res.data);
+        setSpinner(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setSpinner(false);
+      })
+  };
+  
+  const [addedItem, setAddedItem] = useState ({
+    user_inv_id: '',
+    dod_id: '',
+    ietms: ''
+  })
+/**
+ * adds to shopping cart
+ */
+
+ const addItemToShoppingCart = async () => {
+  const newInventory = addedItem;
+  axios.post('http://localhost:3000/shopping-cart', { item: newShoppingCart })
+    .then(res => {
+      if (res.status === 200) {
+        setNewShoppingCart([...newShoppingCart, newShoppingCart])
+        fetchNewShoppingCart()
+      }
+    })
+    .catch(err => {
+      alert('Sorry! Something went wrong. Please try again.')
+      console.log('err', err);
+    })
+};
 
   return (
     <div>

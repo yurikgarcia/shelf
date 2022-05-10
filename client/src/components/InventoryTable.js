@@ -1,63 +1,66 @@
-import React, { useState } from "react";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import React, { useState, useEffect } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import Button from "@mui/material/Button";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import Modal from '@mui/material/Modal';
-import SaveIcon from '@mui/icons-material/Save';
-import Stack from '@mui/material/Stack';
+import EditIcon from "@mui/icons-material/Edit";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import Modal from "@mui/material/Modal";
+import SaveIcon from "@mui/icons-material/Save";
+import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
-import warehouse from './warehouse.gif'
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import warehouse from "./warehouse.gif";
 
-
-
-
-export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingCart, setShoppingCart }) {
-
+export default function RowsGrid({
+  inventory,
+  fetchInventory,
+  spinner,
+  setSpinner,
+  shoppingCart,
+  setShoppingCart,
+}) {
+  const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
 
   const [editedItem, setEditedItem] = useState({
-    Name: '',
-    Brand: '',
-    NSN: '',
-    Bldg: '',
-    Size: '-',
+    Name: "",
+    Brand: "",
+    NSN: "",
+    Bldg: "",
+    Size: "-",
     Count: 0,
-    Gender: '-',
-    Aisle: '',
+    Gender: "-",
+    Aisle: "",
     Initial: false,
     MinCount: 0,
     Ordered: 0,
     Returnable: false,
-    Courier: '-',
-    Tracking: '-'
+    Courier: "-",
+    Tracking: "-",
   });
 
-
   const [newValue, setNewValue] = useState({
-    Delete: '',
-    Name: '',
-    Brand: '',
-    NSN: '',
-    Bldg: '',
-    Size: '-',
+    Delete: "",
+    Name: "",
+    Brand: "",
+    NSN: "",
+    Bldg: "",
+    Size: "-",
     Count: 0,
-    Gender: '-',
-    Aisle: '',
+    Gender: "-",
+    Aisle: "",
     Initial: false,
     MinCount: 0,
     Ordered: 0,
     Returnable: true,
-    Courier: '-',
-    Tracking: '-'
+    Courier: "-",
+    Tracking: "-",
   });
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -85,8 +88,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
   };
 
   const onEditOpen = (params) => {
-    setEditedItem(params.row)
-    setNewValue(params.row)
+    setEditedItem(params.row);
+    setNewValue(params.row);
     setOpen(true);
   };
 
@@ -113,26 +116,25 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
         Ordered: newValue.Ordered,
         Returnable: newValue.Returnable,
         Courier: newValue.Courier,
-        Tracking: newValue.Tracking
-      }
+        Tracking: newValue.Tracking,
+      },
     })
       .then(() => {
         console.log("success");
         fetchInventory();
       })
       .catch((err) => {
-        console.log('err', err)
-      })
-  }
-
+        console.log("err", err);
+      });
+  };
 
   /**
-   * 
+   *
    * shopping cart functions
    */
 
-  const [list, setList] = React.useState();
-  const [name, setName] = React.useState('');
+  const [list, setList] = useState();
+  const [name, setName] = useState("");
 
   function handleChange(event) {
     setName(event.target.value);
@@ -144,17 +146,59 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
   }
 
   const handleAddtoCart = (params) => {
-  let itemName = params.row.Name
-  let id = params.row.Delete
-  let payload = {itemName: itemName}
-  // setShoppingCart([{...shoppingCart}, payload])
-  shoppingCart.push(payload)
-  setTimeout(()=> {
-    console.log('updated cart',shoppingCart)
-  })
-}
+    let itemName = params.row.Name;
+    let id = params.row.Delete;
+    let payload = { itemName: itemName };
+    // setShoppingCart([{...shoppingCart}, payload])
+    shoppingCart.push(payload);
+    setTimeout(() => {
+      console.log("updated cart", shoppingCart);
+    });
+  };
 
+  /**
+   * adds to shopping cart
+   */
 
+  const addItemToShoppingCart = async (params) => {
+    let newShoppingCart = params.row
+    console.log(params.row);
+    axios
+      .post("http://localhost:3000/shopping-cart", newShoppingCart)
+      .then((res) => {
+        if (res.status === 200) {
+          //fetchNewShoppingCart()
+          console.log("success", res);
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+  };
+
+  //initial call to grab inventory from DB on load
+  useEffect(() => {
+    fetchNewShoppingCart();
+  }, []);
+
+  /**
+   * shopping Cart fetch
+   */
+  const fetchNewShoppingCart = async () => {
+    // setSpinner(true);
+    axios
+      .get("http://localhost:3000/shopping-cart")
+      .then((res) => {
+        setNewShoppingCart(res.data);
+        // setSpinner(false);
+        console.log(res.data[0].items[0].person);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setSpinner(false);
+      });
+  };
 
   return (
     <Box
@@ -170,9 +214,15 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
         <div>
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
-
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", height: "75vh", width: "100%" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            height: "75vh",
+            width: "100%",
+          }}
+        >
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
@@ -180,7 +230,7 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                 disableSelectionOnClick
                 initialState={{
                   sorting: {
-                    sortModel: [{ field: 'Name', sort: 'asc' }],
+                    sortModel: [{ field: "Name", sort: "asc" }],
                   },
                   pagination: {
                     pageSize: 50,
@@ -189,31 +239,32 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "Name", minWidth: 150, },
+                  { field: "Name", minWidth: 150 },
                   { field: "Brand", minWidth: 130 },
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
                   { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
-                  { field: "Count", minWidth: 100, },
+                  { field: "Count", minWidth: 100 },
                   {
                     field: "Count Status",
                     renderCell: (params) => (
                       <div>
-                        {params.row.Count > params.row.MinCount + params.row.MinCount * 0.25 ? (
+                        {params.row.Count >
+                        params.row.MinCount + params.row.MinCount * 0.25 ? (
                           <FiberManualRecordIcon sx={{ color: "#4CAF50" }} />
-                        ) : params.row.Count <= params.row.MinCount + params.row.MinCount * 0.25 && params.row.Count >= params.row.MinCount ? (
+                        ) : params.row.Count <=
+                            params.row.MinCount + params.row.MinCount * 0.25 &&
+                          params.row.Count >= params.row.MinCount ? (
                           <FiberManualRecordIcon sx={{ color: "#fb8c00" }} />
                         ) : params.row.Count < params.row.MinCount ? (
                           <FiberManualRecordIcon sx={{ color: "#ff0000" }} />
-                        ) : (
-                          null
-                        )}
+                        ) : null}
                       </div>
                     ),
                   },
-                  { field: "Ordered", minWidth: 100, },
+                  { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   {
@@ -221,13 +272,12 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
-                      <Tooltip title='Isssue Item'>
+                      <Tooltip title="Isssue Item">
                         <AddCircleIcon
-                          sx={{ cursor: "pointer", color: '#4CAF50' }}
-                          onClick={() => handleAddtoCart(params)}
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          onClick={() => addItemToShoppingCart(params)}
                         />
                       </Tooltip>
-
                     ),
                   },
                   {
@@ -235,22 +285,21 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
-                      <Tooltip title='Edit Item'>
+                      <Tooltip title="Edit Item">
                         <EditIcon
-                          sx={{ cursor: "pointer", color: '#fb8c00' }}
+                          sx={{ cursor: "pointer", color: "#fb8c00" }}
                           onClick={() => onEditOpen(params)}
                         />
                       </Tooltip>
-
                     ),
                   },
                   {
                     field: "Delete",
                     minWidth: 10,
                     renderCell: (params) => (
-                      <Tooltip title='Delete Item'>
+                      <Tooltip title="Delete Item">
                         <DeleteIcon
-                          sx={{ cursor: "pointer", color: '#ef5350' }}
+                          sx={{ cursor: "pointer", color: "#ef5350" }}
                           onClick={() => onDelete(params)}
                         />
                       </Tooltip>
@@ -284,25 +333,31 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: 425,
-                  bgcolor: 'background.paper',
-                  border: '3px solid',
-                  borderRadius: '16px',
-                  boxShadow: 19,
-                  p: 4,
-                  borderColor: '#FF9A01'
-                }} >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 425,
+                    bgcolor: "background.paper",
+                    border: "3px solid",
+                    borderRadius: "16px",
+                    boxShadow: 19,
+                    p: 4,
+                    borderColor: "#FF9A01",
+                  }}
+                >
                   <CardContent>
                     <Box>
-
                       <Box sx={{ mb: 2 }}>
-                        <Typography sx={{ fontSize: 22 }} color="text.primary" gutterBottom>
-                          Edit Item: {editedItem?.Name} {editedItem.Brand}  {editedItem?.Size}
+                        <Typography
+                          sx={{ fontSize: 22 }}
+                          color="text.primary"
+                          gutterBottom
+                        >
+                          Edit Item: {editedItem?.Name} {editedItem.Brand}{" "}
+                          {editedItem?.Size}
                         </Typography>
                       </Box>
                     </Box>
@@ -310,7 +365,8 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                       id="modal-modal-description"
                       component="form"
                       sx={{
-                        "& .MuiTextField-root": { m: 1, width: "15ch" }, mt: 2
+                        "& .MuiTextField-root": { m: 1, width: "15ch" },
+                        mt: 2,
                       }}
                       noValidate
                       autoComplete="off"
@@ -322,16 +378,20 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           variant="filled"
                           label="Name"
                           defaultValue={editedItem?.Name}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Name: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Name: e.target.value })
+                          }
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="NSN"
                           defaultValue={editedItem?.NSN}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, NSN: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, NSN: e.target.value })
+                          }
                         />
                       </div>
                       <div>
@@ -340,16 +400,20 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           variant="filled"
                           label="Building"
                           defaultValue={editedItem?.Bldg}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Bldg: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Bldg: e.target.value })
+                          }
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Aisle"
                           defaultValue={editedItem?.Aisle}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Aisle: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Aisle: e.target.value })
+                          }
                         />
                       </div>
                       <div>
@@ -358,8 +422,10 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           variant="filled"
                           label="Size"
                           defaultValue={editedItem?.Size}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Size: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Size: e.target.value })
+                          }
                         />
                         <TextField
                           id="filled"
@@ -367,8 +433,10 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           label="In Stock"
                           type="number"
                           defaultValue={editedItem?.Count}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Count: e.target.value })
+                          }
                         />
                       </div>
                       <div>
@@ -378,8 +446,13 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           label="Minimum Count"
                           type="number"
                           defaultValue={editedItem?.MinCount}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, MinCount: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({
+                              ...newValue,
+                              MinCount: e.target.value,
+                            })
+                          }
                         />
                         <TextField
                           id="filled"
@@ -387,8 +460,13 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           label="Ordered"
                           type="number"
                           defaultValue={editedItem?.Ordered}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Ordered: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({
+                              ...newValue,
+                              Ordered: e.target.value,
+                            })
+                          }
                         />
                         {/* <TextField
                           id="filled"
@@ -411,16 +489,26 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                           variant="filled"
                           label="Initial Gear"
                           defaultValue={editedItem?.Initial}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Initial: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({
+                              ...newValue,
+                              Initial: e.target.value,
+                            })
+                          }
                         />
                         <TextField
                           id="filled"
                           variant="filled"
                           label="Returnable Item"
                           defaultValue={editedItem?.Returnable}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                          onChange={(e) => setNewValue({ ...newValue, Returnable: e.target.value })}
+                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({
+                              ...newValue,
+                              Returnable: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </Box>
@@ -428,11 +516,22 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
                   <CardActions>
                     <Box sx={{ ml: 7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
-                        <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} onClick={(e) => handleSubmit(e)}>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          type="submit"
+                          startIcon={<SaveIcon />}
+                          onClick={(e) => handleSubmit(e)}
+                        >
                           Save
                         </Button>
 
-                        <Button color='secondary' variant="contained" startIcon={<CancelIcon />} onClick={() => setOpen(false)}>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          startIcon={<CancelIcon />}
+                          onClick={() => setOpen(false)}
+                        >
                           Cancel
                         </Button>
                       </Stack>
@@ -444,6 +543,6 @@ export default function RowsGrid({ inventory, fetchInventory, spinner, shoppingC
           </div>
         </div>
       )}
-    </Box >
+    </Box>
   );
 }
