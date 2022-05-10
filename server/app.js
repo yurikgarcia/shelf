@@ -208,13 +208,9 @@ app.patch('/users', (req, res) => {
   })
 })
 
-
-
 /*
-cd into server
-heroku login 
-git add -A
-git commit -am "pushing to heroku"
-heroku push
+git pull origin
+git checkout main
+heroku git:remote -a postgres-apr
+git push heroku main:main
 */
-
