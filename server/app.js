@@ -93,7 +93,7 @@ app.patch('/inventory', (req, res) => {
       SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item}, courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}'
         WHERE item_id = '${params.item_id}'`, (error, results) => {
     if (error) {
-    return res.send('error' + error)
+      return res.send('error' + error)
     }
     console.log('updated in DB')
     res.status(204)
@@ -105,7 +105,7 @@ app.patch('/inventory', (req, res) => {
 /**
  * Deletes item from the inventory table
  */
- app.delete('/inventory', (req, res) => {
+app.delete('/inventory', (req, res) => {
   const item_id = req.body.id;
   pool.query(`DELETE FROM inventory WHERE item_id='${item_id}'`,
     (error, results) => {
@@ -160,7 +160,7 @@ app.get('/users', (_, res) => {
 /**
  * Adds new users to the users table
  */
-  app.post('/users', (req, res) => {
+app.post('/users', (req, res) => {
   pool.query(`INSERT INTO users (dod_id, first_name, last_name, email) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}')`, (error, results) => {
     if (error) {
       res.send('error' + error)
@@ -199,7 +199,7 @@ app.patch('/users', (req, res) => {
       SET dod_id='${params.dod_id}', first_name='${params.first_name}', last_name='${params.last_name}', email='${params.email}' 
       WHERE dod_id = '${params.dod_id}'`, (error, results) => {
     if (error) {
-    return  res.send('error' + error)
+      return res.send('error' + error)
     }
     console.log('updated in DB')
     res.status(204)
@@ -210,18 +210,18 @@ app.patch('/users', (req, res) => {
 /** 
  * returns 
 */
- app.get('/shopping-cart', (_, res) => {
+app.get('/shopping-cart', (_, res) => {
   pool.query('SELECT * FROM shopping_cart', (error, results) => {
     if (error) {
-    return res.send('error' + error)
+      return res.send('error' + error)
     }
     res.send(results.rows)
   });
 });
 
 app.post('/shopping-cart', (req, res) => {
-  let inventoryId = Math.floor(Math.random(1000)) 
-  let dodId = Math.floor(Math.random(10000)) 
+  let inventoryId = Math.floor(Math.random(1000))
+  let dodId = Math.floor(Math.random(10000))
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
@@ -243,50 +243,30 @@ app.post('/shopping-cart', (req, res) => {
   VALUES (
     '${inventoryId}',
     '${dodId}',
-    '"[
-      "id":"${params.id}",
-      "Delete":"${params.Delete}",
-      "Edit":"${params.Edit}",
-      "Name":"${params.Name}",
-      "Brand":"${params.Brand}",
-      "NSN":"${params.NSN}",
-      "Bldg":"${params.Bldg}",
-      "Size":"${params.Size}",
-      "Count":"${params.Count}",
-      "Gender":"${params.Gender}",
-      "Aisle":"${params.Aisle}",
-      "Initial":"${params.Initial}",
-      "MinCount":"${params.MinCount}",
-      "Ordered":"${params.Ordered}",
-      "Returnable":"${params.Returnable}"
-    ]"'::json[])`, (error, results) => {
+    array['{
+      "id": "${params.id}",
+      "Delete": "${params.Delete}",
+      "Edit": "${params.Edit}",
+      "Name": "${params.Name}",
+      "Brand": "${params.Brand}",
+      "NSN": "${params.NSN}",
+      "Bldg": "${params.Bldg}",
+      "Size": "${params.Size}",
+      "Count": "${params.Count}",
+      "Gender": "${params.Gender}",
+      "Aisle": "${params.Aisle}",
+      "Initial": "${params.Initial}",
+      "MinCount": "${params.MinCount}",
+      "Ordered": "${params.Ordered}",
+      "Returnable": "${params.Returnable}"
+    }']::json[])`, (error, results) => {
     if (error) {
       res.send('error' + error)
     }
     console.log('placed in DB')
-    console.log(results)
     res.status(200)
   })
 });
-
-
-/*
-  id: 0,
-  Delete: '3a70f977-2e6d-4299-858e-d85b158e0ba2',
-  Edit: '3a70f977-2e6d-4299-858e-d85b158e0ba2',
-  Name: 'Boots *',
-  Brand: 'Nike',
-  NSN: '2637849859',
-  Bldg: '994',
-  Size: '7',
-  Count: 2,
-  Gender: 'Male',
-  Aisle: '10',
-  Initial: false,
-  MinCount: 0,
-  Ordered: 0,
-  Returnable: false
-*/
 
 /*
 git pull origin
