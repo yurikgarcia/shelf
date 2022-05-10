@@ -220,7 +220,7 @@ app.get('/shopping-cart', (_, res) => {
 });
 
 app.post('/shopping-cart', (req, res) => {
-  //TODO: need to modify query to SELECT * WHERE DODID matches the cart ID and then insert the items.
+  //TODO: need to modify query to INSERT INTO shopping_cart (user_inv_id, dod_id, items) WHERE DODID matches the cart ID and then insert the items.
   //IDEA - add a cart ID under the users table to give each user a unique cart. (ya bitch, I mentioned it last week LMFAOOOOO)
   let inventoryId = Math.floor(Math.random() * 1000000) + 1;
   let dodId = Math.floor(Math.random() * 1000000) + 1
