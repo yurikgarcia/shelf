@@ -178,10 +178,6 @@ export default function CheckoutDrawer({shoppingCart, setShoppingCart} ) {
               })}
             </ListItem>     
 
-
-
-
-
             <Divider sx={{mt:2, borderBottomWidth: 3, bgcolor: "#155E9C" }}/>  
             <ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', mt:2}}> 
                 <FormControl sx={{ m: 1, width: 300 }}>

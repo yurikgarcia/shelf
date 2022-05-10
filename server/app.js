@@ -210,5 +210,11 @@ app.patch('/users', (req, res) => {
 
 
 
-
+/*
+cd into server
+heroku login 
+git add -A
+git commit -am "pushing to heroku"
+heroku push
+*/
 
