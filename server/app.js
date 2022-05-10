@@ -220,8 +220,8 @@ app.get('/shopping-cart', (_, res) => {
 });
 
 app.post('/shopping-cart', (req, res) => {
-  let inventoryId = Math.floor(Math.random(1000))
-  let dodId = Math.floor(Math.random(10000))
+  let inventoryId = Math.floor(Math.random() * 1000000) + 1;
+  let dodId = Math.floor(Math.random() * 1000000) + 1
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
