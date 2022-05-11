@@ -221,6 +221,14 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
             </Link>
 
+            <Link to="/login"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Login</Button>
+            </Link>
+
+            <Link to="/signup"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Sign-Up</Button>
+            </Link>
+
 
             <Search sx={{mr:1}}>
               <SearchIconWrapper>
