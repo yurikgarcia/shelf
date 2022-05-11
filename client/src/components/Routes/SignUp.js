@@ -11,14 +11,31 @@ import EmailIcon from '@mui/icons-material/Email';
 import { Link } from "react-router-dom";
 import LockIcon from '@mui/icons-material/Lock';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import shelfLogo from './shelfLogo.png'
+import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
 
 
-
-const card = (
-  <React.Fragment>
-    <CardContent>
+export default function SignUp() {
+  return (
+    <div>
+      <Box
+        sx={{ 
+          display: "flex", 
+          justifyContent: "center", 
+          alignContent: "center", 
+          mt:10,
+        }}
+      >
+        <Card 
+        sx={{ 
+        width: "700px", 
+        boxShadow: 19, 
+        borderRadius: "16px",
+        }} 
+        variant="outlined"
+        >
+          
+          <CardContent>
       <Box 
       sx={{ 
         display: "flex",       
@@ -114,29 +131,12 @@ const card = (
       </Link>
       </Box>
     </CardActions>
-  </React.Fragment>
-);
 
-export default function SignUp() {
-  return (
-    <div>
-      <Box
-        sx={{ 
-          display: "flex", 
-          justifyContent: "center", 
-          alignContent: "center", 
-          mt:10,
-        }}
-      >
-        <Card 
-        sx={{ 
-        width: "700px", 
-        boxShadow: 19, 
-        borderRadius: "16px",
-        }} 
-        variant="outlined"
-        >
-          {card}
+
+
+
+
+
         </Card>
       </Box>
     </div>

@@ -12,7 +12,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import { Link } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import shelfLogo from "./shelfLogo.png";
+import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
 
 export default function SignUp() {
@@ -45,6 +45,7 @@ export default function SignUp() {
 
   return (
     <div>
+      <Box sx={{ display: "flex", justifyContent: "center", mt:12 }}>
       <Card
         sx={{
           width: "700px",
@@ -126,6 +127,7 @@ export default function SignUp() {
           </Box>
         </CardActions>
       </Card>
+      </Box>
     </div>
   );
 }

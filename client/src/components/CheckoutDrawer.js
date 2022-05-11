@@ -16,7 +16,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SaveIcon from '@mui/icons-material/Save';
-import shelfLogo from './shelfLogo.png'
+import shelfLogo from './/Images/shelfLogo.png'
 import Select from '@mui/material/Select';
 import Tooltip from '@mui/material/Tooltip';
 import TextField from "@mui/material/TextField";

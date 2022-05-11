@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AddOrders from "./AddOrders.js";
+import AddOrders from "..//Buttons/AddOrders.js";
 import Box from '@mui/material/Box';
-import OrdersTable from "./OrdersTable.js";
+import OrdersTable from "../Tables/OrdersTable.js";
 import axios from 'axios';
 
 function Orders() {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import AddCart from "./AddCart.js";
-import AddModal from "./AddModal.js";
+import AddCart from "..//Buttons/AddCart.js";
+import AddModal from "../Buttons/AddModal.js";
 import Box from '@mui/material/Box';
-import InventoryTable from "./InventoryTable.js";
+import InventoryTable from "../Tables/InventoryTable.js";
 import axios from 'axios';
 
 function Inventory({shoppingCart, setShoppingCart}) {

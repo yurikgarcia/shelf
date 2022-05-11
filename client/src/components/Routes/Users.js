@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AddUsers from "./AddUsers.js";
+import AddUsers from "..//Buttons/AddUsers.js";
 import Box from '@mui/material/Box';
-import UserTable from "./UserTable.js";
+import UserTable from "../Tables/UserTable.js";
 import axios from 'axios';
 
 function Inventory() {

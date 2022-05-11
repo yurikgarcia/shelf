@@ -1,15 +1,14 @@
 import './App.css';
 import React, { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
-import DeploymentGear from "./components/DeploymentGear";
-import Home from "./components/Home.js";
-import SignUp from "./components/SignUp.js";
-import Inventory from "./components/Inventory.js";
-import Login from "./components/Login.js";
-import Orders from "./components/Orders.js";
+import Home from ".//components/Routes/Home.js";
+import SignUp from ".//components/Routes/SignUp.js";
+import Inventory from ".//components/Routes/Inventory.js";
+import Login from ".//components/Routes/Login.js";
+import Orders from ".//components/Routes/Orders.js";
 import { Routes, Route } from "react-router-dom";
 import {ThemeProvider} from "@mui/material/styles";
-import Users from "./components/Users.js";
+import Users from ".//components/Routes/Users.js";
 import NavDrawer from './components/NavDrawer';
 
 const customTheme = createTheme ({
@@ -50,7 +49,6 @@ function App() {
         <Route path="/" element={<Home />} /> 
         <Route path="/signup" element={<SignUp />} /> 
         <Route path="/login" element={<Login />} /> 
-        <Route path="/deploymentinventory" element={<DeploymentGear/>} /> 
         <Route path="/inventory" element={<Inventory shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />} /> 
         <Route path="/users" element={<Users />} /> 
         <Route path="/orders" element={<Orders />} /> 
