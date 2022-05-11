@@ -1,10 +1,11 @@
 import './App.css';
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
 import DeploymentGear from "./components/DeploymentGear";
 import Home from "./components/Home.js";
 import SignUp from "./components/SignUp.js";
 import Inventory from "./components/Inventory.js";
+import Login from "./components/Login.js";
 import Orders from "./components/Orders.js";
 import { Routes, Route } from "react-router-dom";
 import {ThemeProvider} from "@mui/material/styles";
@@ -48,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} /> 
         <Route path="/signup" element={<SignUp />} /> 
+        <Route path="/login" element={<Login />} /> 
         <Route path="/deploymentinventory" element={<DeploymentGear/>} /> 
         <Route path="/inventory" element={<Inventory shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />} /> 
         <Route path="/users" element={<Users />} /> 

@@ -32,6 +32,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Last: '',
     DoD: '',
     Email: '',
+    // Password: '',
+    // Admin: false
   });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -76,6 +78,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
         Last: newValue.Last,
         DoD: newValue.DoD,
         Email: newValue.Email,
+        // Password: newValue.Password,
+        // Admin: newValue.Admin
       }
     })
       .then(() => {
@@ -123,6 +127,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Last", minWidth: 130 },
                   { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 170 },
+                  // { field: "Password", minWidth: 170 },
+                  // { field: "Admin", minWidth: 170 },
                   {
                     field: "Edit",
                     minWidth: 10,
@@ -159,6 +165,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     Last: row.last_name,
                     DoD: row.dod_id,
                     Email: row.email,
+                    // Password: row.user_password,
+                    // Admin: row.is_admin
                   };
                 })}
               />
