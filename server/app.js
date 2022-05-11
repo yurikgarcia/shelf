@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 const Pool = require('pg').Pool;
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const pool = new Pool({
@@ -28,14 +29,41 @@ app.use(cors());
 
 app.listen(PORT, () => {
   connectToDB();
-  // setTimeout(() => {
-  //   console.log('pwd', process.env.PASSWORD)
-  // }, 600)
   console.log(`listening on ${PORT}`);
 });
 
 app.get('/', (_, res) => {
   res.send("Hello welcome to Shelf!");
+});
+
+app.post('/signup', (req, res) => {
+  //mock user to grab _______Hardy testing
+  const user = {
+    id: '1',
+    name: 'Hardy',
+    dodId: '123456789'
+  }
+  jwt.sign({user}, 'secretkey', { expiresIn: '10hr'}, (err, token) => {
+    res.json({
+      token
+    });
+    console.log('token in app.js', token);
+  });
+});
+
+
+app.get('/testingJWT', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if(err){
+      res.send("idiot", err);
+      console.log(err);
+    } else {
+      res.json({
+        message: 'it fucking worked bitch',
+        authData
+      });
+    }
+  });
 });
 //--------------------------------INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
 /**
@@ -269,6 +297,24 @@ app.post('/shopping-cart', (req, res) => {
     res.status(200)
   })
 });
+
+
+//--------------------------------AUTH TOKEN CHECK FUNC----------------------------------------------------------------------------------------------------------------
+// Authorization: Bearer <access_token> // Token Interface (JWT)
+
+function verifyToken(req, res, next) { 
+  const bearerHeader = req.headers['authorization']; //checks the users token in the header
+  if(typeof bearerHeader !== 'undefined') { //if its not undefined then it splits the token at the first space and seperates the token from the bearer
+    const bearer = bearerHeader.split(' '); // this is the split
+    const bearerToken = bearer[1]; //grabs the next element in the array and sets it as the bearer token
+    req.token = bearerToken; //sets the bearer token to the request
+    next(); //built in function that allows the middleware to run
+  } else {
+    res.sendStatus(403); //sends a forbidden if there is no token 
+  };
+};
+
+
 
 /*
 git pull origin

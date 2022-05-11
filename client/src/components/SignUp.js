@@ -83,7 +83,7 @@ const card = (
               required={true} 
               type="password" 
               id="outlined-password-input" 
-              label="Repeat Password" 
+              label="Confirm Password" 
               variant="standard" 
               />
             </Box>

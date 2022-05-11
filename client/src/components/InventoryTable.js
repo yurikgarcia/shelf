@@ -226,7 +226,7 @@ export default function RowsGrid({
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
-                checkboxSelection
+                // checkboxSelection
                 disableSelectionOnClick
                 initialState={{
                   sorting: {
