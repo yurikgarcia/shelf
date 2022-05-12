@@ -46,21 +46,21 @@ async function connectToDB() {
 //--------------------------------LOGIN AUTH----------------------------------------------------------------------------------------------------------------
 app.post('/login', login)
 
-// /// TESTING ROUTE ONLY //////
+////// TESTING ROUTE ONLY //////
 //line 52 - 57 will be added to all routes to verify auth token is in the header. 
-app.get("/testingJWT", verifyToken, (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.send("idiot", err);
-      console.log(err);
-    } else {
-      res.json({
-        message: "it fucking worked bitch",
-        authData,
-      });
-    }
-  });
-});
+// app.get("/testingJWT", verifyToken, (req, res) => {
+//   jwt.verify(req.token, "secretkey", (err, authData) => {
+//     if (err) {
+//       res.send("idiot", err);
+//       console.log(err);
+//     } else {
+//       res.json({
+//         message: "it fucking worked bitch",
+//         authData,
+//       });
+//     }
+//   });
+// });
 /// TESTING ROUTE ONLY //////
 
 //--------------------------------INVENTORY TABLE----------------------------------------------------------------------------------------------------------------

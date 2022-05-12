@@ -31,7 +31,6 @@ function Inventory() {
       .then(res => {
         setUsers(res.data);
         setSpinner(false);
-        console.log(users)
       })
       .catch(err => {
         console.log(err);

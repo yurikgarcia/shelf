@@ -151,9 +151,6 @@ export default function RowsGrid({
     let payload = { itemName: itemName };
     // setShoppingCart([{...shoppingCart}, payload])
     shoppingCart.push(payload);
-    setTimeout(() => {
-      console.log("updated cart", shoppingCart);
-    });
   };
 
   /**
@@ -162,7 +159,6 @@ export default function RowsGrid({
 
   const addItemToShoppingCart = async (params) => {
     let newShoppingCart = params.row;
-    console.log(params.row);
     axios
       .post("http://localhost:3000/shopping-cart", newShoppingCart)
       .then((res) => {
@@ -196,7 +192,6 @@ export default function RowsGrid({
       .then((res) => {
         setNewShoppingCart(res.data);
         // setSpinner(false);
-        console.log(res.data[0].items[0].person);
       })
       .catch((err) => {
         console.log(err);
