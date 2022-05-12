@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../auth_routes/authRoutes");
 require("dotenv").config();
 
 const pool = new Pool({
@@ -14,13 +15,19 @@ const pool = new Pool({
 });
 
 async function getCart(req, res) {
-  pool.query("SELECT * FROM shopping_cart", (error, results) => {
-    if (error) {
-      return res.send("error" + error);
-    }
-    res.send(results.rows);
+  verifyToken(req, res, (authData) => {
+    console.log(authData);
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (authData === undefined) return res.send(403);
+      pool.query("SELECT * FROM shopping_cart", (error, results) => {
+        if (error) {
+          return res.send("error" + error);
+        }
+        res.send(results.rows);
+      });
+    });
   });
-};
+}
 
 async function addToCart(req, res) {
   //TODO: need to modify query to INSERT INTO shopping_cart (user_inv_id, dod_id, items) WHERE DODID matches the cart ID and then insert the items.
@@ -78,5 +85,5 @@ async function addToCart(req, res) {
 
 module.exports = {
   getCart,
-  addToCart
+  addToCart,
 };

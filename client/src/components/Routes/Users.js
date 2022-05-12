@@ -11,7 +11,10 @@ function Inventory() {
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchUsers();
+    if (localStorage.getItem("authorization") === null)
+      window.location.href = "/login";
   }, []);
+
 
   /**
    * @returns inventory
@@ -19,7 +22,12 @@ function Inventory() {
    */
   const fetchUsers = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/users')
+    axios.get('http://localhost:3000/users',
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+      },
+    })
       .then(res => {
         setUsers(res.data);
         setSpinner(false);

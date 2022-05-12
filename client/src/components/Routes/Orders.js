@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import AddOrders from "..//Buttons/AddOrders.js";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import OrdersTable from "../Tables/OrdersTable.js";
-import axios from 'axios';
+import axios from "axios";
 
 function Orders() {
   const [inventory, setInventory] = useState([]); //inventory state
@@ -11,6 +11,8 @@ function Orders() {
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchInventory();
+    if (localStorage.getItem("authorization") === null)
+      window.location.href = "/login";
   }, []);
 
   /**
@@ -19,39 +21,53 @@ function Orders() {
    */
   const fetchInventory = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory')
-      .then(res => {
+    axios
+      .get(
+        "http://localhost:3000/inventory" ||
+          "https://postgres-apr.herokuapp.com/inventory",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+          },
+        }
+      )
+      .then((res) => {
         setInventory(res.data);
         setSpinner(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setSpinner(false);
-      })
+      });
   };
 
   return (
     <div>
       <div>
         <main>
-        <Box sx={{ml: 15, mt: 2}}>
+          <Box sx={{ ml: 15, mt: 2 }}>
             <h1>Orders</h1>
           </Box>
 
-          <Box sx={{display:"flex", flexDirection: 'row'}}>
-              <AddOrders inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>         
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <AddOrders
+              inventory={inventory}
+              setInventory={setInventory}
+              fetchInventory={fetchInventory}
+            />
           </Box>
 
           <Box sx={{ ml: 8, mt: 1 }}>
-            <OrdersTable inventory={inventory} fetchInventory={fetchInventory} spinner={spinner}/>
+            <OrdersTable
+              inventory={inventory}
+              fetchInventory={fetchInventory}
+              spinner={spinner}
+            />
           </Box>
         </main>
       </div>
     </div>
-
   );
 }
 
 export default Orders;
-
-

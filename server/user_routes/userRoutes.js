@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../auth_routes/authRoutes");
 require("dotenv").config();
 
 const pool = new Pool({
@@ -14,13 +15,18 @@ const pool = new Pool({
 });
 
 async function getUsers(req, res) {
-  pool.query("SELECT * FROM users", (error, results) => {
-    if (error) {
-      res.send("error" + error);
-    }
-    res.send(results.rows);
+  verifyToken(req, res, (authData) => {
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (authData === undefined) return res.send(403);
+      pool.query("SELECT * FROM users", (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        res.send(results.rows);
+      });
+    });
   });
-}
+};
 
 async function addUser(req, res) {
   pool.query(
@@ -34,7 +40,7 @@ async function addUser(req, res) {
       res.send("Success");
     }
   );
-}
+};
 
 async function deleteUser(req, res) {
   const dod_id = req.body.id;
@@ -46,7 +52,7 @@ async function deleteUser(req, res) {
     res.status(200);
     res.send("Success");
   });
-}
+};
 
 async function updateUser(req, res) {
   let params = {
@@ -68,11 +74,11 @@ async function updateUser(req, res) {
       res.send("Success");
     }
   );
-};
+}
 
 module.exports = {
   getUsers,
   addUser,
   deleteUser,
-  updateUser
+  updateUser,
 };

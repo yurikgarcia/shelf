@@ -28,7 +28,7 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
   useEffect(() => {
-    //used to test and remove token
+    //used to test and remove token and will be used in a logout button **wink wink**
     //console.log(localStorage.removeItem("authorization"))
   }, []);
 

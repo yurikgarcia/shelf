@@ -161,7 +161,7 @@ export default function RowsGrid({
    */
 
   const addItemToShoppingCart = async (params) => {
-    let newShoppingCart = params.row
+    let newShoppingCart = params.row;
     console.log(params.row);
     axios
       .post("http://localhost:3000/shopping-cart", newShoppingCart)
@@ -188,7 +188,11 @@ export default function RowsGrid({
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/shopping-cart")
+      .get("http://localhost:3000/shopping-cart", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
       .then((res) => {
         setNewShoppingCart(res.data);
         // setSpinner(false);
