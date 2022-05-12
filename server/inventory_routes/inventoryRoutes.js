@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../auth_routes/authRoutes");
 require("dotenv").config();
 
 const pool = new Pool({
@@ -14,11 +15,16 @@ const pool = new Pool({
 });
 
 async function getInventory(req, res) {
-  pool.query("SELECT * FROM inventory", (error, results) => {
-    if (error) {
-      res.send("error" + error);
-    }
-    res.send(results.rows);
+  verifyToken(req, res, (authData) => {
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (authData === undefined) return res.send(403);
+      pool.query("SELECT * FROM inventory", (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        res.send(results.rows);
+      });
+    });
   });
 }
 

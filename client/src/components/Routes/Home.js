@@ -1,22 +1,15 @@
-import * as React from "react";
-import Box from '@mui/material/Box';
-
+import useEffect from "react";
+import Box from "@mui/material/Box";
 
 function Home() {
-  
-
   return (
-
-    
     <div>
-      <Box sx={{ml: 15, mt: 2}}>
+      <Box sx={{ ml: 15, mt: 2 }}>
         <div>
-        <h1>Welcome to Shelf!</h1>
-
+          <h1>Welcome to Shelf!</h1>
         </div>
       </Box>
     </div>
-
   );
 }
 
