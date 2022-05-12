@@ -36,6 +36,7 @@ export default function SignUp() {
           const token = res.data.token;
           localStorage.setItem("authorization", token);
         }
+        if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/";
       })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");

@@ -81,9 +81,10 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
 
   //initial call to grab users from DB on load
   useEffect(() => {
-    fetchUsers();
-    if (localStorage.getItem("authorization") === null)
-      window.location.href = "/login";
+    //fetchUsers();
+    //breaks the app into a loop *****
+    // if (localStorage.getItem("authorization") === null)
+    //   window.location.href = "/login";
   }, []);
 
   /**
