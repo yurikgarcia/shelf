@@ -20,9 +20,10 @@ async function getInventory(req, res) {
       if (authData === undefined) return res.send(403);
       pool.query("SELECT * FROM inventory", (error, results) => {
         if (error) {
-          res.send("error" + error);
+          res.sendStatus("error" + error);
         }
         res.send(results.rows);
+        console.log(authData)
       });
     });
   });

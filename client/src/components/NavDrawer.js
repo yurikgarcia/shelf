@@ -327,6 +327,19 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link>  
 
+              <Link to="/orders2" style={{ textDecoration: 'none', color: 'black'}}>
+                <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                        <Tooltip title="Orders2" placement="right-end">
+                          <MarkunreadMailboxIcon sx={{color: "white"}}   />
+                        </Tooltip>
+                        </ListItemIcon>
+                        <ListItemText primary="Users" />
+                      </ListItemButton>
+                </ListItem>
+              </Link>  
+
           </List>
         </Drawer>
           <DrawerHeader />

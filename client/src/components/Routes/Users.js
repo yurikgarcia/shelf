@@ -8,7 +8,7 @@ function Inventory() {
   const [users, setUsers] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
-  //initial call to grab inventory from DB on load
+  //initial call to grab users from DB on load
   useEffect(() => {
     fetchUsers();
     if (localStorage.getItem("authorization") === null)
@@ -17,8 +17,8 @@ function Inventory() {
 
 
   /**
-   * @returns inventory
-   * fetches DB after any changes to the resutls array from the user on the front end
+   * @returns users
+   * fetches DB after any changes to the results array from the user on the front end
    */
   const fetchUsers = async () => {
     setSpinner(true);
@@ -37,6 +37,7 @@ function Inventory() {
         setSpinner(false);
       })
   };
+
 
   return (
     <div>

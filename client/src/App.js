@@ -6,6 +6,7 @@ import SignUp from ".//components/Routes/SignUp.js";
 import Inventory from ".//components/Routes/Inventory.js";
 import Login from ".//components/Routes/Login.js";
 import Orders from ".//components/Routes/Orders.js";
+import Orders2 from ".//components/Routes/Orders2.js";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import Users from ".//components/Routes/Users.js";
@@ -29,7 +30,7 @@ function App() {
 
   useEffect(() => {
     //used to test and remove token and will be used in a logout button **wink wink**
-    console.log(localStorage.removeItem("authorization"))
+    // console.log(localStorage.removeItem("authorization"))
   }, []);
 
   return (
@@ -57,6 +58,7 @@ function App() {
             />
             <Route path="/users" element={<Users />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/orders2" element={<Orders2 />} />
           </Routes>
         </main>
       </div>

@@ -163,7 +163,7 @@ export default function RowsGrid({
       .post("http://localhost:3000/shopping-cart", newShoppingCart)
       .then((res) => {
         if (res.status === 200) {
-          //fetchNewShoppingCart()
+          fetchNewShoppingCart()
           console.log("success", res);
         }
       })
@@ -176,6 +176,7 @@ export default function RowsGrid({
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchNewShoppingCart();
+    // console.log("newSHoppingCart",shoppingCart)
   }, []);
 
   /**

@@ -84,8 +84,7 @@ app.post('/shopping-cart', addToCart)
 
 
 /*
-git pull origin
-git checkout main
+
 heroku git:remote -a postgres-apr
 git push heroku main:main
 */
