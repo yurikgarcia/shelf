@@ -6,10 +6,14 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Collapse from '@mui/material/Collapse';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Modal from '@mui/material/Modal';
 import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import SaveIcon from '@mui/icons-material/Save';
@@ -19,8 +23,17 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import warehouse from "..//Images/warehouse.gif";
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 
 export default function RowsGrid({ inventory, fetchInventory, spinner }) {
+
+  const [openRow, setOpenRow] = React.useState(false);
 
   const [editedItem, setEditedItem] = useState({
     Name: '',
@@ -155,6 +168,17 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
+                  {field: "Details",minWidth: 100,
+                  renderCell: () => (
+                    <IconButton
+                    aria-label="expand row"
+                    size="small"
+                    onClick={() => setOpenRow(!openRow)}
+                  >
+                    {openRow ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                  </IconButton>
+                  ),
+                },
                   { field: "Name", minWidth: 150, },
                   { field: "Brand", minWidth: 130 },
                   { field: "NSN", minWidth: 100 },
@@ -236,7 +260,10 @@ export default function RowsGrid({ inventory, fetchInventory, spinner }) {
                     Tracking: row.tracking,
                   };
                 })}
+                
               />
+
+
 
               <Modal
                 open={open}
