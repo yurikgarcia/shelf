@@ -173,10 +173,12 @@ export default function RowsGrid({
       });
   };
 
+  console.log('newShoppingCart', newShoppingCart)
+
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchNewShoppingCart();
-    // console.log("newSHoppingCart",shoppingCart)
+    console.log("shoppingCart",shoppingCart)
   }, []);
 
   /**
@@ -272,7 +274,7 @@ export default function RowsGrid({
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (
-                      <Tooltip title="Isssue Item">
+                      <Tooltip title="Issue Item">
                         <AddCircleIcon
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
                           onClick={() => addItemToShoppingCart(params)}

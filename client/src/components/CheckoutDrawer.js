@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Autocomplete from '@mui/material/Autocomplete';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -20,6 +21,7 @@ import shelfLogo from ".//Images/shelfLogo.png";
 import Select from "@mui/material/Select";
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
+
 
 /**
  *
@@ -85,7 +87,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";
+    console.log(users)
   }, []);
+
 
   /**
    * @returns users
@@ -113,6 +117,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
     Delete: [],
   });
 
+
   /**
    * shopping Cart fetch
    */
@@ -138,7 +143,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   const [addedItem, setAddedItem] = useState({
     user_inv_id: "",
     dod_id: "",
-    ietms: "",
+    items: "",
   });
   /**
    * adds to shopping cart
@@ -160,8 +165,22 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
 
-  console.log(shoppingCart)
-  console.log(newShoppingCart)
+//map through users and return in autocomplete
+  // const usersList = users.map((user) => {
+  //   return (
+  //     <MenuItem
+  //       key={user.id}
+  //       value={user.id}
+  //       onClick={(event) => {
+  //         setUserList({
+  //           ...userListValue,
+  //           [event.target.innerText]: [...userListValue[event.target.innerText], user.id],
+  //         });
+
+
+
+  // console.log(shoppingCart)
+  // console.log(newShoppingCart)
   return (
     <div>
       {["right"].map((anchor) => (
@@ -275,6 +294,24 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                   </Select>
                 </FormControl>
               </ListItem>
+
+              <ListItem>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={users.map((users) => (users.first_name),(users.last_name))}
+                getOptionLabel={(option) => option}
+                style={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Users" variant="outlined" />
+                )}
+              />
+              </ListItem>
+
+
+
+
+
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
