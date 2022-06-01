@@ -6,19 +6,19 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+// import FormControl from "@mui/material/FormControl";
+// import InputLabel from "@mui/material/InputLabel";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 // import ListItemButton from "@mui/material/ListItemButton";
 // import ListItemIcon from "@mui/material/ListItemIcon";
 // import ListItemText from "@mui/material/ListItemText";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
+// import OutlinedInput from "@mui/material/OutlinedInput";
+// import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
-import Select from "@mui/material/Select";
+// import Select from "@mui/material/Select";
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 
@@ -27,16 +27,16 @@ import TextField from "@mui/material/TextField";
  *
  * settings for user drop down css`
  */
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+// const ITEM_HEIGHT = 48;
+// const ITEM_PADDING_TOP = 8;
+// const MenuProps = {
+//   PaperProps: {
+//     style: {
+//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+//       width: 250,
+//     },
+//   },
+// };
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
@@ -67,18 +67,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
     ></Box>
   );
 
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
+  
   const [users, setUsers] = useState([]); //users state
 
   //initial call to grab users from DB on load
@@ -112,10 +101,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
         setSpinner(false);
       });
   };
-
-  const [userListValue, setUserList] = useState({
-    Delete: [],
-  });
 
 
   /**
@@ -165,19 +150,27 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
 
-//map through users and return in autocomplete
-  // const usersList = users.map((user) => {
-  //   return (
-  //     <MenuItem
-  //       key={user.id}
-  //       value={user.id}
-  //       onClick={(event) => {
-  //         setUserList({
-  //           ...userListValue,
-  //           [event.target.innerText]: [...userListValue[event.target.innerText], user.id],
-  //         });
+  const [value, setValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setInputValue(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
+  const handleValueChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setValue(value);
+  };
+
+  console.log({ value });
 
   // console.log(shoppingCart)
   // console.log(newShoppingCart)
@@ -271,7 +264,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
               <Divider
                 sx={{ mt: 2, borderBottomWidth: 3, bgcolor: "#155E9C" }}
               />
-              <ListItem
+              {/* <ListItem
                 disablePadding
                 sx={{ display: "flex", justifyContent: "center", mt: 2 }}
               >
@@ -293,23 +286,31 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                     ))}
                   </Select>
                 </FormControl>
-              </ListItem>
+              </ListItem> */}
 
               <ListItem>
+
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
-                options={users.map((users) => (users.first_name),(users.last_name))}
+                value= {value}
+                options={users.map((users) => users.first_name
+                  + " " + users.last_name)}
                 getOptionLabel={(option) => option}
+
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                // isOptionEqualToValue={(option, value) => {
+                //   return option === value;
+                // }}
+
                 style={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField {...params} label="Users" variant="outlined" />
                 )}
               />
               </ListItem>
-
-
-
 
 
               <Divider
