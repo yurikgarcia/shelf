@@ -151,26 +151,28 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   };
 
   const [value, setValue] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  // const [inputValue, setInputValue] = useState('');
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setInputValue(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setInputValue(
+  //     // On autofill we get a stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  // };
 
-  const handleValueChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setValue(value);
-  };
+  // const handleValueChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setValue(value);
+  // };
 
   console.log({ value });
+
+
 
   // console.log(shoppingCart)
   // console.log(newShoppingCart)
@@ -264,55 +266,21 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
               <Divider
                 sx={{ mt: 2, borderBottomWidth: 3, bgcolor: "#155E9C" }}
               />
-              {/* <ListItem
-                disablePadding
-                sx={{ display: "flex", justifyContent: "center", mt: 2 }}
-              >
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-                  <Select
-                    labelId="demo-multiple-name-label"
-                    id="demo-multiple-name"
-                    multiple
-                    value={personName}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Name" />}
-                    MenuProps={MenuProps}
-                  >
-                    {users.map((users) => (
-                      <MenuItem key={users.dod_id} value={users.dod_id}>
-                        {users.first_name} {users.last_name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </ListItem> */}
-
-              <ListItem>
-
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                value= {value}
-                options={users.map((users) => users.first_name
-                  + " " + users.last_name)}
-                getOptionLabel={(option) => option}
-
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-                // isOptionEqualToValue={(option, value) => {
-                //   return option === value;
-                // }}
-
-                style={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Users" variant="outlined" />
-                )}
-              />
-              </ListItem>
-
-
+                <ListItem>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                  options={users}
+                  onChange={(event, newValue) => {
+                    setValue(newValue.dod_id);
+                  }}
+                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                  style={{ width: 300 }}
+                  renderInput={(params) => (
+                          <TextField {...params} label="Users" variant="outlined" />
+                        )}
+                    />
+                </ListItem>
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
