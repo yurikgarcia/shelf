@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
-import EmailIcon from "@mui/icons-material/Email";
 import { Link } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
 
-export default function SignUp() {
+export default function Login() {
   const [user, setUser] = useState({
     user_email: "",
     user_password: "",
@@ -45,7 +41,15 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+  <body>
+    <div
+    className="fill-window"
+    style={{
+      backgroundColor: "#1A73E8", 
+      height: "1000vh",
+      width: "100vw",
+    }}
+    >
       <Box sx={{ display: "flex", justifyContent: "center", mt:20 }}>
       <Card
         sx={{
@@ -130,5 +134,6 @@ export default function SignUp() {
       </Card>
       </Box>
     </div>
+    </body>
   );
 }

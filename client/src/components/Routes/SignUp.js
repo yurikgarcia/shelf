@@ -17,7 +17,14 @@ import TextField from "@mui/material/TextField";
 
 export default function SignUp() {
   return (
-    <div>
+    <div
+    className="fill-window"
+    style={{
+      backgroundColor: "#1A73E8", 
+      height: "1000vh",
+      width: "100vw",
+    }}
+    >
       <Box
         sx={{ 
           display: "flex", 

@@ -18,14 +18,22 @@
   flex-wrap: wrap
 } */
 
-body { 
+/* body { 
       min-height: 100vh; 
       background: linear-gradient(to bottom,  #F8F8F8 70%, #F8F8F8);
-    }
+    } */
 
-    main { 
+    /* main { 
       min-height: 100vh; 
-    }
+    } */
+
+    .fill-window {
+      height: 100%;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+  }
 
 .MuiDrawer-paper{
   background: linear-gradient(to bottom,  #155E9D 100%, #155E9D);
@@ -33,12 +41,14 @@ body {
 
 .MuiDrawer-paperAnchorRight{
   background: linear-gradient(to bottom,  whitesmoke 100%, whitesmoke);
-} */
+} 
 
 .MuiDataGrid-cellContent {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+
 
 
 
