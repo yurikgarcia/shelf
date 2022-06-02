@@ -36,7 +36,7 @@ export default function SignUp() {
           const token = res.data.token;
           localStorage.setItem("authorization", token);
         }
-        if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/";
+        if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/home";
       })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");
@@ -46,7 +46,7 @@ export default function SignUp() {
 
   return (
     <div>
-      <Box sx={{ display: "flex", justifyContent: "center", mt:12 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mt:20 }}>
       <Card
         sx={{
           width: "700px",

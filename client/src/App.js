@@ -5,7 +5,6 @@ import Home from ".//components/Routes/Home.js";
 import SignUp from ".//components/Routes/SignUp.js";
 import Inventory from ".//components/Routes/Inventory.js";
 import Login from ".//components/Routes/Login.js";
-import NotFound from './/components/Routes/NotFound';
 import Orders from ".//components/Routes/Orders.js";
 import Orders2 from ".//components/Routes/Orders2.js";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
@@ -54,7 +53,7 @@ function App() {
             <div>
               <Routes>
                 <Route element={<NavBarLayout />}>
-                    <Route index element={<Home />} />
+                    <Route path="home" element={<Home />} />
                     <Route path="/users" element={<Users />} />
                     <Route
                     path="/inventory"
@@ -68,10 +67,10 @@ function App() {
                     <Route path="/users" element={<Users />} />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/orders2" element={<Orders2 />} />
-                    <Route path="*" element={<NotFound/>} />
+                    <Route path="*" element={<Login/>} />
               </Route> 
-          
-                    <Route path="/logintest" element={<Login />} />
+                    <Route path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
 
               </Routes>

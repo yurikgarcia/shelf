@@ -23,7 +23,7 @@ export default function SignUp() {
           display: "flex", 
           justifyContent: "center", 
           alignContent: "center", 
-          mt:10,
+          mt:12,
         }}
       >
         <Card 

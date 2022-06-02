@@ -194,13 +194,13 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
 
-            <Link to="/" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
               Shelf
               </Link>
             </Typography>
 
           
-            <Link to="/" style={{ textDecoration: 'none', color: 'white'}}>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'white'}}>
               <Button sx={{mr:1}} variant="contained">Home</Button>
             </Link>
 
