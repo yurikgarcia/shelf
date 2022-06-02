@@ -33,12 +33,12 @@ body {
 
 .MuiDrawer-paperAnchorRight{
   background: linear-gradient(to bottom,  whitesmoke 100%, whitesmoke);
-}
+} */
 
-/* .MuiDataGrid-cellContent {
+.MuiDataGrid-cellContent {
   justify-content: center;
   flex-wrap: wrap;
-} */
+}
 
 
 
