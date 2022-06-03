@@ -12,7 +12,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 // import ListItemButton from "@mui/material/ListItemButton";
 // import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
+import ListItemText from "@mui/material/ListItemText";
 // import OutlinedInput from "@mui/material/OutlinedInput";
 // import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -39,6 +39,7 @@ import TextField from "@mui/material/TextField";
 // };
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
+
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [spinner, setSpinner] = useState(false); //spinner state
 
@@ -76,7 +77,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";
-    console.log(users)
   }, []);
 
 
@@ -103,27 +103,80 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   };
 
 
+// //fetch from shopping_cart table
+//   const fetchShoppingCart = async () => {
+//     setSpinner(true);
+//     axios
+//       .get("http://localhost:3000/shopping_cart", {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+//         },
+//       })
+//       .then((res) => {
+//         setNewShoppingCart(res.data);
+//         setSpinner(false);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         setSpinner(false);
+//       });
+//   };
+
+
+
+//   /**
+//    * shopping Cart fetch
+//    */
+//   const fetchNewShoppingCart = async (params) => {
+//     setSpinner(true);
+//     console.log("fetching new shopping cart");
+//     let newShoppingCart = params.row;
+//     axios
+//       .get("http://localhost:3000/shopping-cart", {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("authorization")}`
+//         },
+//       })
+//       .then((res) => {
+//         setNewShoppingCart(res.data);
+//         setSpinner(false);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         setSpinner(false);
+//       });
+//   };
+
+
+  //initial call to grab inventory from DB on load
+  useEffect(() => {
+    fetchNewShoppingCart();
+    console.log("shoppingCart",shoppingCart)
+  }, []);
+
   /**
    * shopping Cart fetch
    */
   const fetchNewShoppingCart = async () => {
-    setSpinner(true);
-    console.log("fetching new shopping cart");
+    // setSpinner(true);
     axios
       .get("http://localhost:3000/shopping-cart", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authorization")}`
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
       })
       .then((res) => {
         setNewShoppingCart(res.data);
-        setSpinner(false);
+        // setSpinner(false);
       })
       .catch((err) => {
         console.log(err);
-        setSpinner(false);
+        // setSpinner(false);
       });
   };
+  
+  console.log('XXXXXnewShoppingCart', newShoppingCart )
+  // console.log(fetchNewShoppingCart)
 
   const [addedItem, setAddedItem] = useState({
     user_inv_id: "",
@@ -150,32 +203,16 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
 
+  console.log('newShoppingCart', newShoppingCart)
+
   const [value, setValue] = useState('');
-  // const [inputValue, setInputValue] = useState('');
-
-  // const handleChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setInputValue(
-  //     // On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  // };
-
-  // const handleValueChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setValue(value);
-  // };
 
   console.log({ value });
 
 
 
   // console.log(shoppingCart)
-  // console.log(newShoppingCart)
+  console.log(newShoppingCart)
   return (
     <div>
       {["right"].map((anchor) => (
@@ -230,7 +267,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           width: "1000",
                         }}
                       >
-                        <Box sx={{ width: 100 }}>
+                        {/* <Box sx={{ width: 100 }}>
                           <p>{item.itemName}</p>
                         </Box>
                         <Box>
@@ -255,7 +292,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           }}
                         >
                           <ClearIcon fontSize="x-small" />
-                        </Box>
+                        </Box> */}
+
+
                       </Box>
                       <Divider sx={{ borderBottomWidth: 2 }} />
                     </div>
@@ -296,6 +335,11 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                 >
                   Checkout
                 </Button>
+              </ListItem>
+
+              <ListItem>
+                {newShoppingCart[0]}
+                      helllloooo
               </ListItem>
             </List>
           </Drawer>

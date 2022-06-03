@@ -96,9 +96,10 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       sx={{
         display: "flex",
         justifyContent: "center",
-        width: "90%",
+        width: "93%",
         overflow: "hidden",
         ml: 7,
+        boxShadow: 10
       }}
     >
       {spinner ? (
