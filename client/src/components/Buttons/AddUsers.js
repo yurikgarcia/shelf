@@ -23,6 +23,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     last_name: '',
     email: '',
   })
+  
   const handleUserOpen = () => setAddUserOpen(true);
   const handleCloseAddUser = () => setAddUserOpen(false);
 

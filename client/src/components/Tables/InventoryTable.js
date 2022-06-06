@@ -173,7 +173,7 @@ export default function RowsGrid({
       });
   };
 
-  console.log('newShoppingCart', newShoppingCart)
+  console.log('newShoppingCart', newShoppingCart[0])
 
   //initial call to grab inventory from DB on load
   useEffect(() => {

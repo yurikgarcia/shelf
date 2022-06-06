@@ -65,7 +65,7 @@ export default function ReturnModal() {
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
                 <Button color = 'secondary' variant="contained" startIcon={<AssignmentReturnedIcon />}>
-                  Return
+                  Delete
                 </Button>
 
                 <Button color = 'secondary'  variant="contained" startIcon={<CancelIcon />}>

@@ -175,14 +175,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
   
-  console.log('XXXXXnewShoppingCart', newShoppingCart )
-  // console.log(fetchNewShoppingCart)
+
 
   const [addedItem, setAddedItem] = useState({
     user_inv_id: "",
     dod_id: "",
     items: "",
   });
+
   /**
    * adds to shopping cart
    */
@@ -203,16 +203,20 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
 
-  console.log('newShoppingCart', newShoppingCart)
-
   const [value, setValue] = useState('');
 
-  console.log({ value });
+  // console.log('newShoppingCart', newShoppingCart[0])
+  // console.log('newShoppingCart-DODID', newShoppingCart[0].dod_id)
+  // console.log('newShoppingCartDRILL', newShoppingCart[0].items[0])
 
+
+  // console.log({ value });
+
+  // console.log({items: newShoppingCart[0].items[0]})
 
 
   // console.log(shoppingCart)
-  console.log(newShoppingCart)
+  console.log("hellllp", newShoppingCart)
   return (
     <div>
       {["right"].map((anchor) => (
@@ -251,7 +255,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
 
-              <ListItem
+              {/* <ListItem
                 disablePadding
                 sx={{ display: "flex", mt: 2, flexDirection: "column" }}
               >
@@ -266,7 +270,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           flexDirection: "row",
                           width: "1000",
                         }}
-                      >
+                      > */}
                         {/* <Box sx={{ width: 100 }}>
                           <p>{item.itemName}</p>
                         </Box>
@@ -293,14 +297,12 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                         >
                           <ClearIcon fontSize="x-small" />
                         </Box> */}
-
-
-                      </Box>
+                      {/* </Box>
                       <Divider sx={{ borderBottomWidth: 2 }} />
                     </div>
                   );
                 })}
-              </ListItem>
+              </ListItem> */}
 
               <Divider
                 sx={{ mt: 2, borderBottomWidth: 3, bgcolor: "#155E9C" }}
@@ -320,9 +322,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                         )}
                     />
                 </ListItem>
-              <Divider
-                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
-              />
+
               <ListItem
                 disablePadding
                 sx={{ display: "flex", justifyContent: "center", mt: 2 }}
@@ -337,9 +337,126 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                 </Button>
               </ListItem>
 
+              {/* <ListItem
+                disablePadding
+                sx={{ display: "flex", mt: 2, flexDirection: "column" }}
+              >
+                    {newShoppingCart?.map((item, index) => {
+                      return (
+                        <div style={{ width: "100%" }} key={index}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              mt: 2,
+                              ml: 3,
+                              flexDirection: "row",
+                              width: "1000",
+                            }}
+                          >
+                            <Box sx={{ width: 100 }}>
+                              <div>{newShoppingCart[0].items.map((items, index) => {
+                                return (
+                                  <div key={index}>
+                      
+                                
+                                  </div>
+                                )
+                              })}</div>
+                            </Box>
+                            <Box>
+                              <TextField
+                                required
+                                id="filled"
+                                variant="outlined"
+                                label="Quantity"
+                                type="number"
+                                defaultValue=""
+                                style={{ width: 95, height: 80 }}
+                                sx={{ ml: 2 }}
+                                // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                                // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignContent: "center",
+                                ml: 6,
+                              }}
+                            >
+                              <ClearIcon fontSize="x-small" />
+                            </Box>
+                          </Box>
+                          <Divider sx={{ borderBottomWidth: 2 }} />
+                        </div>
+                      );
+                    }
+                    )}
+                    
+              </ListItem> */}
+
+              {/* <ListItem>
+                {users.map((users, index) => {
+                  return (
+                              <div key={index}>
+                                {users.dod_id}
+                              </div>
+                            )
+                          })}
+              </ListItem> */}
+
               <ListItem>
-                {newShoppingCart[0]}
-                      helllloooo
+                {newShoppingCart
+                  ?.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            mt: 2,
+                            ml: 3,
+                            flexDirection: "row",
+                            width: "1000",
+                          }}
+                        >
+                          <Box sx={{ width: 100 }}>
+                            <div>{newShoppingCart[0].items.map((items, index) => {
+                              return (
+                                <div key={index}>
+                                  {items.Name}
+                                </div>
+                              )
+                            })}</div>
+                          </Box>
+                          <Box>
+                            <TextField
+                              required
+                              id="filled"
+                              variant="outlined"
+                              label="Quantity"
+                              type="number"
+                              defaultValue=""
+                              style={{ width: 95, height: 80 }}
+                              sx={{ ml: 2 }}
+                              // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                              // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                            />
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignContent: "center",
+                              ml: 6,
+                            }}
+                          >
+                            <ClearIcon fontSize="x-small" />
+                          </Box>
+                        </Box>
+                        <Divider sx={{ borderBottomWidth: 2 }} />
+                      </div>
+                    );
+                  }
+                  )}
               </ListItem>
             </List>
           </Drawer>
