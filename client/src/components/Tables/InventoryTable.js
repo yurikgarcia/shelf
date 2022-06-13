@@ -344,9 +344,8 @@ export default function RowsGrid({
                     transform: "translate(-50%, -50%)",
                     width: 425,
                     bgcolor: "background.paper",
-                    border: "3px solid",
                     borderRadius: "16px",
-                    boxShadow: 19,
+                    boxShadow: "0px 2px 0px 0px #FF9A01,0px 2px 25px 5px #FF9A01",
                     p: 4,
                     borderColor: "#FF9A01",
                   }}
