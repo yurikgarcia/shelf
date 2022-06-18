@@ -111,7 +111,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
             id="modal-modal-description"
             component="form"
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "15ch" }, mt: 2
+              "& .MuiTextField-root": { m: 1, width: "15ch", }, mt: 2, ml: 2
             }}
             noValidate
             autoComplete="off"
@@ -211,8 +211,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               />
             </div>
           </Box>
-          <Stack direction="row" spacing={2}>
-          <Box sx={{ ml: 1 }}>
+          {/* <Stack direction="row" spacing={2}> */}
+          {/* <Box sx={{ ml: 1 }}>
               <FormControl sx={{ minWidth: 135 }}>
                 <InputLabel id="demo-simple-select-label">Initial</InputLabel>
                 <Select
@@ -227,8 +227,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                   <MenuItem value={false}>No</MenuItem>
                 </Select>
               </FormControl>
-          </Box>
-          <Box sx={{ml: 1}}>
+          </Box> */}
+          {/* <Box sx={{ml: 1}}>
               <FormControl sx={{ minWidth: 135 }}>
                 <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
                 <Select
@@ -244,7 +244,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 </Select>
               </FormControl>
           </Box>
-          </Stack>
+          </Stack> */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <Stack direction="row" spacing={2}>
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>
@@ -252,7 +252,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               </Button>
               <Button
                 color='secondary'
-                variant="contained"
+                variant="outlined"
                 startIcon={<CancelIcon />}
                 onClick={handleCloseAddModal}
               >

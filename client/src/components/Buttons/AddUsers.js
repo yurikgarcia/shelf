@@ -80,9 +80,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
           transform: 'translate(-50%, -50%)',
           width: 400,
           bgcolor: 'background.paper',
-          border: '3px solid',
           borderRadius: '16px',
-          boxShadow: 19,
+          boxShadow: "0px 2px 0px 0px #4CAF50,0px 2px 25px 5px #4CAF50",
           p: 4,
           borderColor: "#58D407"
         }} >
@@ -134,7 +133,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               </Button>
               <Button
                 color='secondary'
-                variant="contained"
+                variant="outlined"
                 startIcon={<CancelIcon />}
                 onClick={handleCloseAddUser}
               >

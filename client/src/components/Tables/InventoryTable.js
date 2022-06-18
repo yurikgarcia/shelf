@@ -530,7 +530,7 @@ export default function RowsGrid({
 
                         <Button
                           color="secondary"
-                          variant="contained"
+                          variant="outlined"
                           startIcon={<CancelIcon />}
                           onClick={() => setOpen(false)}
                         >

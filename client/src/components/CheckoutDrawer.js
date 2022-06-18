@@ -304,9 +304,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                 })}
               </ListItem> */}
 
-              <Divider
-                sx={{ mt: 2, borderBottomWidth: 3, bgcolor: "#155E9C" }}
-              />
+
                 <ListItem>
                   <Autocomplete
                     disablePortal
@@ -410,15 +408,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                   ?.map((item, index) => {
                     return (
                       <div key={index}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            mt: 2,
-                            ml: 3,
-                            flexDirection: "row",
-                            width: "1000",
-                          }}
-                        >
                           <Box sx={{ width: 100 }}>
                             <div>{newShoppingCart[0].items.map((items, index) => {
                               return (
@@ -451,7 +440,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           >
                             <ClearIcon fontSize="x-small" />
                           </Box>
-                        </Box>
+                    
                         <Divider sx={{ borderBottomWidth: 2 }} />
                       </div>
                     );
