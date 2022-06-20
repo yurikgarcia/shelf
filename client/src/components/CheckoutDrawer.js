@@ -217,6 +217,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
 
   // console.log(shoppingCart)
   console.log("hellllp", newShoppingCart)
+//iterate over shoppingCart array and create a new box containing items.Name
+
   return (
     <div>
       {["right"].map((anchor) => (
@@ -393,29 +395,25 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                     
               </ListItem> */}
 
-              {/* <ListItem>
-                {users.map((users, index) => {
-                  return (
-                              <div key={index}>
-                                {users.dod_id}
-                              </div>
-                            )
-                          })}
-              </ListItem> */}
 
               <ListItem>
-                {newShoppingCart
-                  ?.map((item, index) => {
+              {newShoppingCart.map((item, index) => {
+                return (
+                <div key={index}>
+                  {item.items.map((items, index) => {
                     return (
                       <div key={index}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            mt: 2,
+                            ml: 3,
+                            flexDirection: "row",
+                            width: "1000",
+                          }}
+                        >
                           <Box sx={{ width: 100 }}>
-                            <div>{newShoppingCart[0].items.map((items, index) => {
-                              return (
-                                <div key={index}>
-                                  {items.Name}
-                                </div>
-                              )
-                            })}</div>
+                            <p>{items.Name}</p>
                           </Box>
                           <Box>
                             <TextField
@@ -440,12 +438,19 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           >
                             <ClearIcon fontSize="x-small" />
                           </Box>
-                    
-                        <Divider sx={{ borderBottomWidth: 2 }} />
+                          
+
+                        </Box>
                       </div>
-                    );
+                    )
                   }
                   )}
+                </div>
+                )
+              }
+              )}
+
+
               </ListItem>
             </List>
           </Drawer>
