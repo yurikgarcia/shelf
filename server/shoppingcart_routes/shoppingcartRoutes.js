@@ -32,8 +32,8 @@ async function getCart(req, res) {
 async function addToCart(req, res) {
   //TODO: need to modify query to INSERT INTO shopping_cart (user_inv_id, dod_id, items) WHERE DODID matches the cart ID and then insert the items.
   //IDEA - add a cart ID under the users table to give each user a unique cart.
-  let inventoryId = Math.floor(Math.random() * 1000000) + 1;
-  let dodId = Math.floor(Math.random() * 1000000) + 1;
+  let inventoryId = '1';
+  let dodId = "263748598";
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,

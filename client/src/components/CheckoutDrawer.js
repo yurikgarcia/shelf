@@ -257,146 +257,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
 
-              {/* <ListItem
-                disablePadding
-                sx={{ display: "flex", mt: 2, flexDirection: "column" }}
-              >
-                {shoppingCart?.map((item, index) => {
-                  return (
-                    <div style={{ width: "100%" }} key={index}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          mt: 2,
-                          ml: 3,
-                          flexDirection: "row",
-                          width: "1000",
-                        }}
-                      > */}
-                        {/* <Box sx={{ width: 100 }}>
-                          <p>{item.itemName}</p>
-                        </Box>
-                        <Box>
-                          <TextField
-                            required
-                            id="filled"
-                            variant="outlined"
-                            label="Quantity"
-                            type="number"
-                            defaultValue=""
-                            style={{ width: 95, height: 80 }}
-                            sx={{ ml: 2 }}
-                            // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                            // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
-                          />
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignContent: "center",
-                            ml: 6,
-                          }}
-                        >
-                          <ClearIcon fontSize="x-small" />
-                        </Box> */}
-                      {/* </Box>
-                      <Divider sx={{ borderBottomWidth: 2 }} />
-                    </div>
-                  );
-                })}
-              </ListItem> */}
 
-
-                <ListItem>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                  options={users}
-                  onChange={(event, newValue) => {
-                    setValue(newValue.dod_id);
-                  }}
-                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                  style={{ width: 300 }}
-                  renderInput={(params) => (
-                          <TextField {...params} label="Users" variant="outlined" />
-                        )}
-                    />
-                </ListItem>
-
-              <ListItem
-                disablePadding
-                sx={{ display: "flex", justifyContent: "center", mt: 2 }}
-              >
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  box-sizing="medium"
-                  startIcon={<SaveIcon />}
-                >
-                  Checkout
-                </Button>
-              </ListItem>
-
-              {/* <ListItem
-                disablePadding
-                sx={{ display: "flex", mt: 2, flexDirection: "column" }}
-              >
-                    {newShoppingCart?.map((item, index) => {
-                      return (
-                        <div style={{ width: "100%" }} key={index}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              mt: 2,
-                              ml: 3,
-                              flexDirection: "row",
-                              width: "1000",
-                            }}
-                          >
-                            <Box sx={{ width: 100 }}>
-                              <div>{newShoppingCart[0].items.map((items, index) => {
-                                return (
-                                  <div key={index}>
-                      
-                                
-                                  </div>
-                                )
-                              })}</div>
-                            </Box>
-                            <Box>
-                              <TextField
-                                required
-                                id="filled"
-                                variant="outlined"
-                                label="Quantity"
-                                type="number"
-                                defaultValue=""
-                                style={{ width: 95, height: 80 }}
-                                sx={{ ml: 2 }}
-                                // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                                // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
-                              />
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignContent: "center",
-                                ml: 6,
-                              }}
-                            >
-                              <ClearIcon fontSize="x-small" />
-                            </Box>
-                          </Box>
-                          <Divider sx={{ borderBottomWidth: 2 }} />
-                        </div>
-                      );
-                    }
-                    )}
-                    
-              </ListItem> */}
-
-
-              <ListItem>
+            <ListItem>
               {newShoppingCart.map((item, index) => {
                 return (
                 <div key={index}>
@@ -414,6 +276,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                         >
                           <Box sx={{ width: 100 }}>
                             <p>{items.Name}</p>
+                          
                           </Box>
                           <Box>
                             <TextField
@@ -438,20 +301,45 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                           >
                             <ClearIcon fontSize="x-small" />
                           </Box>
-                          
-
                         </Box>
                       </div>
-                    )
-                  }
+                    )}
                   )}
                 </div>
-                )
-              }
+                )}
               )}
-
-
               </ListItem>
+
+              <ListItem>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={users}
+                  onChange={(event, newValue) => {
+                  setValue(newValue.dod_id);
+                }}
+                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                  style={{ width: 300 }}
+                  renderInput={(params) => (
+                        <TextField {...params} label="Users" variant="outlined" />
+                      )}
+                  />
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                sx={{ display: "flex", justifyContent: "center", mt: 2 }}
+              >
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  box-sizing="medium"
+                  startIcon={<SaveIcon />}
+                >
+                  Checkout
+                </Button>
+              </ListItem>
+
             </List>
           </Drawer>
         </React.Fragment>

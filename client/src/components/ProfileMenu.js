@@ -13,6 +13,10 @@ export default function ProfileMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogOut = () => {
+    localStorage.removeItem('authorization');
+    window.location.href = '/login';
+  }
 
   return (
     <div>
@@ -30,7 +34,7 @@ export default function ProfileMenu() {
         {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My Account</MenuItem> */}
         <Link to="/signup"style={{ textDecoration: 'none', color: 'black'}}> <MenuItem onClick={handleClose}>Register Account</MenuItem></Link>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </div>
   );
