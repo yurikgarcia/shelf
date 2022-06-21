@@ -154,7 +154,7 @@ export default function RowsGrid({
   };
 
   /**
-   * adds to shopping cart
+   * adds to shopping cart this was hardys!
    */
 
   const addItemToShoppingCart = async (params) => {
@@ -173,7 +173,14 @@ export default function RowsGrid({
       });
   };
 
-  console.log('newShoppingCart', newShoppingCart[0])
+
+
+  console.log("add to cart", addItemToShoppingCart)
+
+
+
+
+
 
   //initial call to grab inventory from DB on load
   useEffect(() => {
