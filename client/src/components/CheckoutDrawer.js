@@ -6,47 +6,27 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-// import FormControl from "@mui/material/FormControl";
-// import InputLabel from "@mui/material/InputLabel";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-// import OutlinedInput from "@mui/material/OutlinedInput";
-// import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
-// import Select from "@mui/material/Select";
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 
 
-/**
- *
- * settings for user drop down css`
- */
-// const ITEM_HEIGHT = 48;
-// const ITEM_PADDING_TOP = 8;
-// const MenuProps = {
-//   PaperProps: {
-//     style: {
-//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-//       width: 250,
-//     },
-//   },
-// };
 
-export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
+export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory, }) {
 
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [spinner, setSpinner] = useState(false); //spinner state
+  const [users, setUsers] = useState([]); //users state for list of users in drop down
+  const [value, setValue] = useState(''); //value state for users drop down
 
   const [state, setState] = React.useState({
     right: false,
   });
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -55,9 +35,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
-  };
+  }; //drawer for the shopping cart
 
   const list = (anchor) => (
     <Box
@@ -69,7 +48,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   );
 
   
-  const [users, setUsers] = useState([]); //users state
 
   //initial call to grab users from DB on load
   useEffect(() => {
@@ -103,51 +81,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   };
 
 
-// //fetch from shopping_cart table
-//   const fetchShoppingCart = async () => {
-//     setSpinner(true);
-//     axios
-//       .get("http://localhost:3000/shopping_cart", {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-//         },
-//       })
-//       .then((res) => {
-//         setNewShoppingCart(res.data);
-//         setSpinner(false);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         setSpinner(false);
-//       });
-//   };
-
-
-
-//   /**
-//    * shopping Cart fetch
-//    */
-//   const fetchNewShoppingCart = async (params) => {
-//     setSpinner(true);
-//     console.log("fetching new shopping cart");
-//     let newShoppingCart = params.row;
-//     axios
-//       .get("http://localhost:3000/shopping-cart", {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("authorization")}`
-//         },
-//       })
-//       .then((res) => {
-//         setNewShoppingCart(res.data);
-//         setSpinner(false);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//         setSpinner(false);
-//       });
-//   };
-
-
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchNewShoppingCart();
@@ -176,7 +109,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   };
   
 
-
   const [addedItem, setAddedItem] = useState({
     user_inv_id: "",
     dod_id: "",
@@ -203,21 +135,31 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
       });
   };
 
-  const [value, setValue] = useState('');
+  const onDelete  = async (params) => {
+    let id = params.formattedValue;
+    axios({
+      method: "delete",
+      url:
+        "http://localhost:3000/shopping-cart",
+      data: {
+        id: id,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          fetchNewShoppingCart();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+  };
 
-  // console.log('newShoppingCart', newShoppingCart[0])
-  // console.log('newShoppingCart-DODID', newShoppingCart[0].dod_id)
-  // console.log('newShoppingCartDRILL', newShoppingCart[0].items[0])
 
 
-  console.log({ value });
-
-  // console.log({items: newShoppingCart[0].items[0]})
 
 
-  // console.log(shoppingCart)
-  console.log("hellllp", newShoppingCart)
-//iterate over shoppingCart array and create a new box containing items.Name
 
   return (
     <div>
@@ -299,7 +241,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                               ml: 6,
                             }}
                           >
-                            <ClearIcon fontSize="x-small" />
+                            <ClearIcon fontSize="x-small" onClick={(params) => onDelete(params)} />
                           </Box>
                         </Box>
                       </div>
@@ -334,7 +276,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
                   color="secondary"
                   variant="contained"
                   box-sizing="medium"
-                  startIcon={<SaveIcon />}
+                  startIcon={<SaveIcon/>}
                 >
                   Checkout
                 </Button>

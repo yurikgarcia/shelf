@@ -14,6 +14,9 @@ const pool = new Pool({
   },
 });
 
+//GET call that fetches the shopping_cart table in database in 
+//order to display the items in the cart
+
 async function getCart(req, res) {
   verifyToken(req, res, (authData) => {
     console.log(authData);
@@ -29,64 +32,11 @@ async function getCart(req, res) {
   });
 }
 
-// async function addToCart(req, res) {
-//   //TODO: need to modify query to INSERT INTO shopping_cart (user_inv_id, dod_id, items) WHERE DODID matches the cart ID and then insert the items.
-//   //IDEA - add a cart ID under the users table to give each user a unique cart.
-//   let inventoryId = '1';
-//   let dodId = "263748598";
-//   let params = {
-//     id: req.body.id,
-//     Delete: req.body.Delete,
-//     Edit: req.body.Edit,
-//     Name: req.body.Name,
-//     Brand: req.body.Brand,
-//     NSN: req.body.NSN,
-//     Bldg: req.body.Bldg,
-//     Size: req.body.Size,
-//     Count: req.body.Count,
-//     Gender: req.body.Gender,
-//     Aisle: req.body.Aisle,
-//     Initial: req.body.Initial,
-//     MinCount: req.body.MinCount,
-//     Ordered: req.body.Ordered,
-//     Returnable: req.body.Returnable,
-//   };
-//   pool.query(
-//     `INSERT INTO shopping_cart (user_inv_id, dod_id, items)
-//   VALUES (
-//     '${inventoryId}',
-//     '${dodId}',
-//     array['{
-//       "id": "${params.id}",
-//       "Delete": "${params.Delete}",
-//       "Edit": "${params.Edit}",
-//       "Name": "${params.Name}",
-//       "Brand": "${params.Brand}",
-//       "NSN": "${params.NSN}",
-//       "Bldg": "${params.Bldg}",
-//       "Size": "${params.Size}",
-//       "Count": "${params.Count}",
-//       "Gender": "${params.Gender}",
-//       "Aisle": "${params.Aisle}",
-//       "Initial": "${params.Initial}",
-//       "MinCount": "${params.MinCount}",
-//       "Ordered": "${params.Ordered}",
-//       "Returnable": "${params.Returnable}"
-//     }']::json[])`,
-//     (error, results) => {
-//       if (error) {
-//         res.send("error" + error);
-//       }
-//       console.log("placed in DB");
-//       res.status(200);
-//     }
-//   );
-// }
 
+//POST call to add item to JSON cell inside of shopping_cart table
+// based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
-  //TODO: need to modify query to INSERT INTO shopping_cart (user_inv_id, dod_id, items) WHERE DODID matches the cart ID and then insert the items.
-  //IDEA - add a cart ID under the users table to give each user a unique cart.
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
@@ -106,7 +56,13 @@ async function addToCart(req, res) {
   };
   pool.query(
     `UPDATE shopping_cart SET items = items || 
-    '{"Name":"${params.Name}"}' ::jsonb
+    '{"Name":"${params.Name}",
+      "Brand":"${params.Brand}",
+      "NSN":"${params.NSN}",
+      "Size":"${params.Size}",
+      "Count":"${params.Count}",
+      "Gender":"${params.Gender}",
+      "UUID":"${params.Delete}"}' ::jsonb
     WHERE dod_id = '263748598'`,
     (error, results) => {
       if (error) {
@@ -114,6 +70,30 @@ async function addToCart(req, res) {
       }
       console.log("placed in DB");
       res.status(200);
+    }
+  );
+}
+
+//DELETES items from shopping_cart JSON cell
+//based on items' UUID
+
+async function deleteItemFromShoppingCart(req, res) {
+  let params = {
+    Delete: req.body.Delete,
+  };
+  pool.query(
+    `UPDATE shopping_cart SET items = items - 
+    Cast((SELECT position - 1 FROM shopping_cart, jsonb_array_elements(items) with 
+        ordinality arr(item_object, position) 
+    WHERE dod_id='263748598' and item_object->>'UUID' = '${Delete}') as int)
+    WHERE dod_id='263748598';`,
+    (error, results) => {
+      if (error) {
+        res.send("error" + error);
+      }
+      console.log("removed from DB");
+      res.status(200);
+      res.send("Success");
     }
   );
 }
