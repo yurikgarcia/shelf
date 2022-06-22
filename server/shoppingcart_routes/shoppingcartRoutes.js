@@ -54,6 +54,7 @@ async function addToCart(req, res) {
     Ordered: req.body.Ordered,
     Returnable: req.body.Returnable,
   };
+  
   pool.query(
     `UPDATE shopping_cart SET items = items || 
     '{"Name":"${params.Name}",
@@ -78,14 +79,13 @@ async function addToCart(req, res) {
 //based on items' UUID
 
 async function deleteItemFromShoppingCart(req, res) {
-  let params = {
-    Delete: req.body.Delete,
-  };
+  const item_id = req.params.id;
+  console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE shopping_cart SET items = items - 
     Cast((SELECT position - 1 FROM shopping_cart, jsonb_array_elements(items) with 
-        ordinality arr(item_object, position) 
-    WHERE dod_id='263748598' and item_object->>'UUID' = '${Delete}') as int)
+      ordinality arr(item_object, position) 
+    WHERE dod_id='263748598' and item_object->>'UUID' = '${item_id}') as int)
     WHERE dod_id='263748598';`,
     (error, results) => {
       if (error) {
@@ -101,4 +101,5 @@ async function deleteItemFromShoppingCart(req, res) {
 module.exports = {
   getCart,
   addToCart,
+  deleteItemFromShoppingCart
 };

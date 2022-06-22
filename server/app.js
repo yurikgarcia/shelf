@@ -8,7 +8,7 @@ const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { getUsers, addUser, deleteUser, updateUser } = require('./user_routes/userRoutes');
-const { getCart, addToCart } = require('./shoppingcart_routes/shoppingcartRoutes');
+const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
 
@@ -81,6 +81,7 @@ app.patch('/users', updateUser)
 
 app.get('/shopping-cart', getCart)
 app.post('/shopping-cart', addToCart)
+app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
 
 
 /*

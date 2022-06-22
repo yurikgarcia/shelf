@@ -8,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
@@ -126,24 +125,22 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       .then((res) => {
         if (res.status === 200) {
           setNewShoppingCart([...newShoppingCart, newShoppingCart]);
-          fetchNewShoppingCart();
         }
       })
+      .then(()=> { fetchNewShoppingCart()})
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
   };
 
-  const onDelete  = async (params) => {
-    let id = params.formattedValue;
+  const onDelete  = async (items, index) => {
+    console.log("item from front end going to db", items.UUID);
+    let id = items.UUID;
     axios({
       method: "delete",
       url:
-        "http://localhost:3000/shopping-cart",
-      data: {
-        id: id,
-      },
+        `http://localhost:3000/shopping-cart/${id}`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -155,9 +152,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         console.log("err", err);
       });
   };
-
-
-
 
 
 
@@ -241,7 +235,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
                               ml: 6,
                             }}
                           >
-                            <ClearIcon fontSize="x-small" onClick={(params) => onDelete(params)} />
+                            <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
                           </Box>
                         </Box>
                       </div>
