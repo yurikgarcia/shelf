@@ -105,8 +105,8 @@ async function addToCart(req, res) {
     Returnable: req.body.Returnable,
   };
   pool.query(
-    `UPDATE shopping_cart 
-    SET items = items || ARRAY['{"Name":"${params.Name}"}']::json[]
+    `UPDATE shopping_cart SET items = items || 
+    '{"Name":"${params.Name}"}' ::jsonb
     WHERE dod_id = '263748598'`,
     (error, results) => {
       if (error) {

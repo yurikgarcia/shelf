@@ -210,7 +210,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart }) {
   // console.log('newShoppingCartDRILL', newShoppingCart[0].items[0])
 
 
-  // console.log({ value });
+  console.log({ value });
 
   // console.log({items: newShoppingCart[0].items[0]})
 
