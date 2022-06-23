@@ -64,23 +64,23 @@ async function addToCart(req, res) {
       "Count":"${params.Count}",
       "Gender":"${params.Gender}",
       "UUID":"${params.Delete}"}' ::jsonb
-    WHERE dod_id = '263748598'`,
-    (error, results) => {
-      if (error) {
-        res.send("error" + error);
+      WHERE dod_id = '263748598'`,
+      (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        console.log("placed in DB");
+        res.status(200);
       }
-      console.log("placed in DB");
-      res.status(200);
-    }
-  );
-}
+    );
+  }
 
 //DELETES items from shopping_cart JSON cell
 //based on items' UUID
 
 async function deleteItemFromShoppingCart(req, res) {
   const item_id = req.params.id;
-  console.log('==> Item ID to be deleted', item_id)
+  // console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE shopping_cart SET items = items - 
     Cast((SELECT position - 1 FROM shopping_cart, jsonb_array_elements(items) with 

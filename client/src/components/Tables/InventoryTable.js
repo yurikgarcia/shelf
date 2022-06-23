@@ -163,8 +163,8 @@ export default function RowsGrid({
       .post("http://localhost:3000/shopping-cart", newShoppingCart)
       .then((res) => {
         if (res.status === 200) {
-          fetchNewShoppingCart()
-          console.log("success", res);
+          setNewShoppingCart([...newShoppingCart, newShoppingCart]);
+          fetchNewShoppingCart();
         }
       })
       .catch((err) => {
@@ -175,7 +175,7 @@ export default function RowsGrid({
 
 
 
-  console.log("add to cart", addItemToShoppingCart)
+  // console.log("add to cart", addItemToShoppingCart)
 
 
 
