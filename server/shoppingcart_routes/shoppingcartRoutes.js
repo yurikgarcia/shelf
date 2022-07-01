@@ -78,17 +78,16 @@ async function deleteItemFromShoppingCart(req, res) {
   // console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE users SET shopping_cart = shopping_cart - 
-    Cast((SELECT position - 1 FROM users, jsonb_array_elements(items) with 
-      ordinality arr(item_object, position) 
-    WHERE dod_id='263748598' and item_object->>'UUID' = '${item_id}') as int)
-    WHERE dod_id='263748598';`,
+    Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
+        ordinality arr(item_object, position) 
+    WHERE dod_id='123456789' and item_object->>'UUID' = '${item_id}') as int)
+    WHERE dod_id='123456789';`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
       }
       console.log("removed from DB");
       res.status(200);
-      res.send("Success");
     }
   );
 }

@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
-import Autocomplete from '@mui/material/Autocomplete';
 import axios from "axios";
+import Autocomplete from '@mui/material/Autocomplete';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -20,7 +19,6 @@ import TextField from "@mui/material/TextField";
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory, }) {
 
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
-  const [spinner, setSpinner] = useState(false); //spinner state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
 
@@ -63,7 +61,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
    * fetches DB after any changes to the resutls array from the user on the front end
    */
   const fetchUsers = async () => {
-    setSpinner(true);
     axios
       .get("http://localhost:3000/users", {
         headers: {
@@ -72,11 +69,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       })
       .then((res) => {
         setUsers(res.data);
-        setSpinner(false);
       })
       .catch((err) => {
         console.log(err);
-        setSpinner(false);
       });
   };
 
@@ -84,7 +79,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchNewShoppingCart();
-    console.log("shoppingCart",shoppingCart)
   }, []);
 
   /**
@@ -109,34 +103,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   };
   
 
-  const [addedItem, setAddedItem] = useState({
-    user_inv_id: "",
-    dod_id: "",
-    items: "",
-  });
 
-  /**
-   * adds to shopping cart
-   */
-
-  const addItemToShoppingCart = async () => {
-    const newInventory = addedItem;
-    axios
-      .post("http://localhost:3000/users", { item: newShoppingCart })
-      .then((res) => {
-        if (res.status === 200) {
-          setNewShoppingCart([...newShoppingCart, newShoppingCart]);
-        }
-      })
-      .then(()=> { fetchNewShoppingCart()})
-      .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
-        console.log("err", err);
-      });
-  };
-
-
-
+  // function to delete item from shopping_cart column in the users table in db
   const onDelete  = async (items, index) => {
     console.log("item from front end going to db", items.UUID);
     let id = items.UUID;
@@ -145,12 +113,13 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         if (res.status === 200) {
           fetchNewShoppingCart();
         }
-      })
+      }) 
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
   };
+
 
 
 

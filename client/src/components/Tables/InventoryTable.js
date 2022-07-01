@@ -128,33 +128,9 @@ export default function RowsGrid({
       });
   };
 
-  /**
-   *
-   * shopping cart functions
-   */
-
-  const [list, setList] = useState();
-  const [name, setName] = useState("");
-
-  function handleChange(event) {
-    setName(event.target.value);
-  }
-
-  function handleAdd() {
-    const newList = list.concat({ name });
-    setList(newList);
-  }
-
-  const handleAddtoCart = (params) => {
-    let itemName = params.row.Name;
-    let id = params.row.Delete;
-    let payload = { itemName: itemName };
-    // setShoppingCart([{...shoppingCart}, payload])
-    shoppingCart.push(payload);
-  };
 
   /**
-   * adds to shopping cart in the users table
+   * adds to shopping cart column in the users table
    */
 
     const addToCart = async (params) => {
@@ -176,12 +152,9 @@ export default function RowsGrid({
 
 
 
-
-
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchNewShoppingCart();
-    console.log("shoppingCart",shoppingCart)
   }, []);
 
   /**
