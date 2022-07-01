@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
+import { Link } from "react-router-dom";
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
@@ -161,10 +162,12 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     minWidth: 10,
                     renderCell: (params) => (
                       <Tooltip title='Issued Items'>
-                        <ListAltIcon
-                          sx={{ cursor: "pointer", color: 'grey' }}
-                          // onClick={() => onDelete(params)}
-                        />
+                        <Link to="/home"  style={{ textDecoration: 'none', color: 'black' }}>
+                          <ListAltIcon
+                            sx={{ cursor: "pointer", color: 'grey' }}
+                            // onClick={() => onDelete(params)}
+                          />
+                        </Link>
                       </Tooltip>
                     ),
                   },

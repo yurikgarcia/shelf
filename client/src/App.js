@@ -8,10 +8,11 @@ import Login from ".//components/Routes/Login.js";
 import Orders from ".//components/Routes/Orders.js";
 import Orders2 from ".//components/Routes/Orders2.js";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import Users from ".//components/Routes/Users.js";
 import NavDrawer from "./components/NavDrawer";
 import { Outlet } from 'react-router-dom';
+import { ThemeProvider } from "@mui/material/styles";
+import Users from ".//components/Routes/Users.js";
+import UserDetails from ".//components/Routes/UserDetails.js";
 
 const customTheme = createTheme({
   palette: {
@@ -65,6 +66,7 @@ function App() {
                     }
                   />
                     <Route path="/users" element={<Users />} />
+                    <Route path="/users/:name" element={<UserDetails />} /> 
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/orders2" element={<Orders2 />} />
                     <Route path="*" element={<Login/>} />

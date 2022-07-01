@@ -217,7 +217,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             </Link> */}
 
 
-            <Link to="/orders"  style={{ textDecoration: 'none', color: 'white'}}>
+            <Link to="/orders2"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
             </Link>
 
@@ -314,7 +314,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
 
 
-              <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
+              {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
@@ -325,13 +325,13 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                         <ListItemText primary="Users" />
                       </ListItemButton>
                 </ListItem>
-              </Link>  
+              </Link>   */}
 
               <Link to="/orders2" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>
-                        <Tooltip title="Orders2" placement="right-end">
+                        <Tooltip title="Orders" placement="right-end">
                           <MarkunreadMailboxIcon sx={{color: "white"}}   />
                         </Tooltip>
                         </ListItemIcon>
