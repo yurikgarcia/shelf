@@ -33,7 +33,7 @@ async function getCart(req, res) {
 }
 
 
-//POST call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
+//PATCH call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
 // based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
@@ -66,6 +66,7 @@ async function addToCart(req, res) {
         }
         console.log("placed item into shopping cart");
         res.status(200);
+        res.send("Success")
       }
     );
   }
@@ -88,6 +89,7 @@ async function deleteItemFromShoppingCart(req, res) {
       }
       console.log("removed from DB");
       res.status(200);
+      res.send("Success")
     }
   );
 }

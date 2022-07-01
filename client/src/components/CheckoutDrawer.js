@@ -120,6 +120,21 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       });
   };
 
+  // function to issue items to user then clears the cart
+
+  const addToIssuedItems = async () => {
+    axios
+      .patch("http://localhost:3000/issued-items")
+      .then((res) => {
+        if (res.status === 200) {
+          fetchNewShoppingCart();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+    };
 
 
 
@@ -239,11 +254,11 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
                   variant="contained"
                   box-sizing="medium"
                   startIcon={<SaveIcon/>}
+                  onClick={() => addToIssuedItems()}
                 >
                   Checkout
                 </Button>
               </ListItem>
-
             </List>
           </Drawer>
         </React.Fragment>
@@ -251,3 +266,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     </div>
   );
 }
+
+
+
+
