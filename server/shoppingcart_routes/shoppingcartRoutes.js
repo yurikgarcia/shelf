@@ -55,16 +55,9 @@ async function addToCart(req, res) {
     Ordered: req.body.Ordered,
     Returnable: req.body.Returnable,
   };
-  
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
-    '{"Name":"${params.Name}",
-      "Brand":"${params.Brand}",
-      "NSN":"${params.NSN}",
-      "Size":"${params.Size}",
-      "Count":"${params.Count}",
-      "Gender":"${params.Gender}",
-      "UUID":"${params.Delete}"}' ::jsonb
+    '{"Name":'Yurik Sucks' ::jsonb
       WHERE dod_id = '263748598'`,
       (error, results) => {
         if (error) {

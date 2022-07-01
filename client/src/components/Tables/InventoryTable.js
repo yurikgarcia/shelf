@@ -157,23 +157,22 @@ export default function RowsGrid({
    * adds to shopping cart in the users table
    */
 
- 
-   const addToCart = async (params) => {
-    let newShoppingCart = params.row;
-    console.log(newShoppingCart)
-    axios
-      .patch("http://localhost:3000/shopping-cart", newShoppingCart)
-      .then((res) => {
-        if (res.status === 200) {
-          setNewShoppingCart([...newShoppingCart, newShoppingCart]);
-          fetchNewShoppingCart();
-        }
-      })
-      .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
-        console.log("err", err);
-      });
-    };
+    const addToCart = async (params) => {
+      let newShoppingCart = params.row;
+      console.log(newShoppingCart)
+      axios
+        .patch("http://localhost:3000/shopping-cart", newShoppingCart)
+        .then((res) => {
+          if (res.status === 200) {
+            setNewShoppingCart([...newShoppingCart, newShoppingCart]);
+            fetchNewShoppingCart();
+          }
+        })
+        .catch((err) => {
+          alert("Sorry! Something went wrong. Please try again.");
+          console.log("err", err);
+        });
+      };
 
 
 
