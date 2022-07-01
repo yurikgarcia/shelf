@@ -158,13 +158,13 @@ export default function RowsGrid({
    */
 
     const addToCart = async (params) => {
-      let newShoppingCart = params.row;
-      console.log(newShoppingCart)
+      let userShoppingCart = params.row;
+      console.log(userShoppingCart)
       axios
-        .patch("http://localhost:3000/shopping-cart", newShoppingCart)
+        .patch("http://localhost:3000/shopping-cart", userShoppingCart)
         .then((res) => {
           if (res.status === 200) {
-            setNewShoppingCart([...newShoppingCart, newShoppingCart]);
+            setNewShoppingCart([...newShoppingCart, userShoppingCart]);
             fetchNewShoppingCart();
           }
         })

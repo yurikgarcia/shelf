@@ -37,7 +37,6 @@ async function getCart(req, res) {
 // based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
-  console.log("addToCart",addToCart)
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
@@ -57,8 +56,10 @@ async function addToCart(req, res) {
   };
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
-    '{"Name":'Yurik Sucks' ::jsonb
-      WHERE dod_id = '263748598'`,
+    '{"Name": "${params.Name}",
+      "UUID": "${params.Delete}",
+      "Brand": "${params.Brand}"}' ::jsonb
+    WHERE dod_id= '123456789'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);

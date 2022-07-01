@@ -76,14 +76,15 @@ app.get('/users', getUsers)
 app.post('/users', addUser)
 app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
-app.patch('/users', addToCart)
+
 
 
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/shopping-cart', getCart)
-app.post('/shopping-cart', addToCart)
+// app.post('/shopping-cart', addToCart)
 app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
+app.patch('/shopping-cart', addToCart)
 
 
 /*
