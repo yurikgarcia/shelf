@@ -82,7 +82,6 @@ app.patch('/users', updateUser)
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/shopping-cart', getCart)
-// app.post('/shopping-cart', addToCart)
 app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
 app.patch('/shopping-cart', addToCart)
 

@@ -140,7 +140,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const onDelete  = async (items, index) => {
     console.log("item from front end going to db", items.UUID);
     let id = items.UUID;
-    axios.delete(`http://localhost:3000/users/${id}`)
+    axios.delete(`http://localhost:3000/shopping-cart/${id}`)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
