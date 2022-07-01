@@ -182,7 +182,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             </IconButton> */}
 
             <Box sx={{mr:2}}>
-              <Link to="/">
+              <Link to="/home">
                 <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
               </Link>
             </Box>
