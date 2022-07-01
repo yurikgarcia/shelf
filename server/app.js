@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3000;
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
-const { getUsers, addUser, deleteUser, updateUser } = require('./user_routes/userRoutes');
-const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
+const { getUsers, addUser, deleteUser, updateUser, addToCart } = require('./user_routes/userRoutes');
+const { getCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
 
@@ -75,12 +75,14 @@ app.delete('/inventory', deleteItemFromInventory)
 app.get('/users', getUsers)
 app.post('/users', addUser)
 app.delete('/users', deleteUser)
-app.patch('/users', updateUser)
+// app.patch('/users', updateUser)
+app.patch('/users', addToCart)
+
 
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/shopping-cart', getCart)
-app.post('/shopping-cart', addToCart)
+app.post('/users', addToCart)
 app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
 
 

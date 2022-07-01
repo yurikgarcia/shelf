@@ -154,13 +154,15 @@ export default function RowsGrid({
   };
 
   /**
-   * adds to shopping cart this was hardys!
+   * adds to shopping cart in the users table
    */
 
-  const addItemToShoppingCart = async (params) => {
+ 
+   const addToCart = async (params) => {
     let newShoppingCart = params.row;
+    console.log(newShoppingCart)
     axios
-      .post("http://localhost:3000/shopping-cart", newShoppingCart)
+      .patch("http://localhost:3000/shopping-cart", newShoppingCart)
       .then((res) => {
         if (res.status === 200) {
           setNewShoppingCart([...newShoppingCart, newShoppingCart]);
@@ -171,12 +173,7 @@ export default function RowsGrid({
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
-  };
-
-
-
-  // console.log("add to cart", addItemToShoppingCart)
-
+    };
 
 
 
@@ -194,7 +191,7 @@ export default function RowsGrid({
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/shopping-cart", {
+      .get("http://localhost:3000/users", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -285,7 +282,7 @@ export default function RowsGrid({
                       <Tooltip title="Issue Item">
                         <AddCircleIcon
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
-                          onClick={() => addItemToShoppingCart(params)}
+                          onClick={() => addToCart(params)}
                         />
                       </Tooltip>
                     ),

@@ -22,7 +22,7 @@ async function getCart(req, res) {
     console.log(authData);
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
-      pool.query("SELECT * FROM shopping_cart", (error, results) => {
+      pool.query("SELECT * FROM users WHERE dod_id = '123456789'", (error, results) => {
         if (error) {
           return res.send("error" + error);
         }
@@ -33,10 +33,11 @@ async function getCart(req, res) {
 }
 
 
-//POST call to add item to JSON cell inside of shopping_cart table
+//POST call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
 // based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
+  console.log("addToCart",addToCart)
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
@@ -56,7 +57,7 @@ async function addToCart(req, res) {
   };
   
   pool.query(
-    `UPDATE shopping_cart SET items = items || 
+    `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name":"${params.Name}",
       "Brand":"${params.Brand}",
       "NSN":"${params.NSN}",
@@ -69,7 +70,7 @@ async function addToCart(req, res) {
         if (error) {
           res.send("error" + error);
         }
-        console.log("placed in DB");
+        console.log("placed item into shopping cart");
         res.status(200);
       }
     );
@@ -82,8 +83,8 @@ async function deleteItemFromShoppingCart(req, res) {
   const item_id = req.params.id;
   // console.log('==> Item ID to be deleted', item_id)
   pool.query(
-    `UPDATE shopping_cart SET items = items - 
-    Cast((SELECT position - 1 FROM shopping_cart, jsonb_array_elements(items) with 
+    `UPDATE users SET shopping_cart = shopping_cart - 
+    Cast((SELECT position - 1 FROM users, jsonb_array_elements(items) with 
       ordinality arr(item_object, position) 
     WHERE dod_id='263748598' and item_object->>'UUID' = '${item_id}') as int)
     WHERE dod_id='263748598';`,
