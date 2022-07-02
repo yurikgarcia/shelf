@@ -43,8 +43,8 @@ function Inventory() {
     <div>
       <div>
         <main>
-        <Box sx={{ml: 15, mt: 2}}>
-            <h1>Users</h1>
+          <Box sx={{ml: 15, mt: 2}}>
+              <h1>Users</h1>
           </Box>
 
           <Box sx={{display:"flex", flexDirection: 'row'}}>
