@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Autocomplete from '@mui/material/Autocomplete';
+import Badge from '@mui/material/Badge';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -11,6 +12,7 @@ import ListItem from "@mui/material/ListItem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
+import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 
@@ -136,6 +138,21 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       });
     };
 
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+      '& .MuiBadge-badge': {
+        right: -3,
+        top: 13,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+      },
+    }));
+
+
+
+  let cartLength = newShoppingCart.length;
+
+  console.log("newShoppingCart", newShoppingCart)
+  console.log("cartLength", cartLength)
 
 
   return (
@@ -143,13 +160,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title="Shopping Cart">
-            {shoppingCart.length >= 1 ? (
-              <ShoppingCartIcon
-                sx={{ color: "#4CAF50" }}
-                onClick={toggleDrawer(anchor, true)}
-              >
-                {anchor}
-              </ShoppingCartIcon>
+            {newShoppingCart.length >= 1 ? (
+              <StyledBadge badgeContent={cartLength}>
+                <ShoppingCartIcon
+                  onClick={toggleDrawer(anchor, true)}
+                >
+                  {anchor}
+                </ShoppingCartIcon>
+              </StyledBadge>
             ) : (
               <ShoppingCartIcon
                 sx={{ color: "white" }}

@@ -20,8 +20,8 @@ function UserDetails({match}) {
    * @returns users
    * fetches DB after any changes to the results array from the user on the front end
    */
-   const fetchUsers = async () => {
-    setSpinner(true);
+    const fetchUsers = async () => {
+      setSpinner(true);
     axios.get('http://localhost:3000/users',
     {
       headers: {
