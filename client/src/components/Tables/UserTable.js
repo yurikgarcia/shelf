@@ -92,6 +92,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       })
   }
 
+  console.log('users', users)
+
 
   return (
     <Box
@@ -162,7 +164,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     minWidth: 10,
                     renderCell: (params) => (
                       <Tooltip title='Issued Items'>
-                        <Link to="/home"  style={{ textDecoration: 'none', color: 'black' }}>
+                        <Link to={`/users/${params.row.First}${params.row.Last}`}  style={{ textDecoration: 'none', color: 'black' }}>
                           <ListAltIcon
                             sx={{ cursor: "pointer", color: 'grey' }}
                             // onClick={() => onDelete(params)}
