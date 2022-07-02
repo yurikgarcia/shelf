@@ -149,11 +149,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
 
 
-  let cartLength = newShoppingCart.length;
-
-  console.log("newShoppingCart", newShoppingCart)
-  console.log("cartLength", cartLength)
-
+  const cartLength = newShoppingCart.map(item => item.shopping_cart.length)
 
   return (
     <div>
