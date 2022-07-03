@@ -44,6 +44,8 @@ export default function RowsGrid({ }) {
 
   console.log('selected from table', user);
 
+  console.log('drill', user[0].issued_items);
+
   return (
     <Box
       sx={{
@@ -76,25 +78,24 @@ export default function RowsGrid({ }) {
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "First", minWidth: 150, },
-                  { field: "Last", minWidth: 130 },
-                  { field: "DoD", minWidth: 100 },
-                  { field: "Email", minWidth: 170 },
-                  // { field: "Password", minWidth: 170 },
-                  // { field: "Admin", minWidth: 170 },
+                  { field: "Name", minWidth: 150 },
+                  { field: "Brand", minWidth: 130 },
+                  { field: "NSN", minWidth: 100 },
+                  { field: "Size", minWidth: 100 },
+                  { field: "Gender", minWidth: 100 },
+                  { field: "Count", minWidth: 100 },
+                  { field: "Returnable", minWidth: 100 },
                 ]}
-                rows={user?.map((row, index) => {
+                rows={user[0].issued_items.map((row, index) => {
                   return {
                     id: index,
-                    Delete: row.dod_id,
-                    Edit: row.dod_id,
-                    Items: row.dod_id,
-                    First: row.first_name,
-                    Last: row.last_name,
-                    DoD: row.dod_id,
-                    Email: row.email,
-                    // Password: row.user_password,
-                    // Admin: row.is_admin
+                    Name: row.Name,
+                    Brand: row.Brand,
+                    NSN: row.dod_id,
+                    Size: row.item_size,
+                    Count: row.item_count,
+                    Gender: row.gender,
+                    Returnable: row.returnable_item,
                   };
                 })}
               />
