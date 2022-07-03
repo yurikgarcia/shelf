@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { addToIssuedItems } = require('./user_routes/userInventory');
+const { getSelectedUser} = require('./issued_items_routes/issuedItemsRoutes');
 const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
@@ -77,10 +78,14 @@ app.get('/users', getUsers)
 app.post('/users', addUser)
 app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
+//--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
+
+app.get('/issueditems', getSelectedUser)
+
 
 //--------------------------------USERS TABLE FOR ISSUED ITEMS----------------------------------------------------------------------------------------------------------------
 
-app.patch('/issued-items', addToIssuedItems)
+// app.patch('/issued-items', addToIssuedItems)
 
 
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------

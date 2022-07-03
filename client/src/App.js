@@ -12,8 +12,8 @@ import NavDrawer from "./components/NavDrawer";
 import { Outlet } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import Users from ".//components/Routes/Users.js";
-import UserDetails from ".//components/Routes/UserDetails.js";
-import CharacterDetails from ".//components/Routes/CharacterDetails.js";
+import UserIssuedItems from "./components/Routes/UserIssuedItems.js";
+
 
 const customTheme = createTheme({
   palette: {
@@ -43,6 +43,8 @@ function App() {
     </>
   );
 
+  
+
   return (
     <ThemeProvider theme={customTheme}>
 
@@ -67,8 +69,8 @@ function App() {
                     }
                   />
                     <Route path="/users" element={<Users />} />
-                    <Route path="/users/:name" element={<UserDetails />} /> 
-                    <Route path="/userdetails" element={<UserDetails />} /> 
+                    <Route path="/users/:name" element={<UserIssuedItems />} /> 
+                    <Route path="/issueditems" element={<UserIssuedItems />} /> 
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/orders2" element={<Orders2 />} />
                     <Route path="*" element={<Login/>} />

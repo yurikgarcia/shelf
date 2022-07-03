@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import UserTable from "../Tables/UserTable.js";
 import axios from 'axios';
 
-function Inventory() {
+function Users() {
   const [users, setUsers] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
+
 
   //initial call to grab users from DB on load
   useEffect(() => {
@@ -16,8 +17,9 @@ function Inventory() {
   }, []);
 
 
+
   /**
-   * @returns users
+   * users
    * fetches DB after any changes to the results array from the user on the front end
    */
   const fetchUsers = async () => {
@@ -37,6 +39,9 @@ function Inventory() {
         setSpinner(false);
       })
   };
+
+
+  console.log("users", users);
 
 
   return (
@@ -61,4 +66,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default Users;

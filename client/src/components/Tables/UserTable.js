@@ -92,12 +92,12 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       })
   }
 
-  console.log('users', users)
+  // console.log('users', users)
 
   const navigate = useNavigate();
 
   const goToUserDetails = () => {
-    navigate('/userdetails', {state:{dod_id:'123456789'}});
+    navigate('/issueditems', {state:{dod_id:'123456789'}});
 } 
 
 
