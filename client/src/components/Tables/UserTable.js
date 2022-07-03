@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
@@ -94,6 +94,14 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 
   console.log('users', users)
 
+  const navigate = useNavigate();
+
+  const goToUserDetails = () => {
+    navigate('/userdetails', {state:{dod_id:'123456789'}});
+} 
+
+
+
 
   return (
     <Box
@@ -164,12 +172,12 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     minWidth: 10,
                     renderCell: (params) => (
                       <Tooltip title='Issued Items'>
-                        <Link to={`/users/${params.row.First}${params.row.Last}`}  style={{ textDecoration: 'none', color: 'black' }}>
+                        {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
                           <ViewListIcon
                             sx={{ cursor: "pointer", color: 'grey' }}
-                            // onClick={() => onDelete(params)}
+                            onClick={() => goToUserDetails(params)}
                           />
-                        </Link>
+                        {/* </Link> */}
                       </Tooltip>
                     ),
                   },

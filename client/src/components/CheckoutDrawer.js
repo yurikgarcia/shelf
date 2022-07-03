@@ -148,15 +148,15 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     }));
 
 
-
-  const cartLength = newShoppingCart.map(item => item.shopping_cart.length)
+  // funciton that checks for the amount of objects in the shopping cart in order to display the badge
+  const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
 
   return (
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title="Shopping Cart">
-            {newShoppingCart.length >= 1 ? (
+            {cartLength >= 1 ? (
               <StyledBadge badgeContent={cartLength}>
                 <ShoppingCartIcon
                   onClick={toggleDrawer(anchor, true)}

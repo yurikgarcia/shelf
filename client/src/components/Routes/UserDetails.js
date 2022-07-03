@@ -2,6 +2,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import React, {useState, useEffect } from 'react'
 import UserDetailsTable from "../Tables/UserDetailsTable.js";
+import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom';
 
 
 
@@ -38,6 +39,12 @@ function UserDetails({match}) {
       })
   };
 
+  const location = useLocation();
+
+  console.log("pathname",location.key);
+
+  console.log("location", location);
+
         return (
           <main>  
             <Box sx={{ml: 15, mt: 2}}>
@@ -45,7 +52,8 @@ function UserDetails({match}) {
             </Box>
 
             <Box sx={{ ml: 8, mt: 1 }}>
-              <UserDetailsTable users={users} fetchUsers={fetchUsers} spinner={spinner}/>
+              {/* <UserDetailsTable users={users} fetchUsers={fetchUsers} spinner={spinner}/> */}
+              {location.key}
             </Box>
           </main>  
           );
