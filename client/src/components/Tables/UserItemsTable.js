@@ -12,12 +12,12 @@ export default function RowsGrid({ }) {
   const [user, setUser] = useState([]); //selected user state
 
   useEffect(() => {
-    fetchSelectedUser();
+    fetchUsers2();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
 
-  const fetchSelectedUser = async () => {
+  const fetchUsers2 = async () => {
     setSpinner(true);
     axios.get('http://localhost:3000/issueditems',
     {
@@ -45,8 +45,6 @@ export default function RowsGrid({ }) {
   console.log('selected from table', user);
 
   console.log('drill', user[0].issued_items);
-
-  // console.log('name', user[0].first_name);
 
   return (
     <Box
@@ -86,10 +84,9 @@ export default function RowsGrid({ }) {
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
                   { field: "Count", minWidth: 100 },
-                  { field: "Issued", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                 ]}
-                rows={user[0].issued_items?.map((row, index) => {
+                rows={user[0].issued_items.map((row, index) => {
                   return {
                     id: index,
                     Name: row.Name,
@@ -99,7 +96,6 @@ export default function RowsGrid({ }) {
                     Count: row.item_count,
                     Gender: row.gender,
                     Returnable: row.returnable_item,
-                    Issued: row.date
                   };
                 })}
               />

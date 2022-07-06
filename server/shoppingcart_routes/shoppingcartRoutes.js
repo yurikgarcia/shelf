@@ -16,12 +16,13 @@ const pool = new Pool({
 
 //GET call that fetches the shopping_cart table in database in 
 //order to display the items in the cart
+
 async function getCart(req, res) {
-  verifyToken(req, res, () => {
-    jwt.verify(req.token, "secretkey", () => {
-      if (req.token === undefined) return res.send(403);
-      let user_id = req.params.dod_id;
-      pool.query(`SELECT * FROM users WHERE dod_id = '${user_id}'`, (error, results) => {
+  verifyToken(req, res, (authData) => {
+    console.log(authData);
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (authData === undefined) return res.send(403);
+      pool.query("SELECT * FROM users WHERE dod_id = '123456789'", (error, results) => {
         if (error) {
           return res.send("error" + error);
         }
@@ -30,7 +31,6 @@ async function getCart(req, res) {
     });
   });
 }
-
 
 
 //PATCH call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
@@ -54,13 +54,12 @@ async function addToCart(req, res) {
     Ordered: req.body.Ordered,
     Returnable: req.body.Returnable,
   };
-  let user_id = req.params.dod_id;
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",
       "UUID": "${params.Delete}",
       "Brand": "${params.Brand}"}' ::jsonb
-    WHERE dod_id= '746923645'`,
+    WHERE dod_id= '123456789'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);
@@ -77,19 +76,20 @@ async function addToCart(req, res) {
 
 async function deleteItemFromShoppingCart(req, res) {
   const item_id = req.params.id;
-  let user_id = req.params.dod_id;
+  // console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE users SET shopping_cart = shopping_cart - 
     Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
         ordinality arr(item_object, position) 
-    WHERE dod_id='${user_id}' and item_object->>'UUID' = '${item_id}') as int)
-    WHERE dod_id='${user_id}';`,
+    WHERE dod_id='123456789' and item_object->>'UUID' = '${item_id}') as int)
+    WHERE dod_id='123456789';`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
       }
       console.log("removed from DB");
       res.status(200);
+      res.send("Success")
     }
   );
 }

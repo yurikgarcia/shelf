@@ -3,10 +3,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const pool = new Pool({
-  user: process.env.USER,
+  user: process.env.DB_USER,
+  host: process.env.HOST,
   database: process.env.DB,
   password: process.env.PASSWORD,
   port: process.env.PRT,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 function verifyToken(req, res, next) {
@@ -45,15 +49,10 @@ async function login(req, res) {
             (err, token) => {
               res.json({
                 token,
-                user: {
-                  user_email: result.rows[0].email,
-                  user_dod_id: result.rows[0].dod_id,
-                  user_first_name: result.rows[0].first_name,
-                  user_last_name: result.rows[0].last_name
-                }
               });
               console.log("token in app.js", token);
-            });
+            }
+          );
         }
       }
     }
