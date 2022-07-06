@@ -38,7 +38,7 @@ function App() {
 
   const NavBarLayout = () => (
     <>
-      <NavDrawer shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}  />
+      <NavDrawer shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />
       <Outlet />
     </>
   );
@@ -47,11 +47,6 @@ function App() {
 
   return (
     <ThemeProvider theme={customTheme}>
-
-          {/* <NavDrawer
-            shoppingCart={shoppingCart}
-            setShoppingCart={setShoppingCart}
-          /> */}
           
           <Router>
             <div>

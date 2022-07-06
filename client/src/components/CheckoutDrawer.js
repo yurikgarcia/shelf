@@ -19,14 +19,44 @@ import TextField from "@mui/material/TextField";
 
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory, }) {
+  const user_dod = localStorage.getItem("user_dod");
+
+  console.log("user_dod", user_dod);
 
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
+  const [state, setState] = React.useState({ right: false });
 
-  const [state, setState] = React.useState({
-    right: false,
-  });
+  //initial call to grab users from DB on load
+  useEffect(() => {
+    fetchUsers();
+    fetchNewShoppingCart();
+    console.log(user_dod)
+    //breaks the app into a loop *****
+    // if (localStorage.getItem("authorization") === null)
+    //   window.location.href = "/login";
+  }, []);
+
+  const cartLength = newShoppingCart?.map(item => item.shopping_cart.length)
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 275 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    ></Box>
+  );
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -38,24 +68,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     setState({ ...state, [anchor]: open });
   }; //drawer for the shopping cart
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 275 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    ></Box>
-  );
-
-  
-
-  //initial call to grab users from DB on load
-  useEffect(() => {
-    fetchUsers();
-    //breaks the app into a loop *****
-    // if (localStorage.getItem("authorization") === null)
-    //   window.location.href = "/login";
-  }, []);
 
 
   /**
@@ -77,19 +89,13 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       });
   };
 
-
-  //initial call to grab inventory from DB on load
-  useEffect(() => {
-    fetchNewShoppingCart();
-  }, []);
-
   /**
    * shopping Cart fetch
    */
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/shopping-cart", {
+      .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -103,19 +109,17 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         // setSpinner(false);
       });
   };
-  
-
 
   // function to delete item from shopping_cart column in the users table in db
-  const onDelete  = async (items, index) => {
+  const onDelete = async (items, index) => {
     console.log("item from front end going to db", items.UUID);
     let id = items.UUID;
-    axios.delete(`http://localhost:3000/shopping-cart/${id}`)
+    axios.delete(`http://localhost:3000/shopping-cart/${id}/${user_dod}`)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
         }
-      }) 
+      })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
@@ -123,7 +127,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   };
 
   // function to issue items to user then clears the cart
-
   const addToIssuedItems = async () => {
     axios
       .patch("http://localhost:3000/issued-items")
@@ -136,27 +139,16 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
-    };
+  };
 
-    const StyledBadge = styled(Badge)(({ theme }) => ({
-      '& .MuiBadge-badge': {
-        right: -3,
-        top: 13,
-        border: `2px solid ${theme.palette.background.paper}`,
-        padding: '0 4px',
-      },
-    }));
-
-
-  // funciton that checks for the amount of objects in the shopping cart in order to display the badge
-  const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
+  console.log("newShoppingCart", newShoppingCart);
 
   return (
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title="Shopping Cart">
-            {cartLength >= 1 ? (
+            {newShoppingCart.length >= 1 ? (
               <StyledBadge badgeContent={cartLength}>
                 <ShoppingCartIcon
                   onClick={toggleDrawer(anchor, true)}
@@ -189,76 +181,71 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
-
-
-            <ListItem>
-              {newShoppingCart.map((item, index) => {
-                return (
-                <div key={index}>
-                  {item.shopping_cart?.map((items, index) => {
-                    return (
-                      <div key={index}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            mt: 2,
-                            ml: 3,
-                            flexDirection: "row",
-                            width: "1000",
-                          }}
-                        >
-                          <Box sx={{ width: 100 }}>
-                            <p>{items.Name}</p>
-                          
-                          </Box>
-                          <Box>
-                            <TextField
-                              required
-                              id="filled"
-                              variant="outlined"
-                              label="Quantity"
-                              type="number"
-                              defaultValue=""
-                              style={{ width: 95, height: 80 }}
-                              sx={{ ml: 2 }}
-                              // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                              // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignContent: "center",
-                              ml: 6,
-                            }}
-                          >
-                            <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
-                          </Box>
-                        </Box>
-                      </div>
-                    )}
-                  )}
-                </div>
+              <ListItem>
+                {newShoppingCart?.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      {item.shopping_cart?.map((items, index) => {
+                        return (
+                          <div key={index}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                mt: 2,
+                                ml: 3,
+                                flexDirection: "row",
+                                width: "1000",
+                              }}
+                            >
+                              <Box sx={{ width: 100 }}>
+                                <p>{items.Name}</p>
+                              </Box>
+                              <Box>
+                                <TextField
+                                  required
+                                  id="filled"
+                                  variant="outlined"
+                                  label="Quantity"
+                                  type="number"
+                                  defaultValue=""
+                                  style={{ width: 95, height: 80 }}
+                                  sx={{ ml: 2 }}
+                                />
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignContent: "center",
+                                  ml: 6,
+                                }}
+                              >
+                                <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
+                              </Box>
+                            </Box>
+                          </div>
+                        )
+                      }
+                      )}
+                    </div>
+                  )
+                }
                 )}
-              )}
               </ListItem>
-
               <ListItem>
                 <Autocomplete
                   disablePortal
                   id="combo-box-demo"
                   options={users}
                   onChange={(event, newValue) => {
-                  setValue(newValue.dod_id);
-                }}
+                    setValue(newValue.dod_id);
+                  }}
                   getOptionLabel={(option) => option.first_name + " " + option.last_name}
                   style={{ width: 300 }}
                   renderInput={(params) => (
-                        <TextField {...params} label="Users" variant="outlined" />
-                      )}
-                  />
+                    <TextField {...params} label="Users" variant="outlined" />
+                  )}
+                />
               </ListItem>
-
               <ListItem
                 disablePadding
                 sx={{ display: "flex", justifyContent: "center", mt: 2 }}
@@ -267,7 +254,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
                   color="secondary"
                   variant="contained"
                   box-sizing="medium"
-                  startIcon={<SaveIcon/>}
+                  startIcon={<SaveIcon />}
                   onClick={() => addToIssuedItems()}
                 >
                   Checkout
@@ -280,7 +267,3 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     </div>
   );
 }
-
-
-
-
