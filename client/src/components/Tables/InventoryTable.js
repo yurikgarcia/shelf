@@ -27,7 +27,7 @@ export default function RowsGrid({
   setShoppingCart,
 }) {
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
-
+  const user_dod = localStorage.getItem("user_dod");
   const [editedItem, setEditedItem] = useState({
     Name: "",
     Brand: "",
@@ -137,7 +137,7 @@ export default function RowsGrid({
       let userShoppingCart = params.row;
       console.log(userShoppingCart)
       axios
-        .patch("http://localhost:3000/shopping-cart", userShoppingCart)
+      .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);

@@ -91,8 +91,8 @@ app.get('/issueditems', getSelectedUser)
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/shopping-cart/:dod_id', getCart)
-app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
-app.patch('/shopping-cart', addToCart)
+app.delete('/shopping-cart/:id/:dod_id', deleteItemFromShoppingCart)
+app.patch('/shopping-cart/:dod_id', addToCart)
 
 
 /*

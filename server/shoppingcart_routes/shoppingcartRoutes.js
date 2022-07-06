@@ -54,12 +54,13 @@ async function addToCart(req, res) {
     Ordered: req.body.Ordered,
     Returnable: req.body.Returnable,
   };
+  let user_id = req.params.dod_id;
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",
       "UUID": "${params.Delete}",
       "Brand": "${params.Brand}"}' ::jsonb
-    WHERE dod_id= '123456789'`,
+      WHERE dod_id= '${user_id}'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);
@@ -76,13 +77,14 @@ async function addToCart(req, res) {
 
 async function deleteItemFromShoppingCart(req, res) {
   const item_id = req.params.id;
+  let user_id = req.params.dod_id;
   // console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE users SET shopping_cart = shopping_cart - 
     Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
         ordinality arr(item_object, position) 
-    WHERE dod_id='123456789' and item_object->>'UUID' = '${item_id}') as int)
-    WHERE dod_id='123456789';`,
+        WHERE dod_id='${user_id}' and item_object->>'UUID' = '${item_id}') as int)
+        WHERE dod_id='${user_id}';`,
     (error, results) => {
       if (error) {
         res.send("error" + error);

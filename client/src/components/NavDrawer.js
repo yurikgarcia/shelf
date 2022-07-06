@@ -21,6 +21,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
@@ -332,7 +333,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       <ListItemButton>
                         <ListItemIcon>
                         <Tooltip title="Orders" placement="right-end">
-                          <MarkunreadMailboxIcon sx={{color: "white"}}   />
+                          <LocalShippingIcon  sx={{color: "white"}}   />
                         </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary="Users" />
