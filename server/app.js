@@ -90,7 +90,7 @@ app.get('/issueditems', getSelectedUser)
 
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
 
-app.get('/shopping-cart', getCart)
+app.get('/shopping-cart/:dod_id', getCart)
 app.delete('/shopping-cart/:id', deleteItemFromShoppingCart)
 app.patch('/shopping-cart', addToCart)
 

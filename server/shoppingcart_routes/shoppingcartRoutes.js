@@ -18,11 +18,11 @@ const pool = new Pool({
 //order to display the items in the cart
 
 async function getCart(req, res) {
-  verifyToken(req, res, (authData) => {
-    console.log(authData);
-    jwt.verify(req.token, "secretkey", (err, authData) => {
-      if (authData === undefined) return res.send(403);
-      pool.query("SELECT * FROM users WHERE dod_id = '123456789'", (error, results) => {
+  verifyToken(req, res, () => {
+    jwt.verify(req.token, "secretkey", () => {
+      if (req.token === undefined) return res.send(403);
+      let user_id = req.params.dod_id;
+      pool.query(`SELECT * FROM users WHERE dod_id = '${user_id}'`, (error, results) => {
         if (error) {
           return res.send("error" + error);
         }

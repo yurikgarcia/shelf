@@ -47,7 +47,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     ></Box>
   );
 
-  // console.log("user_dod", user_dod)
+
 
   //initial call to grab users from DB on load
   useEffect(() => {
@@ -82,6 +82,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
   //initial call to grab inventory from DB on load
   useEffect(() => {
+    fetchUsers();
     fetchNewShoppingCart();
   }, []);
 
@@ -91,7 +92,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/shopping-cart", {
+    .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
