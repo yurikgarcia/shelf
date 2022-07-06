@@ -20,17 +20,22 @@ export default function Login() {
   /**
    * verify if the user is logged in
    */
-  const loginUser = async () => {
+    const loginUser = async () => {
     axios
       .post("http://localhost:3000/login", {
         user_email: user.user_email,
         user_password: user.user_password,
       })
-      .then((res) => {  
+      .then((res) => {
         if (res.status === 200) {
           console.log(res.data.token);
           const token = res.data.token;
           localStorage.setItem("authorization", token);
+          const user = res.data.user;
+          console.log(user)
+          localStorage.setItem("user_email", user.user_email);
+          localStorage.setItem("user_dod", user.user_dod_id);
+          localStorage.setItem("user_first", res.user_first_name);
         }
         if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/home";
       })
@@ -39,6 +44,9 @@ export default function Login() {
         console.log("err", err);
       });
   };
+
+  console.log("user email", user.user_email);
+  console.log("user dod", user.user_dod_id);
 
   return (
   <body>

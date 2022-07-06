@@ -19,7 +19,7 @@ import TextField from "@mui/material/TextField";
 
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory, }) {
-
+  const user_dod = localStorage.getItem("user_dod");
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
@@ -47,11 +47,13 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     ></Box>
   );
 
-  
+  // console.log("user_dod", user_dod)
 
   //initial call to grab users from DB on load
   useEffect(() => {
     fetchUsers();
+    fetchNewShoppingCart();
+    console.log("dod id", user_dod)
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";

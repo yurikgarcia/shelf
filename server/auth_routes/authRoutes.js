@@ -49,10 +49,16 @@ async function login(req, res) {
             (err, token) => {
               res.json({
                 token,
+                user: {
+                  user_email: result.rows[0].email,
+                  user_dod_id: result.rows[0].dod_id,
+                  user_first_name: result.rows[0].first_name,
+                  user_last_name: result.rows[0].last_name
+                }
               });
               console.log("token in app.js", token);
-            }
-          );
+              console.log("user app.js", user);
+            });
         }
       }
     }
@@ -63,3 +69,5 @@ module.exports = {
   verifyToken,
   login
 };
+
+
