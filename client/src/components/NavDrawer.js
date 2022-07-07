@@ -261,7 +261,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
           <Divider />
 
           <List >
-              <Link to="/" style={{ textDecoration: 'none', color: 'black'}}>
+              <Link to="/home" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>

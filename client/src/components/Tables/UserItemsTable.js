@@ -44,7 +44,7 @@ export default function RowsGrid({ }) {
 
   console.log('selected from table', user);
 
-  console.log('drill', user[0].issued_items);
+  // console.log('drill', user[0].issued_items);
 
   return (
     <Box
@@ -86,7 +86,7 @@ export default function RowsGrid({ }) {
                   { field: "Count", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                 ]}
-                rows={user[0].issued_items.map((row, index) => {
+                rows={user.map((row, index) => {
                   return {
                     id: index,
                     Name: row.Name,

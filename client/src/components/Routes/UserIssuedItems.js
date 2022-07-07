@@ -50,7 +50,7 @@ function UserDetails( ) {
             </Box>
 
             <Box sx={{ ml: 8, mt: 1 }}>
-              {/* <UserItemsTable /> */}
+              <UserItemsTable />
               {/* {location.key} */}
             </Box>
           </main>  
