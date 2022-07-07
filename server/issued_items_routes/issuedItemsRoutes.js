@@ -30,19 +30,7 @@ async function getSelectedUser(req, res) {
   });
 }
 
-// async function getUser(req, res) {
-//   verifyToken(req, res, (authData) => {
-//     jwt.verify(req.token, "secretkey", (err, authData) => {
-//       if (authData === undefined) return res.send(403);
-//       pool.query("SELECT * FROM users", (error, results) => {
-//         if (error) {
-//           res.send("error" + error);
-//         }
-//         res.send(results.rows);
-//       });
-//     });
-//   });
-// };
+
 
 module.exports = {
   getSelectedUser,

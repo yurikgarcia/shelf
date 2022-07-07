@@ -11,6 +11,16 @@ export default function RowsGrid({ }) {
   const [spinner, setSpinner] = useState(false); //spinner state
   const [user, setUser] = useState([]); //selected user state
 
+    //React Router Dom hook used to pull the dod_id from the URL
+    const location = useLocation();
+
+    //Pulling Dod ID from location to use as param for SQL calls
+  const selectedUserDodId = location.state.DoD
+
+
+  console.log("location from table", location.state.First);
+  console.log('user dod id', selectedUserDodId);
+
   useEffect(() => {
     fetchUsers2();
     if (localStorage.getItem("authorization") === null)
@@ -19,7 +29,7 @@ export default function RowsGrid({ }) {
 
   const fetchUsers2 = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/issueditems',
+    axios.get('http://localhost:3000/issueditems/',
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
@@ -35,17 +45,6 @@ export default function RowsGrid({ }) {
       })
   };
   
-
-  //React Router Dom hook used to pull the dod_id from the URL
-  const location = useLocation();
-
-
-  console.log("location from table", location);
-
-  console.log('selected from table', user);
-
-  // console.log('drill', user[0].issued_items);
-
   return (
     <Box
       sx={{
