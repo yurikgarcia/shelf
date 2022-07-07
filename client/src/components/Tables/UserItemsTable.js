@@ -19,7 +19,7 @@ export default function RowsGrid({ }) {
 
 
   console.log("location from table", location.state.First);
-  console.log('user dod id', selectedUserDodId);
+  // console.log('user dod id', selectedUserDodId);
 
   useEffect(() => {
     fetchUsers2();
@@ -27,23 +27,29 @@ export default function RowsGrid({ }) {
       window.location.href = "/login";
   }, []);
 
+  // const selectedUserDodId = location.state.DoD
+  // const selectedUserDodId = '123456789';
+
   const fetchUsers2 = async () => {
+    // let selectedUserDodId = location.state.DoD;
     setSpinner(true);
-    axios.get('http://localhost:3000/issueditems/123456789',
-    {
+    axios.get(`http://localhost:3000/issueditems/${selectedUserDodId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
       },
     })
-      .then(res => {
+
+      .then((res) => {
         setUser(res.data);
         setSpinner(false);
-      })
-      .catch(err => {
+      }
+      )
+      .catch((err) => {
         console.log(err);
         setSpinner(false);
-      })
-  };
+      }
+      );
+  }
 
   console.log("user",user)
 

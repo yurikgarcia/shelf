@@ -80,7 +80,7 @@ app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
 //--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
 
-app.get('/issueditems/123456789', getSelectedUser)
+app.get('/issueditems/:dod_id', getSelectedUser)
 
 
 //--------------------------------USERS TABLE FOR ISSUED ITEMS----------------------------------------------------------------------------------------------------------------
