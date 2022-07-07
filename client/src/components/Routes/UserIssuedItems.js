@@ -39,14 +39,22 @@ function UserDetails( ) {
   // const location = useLocation();
 
 
-  // console.log("location", location);
+  
+  // // console.log('selected', user);
+  const location = useLocation();
 
-  // console.log('selected', user);
+
+
+  // const selectedUser = location.map(user => user.state);
+  
+  console.log("location in the user page", location.state.First);
+  // console.log("user name printed", selectedUser);
+
 
         return (
           <main>  
             <Box sx={{ml: 15, mt: 2}}>
-              <h1>Name of User Selected</h1>
+              <h1>{location.state.First} {location.state.Last}: Issued Items </h1>
             </Box>
 
             <Box sx={{ ml: 8, mt: 1 }}>
