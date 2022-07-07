@@ -20,7 +20,8 @@ async function getSelectedUser(req, res) {
     console.log(authData);
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
-      pool.query("SELECT * FROM users WHERE dod_id = '123456789'", (error, results) => {
+      let user_id = '123456789';
+      pool.query(`SELECT * FROM users WHERE dod_id = '${user_id}'`, (error, results) => {
         if (error) {
           return res.send("error" + error);
         }

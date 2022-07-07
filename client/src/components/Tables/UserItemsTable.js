@@ -29,7 +29,7 @@ export default function RowsGrid({ }) {
 
   const fetchUsers2 = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/issueditems/',
+    axios.get('http://localhost:3000/issueditems/123456789',
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
@@ -44,6 +44,9 @@ export default function RowsGrid({ }) {
         setSpinner(false);
       })
   };
+
+  console.log("user",user)
+
   
   return (
     <Box
