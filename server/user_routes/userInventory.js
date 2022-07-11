@@ -18,7 +18,7 @@ const pool = new Pool({
 // based on the dod_id of the logged in user
 
 async function addToIssuedItems(req, res) {
-  let value = value;
+  let value = req.params;
   pool.query(
     `UPDATE users SET issued_items = COALESCE(issued_items, '[]'::jsonb) ||
     (shopping_cart) ::jsonb, shopping_cart = NULL 
