@@ -105,7 +105,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 } 
 
 
-console.log(selectedUserDodId)
+// console.log(selectedUserDodId)
 
 
 

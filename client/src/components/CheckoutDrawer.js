@@ -53,7 +53,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   useEffect(() => {
     fetchUsers();
     fetchNewShoppingCart();
-    console.log("dod id", user_dod)
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";
@@ -125,11 +124,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       });
   };
 
-  // function to issue items to user then clears the cart
+  // function that takes the json array of shopping_cart and
+  // adds the array to issued_items to the selected user (value = dod_id) then clears the cart
+
 
   const addToIssuedItems = async () => {
+    
     axios
-      .patch("http://localhost:3000/issued-items")
+      .patch(`http://localhost:3000/issued-items/${value}`,)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
@@ -150,9 +152,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       },
     }));
 
+    console.log("selected user/checkout drawer", value);
 
   // funciton that checks for the amount of objects in the shopping cart in order to display the badge
   const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
+
+  console.log("value/checkout drawer", value);
+
+  
 
   return (
     <div>

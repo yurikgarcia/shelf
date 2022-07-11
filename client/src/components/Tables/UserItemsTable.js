@@ -10,16 +10,9 @@ export default function RowsGrid({ }) {
 
   const [spinner, setSpinner] = useState(false); //spinner state
   const [user, setUser] = useState([]); //selected user state
+  const location = useLocation(); //React Router Dom hook used to pull the dod_id from the URL
+  const selectedUserDodId = location.state.DoD //Pulling Dod ID from location to use as param for SQL calls
 
-    //React Router Dom hook used to pull the dod_id from the URL
-    const location = useLocation();
-
-    //Pulling Dod ID from location to use as param for SQL calls
-  const selectedUserDodId = location.state.DoD
-
-
-  console.log("location from table", location.state.First);
-  // console.log('user dod id', selectedUserDodId);
 
   useEffect(() => {
     fetchUsers2();
@@ -27,11 +20,8 @@ export default function RowsGrid({ }) {
       window.location.href = "/login";
   }, []);
 
-  // const selectedUserDodId = location.state.DoD
-  // const selectedUserDodId = '123456789';
 
   const fetchUsers2 = async () => {
-    // let selectedUserDodId = location.state.DoD;
     setSpinner(true);
     axios.get(`http://localhost:3000/issueditems/${selectedUserDodId}`, {
       headers: {
@@ -51,7 +41,7 @@ export default function RowsGrid({ }) {
       );
   }
 
-  console.log("user",user)
+  console.log("/UserItemsTable: user",user)
 
   
   return (

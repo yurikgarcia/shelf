@@ -7,49 +7,8 @@ import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom'
 
 
 function UserDetails( ) {
-  // const [spinner, setSpinner] = useState(false); //spinner state
-  // const [user, setUser] = useState([]); //selected user state
 
-  // useEffect(() => {
-  //   fetchUsers2();
-  //   if (localStorage.getItem("authorization") === null)
-  //     window.location.href = "/login";
-  // }, []);
-
-  // const fetchUsers2 = async () => {
-  //   setSpinner(true);
-  //   axios.get('http://localhost:3000/issueditems',
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-  //     },
-  //   })
-  //     .then(res => {
-  //       setUser(res.data);
-  //       setSpinner(false);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       setSpinner(false);
-  //     })
-  // };
-  
-
-  //React Router Dom hook used to pull the dod_id from the URL
-  // const location = useLocation();
-
-
-  
-  // // console.log('selected', user);
-  const location = useLocation();
-
-
-
-  // const selectedUser = location.map(user => user.state);
-  
-  console.log("location in the user page", location.state.First);
-  // console.log("user name printed", selectedUser);
-
+  const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
         return (
           <main>  
