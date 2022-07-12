@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import warehouse from "..//Images/warehouse.gif";
 import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import warehouse from "..//Images/warehouse.gif";
 
 
 export default function RowsGrid({ }) {
@@ -12,7 +15,8 @@ export default function RowsGrid({ }) {
   const [user, setUser] = useState([]); //selected user state
   const location = useLocation(); //React Router Dom hook used to pull the dod_id from the URL
   const selectedUserDodId = location.state.DoD //Pulling Dod ID from location to use as param for SQL calls
-
+  const user_dod = localStorage.getItem("user_dod"); //Pulling Dod ID from local storage to use as param for SQL calls
+  const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
 
   useEffect(() => {
     fetchUsers2();
@@ -41,7 +45,31 @@ export default function RowsGrid({ }) {
       );
   }
 
-  console.log("/UserItemsTable: user",user)
+    //initial call to grab inventory from DB on load
+    useEffect(() => {
+      fetchNewShoppingCart();
+    }, []);
+
+      /**
+   * shopping Cart fetch
+   */
+  const fetchNewShoppingCart = async () => {
+    // setSpinner(true);
+    axios
+      .get("http://localhost:3000/users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
+      .then((res) => {
+        setNewShoppingCart(res.data);
+        // setSpinner(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setSpinner(false);
+      });
+  };
 
 
 
@@ -51,7 +79,28 @@ export default function RowsGrid({ }) {
   }
   );
 
-console.log("/UserItemsTable: issuedItems",issuedItems)
+    /**
+   * adds to shopping cart column in the users table
+   */
+
+    const addToCart = async (params) => {
+      let userShoppingCart = params.row;
+      console.log(userShoppingCart)
+      axios
+      .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
+        .then((res) => {
+          if (res.status === 200) {
+            setNewShoppingCart([...newShoppingCart, userShoppingCart]);
+            fetchNewShoppingCart();
+          }
+        })
+        .catch((err) => {
+          alert("Sorry! Something went wrong. Please try again.");
+          console.log("err", err);
+        });
+      };
+
+
 
   return (
     <Box
@@ -92,6 +141,19 @@ console.log("/UserItemsTable: issuedItems",issuedItems)
                   { field: "Gender", minWidth: 100 },
                   { field: "Count", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+                  {
+                    field: "Issue",
+                    minWidth: 10,
+                    editable: true,
+                    renderCell: (params) => (
+                      <Tooltip title="Return Item">
+                        <AssignmentReturnedIcon 
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          onClick={() => addToCart(params)}
+                        />
+                      </Tooltip>
+                    ),
+                  },
                 ]}
                 rows={issuedItems[0]?.map((row, index) => {
                   return {
