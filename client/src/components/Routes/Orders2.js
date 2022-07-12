@@ -14,11 +14,11 @@ function Orders2() {
       <div>
         <main>
           <Box sx={{ ml: 15, mt: 2 }}>
-            <h1>Orders</h1>
+            <h1>Orders *** THIS IS A DEMO - PENDING v.2 RELEASE</h1>
           </Box>
 
           {/* <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <AddOrders
+            <AddOrderss
               inventory={inventory}
               setInventory={setInventory}
               fetchInventory={fetchInventory}

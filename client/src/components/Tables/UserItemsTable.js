@@ -101,7 +101,7 @@ export default function RowsGrid({ }) {
       };
 
 
-
+console.log(issuedItems)
   return (
     <Box
       sx={{
@@ -142,7 +142,7 @@ export default function RowsGrid({ }) {
                   { field: "Count", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   {
-                    field: "Issue",
+                    field: "Return",
                     minWidth: 10,
                     editable: true,
                     renderCell: (params) => (

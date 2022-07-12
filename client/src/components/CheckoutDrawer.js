@@ -7,8 +7,13 @@ import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
@@ -23,6 +28,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
+  const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
 
   const [state, setState] = React.useState({
     right: false,
@@ -154,7 +160,11 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   // funciton that checks for the amount of objects in the shopping cart in order to display the badge
   const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
 
+  const handleChange = (event) => {
+    setRadioValue(event.target.value);
+  };
 
+console.log("radioValue", radioValue);
 
   
 
@@ -250,6 +260,23 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
               )}
               </ListItem>
 
+              
+              <ListItem>
+                <FormControl>
+                  <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
+                    <RadioGroup
+                      aria-labelledby="demo-controlled-radio-buttons-group"
+                      name="controlled-radio-buttons-group"
+                      value={value}
+                      onChange={handleChange}
+                    >
+                      <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
+                      <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" />
+                      <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
+                    </RadioGroup>
+                </FormControl>
+              </ListItem>
+
               <ListItem>
                 <Autocomplete
                   disablePortal
@@ -262,6 +289,22 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
                   style={{ width: 300 }}
                   renderInput={(params) => (
                         <TextField {...params} label="Users" variant="outlined" />
+                      )}
+                  />
+              </ListItem>
+
+              <ListItem>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={users}
+                  onChange={(event, newValue) => {
+                  setValue(newValue.dod_id);
+                }}
+                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                  style={{ width: 300 }}
+                  renderInput={(params) => (
+                        <TextField {...params} label="Warehouses" variant="outlined" />
                       )}
                   />
               </ListItem>
