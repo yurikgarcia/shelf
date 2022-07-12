@@ -130,7 +130,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
   const addToIssuedItems = async () => {
     axios
-      .patch(`http://localhost:3000/issued-items/${value}`,)
+      .patch(`http://localhost:3000/issued-items/${user_dod}/${value}`,)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();

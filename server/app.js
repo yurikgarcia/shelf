@@ -85,7 +85,7 @@ app.get('/issued-items/:dod_id', getSelectedUser)
 
 //--------------------------------SENDS CART TO ISSUED ITEMS----------------------------------------------------------------------------------------------------------------
 
-app.patch('/issued-items/:dod_id', addToIssuedItems)
+app.patch('/issued-items/:id/:dod_id', addToIssuedItems)
 
 
 //--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------

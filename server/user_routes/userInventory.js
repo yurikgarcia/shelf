@@ -14,23 +14,17 @@ const pool = new Pool({
   },
 });
 
-//PATCH call to add entire shopping cart to JSON cell inside of users table in the issued_items column (jsob)
-// based on the dod_id of the logged in user
+//PATCH call to add entire shopping cart of the logged admin to JSON cell 
+//inside of user selected'd issued_items column (jsob)
+
 
 async function addToIssuedItems(req, res) {
-  let loggedUser = req.params 
-  let value = req.params;
   pool.query(
     `UPDATE users SET issued_items = COALESCE(issued_items, '[]'::jsonb) ||
-    (shopping_cart) ::jsonb, shopping_cart = NULL 
-    WHERE dod_id= '${value}'`,
-    // UPDATE users SET issued_items = COALESCE(issued_items, '[]'::jsonb) ||
-    // ((SELECT shopping_cart FROM users WHERE dod_id = '${loggedUser}')) ::jsonb
-    // WHERE dod_id= '${value}';
-    // UPDATE users SET shopping_cart = NULL 
-    // WHERE dod_id = '${loggedUser}'
-
-
+    ((SELECT shopping_cart FROM users WHERE dod_id = '${req.params.dod_id}')) ::jsonb
+    WHERE dod_id= '${req.params.id}';
+    UPDATE users SET shopping_cart = NULL 
+    WHERE dod_id = '${req.params.dod_id}'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);
