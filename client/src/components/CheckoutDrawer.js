@@ -151,12 +151,10 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       },
     }));
 
-    console.log("selected user/checkout drawer", value);
-
   // funciton that checks for the amount of objects in the shopping cart in order to display the badge
   const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
 
-  console.log("value/checkout drawer", value);
+
 
   
 

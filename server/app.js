@@ -80,7 +80,7 @@ app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
 //--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
 
-app.get('/issued-items/:dod_id', getSelectedUser)
+app.get('/issueditems/:dod_id', getSelectedUser)
 
 
 //--------------------------------SENDS CART TO ISSUED ITEMS----------------------------------------------------------------------------------------------------------------

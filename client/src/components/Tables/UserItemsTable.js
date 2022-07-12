@@ -43,7 +43,16 @@ export default function RowsGrid({ }) {
 
   console.log("/UserItemsTable: user",user)
 
-  
+
+
+  //function that iterates through the user array and returns the issued_items array as issuedItems
+  const issuedItems = user.map((user) => {
+    return user.issued_items;
+  }
+  );
+
+console.log("/UserItemsTable: issuedItems",issuedItems)
+
   return (
     <Box
       sx={{
@@ -84,7 +93,7 @@ export default function RowsGrid({ }) {
                   { field: "Count", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                 ]}
-                rows={user.map((row, index) => {
+                rows={issuedItems[0]?.map((row, index) => {
                   return {
                     id: index,
                     Name: row.Name,
