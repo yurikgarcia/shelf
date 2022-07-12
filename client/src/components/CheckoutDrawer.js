@@ -281,6 +281,7 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
                     </RadioGroup>
                 </FormControl>
               </ListItem>
+
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
@@ -324,33 +325,35 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
                 {radioValue === "Issue To User" ? (
                 
                 <ListItem>
-                  <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={users}
-                    onChange={(event, newValue) => {
-                    setValue(newValue.dod_id);
-                  }}
-                    getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                    style={{ width: 300 }}
-                    renderInput={(params) => (
-                          <TextField {...params} label="Users" variant="outlined" />
+                  <Box>
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={users}
+                      onChange={(event, newValue) => {
+                        setValue(newValue.dod_id);
+                      }}
+                      getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                      style={{ width: 300 }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Users" variant="outlined" />
                         )}
-                    />
+                        />
+                  <Box sx={{mt:1, display: "flex", justifyContent: "center"}}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        addToIssuedItems();
+                      }
+                    }
+                    >
+                      Issue To User
+                    </Button>
+                    </Box>
+                  </Box>
                 </ListItem>
-
-                  // <Button
-                  //   variant="contained"
-                  //   color="primary"
-                  //   onClick={() => {
-                  //     addToIssuedItems();
-                  //   }
-                  //   }
-                  // >
-                  //   Issue To User
-                  // </Button>
-                ) : radioValue === "Issue To Warehouse" || "Return To Warehouse" ? (
-
+                ) : radioValue === "Issue To Warehouse" ? (
                   <ListItem>
                     {/* <Autocomplete
                       disablePortal
@@ -365,47 +368,67 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
                             <TextField {...params} label="Warehouses" variant="outlined" />
                           )}
                       /> */}
-                          <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={warehouses}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Warehouses" />}
-                          />
+                    <Box>
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={warehouses}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                      />
+                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          // onClick={() => {
+                          //   addToIssuedItems();
+                          // }
+                          // }
+                        >
+                          Issue To Warehouse
+                        </Button>
+                      </Box>
+                    </Box>
                   </ListItem>
-                //   <Button
-                //   variant="contained"
-                //   color="primary"
-                //   onClick={() => {
-                //     addToIssuedItems();
-                //   }
-                //   }
-                // >
-                //   Issue To Warehouse
-                // </Button>
+
                 ) : radioValue === "Return To Warehouse" ? (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      addToIssuedItems();
-                    }
-                    }
-                  >
-                    Return To Warehouse
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      addToIssuedItems();
-                    }
-                    }
-                  >
-                    Issue To User
-                  </Button>
-                )}
+                  <ListItem>
+                  {/* <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={users}
+                    onChange={(event, newValue) => {
+                    setValue(newValue.dod_id);
+                  }}
+                    getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                    style={{ width: 300 }}
+                    renderInput={(params) => (
+                          <TextField {...params} label="Warehouses" variant="outlined" />
+                        )}
+                    /> */}
+                  <Box>
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={warehouses}
+                      sx={{ width: 300 }}
+                      renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                    />
+                  <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        // onClick={() => {
+                        //   addToIssuedItems();
+                        // }
+                        // }
+                      >
+                        Return To Warehouse
+                      </Button>
+                    </Box>
+                  </Box>
+                </ListItem>
+                ) : null}
               </ListItem>
             </List>
           </Drawer>
