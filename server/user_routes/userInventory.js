@@ -19,17 +19,20 @@ const pool = new Pool({
 
 
 async function addToIssuedItems(req, res) {
+  // console.log("garcia",req.body.dod_id)
+  console.log("req.params.id", req.params.id)
+  console.log('hardy', req.params.dod_id)
   pool.query(
     `UPDATE users SET issued_items = COALESCE(issued_items, '[]'::jsonb) ||
-    ((SELECT shopping_cart FROM users WHERE dod_id = '${req.params.dod_id}')) ::jsonb
-    WHERE dod_id= '${req.params.id}';
+    ((SELECT shopping_cart FROM users WHERE dod_id = '${req.params.id}')) ::jsonb
+    WHERE dod_id= '${req.params.dod_id}';
     UPDATE users SET shopping_cart = NULL 
-    WHERE dod_id = '${req.params.dod_id}'`,
+    WHERE dod_id = '${req.params.id}'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);
         }
-        console.log("placed item into shopping cart");
+        console.log("issued items");
         res.status(200);
         res.send("Success")
       }
