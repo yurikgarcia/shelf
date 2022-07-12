@@ -166,6 +166,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
 console.log("radioValue", radioValue);
 
+const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
+
   
 
   return (
@@ -260,10 +262,13 @@ console.log("radioValue", radioValue);
               )}
               </ListItem>
 
-              
+              <Divider
+                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
+              />
+
               <ListItem>
                 <FormControl>
-                  <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel>
+                  <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
                     <RadioGroup
                       aria-labelledby="demo-controlled-radio-buttons-group"
                       name="controlled-radio-buttons-group"
@@ -276,7 +281,10 @@ console.log("radioValue", radioValue);
                     </RadioGroup>
                 </FormControl>
               </ListItem>
-
+              <Divider
+                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
+              />
+{/* 
               <ListItem>
                 <Autocomplete
                   disablePortal
@@ -291,9 +299,9 @@ console.log("radioValue", radioValue);
                         <TextField {...params} label="Users" variant="outlined" />
                       )}
                   />
-              </ListItem>
+              </ListItem> */}
 
-              <ListItem>
+              {/* <ListItem>
                 <Autocomplete
                   disablePortal
                   id="combo-box-demo"
@@ -307,21 +315,97 @@ console.log("radioValue", radioValue);
                         <TextField {...params} label="Warehouses" variant="outlined" />
                       )}
                   />
-              </ListItem>
+              </ListItem> */}
 
               <ListItem
                 disablePadding
                 sx={{ display: "flex", justifyContent: "center", mt: 2 }}
               >
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  box-sizing="medium"
-                  startIcon={<SaveIcon/>}
-                  onClick={() => addToIssuedItems()}
-                >
-                  Checkout
-                </Button>
+                {radioValue === "Issue To User" ? (
+                
+                <ListItem>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={users}
+                    onChange={(event, newValue) => {
+                    setValue(newValue.dod_id);
+                  }}
+                    getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                    style={{ width: 300 }}
+                    renderInput={(params) => (
+                          <TextField {...params} label="Users" variant="outlined" />
+                        )}
+                    />
+                </ListItem>
+
+                  // <Button
+                  //   variant="contained"
+                  //   color="primary"
+                  //   onClick={() => {
+                  //     addToIssuedItems();
+                  //   }
+                  //   }
+                  // >
+                  //   Issue To User
+                  // </Button>
+                ) : radioValue === "Issue To Warehouse" || "Return To Warehouse" ? (
+
+                  <ListItem>
+                    {/* <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={users}
+                      onChange={(event, newValue) => {
+                      setValue(newValue.dod_id);
+                    }}
+                      getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                      style={{ width: 300 }}
+                      renderInput={(params) => (
+                            <TextField {...params} label="Warehouses" variant="outlined" />
+                          )}
+                      /> */}
+                          <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={warehouses}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                          />
+                  </ListItem>
+                //   <Button
+                //   variant="contained"
+                //   color="primary"
+                //   onClick={() => {
+                //     addToIssuedItems();
+                //   }
+                //   }
+                // >
+                //   Issue To Warehouse
+                // </Button>
+                ) : radioValue === "Return To Warehouse" ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      addToIssuedItems();
+                    }
+                    }
+                  >
+                    Return To Warehouse
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      addToIssuedItems();
+                    }
+                    }
+                  >
+                    Issue To User
+                  </Button>
+                )}
               </ListItem>
             </List>
           </Drawer>
@@ -331,6 +415,7 @@ console.log("radioValue", radioValue);
   );
 }
 
+                
 
 
 
