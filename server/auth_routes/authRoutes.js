@@ -56,8 +56,8 @@ async function login(req, res) {
                   user_last_name: result.rows[0].last_name
                 }
               });
-              console.log("token in app.js", token);
-              console.log("user app.js", user);
+              // console.log("token in app.js", token);
+              // console.log("user app.js", user);
             });
         }
       }

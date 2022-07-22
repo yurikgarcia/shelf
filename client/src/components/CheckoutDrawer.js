@@ -157,14 +157,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       },
     }));
 
-  // funciton that checks for the amount of objects in the shopping cart in order to display the badge
+  // function that checks for the amount of objects in the shopping cart in order to display the badge
   const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
 
   const handleChange = (event) => {
     setRadioValue(event.target.value);
   };
 
-console.log("radioValue", radioValue);
+
 
 const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
 
@@ -172,12 +172,18 @@ const [newQuantity, setNewQuantity] = useState({
   Quantity: "",
 });
 
+const [newUUID, setNewUUID] = useState('');
+
+// console.log("newUUID", newUUID);
+
+
 //Change quantity of item in shopping cart
 
-const changeItemQuantity = async () => {
+const changeItemQuantity = async (items, index) => {
+  let id = items.UUID;
   axios
-    .patch(`http://localhost:3000/shopping-cart-quantity/${user_dod}`,
-    newQuantity
+    .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
+    newQuantity, 
     )
     .then((res) => {
       if (res.status === 200) {
@@ -190,25 +196,10 @@ const changeItemQuantity = async () => {
     });
   };
 
-// const changeItemQuantity = async (e) => {
-//   axios({
-//     method: "patch",
-//     url:
-//     `http://localhost:3000/shopping-cart-quantity/${user_dod}`,
-//     data: {
-//       Quantity: e.target.value ,
-//     },
-//   })
-//     .then(() => {
-//       console.log("success");
-//       fetchNewShoppingCart();
-//     })
-//     .catch((err) => {
-//       console.log("err", err);
-//     });
-// };
-  
-console.log("newQuantity/checkoutdrawer", newQuantity)
+  // console.log("uuid", newShoppingCart[0].shopping_cart);
+
+
+
 
   return (
     <div>
@@ -254,7 +245,7 @@ console.log("newQuantity/checkoutdrawer", newQuantity)
               {newShoppingCart.map((item, index) => {
                 return (
                 <div key={index}>
-                  {item.shopping_cart?.map((items, index) => {
+                {item.shopping_cart?.map((items, index) => {
                     return (
                       <div key={index}>
                         <Box
@@ -282,9 +273,7 @@ console.log("newQuantity/checkoutdrawer", newQuantity)
                               sx={{ ml: 2 }}
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value })
                             }
-                              // onChange={(e) => setNewValue({ ...newValue, Name: e.target.value })}
-                              onBlur={() => changeItemQuantity()}
-                              // onChange={() => changeItemQuantity()}
+                              onBlur={() => changeItemQuantity(items, index)}
                             />
                           </Box>
                           <Box

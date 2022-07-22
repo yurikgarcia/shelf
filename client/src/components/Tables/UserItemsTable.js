@@ -139,7 +139,7 @@ console.log(issuedItems)
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
-                  { field: "Count", minWidth: 100 },
+                  { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   {
                     field: "Return",
@@ -162,7 +162,7 @@ console.log(issuedItems)
                     Brand: row.Brand,
                     NSN: row.dod_id,
                     Size: row.item_size,
-                    Count: row.item_count,
+                    Quantity: row.Quantity,
                     Gender: row.gender,
                     Returnable: row.returnable_item,
                   };

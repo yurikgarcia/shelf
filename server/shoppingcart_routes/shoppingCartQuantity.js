@@ -19,14 +19,15 @@ async function updateQuantity(req, res) {
     Quantity: req.body.Quantity,
   };
   let user_id = req.params.dod_id;
-  console.log("params", req.body.Quantity);
+  const item_id = req.params.id;
+  console.log("from qty", item_id)
   pool.query(
     `UPDATE users
     SET shopping_cart = s.json_array
     FROM (
         SELECT 
             jsonb_agg(
-                CASE WHEN elems ->> 'UUID' = '848b8afa-d2e6-48af-995d-659f7cdd1869' THEN
+                CASE WHEN elems ->> 'UUID' = '${item_id}' THEN
                     jsonb_set(elems, '{Quantity}', '${params.Quantity}')
                 ELSE elems  END
             ) as json_array
