@@ -15,33 +15,19 @@ const pool = new Pool({
 });
 
 async function updateQuantity(req, res) {
-  // let params = {
-  //   id: req.body.id,
-  //   Delete: req.body.Delete,
-  //   Edit: req.body.Edit,
-  //   Name: req.body.Name,
-  //   Brand: req.body.Brand,
-  //   NSN: req.body.NSN,
-  //   Bldg: req.body.Bldg,
-  //   Size: req.body.Size,
-  //   Count: req.body.Count,
-  //   Gender: req.body.Gender,
-  //   Aisle: req.body.Aisle,
-  //   Initial: req.body.Initial,
-  //   MinCount: req.body.MinCount,
-  //   Ordered: req.body.Ordered,
-  //   Returnable: req.body.Returnable,
-  // };
+  let params = {
+    Quantity: req.body.Quantity,
+  };
   let user_id = req.params.dod_id;
-  console.log("user_id", user_id);
+  console.log("params", req.body.Quantity);
   pool.query(
     `UPDATE users
     SET shopping_cart = s.json_array
     FROM (
         SELECT 
             jsonb_agg(
-                CASE WHEN elems ->> 'UUID' = '190' THEN
-                    jsonb_set(elems, '{Quantity}', '"1200"')
+                CASE WHEN elems ->> 'UUID' = '848b8afa-d2e6-48af-995d-659f7cdd1869' THEN
+                    jsonb_set(elems, '{Quantity}', '${params.Quantity}')
                 ELSE elems  END
             ) as json_array
         FROM

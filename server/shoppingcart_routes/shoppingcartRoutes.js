@@ -55,11 +55,13 @@ async function addToCart(req, res) {
     Returnable: req.body.Returnable,
   };
   let user_id = req.params.dod_id;
+  console.log("from inventory", user_id)
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",
       "UUID": "${params.Delete}",
-      "Brand": "${params.Brand}"}' ::jsonb
+      "Brand": "${params.Brand}",
+      "Quantity": ""}' ::jsonb
       WHERE dod_id= '${user_id}'`,
       (error, results) => {
         if (error) {

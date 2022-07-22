@@ -169,14 +169,16 @@ console.log("radioValue", radioValue);
 const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
 
 const [newQuantity, setNewQuantity] = useState({
-  Quantity: 0,
+  Quantity: "",
 });
 
 //Change quantity of item in shopping cart
 
 const changeItemQuantity = async () => {
   axios
-    .patch(`http://localhost:3000/shopping-cart-quantity/${user_dod}`,)
+    .patch(`http://localhost:3000/shopping-cart-quantity/${user_dod}`,
+    newQuantity
+    )
     .then((res) => {
       if (res.status === 200) {
         fetchNewShoppingCart();
@@ -187,8 +189,27 @@ const changeItemQuantity = async () => {
       console.log("err", err);
     });
   };
+
+// const changeItemQuantity = async (e) => {
+//   axios({
+//     method: "patch",
+//     url:
+//     `http://localhost:3000/shopping-cart-quantity/${user_dod}`,
+//     data: {
+//       Quantity: e.target.value ,
+//     },
+//   })
+//     .then(() => {
+//       console.log("success");
+//       fetchNewShoppingCart();
+//     })
+//     .catch((err) => {
+//       console.log("err", err);
+//     });
+// };
   
-console.log("newQuantity/checkptdrawer", newQuantity)
+console.log("newQuantity/checkoutdrawer", newQuantity)
+
   return (
     <div>
       {["right"].map((anchor) => (
@@ -256,11 +277,14 @@ console.log("newQuantity/checkptdrawer", newQuantity)
                               variant="outlined"
                               label="Quantity"
                               type="number"
-                              defaultValue=""
+                              defaultValue={items.Quantity}
                               style={{ width: 95, height: 80 }}
                               sx={{ ml: 2 }}
-                              // onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value })}
-                              onChange={() => changeItemQuantity()}
+                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value })
+                            }
+                              // onChange={(e) => setNewValue({ ...newValue, Name: e.target.value })}
+                              onBlur={() => changeItemQuantity()}
+                              // onChange={() => changeItemQuantity()}
                             />
                           </Box>
                           <Box
