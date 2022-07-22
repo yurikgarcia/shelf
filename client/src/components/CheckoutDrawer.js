@@ -168,8 +168,27 @@ console.log("radioValue", radioValue);
 
 const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
 
-  
+const [newQuantity, setNewQuantity] = useState({
+  Quantity: 0,
+});
 
+//Change quantity of item in shopping cart
+
+const changeItemQuantity = async () => {
+  axios
+    .patch(`http://localhost:3000/shopping-cart-quantity`,)
+    .then((res) => {
+      if (res.status === 200) {
+        fetchNewShoppingCart();
+      }
+    })
+    .catch((err) => {
+      alert("Sorry! Something went wrong. Please try again.");
+      console.log("err", err);
+    });
+  };
+  
+console.log("newQuantity/checkptdrawer", newQuantity)
   return (
     <div>
       {["right"].map((anchor) => (
@@ -240,8 +259,8 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
                               defaultValue=""
                               style={{ width: 95, height: 80 }}
                               sx={{ ml: 2 }}
-                              // sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
-                              // onChange={(e) => setNewValue({ ...newValue, Count: e.target.value })}
+                              // onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value })}
+                              onChange={() => changeItemQuantity()}
                             />
                           </Box>
                           <Box
@@ -339,7 +358,7 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
                         <TextField {...params} label="Users" variant="outlined" />
                         )}
                         />
-                  <Box sx={{mt:1, display: "flex", justifyContent: "center"}}>
+                  <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
                     <Button
                       variant="contained"
                       color="primary"

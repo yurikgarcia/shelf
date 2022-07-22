@@ -11,6 +11,7 @@ const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/user
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
 const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
+const { updateQuantity } = require('./shoppingcart_routes/shoppingCartQuantity');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
 
@@ -94,6 +95,8 @@ app.get('/shopping-cart/:dod_id', getCart)
 app.delete('/shopping-cart/:id/:dod_id', deleteItemFromShoppingCart)
 app.patch('/shopping-cart/:dod_id', addToCart)
 
+//--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
+app.patch('/shopping-cart-quantity/', updateQuantity)
 
 /*
 
