@@ -176,7 +176,7 @@ const [newQuantity, setNewQuantity] = useState({
 
 const changeItemQuantity = async () => {
   axios
-    .patch(`http://localhost:3000/shopping-cart-quantity`,)
+    .patch(`http://localhost:3000/shopping-cart-quantity/${user_dod}`,)
     .then((res) => {
       if (res.status === 200) {
         fetchNewShoppingCart();
