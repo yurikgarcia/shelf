@@ -216,7 +216,7 @@ const changeItemQuantity = async (items, index) => {
               </StyledBadge>
             ) : (
               <ShoppingCartIcon
-                sx={{ color: "white" }}
+                sx={{ color: "white", mt:1 }}
                 onClick={toggleDrawer(anchor, true)}
               >
                 {anchor}

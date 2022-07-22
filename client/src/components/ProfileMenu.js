@@ -21,7 +21,7 @@ export default function ProfileMenu() {
   return (
     <div>
 
-<AccountCircleIcon onClick={handleClick}></AccountCircleIcon>
+<AccountCircleIcon sx={{mt:1, ml:1, mr:1}} onClick={handleClick}></AccountCircleIcon>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

@@ -230,7 +230,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button  sx={{mr:1}} variant="contained">Sign-Up</Button>
             </Link> */}
 
-
+{/* 
             <Search sx={{mr:1}}>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -240,7 +240,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 inputProps={{ 'aria-label': 'search' }}
               />
               
-            </Search>
+            </Search> */}
             <ProfileMenu/>
             <CheckoutDrawer shoppingCart={shoppingCart}/>   
           </Toolbar>
