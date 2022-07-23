@@ -135,7 +135,7 @@ export default function Login() {
           </Box>
           <Box sx={{ mb: 2.1 }}>
             <Link to="/signup" style={{ color: "#FC9A01" }}>
-              <h5>Register For An Account</h5>
+              <h5>Register!</h5>
             </Link>
           </Box>
         </CardActions>

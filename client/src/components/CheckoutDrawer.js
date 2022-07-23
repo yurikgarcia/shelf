@@ -15,7 +15,6 @@ import ListItem from "@mui/material/ListItem";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import SaveIcon from "@mui/icons-material/Save";
 import shelfLogo from ".//Images/shelfLogo.png";
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
@@ -166,15 +165,18 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
 
 
-const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]
+const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]// hard coded warehouse for warehouse autocomplete
 
-const [newQuantity, setNewQuantity] = useState({
-  Quantity: "",
+//initial state for updating the Quantity of a requested item in the cart
+const [newQuantity, setNewQuantity] = useState({ 
+  Quantity: " ",
+  Count: " ",
 });
 
-const [newUUID, setNewUUID] = useState('');
+const [newCount, setNewCount] = useState({ Count: " "});//initial state for updating the Quantity of a requested item in the cart
 
-// console.log("newUUID", newUUID);
+const [subtractCount, setSubtractCount] = useState('');//initial state for subtracting Quantity from Count of a requested item in the cart
+
 
 
 //Change quantity of item in shopping cart
@@ -196,7 +198,18 @@ const changeItemQuantity = async (items, index) => {
     });
   };
 
-  // console.log("uuid", newShoppingCart[0].shopping_cart);
+
+// function that subtracts the requested quantity from count and sets the result to the subractCount state
+const subtractQuantity = async (items, index) => {
+  let count = newCount;
+  let quantity = newQuantity;
+  let result = count - quantity;
+  setSubtractCount(result);
+  console.log("subtractCount", subtractCount);
+}
+
+console.log("subtractCount", newCount);
+console.log("quanity", newQuantity);
 
 
 
@@ -244,9 +257,28 @@ const changeItemQuantity = async (items, index) => {
             <ListItem>
               {newShoppingCart.map((item, index) => {
                 return (
-                <div key={index}>
+                  <div key={index}>
                 {item.shopping_cart?.map((items, index) => {
-                    return (
+                  // console.log("items count", items.Count);
+                  // console.log("items quantity", items.Quantity);
+                  // console.log("items count", items.Count);
+                  // let newCount = items.Count;
+                  // setNewCount= items.Count;
+                  return (
+                      // setNewCount(...newCount, items.Count),
+                      //set newCount to items.Count
+                      // setNewCount(items.Count),
+                      // setNewQuantity(items.Quantity),
+                      // setSubtractCount(items.Count - items.Quantity),
+
+                      // setNewCount(items.Count),
+                      // setNewQuantity(items.Quantity),
+                      // setSubtractCount(items.Count - items.Quantity),
+                      // setNewCount(items.Count) is an infinite loop
+                      //set newCount to items.Count
+                      
+                      // setNewCount= items.Count,
+
                       <div key={index}>
                         <Box
                           sx={{
@@ -271,8 +303,7 @@ const changeItemQuantity = async (items, index) => {
                               defaultValue={items.Quantity}
                               style={{ width: 95, height: 80 }}
                               sx={{ ml: 2 }}
-                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value })
-                            }
+                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
                           </Box>

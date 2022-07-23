@@ -243,7 +243,7 @@ export default function RowsGrid({
                       </div>
                     ),
                   },
-                  { field: "Ordered", minWidth: 100 },
+                  // { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   {

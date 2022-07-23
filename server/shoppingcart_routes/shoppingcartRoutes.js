@@ -61,6 +61,7 @@ async function addToCart(req, res) {
     '{"Name": "${params.Name}",
       "UUID": "${params.Delete}",
       "Brand": "${params.Brand}",
+      "Count": "${params.Count}",
       "Quantity": ""}' ::jsonb
       WHERE dod_id= '${user_id}'`,
       (error, results) => {
