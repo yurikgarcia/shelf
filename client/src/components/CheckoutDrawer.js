@@ -19,6 +19,7 @@ import shelfLogo from ".//Images/shelfLogo.png";
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
+import Typography from '@mui/material/Typography';
 
 
 
@@ -173,9 +174,8 @@ const [newQuantity, setNewQuantity] = useState({
   Count: " ",
 });
 
-const [newCount, setNewCount] = useState({ Count: " "});//initial state for updating the Quantity of a requested item in the cart
 
-const [subtractCount, setSubtractCount] = useState('');//initial state for subtracting Quantity from Count of a requested item in the cart
+const [subtractCount, setSubtractCount] = useState(newQuantity.Count - newQuantity.Quantity);//initial state for subtracting Quantity from Count of a requested item in the cart
 
 
 
@@ -198,20 +198,24 @@ const changeItemQuantity = async (items, index) => {
     });
   };
 
-
-// function that subtracts the requested quantity from count and sets the result to the subractCount state
-const subtractQuantity = async (items, index) => {
-  let count = newCount;
-  let quantity = newQuantity;
-  let result = count - quantity;
-  setSubtractCount(result);
-  console.log("subtractCount", subtractCount);
-}
-
-console.log("subtractCount", newCount);
-console.log("quanity", newQuantity);
-
-
+  const subtractFromInventory = async (items, index) => {
+    let id = items.UUID;
+    let newCount = items.Count-items.Quantity;
+    axios
+      .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
+      newQuantity, 
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          fetchNewShoppingCart();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+    };
+    
 
 
   return (
@@ -259,26 +263,7 @@ console.log("quanity", newQuantity);
                 return (
                   <div key={index}>
                 {item.shopping_cart?.map((items, index) => {
-                  // console.log("items count", items.Count);
-                  // console.log("items quantity", items.Quantity);
-                  // console.log("items count", items.Count);
-                  // let newCount = items.Count;
-                  // setNewCount= items.Count;
                   return (
-                      // setNewCount(...newCount, items.Count),
-                      //set newCount to items.Count
-                      // setNewCount(items.Count),
-                      // setNewQuantity(items.Quantity),
-                      // setSubtractCount(items.Count - items.Quantity),
-
-                      // setNewCount(items.Count),
-                      // setNewQuantity(items.Quantity),
-                      // setSubtractCount(items.Count - items.Quantity),
-                      // setNewCount(items.Count) is an infinite loop
-                      //set newCount to items.Count
-                      
-                      // setNewCount= items.Count,
-
                       <div key={index}>
                         <Box
                           sx={{
@@ -291,7 +276,7 @@ console.log("quanity", newQuantity);
                         >
                           <Box sx={{ width: 100 }}>
                             <p>{items.Name}</p>
-                          
+                        
                           </Box>
                           <Box>
                             <TextField
@@ -301,11 +286,14 @@ console.log("quanity", newQuantity);
                               label="Quantity"
                               type="number"
                               defaultValue={items.Quantity}
-                              style={{ width: 95, height: 80 }}
+                              style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
+                          <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
+                              Available: {items.Count}
+                          </Box>
                           </Box>
                           <Box
                             sx={{
@@ -317,6 +305,9 @@ console.log("quanity", newQuantity);
                             <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
                           </Box>
                         </Box>
+                          {/* <Box sx={{ml: 18, fontStyle: 'italic', fontSize: '13px' }}> 
+                              Available: {items.Count}
+                          </Box> */}
                       </div>
                     )}
                   )}

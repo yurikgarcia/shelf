@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
+const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
@@ -14,6 +15,8 @@ const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingca
 const { updateQuantity } = require('./shoppingcart_routes/shoppingCartQuantity');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
+
+
 
 const pool = new Pool({
   user: process.env.DB_USER,
