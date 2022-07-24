@@ -171,6 +171,7 @@ const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]// hard c
 const [newQuantity, setNewQuantity] = useState({ 
   Quantity: " ",
   Count: " ",
+  UUID: " ",
 });
 
 
@@ -199,13 +200,11 @@ const changeItemQuantity = async (items, index) => {
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
   const subtractFromInventory = async (items, index) => {
-    let id = items.UUID;
-    // let id = "72d4d99d-1ff9-4302-8daa-aee7146ff56c"
+    let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
     console.log("id", id)
     axios
       .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
-      // .patch(`http://localhost:3000/inventorycount/`,
       newQuantity, 
       )
       .then((res) => {
@@ -291,7 +290,7 @@ const changeItemQuantity = async (items, index) => {
                               defaultValue={items.Quantity}
                               style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
-                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count })}
+                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
