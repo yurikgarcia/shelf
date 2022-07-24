@@ -175,7 +175,7 @@ const [newQuantity, setNewQuantity] = useState({
 });
 
 
-const [subtractCount, setSubtractCount] = useState(newQuantity.Count - newQuantity.Quantity);//initial state for subtracting Quantity from Count of a requested item in the cart
+// const [subtractCount, setSubtractCount] = useState(newQuantity.Count - newQuantity.Quantity);//initial state for subtracting Quantity from Count of a requested item in the cart
 
 
 
@@ -219,7 +219,7 @@ const changeItemQuantity = async (items, index) => {
       });
     };
     
-    
+    console.log("c/odrawer", newShoppingCart)
 
   return (
     <div>
@@ -277,9 +277,13 @@ const changeItemQuantity = async (items, index) => {
                             width: "1000",
                           }}
                         >
-                          <Box sx={{ width: 100 }}>
-                            <p>{items.Name}</p>
-                        
+                          <Box sx={{display:'flex', flexDirection: "column"}}>
+                            <Box sx={{ width: 100, fontSize: '15px', height: 50}}>
+                              <p>{items.Name}</p>
+                            </Box>
+                            <Box sx={{ mt:1, fontStyle: 'italic', fontSize: '14px' }}> 
+                              Size : {items.Size}
+                            </Box>
                           </Box>
                           <Box>
                             <TextField

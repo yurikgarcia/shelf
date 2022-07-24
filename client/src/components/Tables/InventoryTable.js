@@ -226,6 +226,7 @@ export default function RowsGrid({
                   { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100 },
+                  { field: "UUID", minWidth: 100 },
                   {
                     field: "Count Status",
                     renderCell: (params) => (
@@ -302,6 +303,7 @@ export default function RowsGrid({
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
                     Returnable: row.returnable_item,
+                    UUID: row.item_id,
                   };
                 })}
               />
