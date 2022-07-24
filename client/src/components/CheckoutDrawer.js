@@ -116,7 +116,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
   // function to delete item from shopping_cart column in the users table in db
   const onDelete  = async (items, index) => {
-    console.log("item from front end going to db", items.UUID);
     let id = items.UUID;
     axios.delete(`http://localhost:3000/shopping-cart/${id}/${user_dod}`)
       .then((res) => {
@@ -198,11 +197,15 @@ const changeItemQuantity = async (items, index) => {
     });
   };
 
+  //Change count of item in th inventory after the requested quantity is submitted in the cart
   const subtractFromInventory = async (items, index) => {
     let id = items.UUID;
-    let newCount = items.Count-items.Quantity;
+    // let id = "72d4d99d-1ff9-4302-8daa-aee7146ff56c"
+    let newCount = newQuantity.Count-newQuantity.Quantity;
+    console.log("id", id)
     axios
-      .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
+      .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
+      // .patch(`http://localhost:3000/inventorycount/`,
       newQuantity, 
       )
       .then((res) => {
@@ -216,7 +219,7 @@ const changeItemQuantity = async (items, index) => {
       });
     };
     
-
+    
 
   return (
     <div>
@@ -398,7 +401,8 @@ const changeItemQuantity = async (items, index) => {
                       variant="contained"
                       color="primary"
                       onClick={() => {
-                        addToIssuedItems();
+                        // addToIssuedItems();
+                        subtractFromInventory();
                       }
                     }
                     >

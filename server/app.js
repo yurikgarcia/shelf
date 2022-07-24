@@ -76,6 +76,12 @@ app.post('/inventory', addItemToInventory)
 app.patch('/inventory', updateItemInInventory)
 app.delete('/inventory', deleteItemFromInventory)
 
+//--------------------------------INVENTORY ITEM COUNT ----------------------------------------------------------------------------------------------------------------
+
+app.patch('/inventorycount/:id/:newCount', updateItemCount)
+// app.patch('/inventorycount/', updateItemCount)
+
+
 //--------------------------------USERS TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/users', getUsers)
@@ -84,6 +90,7 @@ app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
 //--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
 
+// 
 app.get('/issueditems/:dod_id', getSelectedUser)
 
 
