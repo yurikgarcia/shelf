@@ -210,6 +210,7 @@ const changeItemQuantity = async (items, index) => {
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
+          // fetchInventory();
         }
       })
       .catch((err) => {
@@ -400,7 +401,7 @@ const changeItemQuantity = async (items, index) => {
                       variant="contained"
                       color="primary"
                       onClick={() => {
-                        // addToIssuedItems();
+                        addToIssuedItems();
                         subtractFromInventory();
                       }
                     }
