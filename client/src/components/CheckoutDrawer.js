@@ -202,7 +202,6 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
-    console.log("id", id)
     axios
       .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
       newQuantity, 
@@ -298,9 +297,14 @@ const changeItemQuantity = async (items, index) => {
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
+                            {items.Count != "undefined" ? (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
+                          </Box>) : (
+                          <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
+                              Available: {items.Quantity}
                           </Box>
+                              )}
                           </Box>
                           <Box
                             sx={{

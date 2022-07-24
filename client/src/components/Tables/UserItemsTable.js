@@ -141,7 +141,6 @@ console.log(issuedItems)
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "UUID", minWidth: 100 },
                   {
                     field: "Return",
                     minWidth: 10,
@@ -166,7 +165,6 @@ console.log(issuedItems)
                     Quantity: row.Quantity,
                     Gender: row.gender,
                     Returnable: row.Returnable,
-                    UUID: row.UUID
                   };
                 })}
               />
