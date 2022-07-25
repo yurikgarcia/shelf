@@ -202,6 +202,10 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
+    // console.log("count", newQuantity.Count)
+    // console.log("quantity", newQuantity.Quantity)
+    // console.log("newCount", newCount)
+    console.log("id", newQuantity)
     axios
       .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
       newQuantity, 
@@ -217,8 +221,31 @@ const changeItemQuantity = async (items, index) => {
         console.log("err", err);
       });
     };
+
+      //Change count of item in th inventory after the requested quantity is submitted in the cart
+  // const addToInventoryCount = async (items, index) => {
+    // let id = newQuantity.UUID;
+    // let newCount = newQuantity.Count-newQuantity.Quantity;
+
+    // console.log("newQuantity", newQuantity)
+    // axios
+    //   // .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
+    //   .patch(`http://localhost:3000/inventoryaddcount/`,
+    //   newQuantity, 
+    //   )
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       fetchNewShoppingCart();
+    //       // fetchInventory();
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert("Sorry! Something went wrong. Please try again.");
+    //     console.log("err", err);
+    //   });
+    // };
     
-    console.log("c/odrawer", newShoppingCart)
+    // console.log("c/odrawer value", value)
 
   return (
     <div>
@@ -291,7 +318,8 @@ const changeItemQuantity = async (items, index) => {
                               variant="outlined"
                               label="Quantity"
                               type="number"
-                              defaultValue={items.Quantity}
+                              // defaultValue={items.Quantity}
+                              defaultValue= "0"
                               style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
@@ -341,7 +369,7 @@ const changeItemQuantity = async (items, index) => {
                       onChange={handleChange}
                     >
                       <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
-                      <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" />
+                      {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
                       <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
                     </RadioGroup>
                 </FormControl>
@@ -441,14 +469,18 @@ const changeItemQuantity = async (items, index) => {
                         options={warehouses}
                         sx={{ width: 300 }}
                         renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                        onChange={(event, newValue) => {
+                          // setValue(newValue.dod_id);
+                          setValue('inventory')
+                        }}
                       />
                     <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
                         <Button
                           variant="contained"
                           color="primary"
                           // onClick={() => {
-                          //   addToIssuedItems();
-                          // }
+                          //     addToIssuedItems();
+                          //   }
                           // }
                         >
                           Issue To Warehouse
@@ -485,8 +517,8 @@ const changeItemQuantity = async (items, index) => {
                         variant="contained"
                         color="primary"
                         // onClick={() => {
-                        //   addToIssuedItems();
-                        // }
+                        //     addToInventoryCount ();
+                        //   }
                         // }
                       >
                         Return To Warehouse

@@ -302,6 +302,7 @@ export default function RowsGrid({
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
                     Returnable: row.returnable_item,
+                    UUID: row.item_id,
                   };
                 })}
               />

@@ -16,11 +16,9 @@ const pool = new Pool({
 
 
 
-async function updateItemCount(req, res) {
+async function addToItemCount(req, res) {
   let newCount = req.params.newCount;
   let UUID = req.params.id;
-  console.log(newCount);
-  console.log("uuid", UUID);
   pool.query(
     `UPDATE inventory 
           SET item_count='${newCount}'
@@ -39,5 +37,5 @@ async function updateItemCount(req, res) {
 
 
 module.exports = {
-  updateItemCount,
+  addToItemCount,
 };

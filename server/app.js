@@ -8,6 +8,7 @@ const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
+const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
@@ -76,10 +77,14 @@ app.post('/inventory', addItemToInventory)
 app.patch('/inventory', updateItemInInventory)
 app.delete('/inventory', deleteItemFromInventory)
 
-//--------------------------------INVENTORY ITEM COUNT ----------------------------------------------------------------------------------------------------------------
+//--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------
 
 app.patch('/inventorycount/:id/:newCount', updateItemCount)
-// app.patch('/inventorycount/', updateItemCount)
+
+//--------------------------------INVENTORY ITEM ADD TO COUNT ----------------------------------------------------------------------------------------------------------------
+
+app.patch('/inventoryaddcount/:id/:newCount', addToItemCount)
+
 
 
 //--------------------------------USERS TABLE----------------------------------------------------------------------------------------------------------------

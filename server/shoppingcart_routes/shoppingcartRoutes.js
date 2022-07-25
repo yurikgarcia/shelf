@@ -57,7 +57,7 @@ async function addToCart(req, res) {
     Quantity: req.body.Quantity
   };
   let user_id = req.params.dod_id;
-  console.log("from inventory", req.body)
+  console.log("from inventory call", req.body)
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",

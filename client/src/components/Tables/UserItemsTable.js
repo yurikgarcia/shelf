@@ -165,6 +165,7 @@ console.log(issuedItems)
                     Quantity: row.Quantity,
                     Gender: row.gender,
                     Returnable: row.Returnable,
+                    UUID: row.item_id
                   };
                 })}
               />
