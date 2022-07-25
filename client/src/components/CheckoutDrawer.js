@@ -221,17 +221,16 @@ const changeItemQuantity = async (items, index) => {
       //Change count of item in th inventory after the requested quantity is submitted in the cart
   const addToInventoryCount = async (items, index) => {
     let id = newQuantity.UUID;
-    let newCount = newQuantity.Count-newQuantity.Quantity;
-    // console.log("from cart/newQuantity", newQuantity)
-    console.log("from cart quantiy", newQuantity.Quantity)
-    console.log("from cart count", newQuantity.Count)
-    console.log("from cart uuid", newQuantity.UUID)
-    // console.log("from cart", newQuantity.Count-newQuantity.Quantity)
-    console.log("from cart NEW COUNT", newCount)
-    // console.log("newQuantity", newQuantity)
+    let count = newQuantity.Count;
+    let quantity = newQuantity.Quantity
+    let newCount = +count + +quantity;
+    // let newCount = 10 + 5
+    console.log("COUNT", newQuantity.Count)
+    console.log("QUANTITY", newQuantity.Quantity)
+    console.log("NEW COUNT", newCount)
     axios
-      // .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
-      .patch(`http://localhost:3000/inventoryaddcount/`,
+      .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
+      // .patch(`http://localhost:3000/inventoryaddcount/`,
       newQuantity, 
       )
       .then((res) => {
@@ -246,13 +245,6 @@ const changeItemQuantity = async (items, index) => {
       });
     };
     
-    // console.log("c/odrawer value", value)
-    // console.log("from cart", newQuantity)
-    // console.log("from cart", newQuantity.Quantity)
-    console.log("from cart on blur", newQuantity)
-    // console.log("from cart", newQuantity.UUID)
-    // console.log("from cart", newQuantity.Count-newQuantity.Quantity)
-    // console.log("from cart", newCount)
 
   return (
     <div>
@@ -332,7 +324,7 @@ const changeItemQuantity = async (items, index) => {
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
-                            {items.Count != "undefined" ? (
+                            {items.Count !== "undefined" ? (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
                           </Box>) : (
