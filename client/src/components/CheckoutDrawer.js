@@ -202,10 +202,6 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
-    // console.log("count", newQuantity.Count)
-    // console.log("quantity", newQuantity.Quantity)
-    // console.log("newCount", newCount)
-    console.log("id", newQuantity)
     axios
       .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
       newQuantity, 
@@ -223,29 +219,40 @@ const changeItemQuantity = async (items, index) => {
     };
 
       //Change count of item in th inventory after the requested quantity is submitted in the cart
-  // const addToInventoryCount = async (items, index) => {
-    // let id = newQuantity.UUID;
-    // let newCount = newQuantity.Count-newQuantity.Quantity;
-
+  const addToInventoryCount = async (items, index) => {
+    let id = newQuantity.UUID;
+    let newCount = newQuantity.Count-newQuantity.Quantity;
+    // console.log("from cart/newQuantity", newQuantity)
+    console.log("from cart quantiy", newQuantity.Quantity)
+    console.log("from cart count", newQuantity.Count)
+    console.log("from cart uuid", newQuantity.UUID)
+    // console.log("from cart", newQuantity.Count-newQuantity.Quantity)
+    console.log("from cart NEW COUNT", newCount)
     // console.log("newQuantity", newQuantity)
-    // axios
-    //   // .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
-    //   .patch(`http://localhost:3000/inventoryaddcount/`,
-    //   newQuantity, 
-    //   )
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       fetchNewShoppingCart();
-    //       // fetchInventory();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert("Sorry! Something went wrong. Please try again.");
-    //     console.log("err", err);
-    //   });
-    // };
+    axios
+      // .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
+      .patch(`http://localhost:3000/inventoryaddcount/`,
+      newQuantity, 
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          fetchNewShoppingCart();
+          // fetchInventory(); 
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+    };
     
     // console.log("c/odrawer value", value)
+    // console.log("from cart", newQuantity)
+    // console.log("from cart", newQuantity.Quantity)
+    console.log("from cart on blur", newQuantity)
+    // console.log("from cart", newQuantity.UUID)
+    // console.log("from cart", newQuantity.Count-newQuantity.Quantity)
+    // console.log("from cart", newCount)
 
   return (
     <div>
@@ -331,6 +338,7 @@ const changeItemQuantity = async (items, index) => {
                           </Box>) : (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Quantity}
+                              
                           </Box>
                               )}
                           </Box>
@@ -478,10 +486,10 @@ const changeItemQuantity = async (items, index) => {
                         <Button
                           variant="contained"
                           color="primary"
-                          // onClick={() => {
-                          //     addToIssuedItems();
-                          //   }
-                          // }
+                          onClick={() => {
+                              addToIssuedItems();
+                            }
+                          }
                         >
                           Issue To Warehouse
                         </Button>
@@ -516,10 +524,10 @@ const changeItemQuantity = async (items, index) => {
                       <Button
                         variant="contained"
                         color="primary"
-                        // onClick={() => {
-                        //     addToInventoryCount ();
-                        //   }
-                        // }
+                        onClick={() => {
+                            addToInventoryCount ();
+                          }
+                        }
                       >
                         Return To Warehouse
                       </Button>

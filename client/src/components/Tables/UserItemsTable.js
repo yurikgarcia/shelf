@@ -85,7 +85,7 @@ export default function RowsGrid({ }) {
 
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
-      console.log(userShoppingCart)
+      console.log("usertable add to cart",userShoppingCart)
       axios
       .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
@@ -101,7 +101,6 @@ export default function RowsGrid({ }) {
       };
 
 
-console.log(issuedItems)
   return (
     <Box
       sx={{
@@ -141,6 +140,7 @@ console.log(issuedItems)
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+                  { field: "UUID", minWidth: 100 },
                   {
                     field: "Return",
                     minWidth: 10,
@@ -165,7 +165,9 @@ console.log(issuedItems)
                     Quantity: row.Quantity,
                     Gender: row.gender,
                     Returnable: row.Returnable,
-                    UUID: row.item_id
+                    UUID: row.UUID,
+                    Count: row.Count,
+                    Gender: row.Gender
                   };
                 })}
               />
