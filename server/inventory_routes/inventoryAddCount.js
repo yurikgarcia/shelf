@@ -27,7 +27,11 @@ async function addToItemCount(req, res) {
     WHERE item_id = '${uuid}'
     )
     UPDATE users SET shopping_cart = NULL WHERE dod_id = '${admin_id}';
-    UPDATE users SET issued_items = NULL WHERE dod_id ='123456789'
+    UPDATE users SET issued_items = issued_items - 
+        Cast((SELECT position - 1 FROM users, jsonb_array_elements(issued_items) with 
+            ordinality arr(item_object, position) 
+        WHERE dod_id='123456789' and item_object->>'UUID' = '${uuid}') as int)
+        WHERE dod_id='123456789';
     `,
     (error, results) => {
       if (error) {
@@ -40,7 +44,7 @@ async function addToItemCount(req, res) {
   );
 }
 
-
+//NEED TO SWAP dod_id = '123456789' with the dod_id of the user who is returning the item
 
 module.exports = {
   addToItemCount,

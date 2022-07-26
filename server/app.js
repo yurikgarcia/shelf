@@ -79,7 +79,7 @@ app.delete('/inventory', deleteItemFromInventory)
 
 //--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------
 
-app.patch('/inventorycount/:id/:newCount', updateItemCount)
+app.patch('/inventorysubtractcount/:id/:newCount/:dod_id', updateItemCount)
 
 //--------------------------------INVENTORY ITEM ADD TO COUNT ----------------------------------------------------------------------------------------------------------------
 

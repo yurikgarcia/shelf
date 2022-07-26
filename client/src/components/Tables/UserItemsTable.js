@@ -140,7 +140,6 @@ export default function RowsGrid({ }) {
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Count", minWidth: 100 },
                   {
                     field: "Return",
                     minWidth: 10,

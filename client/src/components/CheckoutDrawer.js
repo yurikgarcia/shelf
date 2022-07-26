@@ -204,7 +204,7 @@ const changeItemQuantity = async (items, index) => {
     let newCount = newQuantity.Count-newQuantity.Quantity;
     console.log("newCount", newCount);
     axios
-      .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
+      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
       )
       .then((res) => {
