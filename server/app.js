@@ -83,7 +83,7 @@ app.patch('/inventorycount/:id/:newCount', updateItemCount)
 
 //--------------------------------INVENTORY ITEM ADD TO COUNT ----------------------------------------------------------------------------------------------------------------
 
-app.patch('/inventoryaddcount/:id/:newCount', addToItemCount)
+app.patch('/inventoryaddcount/:id/:newCount/:dod_id', addToItemCount)
 
 
 

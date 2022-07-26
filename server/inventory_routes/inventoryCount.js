@@ -19,17 +19,19 @@ const pool = new Pool({
 async function updateItemCount(req, res) {
   let newCount = req.params.newCount;
   let UUID = req.params.id;
-  console.log(newCount);
+  console.log("count being pushed",newCount);
   console.log("uuid", UUID);
   pool.query(
     `UPDATE inventory 
           SET item_count='${newCount}'
-            WHERE item_id = '${UUID}'`,
+            WHERE item_id = '${UUID}';
+            UPDATE users SET shopping_cart = NULL 
+            WHERE dod_id = '123456789'`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);
       }
-      console.log("updated in DB");
+      console.log("updated count in the inventory");
       res.status(204);
       res.send("Success");
     }

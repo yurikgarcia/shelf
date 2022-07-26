@@ -202,6 +202,7 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
+    console.log("newCount", newCount);
     axios
       .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
       newQuantity, 
@@ -224,13 +225,8 @@ const changeItemQuantity = async (items, index) => {
     let count = newQuantity.Count;
     let quantity = newQuantity.Quantity
     let newCount = +count + +quantity;
-    // let newCount = 10 + 5
-    console.log("COUNT", newQuantity.Count)
-    console.log("QUANTITY", newQuantity.Quantity)
-    console.log("NEW COUNT", newCount)
     axios
-      .patch(`http://localhost:3000/inventorycount/${id}/${newCount}`,
-      // .patch(`http://localhost:3000/inventoryaddcount/`,
+      .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
       )
       .then((res) => {
