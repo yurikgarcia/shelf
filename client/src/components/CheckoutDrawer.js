@@ -227,6 +227,10 @@ const changeItemQuantity = async (items, index) => {
     let count = newQuantity.Count;
     let quantity = newQuantity.Quantity
     let newCount = +count + +quantity;
+    // console.log("addto inventry/id", id)
+    // console.log("addto inventry/count", count)
+    // console.log("addto inventry/quantity", quantity)
+    // console.log("addto inventry/newCount", newCount)
     axios
       .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -272,11 +276,7 @@ const changeItemQuantity = async (items, index) => {
 
       const [transition, setTransition] = React.useState(undefined);
 
-
-    // console.log("c/o/d, transition", setOpenSnack)
-    console.log("c/o/d", cartLength)
-
-    console.log("c/o/d newShoppingCart",newShoppingCart)
+      console.log("location",window.location.href)
 
   return (
     <div>
@@ -328,6 +328,12 @@ const changeItemQuantity = async (items, index) => {
                   return (
                     <div key={index}>
                     {cartLength >= 1 ? (
+                    <Box
+                        sx={{
+                        display: "flex",
+                        flexDirection: "column"
+                      }}
+                    >
                         <Box
                           sx={{
                             display: "flex",
@@ -361,15 +367,15 @@ const changeItemQuantity = async (items, index) => {
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
                               onBlur={() => changeItemQuantity(items, index)}
                             />
-                            {items.Count !== "undefined" ? (
+                            {window.location.href === "http://localhost:3001/inventory" ? (
 
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
-                          </Box>) : (
+                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity != undefined?  (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Quantity}
                           </Box>
-                              )}
+                          ) : null}
                           </Box>
                           
                           <Box
@@ -398,57 +404,8 @@ const changeItemQuantity = async (items, index) => {
                             <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
                           </RadioGroup>
                         </FormControl>
-                        </Box>
 
-
-                    ) : (
-      
-                      <Box>
-                        <h1>Nothing in Cart</h1>
-                      </Box>
-                    )
-                }
-                      </div>
-                    )}
-                  )}
-                </div>
-                )}
-              )}
-
-{/* 
-              <ListItem>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={users}
-                  onChange={(event, newValue) => {
-                  setValue(newValue.dod_id);
-                }}
-                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                  style={{ width: 300 }}
-                  renderInput={(params) => (
-                        <TextField {...params} label="Users" variant="outlined" />
-                      )}
-                  />
-              </ListItem> */}
-
-              {/* <ListItem>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={users}
-                  onChange={(event, newValue) => {
-                  setValue(newValue.dod_id);
-                }}
-                  getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                  style={{ width: 300 }}
-                  renderInput={(params) => (
-                        <TextField {...params} label="Warehouses" variant="outlined" />
-                      )}
-                  />
-              </ListItem> */}
-
-              <ListItem
+                        <ListItem
                 disablePadding
                 sx={{ display: "flex", justifyContent: "center", mt: 2 }}
               >
@@ -565,23 +522,35 @@ const changeItemQuantity = async (items, index) => {
                       sx={{ width: 300 }}
                       renderInput={(params) => <TextField {...params} label="Warehouses" />}
                     />
-                  <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                            addToInventoryCount ();
+                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                              addToInventoryCount ();
+                            }
                           }
-                        }
-                      >
-                        Return To Warehouse
-                      </Button>
-
+                        >
+                          Return To Warehouse
+                        </Button>
                     </Box>
                   </Box>
                 </ListItem>
                 ) : null}
-              </ListItem>
+                </ListItem>
+                      </Box>
+                    </Box>
+                    ) : (
+                      <Box>
+                        <h1>Nothing in Cart</h1>
+                      </Box>
+                    )}
+                      </div>
+                    )})}
+                </div>
+                )})}
+                  <Box>
+                </Box>
               </ListItem>
             </List>
           </Drawer> 
