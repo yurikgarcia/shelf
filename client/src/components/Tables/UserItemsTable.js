@@ -162,7 +162,7 @@ export default function RowsGrid({ }) {
                     NSN: row.NSN,
                     Size: row.Size,
                     Quantity: row.Quantity,
-                    Gender: row.gender,
+                    Gender: row.Gender,
                     Returnable: row.Returnable,
                     UUID: row.UUID,
                     Count: row.Count,

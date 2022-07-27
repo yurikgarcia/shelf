@@ -77,47 +77,47 @@ async function updateUser(req, res) {
   );
 }
 
-//POST call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
-// based on the dod_id of the logged in user
+// //POST call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
+// // based on the dod_id of the logged in user
 
-async function addToCart(req, res) {
-  let params = {
-    id: req.body.id,
-    Delete: req.body.Delete,
-    Edit: req.body.Edit,
-    Name: req.body.Name,
-    Brand: req.body.Brand,
-    NSN: req.body.NSN,
-    Bldg: req.body.Bldg,
-    Size: req.body.Size,
-    Count: req.body.Count,
-    Gender: req.body.Gender,
-    Aisle: req.body.Aisle,
-    Initial: req.body.Initial,
-    MinCount: req.body.MinCount,
-    Ordered: req.body.Ordered,
-    Returnable: req.body.Returnable,
-  };
+// async function addToCart(req, res) {
+//   let params = {
+//     id: req.body.id,
+//     Delete: req.body.Delete,
+//     Edit: req.body.Edit,
+//     Name: req.body.Name,
+//     Brand: req.body.Brand,
+//     NSN: req.body.NSN,
+//     Bldg: req.body.Bldg,
+//     Size: req.body.Size,
+//     Count: req.body.Count,
+//     Gender: req.body.Gender,
+//     Aisle: req.body.Aisle,
+//     Initial: req.body.Initial,
+//     MinCount: req.body.MinCount,
+//     Ordered: req.body.Ordered,
+//     Returnable: req.body.Returnable,
+//   };
   
-  pool.query(
-    `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
-    '{"Name":"TEST",
-      "Brand":"${params.Brand}",
-      "NSN":"${params.NSN}",
-      "Size":"${params.Size}",
-      "Count":"${params.Count}",
-      "Gender":"${params.Gender}",
-      "UUID":"${params.Delete}"}' ::jsonb
-      WHERE dod_id = '263748598'`,
-      (error, results) => {
-        if (error) {
-          res.send("error" + error);
-        }
-        console.log("placed item into shopping cart");
-        res.status(200);
-      }
-    );
-  }
+//   pool.query(
+//     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
+//     '{"Name":"TEST",
+//       "Brand":"${params.Brand}",
+//       "NSN":"${params.NSN}",
+//       "Size":"${params.Size}",
+//       "Count":"${params.Count}",
+//       "Gender":"${params.Gender}",
+//       "UUID":"${params.Delete}"}' ::jsonb
+//       WHERE dod_id = '263748598'`,
+//       (error, results) => {
+//         if (error) {
+//           res.send("error" + error);
+//         }
+//         console.log("placed item into shopping cart");
+//         res.status(200);
+//       }
+//     );
+//   }
 
 
 
@@ -126,5 +126,5 @@ module.exports = {
   addUser,
   deleteUser,
   updateUser,
-  addToCart
+  // addToCart
 };

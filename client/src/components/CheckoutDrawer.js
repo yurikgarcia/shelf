@@ -12,10 +12,13 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import MuiAlert from '@mui/material/Alert';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import shelfLogo from ".//Images/shelfLogo.png";
+import Slide from '@mui/material/Slide';
+import Snackbar from '@mui/material/Snackbar';
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
@@ -23,7 +26,7 @@ import Typography from '@mui/material/Typography';
 
 
 
-export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory, }) {
+export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory}) {
   const user_dod = localStorage.getItem("user_dod");
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
@@ -240,6 +243,73 @@ const changeItemQuantity = async (items, index) => {
         console.log("err", err);
       });
     };
+
+      //SNACKBAR ALERT
+    // const Alert = React.forwardRef(function Alert(props, ref) {
+    //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    // });
+
+    // const [snackState, setSnackState] = React.useState({
+    //   open: false,
+    //   vertical: 'bottom',
+    //   horizontal: 'right',
+    // });
+  
+    // const { vertical, horizontal, open } = snackState;
+  
+    // const handleSnack = (newSnackState) => () => {
+    //   setSnackState({ open: true, ...newSnackState });
+    // };
+  
+    // const handleCloseSnack = () => {
+    //   setSnackState({ ...snackState, open: false });
+    // };
+
+    const Alert = React.forwardRef(function Alert(props, ref) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+    
+  
+      const [openSnack, setOpenSnack] = React.useState(false);
+    
+      // const handleSnack = (Transition) => {
+      //   setOpenSnack(true);
+      //   setTransition(() => Transition);
+      // };
+
+      function TransitionLeft(props) {
+        return <Slide {...props} direction="left" />;
+      }
+    
+      const handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenSnack(false);
+      };
+
+
+      const [snackState, setSnackState] = React.useState({
+        open: false,
+      });
+    
+    
+    
+      const handleClick = (Transition) => () => {
+        setTransition(() => Transition);
+        setOpenSnack(true);
+      };
+    
+      const handleClose = () => {
+        setSnackState({ ...snackState, open: false });
+      };
+
+      function TransitionLeft(props) {
+        return <Slide {...props} direction="left" />;
+      }
+
+      const [transition, setTransition] = React.useState(undefined);
     
 
   return (
@@ -277,6 +347,51 @@ const changeItemQuantity = async (items, index) => {
                 <img alt="shelf logo" src={shelfLogo} width="30" height="30" />
                 <h2>Shopping Cart</h2>
               </ListItem>
+
+
+                {/* <Button
+                        onClick={handleSnack({
+                          vertical: 'bottom',
+                          horizontal: 'right',
+                        })}
+                      >
+                        Top-Right
+                </Button>
+
+                <Snackbar
+                  anchorOrigin={{ vertical, horizontal }}
+                  open={open}
+                  key={vertical + horizontal}
+                  severity="success" 
+                >
+                  <Alert sx={{ width: '100%' }}                   
+                  autoHideDuration={5000} 
+                  onCloseSnack={handleCloseSnack} >
+                    This is a success message!
+                  </Alert>
+
+                </Snackbar> */}
+
+                {/* <Button variant="outlined" onClick={handleSnack}>
+                  Open success snackbar
+                </Button> */}
+
+                <Button onClick={handleClick(TransitionLeft)}>Left</Button>
+
+                <Snackbar
+                  open={openSnack} 
+                  autoHideDuration={5000} 
+                  onClose={handleCloseSnack}
+                  TransitionComponent={transition}
+                  key={transition ? transition.name : ''}
+                  >
+
+
+                    <Alert onCloseSnack={handleCloseSnack} sx={{ width: '1000%' }}>
+                      This is a success message!
+                    </Alert>
+              </Snackbar>
+
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
@@ -519,17 +634,33 @@ const changeItemQuantity = async (items, index) => {
                       >
                         Return To Warehouse
                       </Button>
+
                     </Box>
                   </Box>
                 </ListItem>
                 ) : null}
               </ListItem>
             </List>
+          {/* <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
+        <Alert onCloseSnack={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar> */}
           </Drawer>
+
+
         </React.Fragment>
+
+        
       ))}
     </div>
   );
+
+      //   <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
+      //   <Alert onCloseSnack={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+      //     This is a success message!
+      //   </Alert>
+      // </Snackbar>
 }
 
                 
