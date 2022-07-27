@@ -23,7 +23,7 @@ async function getInventory(req, res) {
           res.sendStatus("error" + error);
         }
         res.send(results.rows);
-        console.log(authData)
+        // console.log(authData)
       });
     });
   });

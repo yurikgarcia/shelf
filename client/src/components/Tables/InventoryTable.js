@@ -135,7 +135,6 @@ export default function RowsGrid({
 
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
-      console.log(userShoppingCart)
       axios
       .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
@@ -353,11 +352,11 @@ export default function RowsGrid({
                       <div>
                         <TextField
                           disabled={false}
-                          id="filled"
+                          id="outlined-error"
                           variant="filled"
                           label="Name"
                           defaultValue={editedItem?.Name}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Name: e.target.value })
                           }
@@ -367,7 +366,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="NSN"
                           defaultValue={editedItem?.NSN}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, NSN: e.target.value })
                           }
@@ -379,7 +378,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="Building"
                           defaultValue={editedItem?.Bldg}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Bldg: e.target.value })
                           }
@@ -389,7 +388,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="Aisle"
                           defaultValue={editedItem?.Aisle}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Aisle: e.target.value })
                           }
@@ -401,7 +400,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="Size"
                           defaultValue={editedItem?.Size}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Size: e.target.value })
                           }
@@ -412,7 +411,7 @@ export default function RowsGrid({
                           label="In Stock"
                           type="number"
                           defaultValue={editedItem?.Count}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Count: e.target.value })
                           }
@@ -425,7 +424,7 @@ export default function RowsGrid({
                           label="Minimum Count"
                           type="number"
                           defaultValue={editedItem?.MinCount}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({
                               ...newValue,
@@ -439,7 +438,7 @@ export default function RowsGrid({
                           label="Ordered"
                           type="number"
                           defaultValue={editedItem?.Ordered}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({
                               ...newValue,
@@ -468,7 +467,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="Initial Gear"
                           defaultValue={editedItem?.Initial}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({
                               ...newValue,
@@ -481,7 +480,7 @@ export default function RowsGrid({
                           variant="filled"
                           label="Returnable Item"
                           defaultValue={editedItem?.Returnable}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: "5" }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({
                               ...newValue,

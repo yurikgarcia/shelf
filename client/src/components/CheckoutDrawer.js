@@ -22,7 +22,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
-import Typography from '@mui/material/Typography';
+
 
 
 
@@ -205,7 +205,6 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
-    console.log("newCount", newCount);
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -244,26 +243,6 @@ const changeItemQuantity = async (items, index) => {
       });
     };
 
-      //SNACKBAR ALERT
-    // const Alert = React.forwardRef(function Alert(props, ref) {
-    //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    // });
-
-    // const [snackState, setSnackState] = React.useState({
-    //   open: false,
-    //   vertical: 'bottom',
-    //   horizontal: 'right',
-    // });
-  
-    // const { vertical, horizontal, open } = snackState;
-  
-    // const handleSnack = (newSnackState) => () => {
-    //   setSnackState({ open: true, ...newSnackState });
-    // };
-  
-    // const handleCloseSnack = () => {
-    //   setSnackState({ ...snackState, open: false });
-    // };
 
     const Alert = React.forwardRef(function Alert(props, ref) {
       return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -272,10 +251,6 @@ const changeItemQuantity = async (items, index) => {
   
       const [openSnack, setOpenSnack] = React.useState(false);
     
-      // const handleSnack = (Transition) => {
-      //   setOpenSnack(true);
-      //   setTransition(() => Transition);
-      // };
 
       function TransitionLeft(props) {
         return <Slide {...props} direction="left" />;
@@ -285,32 +260,23 @@ const changeItemQuantity = async (items, index) => {
         if (reason === 'clickaway') {
           return;
         }
-    
-        setOpenSnack(false);
+            setOpenSnack(false);
       };
 
 
-      const [snackState, setSnackState] = React.useState({
-        open: false,
-      });
-    
-    
-    
       const handleClick = (Transition) => () => {
         setTransition(() => Transition);
         setOpenSnack(true);
       };
     
-      const handleClose = () => {
-        setSnackState({ ...snackState, open: false });
-      };
-
-      function TransitionLeft(props) {
-        return <Slide {...props} direction="left" />;
-      }
 
       const [transition, setTransition] = React.useState(undefined);
-    
+
+
+    // console.log("c/o/d, transition", setOpenSnack)
+    console.log("c/o/d", cartLength)
+
+    console.log("c/o/d newShoppingCart",newShoppingCart)
 
   return (
     <div>
@@ -334,6 +300,7 @@ const changeItemQuantity = async (items, index) => {
               </ShoppingCartIcon>
             )}
           </Tooltip>
+
           <Drawer
             anchor={anchor}
             open={state[anchor]}
@@ -348,80 +315,39 @@ const changeItemQuantity = async (items, index) => {
                 <h2>Shopping Cart</h2>
               </ListItem>
 
-
-                {/* <Button
-                        onClick={handleSnack({
-                          vertical: 'bottom',
-                          horizontal: 'right',
-                        })}
-                      >
-                        Top-Right
-                </Button>
-
-                <Snackbar
-                  anchorOrigin={{ vertical, horizontal }}
-                  open={open}
-                  key={vertical + horizontal}
-                  severity="success" 
-                >
-                  <Alert sx={{ width: '100%' }}                   
-                  autoHideDuration={5000} 
-                  onCloseSnack={handleCloseSnack} >
-                    This is a success message!
-                  </Alert>
-
-                </Snackbar> */}
-
-                {/* <Button variant="outlined" onClick={handleSnack}>
-                  Open success snackbar
-                </Button> */}
-
-                <Button onClick={handleClick(TransitionLeft)}>Left</Button>
-
-                <Snackbar
-                  open={openSnack} 
-                  autoHideDuration={5000} 
-                  onClose={handleCloseSnack}
-                  TransitionComponent={transition}
-                  key={transition ? transition.name : ''}
-                  >
-
-
-                    <Alert onCloseSnack={handleCloseSnack} sx={{ width: '1000%' }}>
-                      This is a success message!
-                    </Alert>
-              </Snackbar>
-
               <Divider
                 sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
-
 
             <ListItem>
               {newShoppingCart.map((item, index) => {
                 return (
                   <div key={index}>
                 {item.shopping_cart?.map((items, index) => {
+                  console.log("items", items)
                   return (
-                      <div key={index}>
+                    <div key={index}>
+                    {cartLength >= 1 ? (
                         <Box
                           sx={{
                             display: "flex",
                             mt: 2,
                             ml: 3,
-                            flexDirection: "row",
+                            flexDirection: "column",
                             width: "1000",
                           }}
                         >
-                          <Box sx={{display:'flex', flexDirection: "column"}}>
-                            <Box sx={{ width: 100, fontSize: '15px', height: 50}}>
-                              <p>{items.Name}</p>
+                          <Box sx={{display:'flex', flexDirection: "row"}}>
+                            <Box>
+                              <Box sx={{ width: 100, fontSize: '15px', height: 45}}>
+                                <p>{items.Name}</p>
+                              </Box>
+                              <Box sx={{  fontStyle: 'italic', fontSize: '14px' }}> 
+                                Size : {items.Size}
+                              </Box>
                             </Box>
-                            <Box sx={{ mt:1, fontStyle: 'italic', fontSize: '14px' }}> 
-                              Size : {items.Size}
-                            </Box>
-                          </Box>
-                          <Box>
+
+                            <Box>
                             <TextField
                               required
                               id="filled"
@@ -436,15 +362,16 @@ const changeItemQuantity = async (items, index) => {
                               onBlur={() => changeItemQuantity(items, index)}
                             />
                             {items.Count !== "undefined" ? (
+
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
                           </Box>) : (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Quantity}
-                              
                           </Box>
                               )}
                           </Box>
+                          
                           <Box
                             sx={{
                               display: "flex",
@@ -454,41 +381,40 @@ const changeItemQuantity = async (items, index) => {
                           >
                             <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
                           </Box>
+                          </Box>
+
+
+                          <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                          <FormControl>
+                        <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
+                          <RadioGroup
+                            aria-labelledby="demo-controlled-radio-buttons-group"
+                            name="controlled-radio-buttons-group"
+                            value={value}
+                            onChange={handleChange}
+                          >
+                            <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
+                            {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
+                            <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
+                          </RadioGroup>
+                        </FormControl>
                         </Box>
-                          {/* <Box sx={{ml: 18, fontStyle: 'italic', fontSize: '13px' }}> 
-                              Available: {items.Count}
-                          </Box> */}
+
+
+                    ) : (
+      
+                      <Box>
+                        <h1>Nothing in Cart</h1>
+                      </Box>
+                    )
+                }
                       </div>
                     )}
                   )}
                 </div>
                 )}
               )}
-              </ListItem>
 
-              <Divider
-                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
-              />
-
-              <ListItem>
-                <FormControl>
-                  <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
-                    <RadioGroup
-                      aria-labelledby="demo-controlled-radio-buttons-group"
-                      name="controlled-radio-buttons-group"
-                      value={value}
-                      onChange={handleChange}
-                    >
-                      <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
-                      {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
-                      <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
-                    </RadioGroup>
-                </FormControl>
-              </ListItem>
-
-              <Divider
-                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
-              />
 {/* 
               <ListItem>
                 <Autocomplete
@@ -544,17 +470,33 @@ const changeItemQuantity = async (items, index) => {
                         )}
                         />
                   <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+
+                  {/* <Button onClick={handleClick(TransitionLeft)}>Right to Left</Button> */}
+                  
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={() => {
                         addToIssuedItems();
                         subtractFromInventory();
+                        // handleClick(TransitionLeft);
                       }
                     }
                     >
                       Issue To User
                     </Button>
+
+                    <Snackbar
+                        open={openSnack} 
+                        autoHideDuration={4000} 
+                        onClose={handleCloseSnack}
+                        TransitionComponent={transition}
+                        key={transition ? transition.name : ''}
+                      >
+                        <Alert sx={{ width: '1000%' }}>
+                          This is a success message!
+                        </Alert>
+                    </Snackbar>
                     </Box>
                   </Box>
                 </ListItem>
@@ -640,27 +582,13 @@ const changeItemQuantity = async (items, index) => {
                 </ListItem>
                 ) : null}
               </ListItem>
+              </ListItem>
             </List>
-          {/* <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
-        <Alert onCloseSnack={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar> */}
-          </Drawer>
-
-
-        </React.Fragment>
-
-        
+          </Drawer> 
+        </React.Fragment>    
       ))}
     </div>
   );
-
-      //   <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleCloseSnack}>
-      //   <Alert onCloseSnack={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
-      //     This is a success message!
-      //   </Alert>
-      // </Snackbar>
 }
 
                 
