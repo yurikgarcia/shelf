@@ -270,15 +270,14 @@ const changeItemQuantity = async (items, index) => {
 
 
 
+    const [openSnack, setOpenSnack] = React.useState(false);
+    const [transition, setTransition] = React.useState(undefined);
 
     const Alert = React.forwardRef(function Alert(props, ref) {
       return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
     });
     
   
-      const [openSnack, setOpenSnack] = React.useState(false);
-    
-
       function TransitionLeft(props) {
         return <Slide {...props} direction="left" />;
       }
@@ -297,10 +296,7 @@ const changeItemQuantity = async (items, index) => {
       };
     
 
-      const [transition, setTransition] = React.useState(undefined);
-
-      console.log("newQuantity", newQuantity)
-
+    
 
   return (
     <div>
@@ -397,7 +393,8 @@ const changeItemQuantity = async (items, index) => {
                               defaultValue= "0"
                               InputProps={{
                                 inputProps: { 
-                                    min: 0 
+                                    min: 0, 
+                                    max: items.Count,
                                 }
                             }}
                               style={{ width: 95, height: 60 }}
@@ -408,27 +405,11 @@ const changeItemQuantity = async (items, index) => {
                               } else {
                                 {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined) {
                                       setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-
-                      
-
-                              // onBlur={() => 
-                              //   {if (newQuantity.Quantity === undefined || newQuantity.Quantity === null) {
-                              //     <QuantityError/>
-                              //   } else {
-                              //   changeItemQuantity(items, index)}
-                              //   }
-                              // }
-
+                                      }}}}}
                               onBlur={() => { changeItemQuantity(items, index)}}
-                        
                             />
-                            {window.location.href === "http://localhost:3001/inventory" ? (
 
+                            {window.location.href === "http://localhost:3001/inventory" ? (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
                           </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity !== undefined ?  (
