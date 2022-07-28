@@ -13,6 +13,7 @@ import FormLabel from '@mui/material/FormLabel';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import MuiAlert from '@mui/material/Alert';
+import QuantityError from ".//Buttons/quantityError.js";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -184,10 +185,29 @@ const [newQuantity, setNewQuantity] = useState({
 
 //Change quantity of item in shopping cart
 
+// const changeItemQuantity = async (items, index) => {
+//   let id = items.UUID;
+//   console.log("nNEWQTY", newQuantity.Quantity)
+//   if (newQuantity.Quantity !== undefined || newQuantity.Quantity !== null || newQuantity.Quantity !== "") {
+//   axios
+//     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
+//     newQuantity, 
+//     )
+//     .then((res) => {
+//       if (res.status === 200) {
+//         fetchNewShoppingCart();
+//       }
+//     })
+//     .catch((err) => {
+//       alert("Sorry! Something went wrong. Please try again.");
+//       console.log("err", err);
+//     });
+//   } 
+// }
+
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
-  console.log("newQuantity", newQuantity.Quantity)
-  if (newQuantity.Quantity == undefined || newQuantity.Quantity == null) {
+  console.log("nNEWQTY", newQuantity.Quantity)
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -201,8 +221,10 @@ const changeItemQuantity = async (items, index) => {
       alert("Sorry! Something went wrong. Please try again.");
       console.log("err", err);
     });
-  };
+
 }
+
+
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
   const subtractFromInventory = async (items, index) => {
@@ -230,12 +252,6 @@ const changeItemQuantity = async (items, index) => {
     let count = newQuantity.Count;
     let quantity = newQuantity.Quantity
     let newCount = +count + +quantity;
-    // console.log("addto inventry/id", id)
-    // console.log("addto inventry/count", count)
-    // console.log("addto inventry/quantity", quantity)
-    // console.log("addto inventry/newCount", newCount)
-
-
     axios
       .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -283,7 +299,8 @@ const changeItemQuantity = async (items, index) => {
 
       const [transition, setTransition] = React.useState(undefined);
 
-      console.log("location",window.location.href)
+      console.log("newQuantity", newQuantity)
+
 
   return (
     <div>
@@ -325,6 +342,9 @@ const changeItemQuantity = async (items, index) => {
                 <Box sx={{ ml:1, mt:0.4}}>
                   <h2>Shopping Cart</h2>
                 </Box>
+                <Box>
+                <QuantityError/>
+                </Box>
               </Box>
               </ListItem>
 
@@ -337,7 +357,6 @@ const changeItemQuantity = async (items, index) => {
                 return (
                   <div key={index}>
                 {item.shopping_cart?.map((items, index) => {
-                  console.log("items", items)
                   return (
                     <div key={index}>
                     {cartLength >= 1 ? (
@@ -367,7 +386,7 @@ const changeItemQuantity = async (items, index) => {
                             </Box>
 
                             <Box>
-
+                          
                             <TextField
                               required
                               id="filled"
@@ -375,37 +394,44 @@ const changeItemQuantity = async (items, index) => {
                               label="Quantity"
                               type="number"              
                               // defaultValue={items.Quantity}
-                              // defaultValue= "0"
+                              defaultValue= "0"
                               InputProps={{
                                 inputProps: { 
-                                  type: 'number',
-                                    max: 25, min: 0 
+                                    min: 0 
                                 }
                             }}
                               style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
-                              onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
-                            
+                              onChange={(e) => 
+                                {if (e.target.value === "" || e.target.value === null || e.target.value === undefined) {
+                                  setNewQuantity({ ...newQuantity, Quantity: 0, Count: items.Count, UUID: items.UUID })                
+                              } else {
+                                {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined) {
+                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+
+                      
+
                               // onBlur={() => 
-                              //   {if (items.Quantity != null || undefined) {
+                              //   {if (newQuantity.Quantity === undefined || newQuantity.Quantity === null) {
+                              //     <QuantityError/>
+                              //   } else {
                               //   changeItemQuantity(items, index)}
-                              //   else {
-                              //     alert("Please enter a valid quantity")
                               //   }
                               // }
-                              // }
 
-                              onBlur={() =>  {
-                                changeItemQuantity(items, index)}
-                                }
-                              
-
+                              onBlur={() => { changeItemQuantity(items, index)}}
+                        
                             />
                             {window.location.href === "http://localhost:3001/inventory" ? (
 
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
-                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity != undefined ?  (
+                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity !== undefined ?  (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Quantity}
                           </Box>
