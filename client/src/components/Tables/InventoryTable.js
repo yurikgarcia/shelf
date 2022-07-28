@@ -352,8 +352,7 @@ export default function RowsGrid({
                       <div>
                         <TextField
                           disabled={false}
-                          id="outlined-error"
-                          variant="filled"
+                          id="outlined-error"  
                           label="Name"
                           defaultValue={editedItem?.Name}
                           sx={{ borerRadius: "5" }}
@@ -363,7 +362,6 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="NSN"
                           defaultValue={editedItem?.NSN}
                           sx={{ borerRadius: "5" }}
@@ -375,7 +373,6 @@ export default function RowsGrid({
                       <div>
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Building"
                           defaultValue={editedItem?.Bldg}
                           sx={{ borerRadius: "5" }}
@@ -385,7 +382,6 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Aisle"
                           defaultValue={editedItem?.Aisle}
                           sx={{ borerRadius: "5" }}
@@ -397,7 +393,6 @@ export default function RowsGrid({
                       <div>
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Size"
                           defaultValue={editedItem?.Size}
                           sx={{ borerRadius: "5" }}
@@ -407,7 +402,6 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="In Stock"
                           type="number"
                           defaultValue={editedItem?.Count}
@@ -420,7 +414,6 @@ export default function RowsGrid({
                       <div>
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Minimum Count"
                           type="number"
                           defaultValue={editedItem?.MinCount}
@@ -434,7 +427,6 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Ordered"
                           type="number"
                           defaultValue={editedItem?.Ordered}
@@ -464,7 +456,6 @@ export default function RowsGrid({
                         />  */}
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Initial Gear"
                           defaultValue={editedItem?.Initial}
                           sx={{ borerRadius: "5" }}
@@ -477,7 +468,6 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Returnable Item"
                           defaultValue={editedItem?.Returnable}
                           sx={{ borerRadius: "5" }}

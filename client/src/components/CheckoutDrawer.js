@@ -186,6 +186,8 @@ const [newQuantity, setNewQuantity] = useState({
 
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
+  console.log("newQuantity", newQuantity.Quantity)
+  if (newQuantity.Quantity == undefined || newQuantity.Quantity == null) {
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -200,6 +202,7 @@ const changeItemQuantity = async (items, index) => {
       console.log("err", err);
     });
   };
+}
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
   const subtractFromInventory = async (items, index) => {
@@ -231,6 +234,8 @@ const changeItemQuantity = async (items, index) => {
     // console.log("addto inventry/count", count)
     // console.log("addto inventry/quantity", quantity)
     // console.log("addto inventry/newCount", newCount)
+
+
     axios
       .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -245,7 +250,9 @@ const changeItemQuantity = async (items, index) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
-    };
+    }
+
+
 
 
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -311,12 +318,18 @@ const changeItemQuantity = async (items, index) => {
               <ListItem
                 sx={{ display: "flex", justifyContent: "center", mt: 7 }}
               >
-                <img alt="shelf logo" src={shelfLogo} width="30" height="30" />
-                <h2>Shopping Cart</h2>
+              <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <Box sx={{ mt:3 }}>
+                  <img alt="shelf logo" src={shelfLogo} width="30" height="30" />
+                </Box>
+                <Box sx={{ ml:1, mt:0.4}}>
+                  <h2>Shopping Cart</h2>
+                </Box>
+              </Box>
               </ListItem>
 
               <Divider
-                sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}
+                sx={{ mt: 1.5, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
 
             <ListItem>
@@ -354,24 +367,45 @@ const changeItemQuantity = async (items, index) => {
                             </Box>
 
                             <Box>
+
                             <TextField
                               required
                               id="filled"
                               variant="outlined"
                               label="Quantity"
-                              type="number"
+                              type="number"              
                               // defaultValue={items.Quantity}
-                              defaultValue= "0"
+                              // defaultValue= "0"
+                              InputProps={{
+                                inputProps: { 
+                                  type: 'number',
+                                    max: 25, min: 0 
+                                }
+                            }}
                               style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
                               onChange={(e) => setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })}
-                              onBlur={() => changeItemQuantity(items, index)}
+                            
+                              // onBlur={() => 
+                              //   {if (items.Quantity != null || undefined) {
+                              //   changeItemQuantity(items, index)}
+                              //   else {
+                              //     alert("Please enter a valid quantity")
+                              //   }
+                              // }
+                              // }
+
+                              onBlur={() =>  {
+                                changeItemQuantity(items, index)}
+                                }
+                              
+
                             />
                             {window.location.href === "http://localhost:3001/inventory" ? (
 
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Count}
-                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity != undefined?  (
+                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity != undefined ?  (
                           <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                               Available: {items.Quantity}
                           </Box>
@@ -541,9 +575,11 @@ const changeItemQuantity = async (items, index) => {
                       </Box>
                     </Box>
                     ) : (
+                    <div>
                       <Box>
                         <h1>Nothing in Cart</h1>
                       </Box>
+                      </div> 
                     )}
                       </div>
                     )})}
