@@ -27,6 +27,7 @@ export default function RowsGrid({
   setShoppingCart,
 }) {
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
+  const [currentShoppingCart, setCurrentShoppingCart] = useState([]); //shopping cart state
   const user_dod = localStorage.getItem("user_dod");
   const [editedItem, setEditedItem] = useState({
     Name: "",
@@ -140,7 +141,7 @@ export default function RowsGrid({
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-            fetchNewShoppingCart();
+            // fetchNewShoppingCart();
           }
         })
         .catch((err) => {
@@ -152,23 +153,50 @@ export default function RowsGrid({
 
 
   //initial call to grab inventory from DB on load
-  useEffect(() => {
-    fetchNewShoppingCart();
-  }, []);
+  // useEffect(() => {
+  //   fetchNewShoppingCart();
+  // }, []);
 
-  /**
-   * shopping Cart fetch
-   */
-  const fetchNewShoppingCart = async () => {
+  // /**
+  //  * shopping Cart fetch
+  //  */
+  // const fetchNewShoppingCart = async () => {
+  //   // setSpinner(true);
+  //   axios
+  //     .get("http://localhost:3000/users", {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setNewShoppingCart(res.data);
+  //       // setSpinner(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       // setSpinner(false);
+  //     });
+  // };
+
+    //initial call to grab inventory from DB on load
+    useEffect(() => {
+      fetchCurrentShoppingCart();
+    }, []);
+
+    // /**
+  //  * shopping Cart fetch
+  //  */
+  const fetchCurrentShoppingCart = async () => {
     // setSpinner(true);
+    console.log("fucking logged in uer", user_dod)
     axios
-      .get("http://localhost:3000/users", {
+      .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
       })
       .then((res) => {
-        setNewShoppingCart(res.data);
+        setCurrentShoppingCart(res.data);
         // setSpinner(false);
       })
       .catch((err) => {
@@ -177,6 +205,7 @@ export default function RowsGrid({
       });
   };
 
+  console.log("currentShoppingCart/inventory", currentShoppingCart);
   return (
     <Box
       sx={{

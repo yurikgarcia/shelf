@@ -50,7 +50,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 275 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 390 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -290,13 +290,17 @@ const changeItemQuantity = async (items, index) => {
       };
 
 
-      const handleClick = (Transition) => () => {
-        setTransition(() => Transition);
+      // const handleClick = (Transition) => () => {
+      //   setTransition(() => Transition);
+      //   setOpenSnack(true);
+      // };
+
+      const handleClick = () => () => {
         setOpenSnack(true);
       };
     
 
-    
+    console.log("open", openSnack)
 
   return (
     <div>
@@ -325,6 +329,7 @@ const changeItemQuantity = async (items, index) => {
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            sx= {{ width: "500px" }}
           >
             {list(anchor)}
             <List>
@@ -333,9 +338,9 @@ const changeItemQuantity = async (items, index) => {
               >
               <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <Box sx={{ mt:3 }}>
-                  <img alt="shelf logo" src={shelfLogo} width="30" height="30" />
+                  <img alt="shelf logo" src={shelfLogo} width="40" height="40" />
                 </Box>
-                <Box sx={{ ml:1, mt:0.4}}>
+                <Box sx={{ ml:1, fontSize: 19 }}>
                   <h2>Shopping Cart</h2>
                 </Box>
                 <Box>
@@ -400,10 +405,10 @@ const changeItemQuantity = async (items, index) => {
                               style={{ width: 95, height: 60 }}
                               sx={{ ml: 2 }}
                               onChange={(e) => 
-                                {if (e.target.value === "" || e.target.value === null || e.target.value === undefined) {
+                                {if (e.target.value === "" || e.target.value === null || e.target.value === undefined || e.target.value < 0) {
                                   setNewQuantity({ ...newQuantity, Quantity: 0, Count: items.Count, UUID: items.UUID })                
                               } else {
-                                {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined) {
+                                {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined && e.target.value > 0) {
                                       setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })
                                       }}}}}
                               onBlur={() => { changeItemQuantity(items, index)}}
@@ -432,25 +437,25 @@ const changeItemQuantity = async (items, index) => {
 
 
                           <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                          <FormControl>
-                        <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
-                          <RadioGroup
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={value}
-                            onChange={handleChange}
-                          >
-                            <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
-                            {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
-                            <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
-                          </RadioGroup>
-                        </FormControl>
+                            <FormControl sx={{ mt:2 }}>
+                              <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
+                                <RadioGroup
+                                  aria-labelledby="demo-controlled-radio-buttons-group"
+                                  name="controlled-radio-buttons-group"
+                                  value={value}
+                                  onChange={handleChange}
+                                >
+                                  <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
+                                {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
+                                  <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
+                                </RadioGroup>
+                            </FormControl>
 
                         <ListItem
-                disablePadding
-                sx={{ display: "flex", justifyContent: "center", mt: 2 }}
-              >
-                {radioValue === "Issue To User" ? (
+                            disablePadding
+                            sx={{ display: "flex", justifyContent: "center", mt: 2 }}
+                          >
+                            {radioValue === "Issue To User" ? (
                 
                 <ListItem>
                   <Box>
@@ -471,17 +476,24 @@ const changeItemQuantity = async (items, index) => {
 
                   {/* <Button onClick={handleClick(TransitionLeft)}>Right to Left</Button> */}
                   
+                  {/* <Button
+                  onClick= { handleClick()}
+                  >
+                    SNACK
+                  </Button> */}
+
                     <Button
                       variant="contained"
                       color="primary"
+                      size= "large"
                       onClick={() => {
                         addToIssuedItems();
                         subtractFromInventory();
-                        // handleClick(TransitionLeft);
+                        // handleClick();
+                        }
                       }
-                    }
                     >
-                      Issue To User
+                      Checkout
                     </Button>
 
                     <Snackbar
@@ -534,7 +546,7 @@ const changeItemQuantity = async (items, index) => {
                             }
                           }
                         >
-                          Issue To Warehouse
+                          Checkout
                         </Button>
                       </Box>
                     </Box>
@@ -572,7 +584,7 @@ const changeItemQuantity = async (items, index) => {
                             }
                           }
                         >
-                          Return To Warehouse
+                          Checkout
                         </Button>
                     </Box>
                   </Box>
