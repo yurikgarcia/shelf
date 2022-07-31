@@ -237,7 +237,7 @@ const changeItemQuantity = async (items, index) => {
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
-          // fetchInventory();
+          fetchInventory();
         }
       })
       .catch((err) => {
@@ -417,7 +417,7 @@ const changeItemQuantity = async (items, index) => {
                               {window.location.href === "http://localhost:3001/inventory" ? (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Count}
-                            </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity !== undefined ?  (
+                            </Box>) : window.location.href === "http://localhost:3001/issueditems" && items.Quantity !== undefined ?  (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Quantity}
                             </Box>
@@ -455,7 +455,7 @@ const changeItemQuantity = async (items, index) => {
               >
                 {cartLength >= 1 ? (
                 <Box
-                sx={{mr: 15}}
+                
                 >
                   <FormControl sx={{ mt:2 }}>
                     <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
@@ -470,9 +470,71 @@ const changeItemQuantity = async (items, index) => {
                         <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
                       </RadioGroup>
                   </FormControl>
+
+                  
+                  {radioValue === "Issue To User" ? (
+                    <Box>
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={users}
+                        onChange={(event, newValue) => {
+                          setValue(newValue.dod_id);
+                        }}
+                        getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                        style={{ width: 300 }}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Users" variant="outlined" />
+                          )}
+                          />
+                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size= "large"
+                        onClick={() => {
+                          addToIssuedItems();
+                          subtractFromInventory();
+                          // window.location.reload()
+                          // handleClick();
+                          }
+                        }
+                      >
+                        Checkout
+                      </Button>
+                    </Box>
+                  </Box>
+                  ) : radioValue === "Return To Warehouse" ? (
+                    <Box>
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={warehouses}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                        onChange={(event, newValue) => {
+                          // setValue(newValue.dod_id);
+                          setValue('inventory')
+                        }}
+                      />
+                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          size= "large"
+                          onClick={() => {
+                            addToInventoryCount ();
+                            }
+                          }
+                        >
+                          Checkout
+                        </Button>
+                      </Box>
+                  </Box>
+                  ) : null}
                 </Box>
                 ) : null}
-                <ListItem>
+                {/* <ListItemmm>
                   {radioValue === "Issue To User" ? (
                     <Box>
                       <Autocomplete
@@ -531,7 +593,7 @@ const changeItemQuantity = async (items, index) => {
                       </Box>
                   </Box>
                   ) : null}
-                </ListItem>
+                </ListItemmm> */}
               </ListItem>
             </List>
           </Drawer> 

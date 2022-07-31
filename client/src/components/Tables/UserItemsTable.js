@@ -148,7 +148,15 @@ export default function RowsGrid({ }) {
                       <Tooltip title="Return Item">
                         <AssignmentReturnedIcon 
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
-                          onClick={() => addToCart(params)}
+
+                      //     onClick={() => 
+                      //       addToCart(params)
+                      // }
+
+                      onClick={() => {
+                        addToCart(params)
+                        window.location.reload()
+                      }}
                         />
                       </Tooltip>
                     ),
