@@ -146,7 +146,8 @@ export default function RowsGrid({
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-            // fetchInventory();
+            fetchInventory();
+            fetchNewShoppingCart();
           }
         })
         .catch((err) => {
@@ -157,31 +158,31 @@ export default function RowsGrid({
 
 
 
-  //initial call to grab inventory from DB on load
-  // useEffect(() => {
-  //   fetchNewShoppingCart();
-  // }, []);
+  // initial call to grab inventory from DB on load
+  useEffect(() => {
+    fetchNewShoppingCart();
+  }, []);
 
-  // /**
-  //  * shopping Cart fetch
-  //  */
-  // const fetchNewShoppingCart = async () => {
-  //   // setSpinner(true);
-  //   axios
-  //     .get("http://localhost:3000/users", {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setNewShoppingCart(res.data);
-  //       // setSpinner(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       // setSpinner(false);
-  //     });
-  // };
+  /**
+   * shopping Cart fetch
+   */
+  const fetchNewShoppingCart = async () => {
+    // setSpinner(true);
+    axios
+      .get("http://localhost:3000/users", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
+      .then((res) => {
+        setNewShoppingCart(res.data);
+        // setSpinner(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setSpinner(false);
+      });
+  };
 
     //initial call to grab inventory from DB on load
     useEffect(() => {
@@ -324,6 +325,7 @@ export default function RowsGrid({
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
                             onClick={() => {
                               addToCart(params)
+                              window.location.reload()
                             }}
                           />
                       ),)}
@@ -582,7 +584,7 @@ export default function RowsGrid({
 
               <Snackbar
                 open={openSnack} 
-                autoHideDuration={3500} 
+                autoHideDuration={3250} 
                 onClose={handleCloseSnack}
                 TransitionComponent={transition}
               

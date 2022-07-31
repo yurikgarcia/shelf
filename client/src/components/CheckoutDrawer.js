@@ -456,7 +456,6 @@ const changeItemQuantity = async (items, index) => {
                             sx={{ display: "flex", justifyContent: "center", mt: 2 }}
                           >
                             {radioValue === "Issue To User" ? (
-                
                 <ListItem>
                   <Box>
                     <Autocomplete
