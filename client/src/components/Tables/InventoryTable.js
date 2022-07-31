@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Modal from "@mui/material/Modal";
+import QuantityError from "..//Buttons/quantityError.js";
 import SaveIcon from "@mui/icons-material/Save";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -188,7 +190,6 @@ export default function RowsGrid({
   //  */
   const fetchCurrentShoppingCart = async () => {
     // setSpinner(true);
-    console.log("fucking logged in uer", user_dod)
     axios
       .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
         headers: {
@@ -205,7 +206,39 @@ export default function RowsGrid({
       });
   };
 
-  console.log("currentShoppingCart/inventory", currentShoppingCart);
+
+
+
+
+  // if (currentShoppingCart.map((item) => item.shopping_cart.map
+  //   ((item) => item)).includes('Boots')) {
+  //   console.log("true its there");
+    
+  // } else {
+  //   console.log("false its not in there");
+  // }
+
+  // console.log("CARTTTT", currentShoppingCart.map((item) => item.shopping_cart.map
+  // ((item) => item)));
+
+  // if (currentShoppingCart.map((item) => item.shopping_cart.some((item) => item === "dicks"))) {
+  //   console.log("true its there");
+ 
+  // }
+  // else {
+  //   console.log("false its not in there");
+  // }
+
+  // if (currentShoppingCart.some(item => item.Name === "Boots")) {
+  //   console.log("true its there");
+  // }
+  // else {
+  //   console.log("false its not in there");
+  // }
+
+
+
+
   return (
     <Box
       sx={{
@@ -276,17 +309,19 @@ export default function RowsGrid({
                   { field: "Returnable", minWidth: 100 },
                   {
                     field: "Issue",
-                    minWidth: 10,
-                    editable: true,
+
                     renderCell: (params) => (
-                      <Tooltip title="Issue Item">
-                        <AddCircleIcon
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
-                          onClick={() => addToCart(params)}
-                        />
-                      </Tooltip>
+                      <div>
+                      {currentShoppingCart.map((cart) => cart.shopping_cart.some((item) => item.UUID === params.row.UUID ) ? (
+                        <AccessibilityNewIcon />      
+                      ) : (
+                          <AddCircleIcon />
+                      ),)}
+                      </div>
                     ),
-                  },
+
+
+              },
                   {
                     field: "Edit",
                     minWidth: 10,
