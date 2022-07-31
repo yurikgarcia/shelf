@@ -300,7 +300,7 @@ const changeItemQuantity = async (items, index) => {
       };
     
 
-    console.log("open", openSnack)
+    console.log("radio", radioValue);
 
   return (
     <div>
@@ -343,9 +343,9 @@ const changeItemQuantity = async (items, index) => {
                 <Box sx={{ ml:1, fontSize: 19 }}>
                   <h2>Shopping Cart</h2>
                 </Box>
-                <Box>
+                {/* <Box>
                 <QuantityError/>
-                </Box>
+                </Box> */}
               </Box>
               </ListItem>
 
@@ -414,116 +414,97 @@ const changeItemQuantity = async (items, index) => {
                               onBlur={() => { changeItemQuantity(items, index)}}
                             />
 
-                            {window.location.href === "http://localhost:3001/inventory" ? (
-                          <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
-                              Available: {items.Count}
-                          </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity !== undefined ?  (
-                          <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
-                              Available: {items.Quantity}
+                              {window.location.href === "http://localhost:3001/inventory" ? (
+                            <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
+                                Available: {items.Count}
+                            </Box>) : window.location.href === "http://localhost:3001/users" && items.Quantity !== undefined ?  (
+                            <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
+                                Available: {items.Quantity}
+                            </Box>
+                            ) : null}
+                            </Box>
+                          
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignContent: "center",
+                                ml: 6,
+                              }}
+                            >
+                              <ClearIcon fontSize="x-small" 
+                              onClick={() => {
+                                onDelete(items, index)
+                                // window.location.reload()
+                              }}
+                              />
+                            </Box>
+                          </Box>
+                        
+                              <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                            </Box>
                           </Box>
                           ) : null}
-                          </Box>
-                          
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignContent: "center",
-                              ml: 6,
-                            }}
-                          >
-                            <ClearIcon fontSize="x-small" onClick={() => onDelete(items, index)} />
-                          </Box>
-                          </Box>
+                          </div>
+                          )})}
+                        </div>  
+                        )})}
+            </ListItem>
 
-
-                          <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                            <FormControl sx={{ mt:2 }}>
-                              <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
-                                <RadioGroup
-                                  aria-labelledby="demo-controlled-radio-buttons-group"
-                                  name="controlled-radio-buttons-group"
-                                  value={value}
-                                  onChange={handleChange}
-                                >
-                                  <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
-                                {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
-                                  <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
-                                </RadioGroup>
-                            </FormControl>
-
-                        <ListItem
-                            disablePadding
-                            sx={{ display: "flex", justifyContent: "center", mt: 2 }}
-                          >
-                            {radioValue === "Issue To User" ? (
-                <ListItem>
-                  <Box>
-                    <Autocomplete
-                      disablePortal
-                      id="combo-box-demo"
-                      options={users}
-                      onChange={(event, newValue) => {
-                        setValue(newValue.dod_id);
-                      }}
-                      getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                      style={{ width: 300 }}
-                      renderInput={(params) => (
-                        <TextField {...params} label="Users" variant="outlined" />
-                        )}
-                        />
-                  <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-
-                  {/* <Button onClick={handleClick(TransitionLeft)}>Right to Left</Button> */}
-                  
-                  {/* <Button
-                  onClick= { handleClick()}
-                  >
-                    SNACK
-                  </Button> */}
-
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size= "large"
-                      onClick={() => {
-                        addToIssuedItems();
-                        subtractFromInventory();
-                        // handleClick();
-                        }
-                      }
-                    >
-                      Checkout
-                    </Button>
-
-                    <Snackbar
-                        open={openSnack} 
-                        autoHideDuration={4000} 
-                        onClose={handleCloseSnack}
-                        TransitionComponent={transition}
-                        key={transition ? transition.name : ''}
+              <ListItem
+              sx={{ display: "flex", flexDirection: "column"}}
+              >
+                {cartLength >= 1 ? (
+                <Box
+                sx={{mr: 15}}
+                >
+                  <FormControl sx={{ mt:2 }}>
+                    <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value}
+                        onChange={handleChange}
                       >
-                        <Alert sx={{ width: '1000%' }}>
-                          This is a success message!
-                        </Alert>
-                    </Snackbar>
+                        <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
+                      {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
+                        <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
+                      </RadioGroup>
+                  </FormControl>
+                </Box>
+                ) : null}
+                <ListItem>
+                  {radioValue === "Issue To User" ? (
+                    <Box>
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={users}
+                        onChange={(event, newValue) => {
+                          setValue(newValue.dod_id);
+                        }}
+                        getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                        style={{ width: 300 }}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Users" variant="outlined" />
+                          )}
+                          />
+                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size= "large"
+                        onClick={() => {
+                          addToIssuedItems();
+                          subtractFromInventory();
+                          // handleClick();
+                          }
+                        }
+                      >
+                        Checkout
+                      </Button>
                     </Box>
                   </Box>
-                </ListItem>
-                ) : radioValue === "Issue To Warehouse" ? (
-                  <ListItem>
-                    {/* <Autocomplete
-                      disablePortal
-                      id="combo-box-demo"
-                      options={users}
-                      onChange={(event, newValue) => {
-                      setValue(newValue.dod_id);
-                    }}
-                      getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                      style={{ width: 300 }}
-                      renderInput={(params) => (
-                            <TextField {...params} label="Warehouses" variant="outlined" />
-                          )}
-                      /> */}
+                  ) : radioValue === "Return To Warehouse" ? (
                     <Box>
                       <Autocomplete
                         disablePortal
@@ -548,63 +529,9 @@ const changeItemQuantity = async (items, index) => {
                           Checkout
                         </Button>
                       </Box>
-                    </Box>
-                  </ListItem>
-
-                ) : radioValue === "Return To Warehouse" ? (
-                  <ListItem>
-                  {/* <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={users}
-                    onChange={(event, newValue) => {
-                    setValue(newValue.dod_id);
-                  }}
-                    getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                    style={{ width: 300 }}
-                    renderInput={(params) => (
-                          <TextField {...params} label="Warehouses" variant="outlined" />
-                        )}
-                    /> */}
-                  <Box>
-                    <Autocomplete
-                      disablePortal
-                      id="combo-box-demo"
-                      options={warehouses}
-                      sx={{ width: 300 }}
-                      renderInput={(params) => <TextField {...params} label="Warehouses" />}
-                    />
-                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => {
-                              addToInventoryCount ();
-                            }
-                          }
-                        >
-                          Checkout
-                        </Button>
-                    </Box>
                   </Box>
+                  ) : null}
                 </ListItem>
-                ) : null}
-                </ListItem>
-                      </Box>
-                    </Box>
-                    ) : (
-                    <div>
-                      <Box>
-                        <h1>Nothing in Cart</h1>
-                      </Box>
-                      </div> 
-                    )}
-                      </div>
-                    )})}
-                </div>
-                )})}
-                  <Box>
-                </Box>
               </ListItem>
             </List>
           </Drawer> 
