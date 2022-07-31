@@ -1,27 +1,41 @@
 
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
-import React from "react";
+import React, { useEffect } from "react";
 import homePage from '..//Images/homePage.jpg'
+import WebFont from 'webfontloader';
 
 
 
 function Home() {
 
   
-
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ['Arvo' ]
+      }
+    });
+  }, []);
   
   return (
     <div>
       <Box 
-      sx={{display:'flex', flexDirection:'row'}}
-      >
+      sx={{display:'flex', flexDirection:'row', display:'flex', justifyContent:'center',
+            alignItems:'center', }}>
         <Box
-        sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', width:'100%', height:'100%'}}
+          sx={{
+            display:'flex', 
+            flexDirection:'column', 
+            justifyContent:'center', 
+            alignItems:'center', 
+            width:'30%',
+            fontFamily:'Arvo',
+          }}
         >
-          <Box sx={{ mt: 15, ml:4}}>
+          <Box sx={{ mt: 10, ml:15, fontSize: 100, height: '0%',}}>
             <div>
-              <h1>Welcome to Shelf!</h1>
+              <p>Welcome to Shelf!</p>
               {/* <h3>An inventory management software that allows you to enter 
                 every key detail of your inventory and effortlessly manage your 
                 assets digitally, whether you’re in the warehouse or on the go.
@@ -29,14 +43,14 @@ function Home() {
             </div>
           </Box>
 
-          <Box sx={{ml:15, display:'flex', alignItems:'center'}}>
-              <h2>An inventory management applications that effortlessly manages your 
+          <Box sx={{ml:15, display:'flex', alignItems:'center', fontSize: 20, fontFamily:'Arvo '}}>
+              <h2>An inventory management application that effortlessly manages your 
                 assets digitally, whether you’re in the warehouse or on the go!
               </h2>
           </Box>
 
           <Box 
-          sx={{mt:2, mr:16}}
+          sx={{mt:2, mr:1}}
           >
             <Button 
               color='secondary' 
@@ -54,7 +68,7 @@ function Home() {
         <Box
         sx={{display:'flex', justifyContent:'flex-end', mt: 2, ml:10}}
         >
-            <img alt="home page" src={homePage} width='1250' height='600'/>
+            <img alt="home page" src={homePage} width='1500' height='750'/>
         </Box>
       </Box>
     </div>

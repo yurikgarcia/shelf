@@ -6,6 +6,10 @@
   background-color: #ffbd45;
 }
 
+.font-loader {
+  font-family: 'Arvo';
+}
+
 /* body{
   background: linear-gradient(to bottom,  #F5F5DC 70%, #ffbd45);
   justify-content: center;

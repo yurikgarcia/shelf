@@ -184,7 +184,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
             <Box sx={{mr:2}}>
               <Link to="/home">
-                <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
+                <img alt="shelf logo" src={shelfLogo} width='35' height='35'/>
               </Link>
             </Box>
 
@@ -195,7 +195,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
 
-            <Link to="/home" style={{ textDecoration: 'none', color: 'white', size: "medium"}}>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'white', fontSize: "30px"}}>
               Shelf
               </Link>
             </Typography>
@@ -266,7 +266,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                   <ListItemButton>
                     <ListItemIcon>
                     <Tooltip title="Home" placement="right-end">
-                      <   HomeIcon sx={{color: 'white'}} />
+                      <   HomeIcon sx={{color: 'white', fontSize: '30px'}} />
                     </Tooltip>
                     </ListItemIcon>
                   <ListItemText primary="Home" />
@@ -279,7 +279,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       <ListItemButton>
                         <ListItemIcon>
                         < Tooltip title="Users" placement="right-end">              
-                          <GroupIcon sx={{color: "white"}}  />
+                          <GroupIcon sx={{color: "white", fontSize: '30px'}} />
                         </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary="Users" />
@@ -292,7 +292,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       <ListItemButton>
                         <ListItemIcon>
                         <Tooltip title="Inventory" placement="right-end">
-                          <InventoryIcon sx={{color: 'white'}} />
+                          <InventoryIcon sx={{color: 'white', fontSize: '30px'}} />
                         </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary="Inventory" />
@@ -333,7 +333,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       <ListItemButton>
                         <ListItemIcon>
                         <Tooltip title="Orders" placement="right-end">
-                          <LocalShippingIcon  sx={{color: "white"}}   />
+                          <LocalShippingIcon  sx={{color: "white", fontSize: '30px'}} />
                         </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary="Users" />
