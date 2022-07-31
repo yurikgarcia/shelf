@@ -4,6 +4,7 @@ import AddModal from "../Buttons/AddModal.js";
 import Box from "@mui/material/Box";
 import InventoryTable from "../Tables/InventoryTable.js";
 import axios from "axios";
+import QuantityError from "..//Buttons/quantityError.js";
 
 function Inventory({ shoppingCart, setShoppingCart }) {
   const [inventory, setInventory] = useState([]); //inventory state
@@ -56,6 +57,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               setInventory={setInventory}
               fetchInventory={fetchInventory}
             />
+          
             {/* <AddCart inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>    */}
           </Box>
 

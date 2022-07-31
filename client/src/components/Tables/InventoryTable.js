@@ -19,6 +19,9 @@ import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import warehouse from "..//Images/warehouse.gif";
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
+import Snackbar from '@mui/material/Snackbar';
 
 export default function RowsGrid({
   inventory,
@@ -208,33 +211,33 @@ export default function RowsGrid({
 
 
 
-
-
-  // if (currentShoppingCart.map((item) => item.shopping_cart.map
-  //   ((item) => item)).includes('Boots')) {
-  //   console.log("true its there");
-    
-  // } else {
-  //   console.log("false its not in there");
-  // }
-
-  // console.log("CARTTTT", currentShoppingCart.map((item) => item.shopping_cart.map
-  // ((item) => item)));
-
-  // if (currentShoppingCart.map((item) => item.shopping_cart.some((item) => item === "dicks"))) {
-  //   console.log("true its there");
- 
-  // }
-  // else {
-  //   console.log("false its not in there");
-  // }
-
-  // if (currentShoppingCart.some(item => item.Name === "Boots")) {
-  //   console.log("true its there");
-  // }
-  // else {
-  //   console.log("false its not in there");
-  // }
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  
+  
+    const [openSnack, setOpenSnack] = React.useState(false);
+  
+  
+    function TransitionLeft(props) {
+      return <Slide {...props} direction="left" />;
+    }
+  
+    const handleCloseSnack = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+          setOpenSnack(false);
+    };
+  
+  
+    const handleClick = (Transition) => () => {
+      setTransition(() => Transition);
+      setOpenSnack(true);
+    };
+  
+  
+    const [transition, setTransition] = React.useState(undefined)
 
 
 
@@ -309,18 +312,21 @@ export default function RowsGrid({
                   { field: "Returnable", minWidth: 100 },
                   {
                     field: "Issue",
-
                     renderCell: (params) => (
                       <div>
                       {currentShoppingCart.map((cart) => cart.shopping_cart.some((item) => item.UUID === params.row.UUID ) ? (
-                        <AccessibilityNewIcon />      
+                          <AddCircleIcon
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          onClick={handleClick(TransitionLeft)}
+                          />  
                       ) : (
-                          <AddCircleIcon />
+                          <AddCircleIcon 
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          onClick={() => addToCart(params)}
+                          />
                       ),)}
                       </div>
                     ),
-
-
               },
                   {
                     field: "Edit",
@@ -571,6 +577,19 @@ export default function RowsGrid({
                   </CardActions>
                 </Box>
               </Modal>
+
+              <Snackbar
+                open={openSnack} 
+                autoHideDuration={3500} 
+                onClose={handleCloseSnack}
+                TransitionComponent={transition}
+              
+                key={transition ? transition.name : ''}
+                >
+                <Alert  severity="warning" sx={{ width: '1000%' }}>
+                  Item is already in Cart!
+                </Alert>
+              </Snackbar> 
             </div>
           </div>
         </div>

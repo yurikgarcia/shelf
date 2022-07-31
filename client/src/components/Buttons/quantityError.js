@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
@@ -38,7 +39,13 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return (
 
     <div>
-    {/* <Button onClick={handleClick(TransitionLeft)}>Right to Left</Button> */}
+    {/* <Button 
+      startIcon={<AddCircleIcon />}
+      onClick={handleClick(TransitionLeft)}></Button> */}
+
+      <AddCircleIcon
+        onClick={handleClick(TransitionLeft)}
+        />
 
     <Snackbar
         open={openSnack} 
