@@ -146,7 +146,7 @@ export default function RowsGrid({
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-            // fetchNewShoppingCart();
+            // fetchInventory();
           }
         })
         .catch((err) => {
@@ -314,7 +314,7 @@ export default function RowsGrid({
                     field: "Issue",
                     renderCell: (params) => (
                       <div>
-                      {currentShoppingCart.map((cart) => cart.shopping_cart.some((item) => item.UUID === params.row.UUID ) ? (
+                      {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
                           <AddCircleIcon
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
                           onClick={handleClick(TransitionLeft)}
@@ -322,7 +322,9 @@ export default function RowsGrid({
                       ) : (
                           <AddCircleIcon 
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
-                          onClick={() => addToCart(params)}
+                            onClick={() => {
+                              addToCart(params)
+                            }}
                           />
                       ),)}
                       </div>
