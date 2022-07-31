@@ -126,11 +126,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               />
             </div>
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 2 }}>
             <Stack direction="row" spacing={2}>
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addUserToUserTable()}>
-                Submit
-              </Button>
               <Button
                 color='secondary'
                 variant="outlined"
@@ -138,6 +135,9 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 onClick={handleCloseAddUser}
               >
                 Cancel
+              </Button>
+              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addUserToUserTable()}>
+                Submit
               </Button>
             </Stack>
           </Box>

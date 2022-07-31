@@ -533,67 +533,18 @@ const changeItemQuantity = async (items, index) => {
                   </Box>
                   ) : null}
                 </Box>
-                ) : null}
-                {/* <ListItemmm>
-                  {radioValue === "Issue To User" ? (
+                ) : 
+                <div>
+                  <Box sx={{mt: 10}}>
+                    <Box sx={{ml: 5}}>
+                      Your cart is currently empty.
+                    </Box>
                     <Box>
-                      <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={users}
-                        onChange={(event, newValue) => {
-                          setValue(newValue.dod_id);
-                        }}
-                        getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                        style={{ width: 300 }}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Users" variant="outlined" />
-                          )}
-                          />
-                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size= "large"
-                        onClick={() => {
-                          addToIssuedItems();
-                          subtractFromInventory();
-                          // handleClick();
-                          }
-                        }
-                      >
-                        Checkout
-                      </Button>
+                      Add to the cart to issue or return items.
                     </Box>
                   </Box>
-                  ) : radioValue === "Return To Warehouse" ? (
-                    <Box>
-                      <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={warehouses}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Warehouses" />}
-                        onChange={(event, newValue) => {
-                          // setValue(newValue.dod_id);
-                          setValue('inventory')
-                        }}
-                      />
-                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => {
-                              addToIssuedItems();
-                            }
-                          }
-                        >
-                          Checkout
-                        </Button>
-                      </Box>
-                  </Box>
-                  ) : null}
-                </ListItemmm> */}
+                </div>
+                }
               </ListItem>
             </List>
           </Drawer> 

@@ -245,11 +245,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               </FormControl>
           </Box>
           </Stack> */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 1 }}>
             <Stack direction="row" spacing={2}>
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>
-                Submit
-              </Button>
               <Button
                 color='secondary'
                 variant="outlined"
@@ -257,6 +254,9 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
                 onClick={handleCloseAddModal}
               >
                 Cancel
+              </Button>
+              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>
+                Submit
               </Button>
             </Stack>
           </Box>

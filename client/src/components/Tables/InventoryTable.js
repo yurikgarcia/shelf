@@ -556,18 +556,8 @@ export default function RowsGrid({
                     </Box>
                   </CardContent>
                   <CardActions>
-                    <Box sx={{ ml: 7, mt: 1 }}>
+                    <Box sx={{ ml: 4.7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
-                        <Button
-                          color="secondary"
-                          variant="contained"
-                          type="submit"
-                          startIcon={<SaveIcon />}
-                          onClick={(e) => handleSubmit(e)}
-                        >
-                          Save
-                        </Button>
-
                         <Button
                           color="secondary"
                           variant="outlined"
@@ -575,6 +565,17 @@ export default function RowsGrid({
                           onClick={() => setOpen(false)}
                         >
                           Cancel
+                        </Button>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          type="submit"
+                          sx={{minWidth:"125px"}}
+                          
+                          startIcon={<SaveIcon />}
+                          onClick={(e) => handleSubmit(e)}
+                        >
+                          Save
                         </Button>
                       </Stack>
                     </Box>
