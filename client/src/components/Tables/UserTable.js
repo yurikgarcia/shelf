@@ -144,7 +144,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                 columns={[
                   { field: "First", minWidth: 150, },
                   { field: "Last", minWidth: 130 },
-                  { field: "DoD", minWidth: 100 },
+                  // { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 170 },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },

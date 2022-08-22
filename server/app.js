@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
+const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
@@ -112,6 +113,9 @@ app.patch('/shopping-cart/:dod_id', addToCart)
 
 //--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
 app.patch('/shopping-cart-quantity/:id/:dod_id', updateQuantity)
+
+//--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
+app.get('/currentItemCount/:uuid', itemCurrentCount)
 
 
 

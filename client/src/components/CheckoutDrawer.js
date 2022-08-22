@@ -25,14 +25,13 @@ import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 
 
-
-
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory}) {
   const user_dod = localStorage.getItem("user_dod");
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
+  const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
 
   const [state, setState] = React.useState({
     right: false,
@@ -63,6 +62,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   useEffect(() => {
     fetchUsers();
     fetchNewShoppingCart();
+    fetchCurrentItemCount();
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";
@@ -87,6 +87,35 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         console.log(err);
       });
   };
+
+
+  /**
+   * fetches the current count of the item in the shopping cart
+   */
+    const fetchCurrentItemCount = async () => {
+      let itemUUID = newQuantity.UUID
+      console.log("itemUUID", itemUUID)
+      axios
+        .get(`http://localhost:3000/currentItemCount/${itemUUID}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+          },
+        })
+        .then((res) => {
+          setCurrentItemCount(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    console.log("current count", currentItemCount);
+
+    // console.log("item in cart", newShoppingCart)
+
+
+
+
 
 
   //initial call to grab inventory from DB on load
@@ -117,7 +146,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   };
   
 
-
   // function to delete item from shopping_cart column in the users table in db
   const onDelete  = async (items, index) => {
     let id = items.UUID;
@@ -136,8 +164,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   // function that takes the json array of shopping_cart and
   // adds the array to issued_items to the selected user (value = dod_id) then clears the cart
 
-
-  const addToIssuedItems = async () => {
+  const addToIssuedItems = async (items, index) => {
     axios
       .patch(`http://localhost:3000/issued-items/${user_dod}/${value}`,)
       .then((res) => {
@@ -167,8 +194,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     setRadioValue(event.target.value);
   };
 
-
-
 const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]// hard coded warehouse for warehouse autocomplete
 
 //initial state for updating the Quantity of a requested item in the cart
@@ -178,6 +203,7 @@ const [newQuantity, setNewQuantity] = useState({
   UUID: " ",
 });
 
+console.log("newQuantity", newQuantity);
 
 // const [subtractCount, setSubtractCount] = useState(newQuantity.Count - newQuantity.Quantity);//initial state for subtracting Quantity from Count of a requested item in the cart
 
@@ -207,7 +233,6 @@ const [newQuantity, setNewQuantity] = useState({
 
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
-  console.log("nNEWQTY", newQuantity.Quantity)
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -230,6 +255,7 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = newQuantity.Count-newQuantity.Quantity;
+    // let newCount = currentItemCount-newQuantity.Quantity;
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -237,7 +263,7 @@ const changeItemQuantity = async (items, index) => {
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
-          fetchInventory();
+          // fetchInventory();
         }
       })
       .catch((err) => {
@@ -251,7 +277,7 @@ const changeItemQuantity = async (items, index) => {
     let id = newQuantity.UUID;
     let count = newQuantity.Count;
     let quantity = newQuantity.Quantity
-    let newCount = +count + +quantity;
+    let newCount = +count + +quantity -1;
     axios
       .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -259,7 +285,7 @@ const changeItemQuantity = async (items, index) => {
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
-          // fetchInventory(); 
+          fetchInventory(); 
         }
       })
       .catch((err) => {
@@ -300,7 +326,7 @@ const changeItemQuantity = async (items, index) => {
       };
     
 
-    console.log("radio", radioValue);
+
 
   return (
     <div>
@@ -342,6 +368,15 @@ const changeItemQuantity = async (items, index) => {
                 </Box>
                 <Box sx={{ ml:1, fontSize: 19 }}>
                   <h2>Shopping Cart</h2>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      fetchCurrentItemCount()
+                      }}
+                  >
+                    GET COUNT
+                  </Button>
                 </Box>
                 {/* <Box>
                 <QuantityError/>
@@ -500,7 +535,7 @@ const changeItemQuantity = async (items, index) => {
                           }
                         }
                       >
-                        Checkout
+                        CHECKOUT
                       </Button>
                     </Box>
                   </Box>
@@ -524,10 +559,11 @@ const changeItemQuantity = async (items, index) => {
                           size= "large"
                           onClick={() => {
                             addToInventoryCount ();
+                            // window.location.reload()
                             }
                           }
                         >
-                          Checkout
+                          CHECKOUT
                         </Button>
                       </Box>
                   </Box>

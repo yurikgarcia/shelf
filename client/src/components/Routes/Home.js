@@ -1,6 +1,7 @@
 
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
+import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import homePage from '..//Images/homePage.jpg'
 import WebFont from 'webfontloader';
@@ -36,10 +37,6 @@ function Home() {
           <Box sx={{ mt: 10, ml:15, fontSize: 100, height: '0%',}}>
             <div>
               <p>Welcome to Shelf!</p>
-              {/* <h3>An inventory management software that allows you to enter 
-                every key detail of your inventory and effortlessly manage your 
-                assets digitally, whether you’re in the warehouse or on the go.
-              </h3> */}
             </div>
           </Box>
 
@@ -52,14 +49,18 @@ function Home() {
           <Box 
           sx={{mt:2, mr:1}}
           >
-            <Button 
-              color='secondary' 
-              variant="contained" 
-              // startIcon={<SaveIcon />} 
-              // onClick={() => addUserToUserTable()}
-              >
-                  Inventory
-            </Button>
+            <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
+              <Button 
+                color='secondary' 
+                variant="contained" 
+                
+                sx={{minWidth:"300px", minHeight:"50px", fontFamily:'Arvo', fontSize: 20, borderRadius: 10}}
+                // startIcon={<SaveIcon />} 
+                // onClick={() => addUserToUserTable()}
+                >
+                    Inventory
+              </Button>
+            </Link>
           </Box>
         </Box>
 

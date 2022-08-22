@@ -20,8 +20,6 @@ async function updateItemCount(req, res) {
   let newCount = req.params.newCount;
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
-  console.log("count being pushed",newCount);
-  console.log("uuid", UUID);
   pool.query(
     `UPDATE inventory 
           SET item_count='${newCount}'

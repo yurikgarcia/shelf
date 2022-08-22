@@ -288,7 +288,7 @@ export default function RowsGrid({
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
-                  { field: "Bldg", minWidth: 100 },
+                  // { field: "Bldg", minWidth: 100 },
                   { field: "Aisle", minWidth: 100 },
                   { field: "Count", minWidth: 100 },
                   {
@@ -331,7 +331,7 @@ export default function RowsGrid({
                       ),)}
                       </div>
                     ),
-              },
+                },
                   {
                     field: "Edit",
                     minWidth: 10,
