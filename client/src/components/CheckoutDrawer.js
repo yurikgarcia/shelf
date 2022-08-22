@@ -33,6 +33,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
 
+
+  console.log("current count", currentItemCount);
+
   const [state, setState] = React.useState({
     right: false,
   });
@@ -96,27 +99,22 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       let itemUUID = newQuantity.UUID
       console.log("itemUUID", itemUUID)
       axios
-        .get(`http://localhost:3000/currentItemCount/${itemUUID}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-          },
-        })
-        .then((res) => {
-          setCurrentItemCount(res.data);
+      .get(`http://localhost:3000/currentItemCount/${itemUUID}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
+      .then((res) => {
+        setCurrentItemCount(res.data[0].item_count);
         })
         .catch((err) => {
           console.log(err);
         });
     };
 
-    console.log("current count", currentItemCount);
+
 
     // console.log("item in cart", newShoppingCart)
-
-
-
-
-
 
   //initial call to grab inventory from DB on load
   useEffect(() => {
@@ -194,7 +192,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     setRadioValue(event.target.value);
   };
 
-const warehouses = [ "45 SFS - Patrick Supply", "45 SFS - Cape Supply"]// hard coded warehouse for warehouse autocomplete
+const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete
 
 //initial state for updating the Quantity of a requested item in the cart
 const [newQuantity, setNewQuantity] = useState({ 
@@ -205,31 +203,7 @@ const [newQuantity, setNewQuantity] = useState({
 
 console.log("newQuantity", newQuantity);
 
-// const [subtractCount, setSubtractCount] = useState(newQuantity.Count - newQuantity.Quantity);//initial state for subtracting Quantity from Count of a requested item in the cart
 
-
-
-//Change quantity of item in shopping cart
-
-// const changeItemQuantity = async (items, index) => {
-//   let id = items.UUID;
-//   console.log("nNEWQTY", newQuantity.Quantity)
-//   if (newQuantity.Quantity !== undefined || newQuantity.Quantity !== null || newQuantity.Quantity !== "") {
-//   axios
-//     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
-//     newQuantity, 
-//     )
-//     .then((res) => {
-//       if (res.status === 200) {
-//         fetchNewShoppingCart();
-//       }
-//     })
-//     .catch((err) => {
-//       alert("Sorry! Something went wrong. Please try again.");
-//       console.log("err", err);
-//     });
-//   } 
-// }
 
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
@@ -254,8 +228,8 @@ const changeItemQuantity = async (items, index) => {
   //Change count of item in th inventory after the requested quantity is submitted in the cart
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
-    let newCount = newQuantity.Count-newQuantity.Quantity;
-    // let newCount = currentItemCount-newQuantity.Quantity;
+    let currentCount = currentItemCount
+    let newCount = currentItemCount-newQuantity.Quantity;
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
       newQuantity, 
@@ -446,7 +420,10 @@ const changeItemQuantity = async (items, index) => {
                                 {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined && e.target.value > 0) {
                                       setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })
                                       }}}}}
-                              onBlur={() => { changeItemQuantity(items, index)}}
+                              onBlur={() => { changeItemQuantity(items, index)
+                                              fetchCurrentItemCount()
+                              
+                              }}
                             />
 
                               {window.location.href === "http://localhost:3001/inventory" ? (
