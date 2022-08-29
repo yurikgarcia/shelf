@@ -45,8 +45,7 @@ export default function Login() {
       });
   };
 
-  console.log("user email", user.user_email);
-  console.log("user dod", user.user_dod_id);
+
 
   return (
   <body>

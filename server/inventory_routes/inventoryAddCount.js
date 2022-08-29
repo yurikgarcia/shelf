@@ -19,9 +19,11 @@ const pool = new Pool({
 async function addToItemCount(req, res) {
   let newCount = req.params.newCount;
   let uuid = req.params.id;
-  let admin_id = req.params.user_dod;
-  
-  console.log ("PARAMS", req.params) 
+  let admin_id = req.params.dod_id; /////this needs to be logged in user dod_id
+  let user_id = req.params.user_dodid;
+
+console.log("PARAMS", req.params)
+
   pool.query(
     `WITH cte 
       AS ( UPDATE inventory

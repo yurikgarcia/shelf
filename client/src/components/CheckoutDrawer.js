@@ -245,9 +245,9 @@ const changeItemQuantity = async (items, index) => {
       let id = newQuantity.UUID;
       let quantity = newQuantity.Quantity
       let newCount = currentItemCount + +quantity ;
-      let user_dod = location.state.DoD;
+      let user_dodid = location.state.DoD;
       axios
-        .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
+        .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
         )
         .then((res) => {
