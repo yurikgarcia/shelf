@@ -2,7 +2,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import React, {useState, useEffect } from 'react'
 import UserItemsTable from "../Tables/UserItemsTable.js";
-import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 

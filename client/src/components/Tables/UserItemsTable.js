@@ -85,7 +85,6 @@ export default function RowsGrid({ }) {
 
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
-      console.log("usertable add to cart",userShoppingCart)
       axios
       .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {

@@ -19,7 +19,9 @@ const pool = new Pool({
 async function addToItemCount(req, res) {
   let newCount = req.params.newCount;
   let uuid = req.params.id;
-  let admin_id = req.params.dod_id;
+  let admin_id = req.params.user_dod;
+  
+  console.log ("PARAMS", req.params) 
   pool.query(
     `WITH cte 
       AS ( UPDATE inventory
@@ -30,8 +32,8 @@ async function addToItemCount(req, res) {
     UPDATE users SET issued_items = issued_items - 
         Cast((SELECT position - 1 FROM users, jsonb_array_elements(issued_items) with 
             ordinality arr(item_object, position) 
-        WHERE dod_id='123456789' and item_object->>'UUID' = '${uuid}') as int)
-        WHERE dod_id='123456789';
+        WHERE dod_id='${user_id}' and item_object->>'UUID' = '${uuid}') as int)
+        WHERE dod_id='${user_id}';
     `,
     (error, results) => {
       if (error) {

@@ -18,8 +18,11 @@ async function updateQuantity(req, res) {
   let params = {
     Quantity: req.body.Quantity,
   };
-  let user_id = req.params.dod_id;
+  let user_id = req.params.user_dod;
   const item_id = req.params.id;
+  console.log("QUANTITY", req.body.Quantity);
+  console.log("USER ID", user_id);
+  console.log("ITEM ID", item_id);
   pool.query(
     `UPDATE users
     SET shopping_cart = s.json_array

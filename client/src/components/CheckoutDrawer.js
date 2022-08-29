@@ -22,6 +22,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
+import { useLocation } from 'react-router-dom';
 
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory}) {
@@ -32,6 +33,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
   const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete dropdown
+  const location = useLocation();//Raact Router Hooked used to bring in the state of selected user to process checkout
   const [newQuantity, setNewQuantity] = useState({ 
     Quantity: " ",
     Count: " ",
@@ -101,7 +103,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
    */
     const fetchCurrentItemCount = async () => {
       let itemUUID = newQuantity.UUID
-      console.log("itemUUID", itemUUID)
       axios
       .get(`http://localhost:3000/currentItemCount/${itemUUID}`, {
         headers: {
@@ -196,9 +197,10 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     setRadioValue(event.target.value);
   };
 
-//function that updates the requested quantoty of the item in the cart
+//function that updates the requested quantity of the item in the cart
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
+  console.log("newQuantity", newQuantity.Quantity)
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -236,12 +238,14 @@ const changeItemQuantity = async (items, index) => {
     };
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
+
+
+
     const addToInventoryCount = async (items, index) => {
       let id = newQuantity.UUID;
       let quantity = newQuantity.Quantity
       let newCount = currentItemCount + +quantity ;
-      console.log("currentItemCount FROM ADD", currentItemCount)
-      console.log("newCount FROM ADD", newCount)
+      let user_dod = location.state.DoD;
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
         newQuantity, 
@@ -257,6 +261,7 @@ const changeItemQuantity = async (items, index) => {
           console.log("err", err);
         });
       }
+
 
 
 //States and funcitons for snackbars
