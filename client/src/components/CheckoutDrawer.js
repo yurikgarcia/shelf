@@ -13,7 +13,6 @@ import FormLabel from '@mui/material/FormLabel';
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import MuiAlert from '@mui/material/Alert';
-import QuantityError from ".//Buttons/quantityError.js";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -32,9 +31,14 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [value, setValue] = useState(''); //value state for users drop down
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
+  const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete dropdown
+  const [newQuantity, setNewQuantity] = useState({ 
+    Quantity: " ",
+    Count: " ",
+    UUID: " ",
+  });   //initial state for updating the Quantity of a requested item in the cart
 
 
-  console.log("current count", currentItemCount);
 
   const [state, setState] = React.useState({
     right: false,
@@ -114,7 +118,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
 
 
-    // console.log("item in cart", newShoppingCart)
 
   //initial call to grab inventory from DB on load
   useEffect(() => {
@@ -188,23 +191,12 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   // function that checks for the amount of objects in the shopping cart in order to display the badge
   const cartLength = newShoppingCart.map(item => item.shopping_cart?.length)
 
+// funciton that updates the state of the radio button selected "Issue to User" or "Issue to Warehouse" or "Return to Warehouse"
   const handleChange = (event) => {
     setRadioValue(event.target.value);
   };
 
-const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete
-
-//initial state for updating the Quantity of a requested item in the cart
-const [newQuantity, setNewQuantity] = useState({ 
-  Quantity: " ",
-  Count: " ",
-  UUID: " ",
-});
-
-console.log("newQuantity", newQuantity);
-
-
-
+//function that updates the requested quantoty of the item in the cart
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
   axios
@@ -220,15 +212,12 @@ const changeItemQuantity = async (items, index) => {
       alert("Sorry! Something went wrong. Please try again.");
       console.log("err", err);
     });
-
 }
 
 
-
-  //Change count of item in th inventory after the requested quantity is submitted in the cart
+  // Function that updates the count of an item after its been issued to a user
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
-    let currentCount = currentItemCount
     let newCount = currentItemCount-newQuantity.Quantity;
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
@@ -246,30 +235,31 @@ const changeItemQuantity = async (items, index) => {
       });
     };
 
-      //Change count of item in th inventory after the requested quantity is submitted in the cart
-  const addToInventoryCount = async (items, index) => {
-    let id = newQuantity.UUID;
-    let count = newQuantity.Count;
-    let quantity = newQuantity.Quantity
-    let newCount = +count + +quantity -1;
-    axios
-      .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
-      newQuantity, 
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          fetchNewShoppingCart();
-          fetchInventory(); 
-        }
-      })
-      .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
-        console.log("err", err);
-      });
-    }
+  //Change count of item in th inventory after the requested quantity is submitted in the cart
+    const addToInventoryCount = async (items, index) => {
+      let id = newQuantity.UUID;
+      let quantity = newQuantity.Quantity
+      let newCount = currentItemCount + +quantity ;
+      console.log("currentItemCount FROM ADD", currentItemCount)
+      console.log("newCount FROM ADD", newCount)
+      axios
+        .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dod}`,
+        newQuantity, 
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            fetchNewShoppingCart();
+            fetchInventory(); 
+          }
+        })
+        .catch((err) => {
+          alert("Sorry! Something went wrong. Please try again.");
+          console.log("err", err);
+        });
+      }
 
 
-
+//States and funcitons for snackbars
     const [openSnack, setOpenSnack] = React.useState(false);
     const [transition, setTransition] = React.useState(undefined);
 
@@ -342,15 +332,6 @@ const changeItemQuantity = async (items, index) => {
                 </Box>
                 <Box sx={{ ml:1, fontSize: 19 }}>
                   <h2>Shopping Cart</h2>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      fetchCurrentItemCount()
-                      }}
-                  >
-                    GET COUNT
-                  </Button>
                 </Box>
                 {/* <Box>
                 <QuantityError/>
@@ -481,9 +462,7 @@ const changeItemQuantity = async (items, index) => {
                       {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
                         <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
                       </RadioGroup>
-                  </FormControl>
-
-                  
+                  </FormControl>       
                   {radioValue === "Issue To User" ? (
                     <Box>
                       <Autocomplete
@@ -507,7 +486,9 @@ const changeItemQuantity = async (items, index) => {
                         onClick={() => {
                           addToIssuedItems();
                           subtractFromInventory();
-                          // window.location.reload()
+                          setTimeout(() => {
+                            window.location.reload();
+                          }, "1150")
                           // handleClick();
                           }
                         }

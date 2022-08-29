@@ -48,7 +48,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
       <div>
         <main>
           <Box sx={{ ml: 15, mt: 2 }}>
-            <h1>45th Security Forces: Bldg. 994</h1>
+            <h1>Demo Inventory Warehouse</h1>
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "row" }}>
