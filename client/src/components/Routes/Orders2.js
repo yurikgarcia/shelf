@@ -3,6 +3,11 @@ import AddOrders from "../Buttons/AddOrders.js";
 import Box from "@mui/material/Box";
 import OrdersTable2 from "../Tables/OrdersTable2.js";
 import axios from "axios";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 function Orders2() {
 
@@ -28,6 +33,21 @@ function Orders2() {
           <Box sx={{ ml: 8, mt: 1 }}>
             <OrdersTable2/>
           </Box>
+
+          <Box sx={{ ml: 20, mt: 1 }}>
+          <FormControl>
+      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+      <RadioGroup
+        aria-labelledby="demo-radio-buttons-group-label"
+        defaultValue="female"
+        name="radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+      </RadioGroup>
+    </FormControl>
+    </Box>
         </main>
       </div>
     </div>

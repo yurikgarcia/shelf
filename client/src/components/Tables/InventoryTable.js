@@ -68,9 +68,9 @@ export default function RowsGrid({
     Courier: "-",
     Tracking: "-",
   });
+
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
-
   const onDelete = async (params) => {
     let id = params.formattedValue;
     axios({
@@ -139,10 +139,12 @@ export default function RowsGrid({
    * adds to shopping cart column in the users table
    */
 
+    let currentDate = new Date().toISOString().split('T')[0];// current date to be used in the shopping cart
+
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
       axios
-      .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
+      .patch(`http://localhost:3000/shopping-cart/${user_dod}/${currentDate}`, userShoppingCart)
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
@@ -239,6 +241,9 @@ export default function RowsGrid({
   
   
     const [transition, setTransition] = React.useState(undefined)
+
+
+
 
 
 

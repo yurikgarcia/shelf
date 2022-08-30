@@ -109,7 +109,7 @@ app.patch('/issued-items/:id/:dod_id', addToIssuedItems)
 
 app.get('/shopping-cart/:dod_id', getCart)
 app.delete('/shopping-cart/:id/:dod_id', deleteItemFromShoppingCart)
-app.patch('/shopping-cart/:dod_id', addToCart)
+app.patch('/shopping-cart/:dod_id/:current_date', addToCart)
 
 //--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
 app.patch('/shopping-cart-quantity/:id/:user_dod', updateQuantity)

@@ -238,9 +238,6 @@ const changeItemQuantity = async (items, index) => {
     };
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
-
-
-
     const addToInventoryCount = async (items, index) => {
       let id = newQuantity.UUID;
       let quantity = newQuantity.Quantity
@@ -253,7 +250,6 @@ const changeItemQuantity = async (items, index) => {
         .then((res) => {
           if (res.status === 200) {
             fetchNewShoppingCart();
-            fetchInventory(); 
           }
         })
         .catch((err) => {
@@ -374,7 +370,7 @@ const changeItemQuantity = async (items, index) => {
                           <Box sx={{display:'flex', flexDirection: "row"}}>
                             <Box>
                               <Box sx={{ width: 100, fontSize: '15px', height: 45}}>
-                                <p>{items.Name}</p>
+                                <h4>{items.Name}</h4>
                               </Box>
                               <Box sx={{  fontStyle: 'italic', fontSize: '14px' }}> 
                                 Size : {items.Size}
@@ -432,7 +428,7 @@ const changeItemQuantity = async (items, index) => {
                               <ClearIcon fontSize="x-small" 
                               onClick={() => {
                                 onDelete(items, index)
-                                // window.location.reload()
+                                window.location.reload()
                               }}
                               />
                             </Box>
@@ -452,24 +448,30 @@ const changeItemQuantity = async (items, index) => {
               sx={{ display: "flex", flexDirection: "column"}}
               >
                 {cartLength >= 1 ? (
-                <Box
-                
-                >
-                  <FormControl sx={{ mt:2 }}>
-                    <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
-                      <RadioGroup
+                <Box>
+  
+                  <FormControl>
+                  <FormLabel id="demo-radio-buttons-group-label"> </FormLabel>
+                  <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
+                        defaultValue="Issue To User"
                         name="controlled-radio-buttons-group"
                         value={value}
                         onChange={handleChange}
-                      >
-                        <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User" />
-                      {/* <FormControlLabel value="Issue To Warehouse" control={<Radio />} label="Issue To Warehouse" /> */}
-                        <FormControlLabel value="Return To Warehouse" control={<Radio />} label="Return To Warehouse" />
-                      </RadioGroup>
-                  </FormControl>       
+                  >
+                    <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User"  />
+                    <FormControlLabel value="Return To Warehouse"  control={<Radio />} label="Return To Warehouse"  />
+                  </RadioGroup>
+                </FormControl>
+                  
+
+
+
                   {radioValue === "Issue To User" ? (
-                    <Box>
+                    
+                    <Box sx={{mt:2}}>
+                      <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                      <h4>Issue To: </h4>
                       <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -493,7 +495,7 @@ const changeItemQuantity = async (items, index) => {
                           subtractFromInventory();
                           setTimeout(() => {
                             window.location.reload();
-                          }, "1150")
+                          }, "1100")
                           // handleClick();
                           }
                         }
@@ -503,7 +505,9 @@ const changeItemQuantity = async (items, index) => {
                     </Box>
                   </Box>
                   ) : radioValue === "Return To Warehouse" ? (
-                    <Box>
+                    <Box sx={{mt:2}}>
+                    <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                    <h4>Return To: </h4>
                       <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -522,7 +526,9 @@ const changeItemQuantity = async (items, index) => {
                           size= "large"
                           onClick={() => {
                             addToInventoryCount ();
-                            // window.location.reload()
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, "1100")
                             }
                           }
                         >
