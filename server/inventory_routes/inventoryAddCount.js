@@ -22,7 +22,8 @@ async function addToItemCount(req, res) {
   let admin_id = req.params.dod_id; /////this needs to be logged in user dod_id
   let user_id = req.params.user_dodid;
 
-console.log("PARAMS", req.params)
+console.log("PARAMS FROM RETURNING ITEM", req.params)
+console.log("BODY FROM RETURNING ITEM", req.body.uuidDate)
 
   pool.query(
     `WITH cte 
@@ -34,7 +35,7 @@ console.log("PARAMS", req.params)
     UPDATE users SET issued_items = issued_items - 
         Cast((SELECT position - 1 FROM users, jsonb_array_elements(issued_items) with 
             ordinality arr(item_object, position) 
-        WHERE dod_id='${user_id}' and item_object->>'UUID' = '${uuid}') as int)
+        WHERE dod_id='${user_id}' and item_object->>'UUIDfetcha' = '${req.body.uuidDate}') as int)
         WHERE dod_id='${user_id}';
     `,
     (error, results) => {

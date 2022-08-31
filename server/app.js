@@ -13,7 +13,7 @@ const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
-const { getCart, addToCart, deleteItemFromShoppingCart } = require('./shoppingcart_routes/shoppingcartRoutes');
+const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { updateQuantity } = require('./shoppingcart_routes/shoppingCartQuantity');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
@@ -105,16 +105,17 @@ app.get('/issueditems/:dod_id', getSelectedUser)
 app.patch('/issued-items/:id/:dod_id', addToIssuedItems)
 
 
-//--------------------------------SHOPPING CART TABLE----------------------------------------------------------------------------------------------------------------
+//--------------------------------SHOPPING CART ----------------------------------------------------------------------------------------------------------------
 
 app.get('/shopping-cart/:dod_id', getCart)
 app.delete('/shopping-cart/:id/:dod_id', deleteItemFromShoppingCart)
 app.patch('/shopping-cart/:dod_id/:current_date', addToCart)
+app.patch('/shopping-cart/:dod_id', addToCartFromUser)
 
 //--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
 app.patch('/shopping-cart-quantity/:id/:user_dod', updateQuantity)
 
-//--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
+//--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/currentItemCount/:uuid', itemCurrentCount)
 
 

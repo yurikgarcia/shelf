@@ -58,7 +58,7 @@ async function addToCart(req, res) {
   };
   let user_id = req.params.dod_id;
   let date = req.params.current_date;
-  // console.log("addtocart", req.params)
+  console.log("IS IT THIS?????", req.params)
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",
@@ -69,7 +69,59 @@ async function addToCart(req, res) {
       "Size": "${params.Size}",
       "Returnable": "${params.Returnable}",
       "Quantity": "${params.Quantity}",
-      "Date" : "${date}"}' ::jsonb
+      "Date" : "${date}",
+      "UUIDfetcha" : "${params.UUID}${date}"}' ::jsonb
+      WHERE dod_id= '${user_id}'`,
+      (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        console.log("placed item into shopping cart");
+        res.status(200);
+        res.send("Success")
+      }
+    );
+  }
+
+  //PATCH call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
+// based on the dod_id of the logged in user
+// from the user returning inventory items
+
+async function addToCartFromUser(req, res) {
+  let params = {
+    id: req.body.id,
+    Delete: req.body.Delete,
+    Edit: req.body.Edit,
+    Name: req.body.Name,
+    Brand: req.body.Brand,
+    NSN: req.body.NSN,
+    Bldg: req.body.Bldg,
+    Size: req.body.Size,
+    Count: req.body.Count,
+    Gender: req.body.Gender,
+    Aisle: req.body.Aisle,
+    Initial: req.body.Initial,
+    MinCount: req.body.MinCount,
+    Ordered: req.body.Ordered,
+    Returnable: req.body.Returnable,
+    UUID: req.body.UUID,
+    Quantity: req.body.Quantity
+  };
+  let user_id = req.params.dod_id;
+  let date = req.params.current_date; 
+  console.log("FROM USER TP CART", req.body)
+  pool.query(
+    `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
+    '{"Name": "${params.Name}",
+      "UUID": "${params.UUID}",
+      "Brand": "${params.Brand}",
+      "Count": "${params.Count}",
+      "NSN": "${params.NSN}",
+      "Size": "${params.Size}",
+      "Returnable": "${params.Returnable}",
+      "Quantity": "${params.Quantity}",
+      "Date" : "${date}",
+      "UUIDfetcha" : "${req.body.uuidFetcha}"}' ::jsonb
       WHERE dod_id= '${user_id}'`,
       (error, results) => {
         if (error) {
@@ -109,5 +161,6 @@ async function deleteItemFromShoppingCart(req, res) {
 module.exports = {
   getCart,
   addToCart,
-  deleteItemFromShoppingCart
+  deleteItemFromShoppingCart,
+  addToCartFromUser
 };

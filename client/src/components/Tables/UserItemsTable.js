@@ -173,7 +173,8 @@ export default function RowsGrid({ }) {
                     Returnable: row.Returnable,
                     UUID: row.UUID,
                     Count: row.Count,
-                    Gender: row.Gender
+                    Gender: row.Gender,
+                    uuidFetcha: row.UUIDfetcha,
                   };
                 })}
               />

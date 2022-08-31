@@ -36,7 +36,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const location = useLocation();//Raact Router Hooked used to bring in the state of selected user to process checkout
   const [newQuantity, setNewQuantity] = useState({ 
     Quantity: " ",
-    Count: " ",
+    uuidDate: " ",
     UUID: " ",
   });   //initial state for updating the Quantity of a requested item in the cart
 
@@ -200,7 +200,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 //function that updates the requested quantity of the item in the cart
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
-  console.log("newQuantity", newQuantity.Quantity)
+  console.log("FROM QUANTOTY", newQuantity);
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -243,13 +243,15 @@ const changeItemQuantity = async (items, index) => {
       let quantity = newQuantity.Quantity
       let newCount = currentItemCount + +quantity ;
       let user_dodid = location.state.DoD;
+      console.log("ITEMS FROM USER ADD", items);
+      console.log("NEWQNTY", newQuantity)
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
         )
         .then((res) => {
           if (res.status === 200) {
-            fetchNewShoppingCart();
+            // fetchNewShoppingCart();
           }
         })
         .catch((err) => {
@@ -397,10 +399,10 @@ const changeItemQuantity = async (items, index) => {
                               sx={{ ml: 2 }}
                               onChange={(e) => 
                                 {if (e.target.value === "" || e.target.value === null || e.target.value === undefined || e.target.value < 0) {
-                                  setNewQuantity({ ...newQuantity, Quantity: 0, Count: items.Count, UUID: items.UUID })                
+                                  setNewQuantity({ ...newQuantity, Quantity: 0, uuidDate: items.UUIDfetcha, UUID: items.UUID })                
                               } else {
                                 {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined && e.target.value > 0) {
-                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, Count: items.Count, UUID: items.UUID })
+                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, uuidDate: items.UUIDfetcha, UUID: items.UUID })
                                       }}}}}
                               onBlur={() => { changeItemQuantity(items, index)
                                               fetchCurrentItemCount()
@@ -495,7 +497,7 @@ const changeItemQuantity = async (items, index) => {
                           subtractFromInventory();
                           setTimeout(() => {
                             window.location.reload();
-                          }, "1100")
+                          }, "900")
                           // handleClick();
                           }
                         }
@@ -528,7 +530,7 @@ const changeItemQuantity = async (items, index) => {
                             addToInventoryCount ();
                             setTimeout(() => {
                               window.location.reload();
-                            }, "1100")
+                            }, "1000")
                             }
                           }
                         >
