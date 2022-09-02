@@ -11,6 +11,7 @@ const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
 const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
+const { adminWarehouses } = require('./user_routes/admin_warehouses');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
 const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser } = require('./shoppingcart_routes/shoppingcartRoutes');
@@ -117,6 +118,9 @@ app.patch('/shopping-cart-quantity/:id/:user_dod', updateQuantity)
 
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/currentItemCount/:uuid', itemCurrentCount)
+
+//--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
+app.get('/admin-warehouses/:adminID', adminWarehouses)
 
 
 

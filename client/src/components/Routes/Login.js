@@ -35,7 +35,6 @@ export default function Login() {
           console.log(user)
           localStorage.setItem("user_email", user.user_email);
           localStorage.setItem("user_dod", user.user_dod_id);
-          localStorage.setItem("user_first", res.user_first_name);
         }
         if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/home";
       })
@@ -44,6 +43,7 @@ export default function Login() {
         console.log("err", err);
       });
   };
+
 
 
 

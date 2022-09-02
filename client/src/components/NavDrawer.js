@@ -1,6 +1,7 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { styled, useTheme } from "@mui/material/styles";
-import {alpha } from '@mui/material/styles';
+// import {alpha } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -9,12 +10,12 @@ import CheckoutDrawer from "./CheckoutDrawer.js";
 // import PublicIcon from '@mui/icons-material/Public';
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
 import GroupIcon from '@mui/icons-material/Group';
-import InputBase from '@mui/material/InputBase';
+// import InputBase from '@mui/material/InputBase';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from "@mui/material/IconButton";
 import InventoryIcon from '@mui/icons-material/Inventory';
+import InventoryMenu from "./InventoryMenu.js";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from '@mui/material/ListItem';
@@ -25,7 +26,6 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
-import SearchIcon from '@mui/icons-material/Search';
 import shelfLogo from './/Images/shelfLogo.png'
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
@@ -33,48 +33,48 @@ import Typography from "@mui/material/Typography";
 
 
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
+// const Search = styled('div')(({ theme }) => ({
+//   position: 'relative',
+//   borderRadius: theme.shape.borderRadius,
+//   backgroundColor: alpha(theme.palette.common.white, 0.15),
+//   '&:hover': {
+//     backgroundColor: alpha(theme.palette.common.white, 0.25),
+//   },
+//   marginLeft: 0,
+//   width: '100%',
+//   [theme.breakpoints.up('sm')]: {
+//     marginLeft: theme.spacing(1),
+//     width: 'auto',
+//   },
+// }));
 
 // -----------------search-------------
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: '100%',
+//   position: 'absolute',
+//   pointerEvents: 'none',
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//   color: 'inherit',
+//   '& .MuiInputBase-input': {
+//     padding: theme.spacing(1, 1, 1, 0),
+//     // vertical padding + font size from searchIcon
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create('width'),
+//     width: '100%',
+//     [theme.breakpoints.up('sm')]: {
+//       width: '12ch',
+//       '&:focus': {
+//         width: '20ch',
+//       },
+//     },
+//   },
+// }));
 
 // -----------------search-------------
 
@@ -149,12 +149,40 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
 
   // const handleDrawerOpen = () => {
   //   setOpen(true);
   // };
 
-  
+    //initial call to grab users from DB on load
+    useEffect(() => {
+      fetchLoggedAdminWarehouses();
+      //breaks the app into a loop *****
+      // if (localStorage.getItem("authorization") === null)
+      //   window.location.href = "/login";
+    }, []);
+
+      /**
+   * fetches the logged in user's warehouses from the DB
+   */
+      const fetchLoggedAdminWarehouses = async () => {
+        let adminID = localStorage.user_dod
+        axios
+        .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+          },
+        })
+        .then((res) => {
+          setAdminWarehouses(res.data);
+        })
+        .catch((err) => { 
+          console.log(err);
+        });
+      };
+      
+      console.log("RES", adminWarehouses)
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -212,6 +240,8 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
             </Link>
+
+            <InventoryMenu/>
 
             {/* <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Deployment</Button>
