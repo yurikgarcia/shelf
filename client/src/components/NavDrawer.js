@@ -149,40 +149,15 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+  
 
   // const handleDrawerOpen = () => {
   //   setOpen(true);
   // };
 
-    //initial call to grab users from DB on load
-    useEffect(() => {
-      fetchLoggedAdminWarehouses();
-      //breaks the app into a loop *****
-      // if (localStorage.getItem("authorization") === null)
-      //   window.location.href = "/login";
-    }, []);
 
-      /**
-   * fetches the logged in user's warehouses from the DB
-   */
-      const fetchLoggedAdminWarehouses = async () => {
-        let adminID = localStorage.user_dod
-        axios
-        .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-          },
-        })
-        .then((res) => {
-          setAdminWarehouses(res.data);
-        })
-        .catch((err) => { 
-          console.log(err);
-        });
-      };
       
-      console.log("RES", adminWarehouses)
+      
 
   const handleDrawerClose = () => {
     setOpen(false);

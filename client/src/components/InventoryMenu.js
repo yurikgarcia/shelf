@@ -1,6 +1,9 @@
-import * as React from 'react';
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -46,6 +49,8 @@ const StyledMenu = styled((props) => (
   },
 }));
 
+
+
 export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,6 +60,45 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+  const [selectedWarehouse, setSelectedWarehouse] = useState(''); //value state for users drop down
+
+
+      //initial call to grab users from DB on load
+      useEffect(() => {
+        fetchLoggedAdminWarehouses();
+        //breaks the app into a loop *****
+        // if (localStorage.getItem("authorization") === null)
+        //   window.location.href = "/login";
+      }, []);
+  
+        /**
+     * fetches the logged in user's warehouses from the DB
+     */
+        const fetchLoggedAdminWarehouses = async () => {
+          let adminID = localStorage.user_dod
+          axios
+          .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+            },
+          })
+          .then((res) => {
+            setAdminWarehouses(res.data);
+          })
+          .catch((err) => { 
+            console.log(err);
+          });
+        };
+
+        console.log("selectedWarehouse", selectedWarehouse);
+
+      //   const handleSelectedWarehouse = event => {
+      //     setAdminWarehouses(event.target.value);
+      //     console.log("WAREHOUSE", selectedWarehouse);
+      // }
+
+
 
   return (
     <div>
@@ -69,19 +113,33 @@ export default function CustomizedMenus() {
       >
         Inventory
       </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose} disableRipple>
-        45 SFS - Warehouse 1
-        </MenuItem>
-      </StyledMenu>
+        <StyledMenu
+          id="demo-customized-menu"
+          MenuListProps={{
+            'aria-labelledby': 'demo-customized-button',
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          {adminWarehouses.map((warehouses, index) => {
+              return (
+                <div key={index}>
+                {warehouses.warehouse_access?.map((warehouse_access, index) => {
+                  return (
+                    <MenuItem key={index} 
+                    onClick={(event, newValue) => {
+                      setSelectedWarehouse(warehouse_access.Name);
+                    }}
+                    >
+                      <p>{warehouse_access.Name}</p>
+                    </MenuItem>
+                  )})}
+                </div>
+              )
+            }
+          )}
+        </StyledMenu>
     </div>
   );
 }
