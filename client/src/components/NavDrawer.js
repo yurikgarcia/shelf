@@ -212,9 +212,9 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button  sx={{mr:1}} variant="contained">Users</Button>
             </Link>
 
-            <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
+            {/* <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
-            </Link>
+            </Link> */}
 
             <InventoryMenu/>
 

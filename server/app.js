@@ -6,6 +6,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3000;
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { getSFSPatrickInventory } = require('./sfs_patrick_inventory_routes/sfsPatrick_inventoryRoutes');
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
@@ -72,12 +73,17 @@ app.post('/login', login)
 // });
 /// TESTING ROUTE ONLY //////
 
-//--------------------------------INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
+//-------------------------------- DEMO INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/inventory', getInventory)
 app.post('/inventory', addItemToInventory)
 app.patch('/inventory', updateItemInInventory)
 app.delete('/inventory', deleteItemFromInventory)
+
+//-------------------------------- 45 SFS PATRICK INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
+
+app.get('/45sfspatrickinventory', getSFSPatrickInventory)
+
 
 //--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------
 

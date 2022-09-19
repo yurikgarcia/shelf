@@ -91,12 +91,14 @@ export default function CustomizedMenus() {
           });
         };
 
-        console.log("selectedWarehouse", selectedWarehouse);
+        console.log("selectedWarehouse!", selectedWarehouse);
 
-      //   const handleSelectedWarehouse = event => {
-      //     setAdminWarehouses(event.target.value);
-      //     console.log("WAREHOUSE", selectedWarehouse);
-      // }
+        const navigate = useNavigate();
+
+        const goToUserDetails = () => {
+          navigate('/inventory', {state: {warehouse: selectedWarehouse}});
+          console.log("STATE wAREHOUSE", selectedWarehouse)
+        }
 
 
 
@@ -130,6 +132,10 @@ export default function CustomizedMenus() {
                     <MenuItem key={index} 
                     onClick={(event, newValue) => {
                       setSelectedWarehouse(warehouse_access.Name);
+                      setTimeout(() => {
+                        goToUserDetails();
+                      }, "50")
+                      handleClose();
                     }}
                     >
                       <p>{warehouse_access.Name}</p>
