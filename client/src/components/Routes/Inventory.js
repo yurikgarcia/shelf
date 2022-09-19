@@ -103,7 +103,9 @@ function Inventory({ shoppingCart, setShoppingCart }) {
                 setShoppingCart={setShoppingCart}
               />
             ) : (
-              <h1>NO</h1>
+            <Box sx={{ ml: 8, mt: 1 }}>
+              <h1>Currently working on installing the 45 SFS Cape Warehouse</h1>
+            </Box>
             )}
           </Box>
 {/* 

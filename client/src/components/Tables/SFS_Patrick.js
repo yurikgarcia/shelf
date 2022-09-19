@@ -24,6 +24,7 @@ import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
 
 export default function RowsGrid({
+  fetchSFSPatrickInventory,
   inventory,
   fetchInventory,
   spinner,
@@ -83,7 +84,7 @@ export default function RowsGrid({
     })
       .then((res) => {
         if (res.status === 200) {
-          fetchInventory();
+          fetchSFSPatrickInventory();
         }
       })
       .catch((err) => {
@@ -104,8 +105,7 @@ export default function RowsGrid({
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/45sfspatrickinventory" ||
-        "https://postgres-apr.herokuapp.com/inventory",
+        "http://localhost:3000/45sfspatrickinventory",
       data: {
         Delete: newValue.Delete,
         Name: newValue.Name,
@@ -126,7 +126,7 @@ export default function RowsGrid({
     })
       .then(() => {
         console.log("success");
-        fetchInventory();
+        fetchSFSPatrickInventory();
       })
       .catch((err) => {
         console.log("err", err);
