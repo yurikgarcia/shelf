@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import AddCart from "..//Buttons/AddCart.js";
 import AddModal from "../Buttons/AddModal.js";
 import Box from "@mui/material/Box";
+import SFS_Cape from "../Tables/SFS_Cape.js";
 import SFS_Patrick from "../Tables/SFS_Patrick.js";
 import InventoryTable from "../Tables/InventoryTable.js";
 import axios from "axios";
@@ -10,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 function Inventory({ shoppingCart, setShoppingCart }) {
   const [inventory, setInventory] = useState([]); //inventory state
+  const [SFSCapeInventory, setSFSCapeInventory] = useState([]); //inventory state
   const [SFSPatrickInventory, setSFSPatrickInventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
@@ -17,6 +19,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
   useEffect(() => {
     fetchInventory();
     fetchSFSPatrickInventory();
+    fetchSFSCapeInventory();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
@@ -69,10 +72,34 @@ function Inventory({ shoppingCart, setShoppingCart }) {
       });
   };
 
+    //fetches 45 SFS Patrick Inventory
+    const fetchSFSCapeInventory = async () => {
+      setSpinner(true);
+      axios
+        .get(
+          "http://localhost:3000/45sfscapeinventory",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+            },
+          }
+        )
+        .then((res) => {
+          setSFSCapeInventory (res.data);
+          setSpinner(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setSpinner(false);
+        });
+    };
+
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
   console.log("location from nav selection", location);
   console.log("PATRICK", SFSPatrickInventory);
+
+  console.log("CAPE", SFSCapeInventory)
 
   return (
     <div>
@@ -102,6 +129,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
                 shoppingCart={shoppingCart}
                 setShoppingCart={setShoppingCart}
               />
+            ) : location.state.warehouse === "45 SFS - Cape" ? (
+              <SFS_Cape
+              inventory={SFSCapeInventory}
+              fetchSFSCapeInventory ={fetchSFSCapeInventory}
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+            />
             ) : (
             <Box sx={{ ml: 8, mt: 1 }}>
               <h1>Currently working on installing the 45 SFS Cape Warehouse</h1>

@@ -6,6 +6,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 3000;
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { getSFSCapeInventory, addItemToSFSCapeInventory, updateItemInSFSCapeInventory, deleteItemFromSFSCapeInventory, } = require('./sfs_cape_inventory_routes/sfsCape_inventoryRoutes');
 const { getSFSPatrickInventory, addItemToSFSPatrickInventory, updateItemInSFSPatrickInventory, deleteItemFromSFSPatrickInventory, } = require('./sfs_patrick_inventory_routes/sfsPatrick_inventoryRoutes');
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
@@ -80,6 +81,13 @@ app.post('/inventory', addItemToInventory)
 app.patch('/inventory', updateItemInInventory)
 app.delete('/inventory', deleteItemFromInventory)
 
+//-------------------------------- 45 SFS CAPE INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
+
+app.get('/45sfscapeinventory', getSFSCapeInventory)
+app.post('/45sfscapeinventory', addItemToSFSCapeInventory)
+app.patch('/45sfscapeinventory', updateItemInSFSCapeInventory)
+app.delete('/45sfscapeinventory', deleteItemFromSFSCapeInventory)
+
 //-------------------------------- 45 SFS PATRICK INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/45sfspatrickinventory', getSFSPatrickInventory)
@@ -104,16 +112,12 @@ app.get('/users', getUsers)
 app.post('/users', addUser)
 app.delete('/users', deleteUser)
 app.patch('/users', updateUser)
-//--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
+//--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------//
 
-// 
 app.get('/issueditems/:dod_id', getSelectedUser)
-
-
 //--------------------------------SENDS CART TO ISSUED ITEMS----------------------------------------------------------------------------------------------------------------
 
 app.patch('/issued-items/:id/:dod_id', addToIssuedItems)
-
 
 //--------------------------------SHOPPING CART ----------------------------------------------------------------------------------------------------------------
 
