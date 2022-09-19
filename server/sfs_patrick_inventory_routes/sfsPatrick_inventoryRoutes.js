@@ -29,9 +29,9 @@ async function getSFSPatrickInventory(req, res) {
   });
 }
 
-async function addItemToInventory(req, res) {
+async function addItemToSFSPatrickInventory(req, res) {
   pool.query(
-    `INSERT INTO inventory (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, intial_gear, returnable_item, courier, tracking, contact) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, ${req.body.item.intial_gear}, ${req.body.item.returnable_item}, '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}')`,
+    `INSERT INTO sfs45_patrick  (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, intial_gear, returnable_item, courier, tracking, contact) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, ${req.body.item.intial_gear}, ${req.body.item.returnable_item}, '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}')`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
@@ -43,7 +43,7 @@ async function addItemToInventory(req, res) {
   );
 }
 
-async function updateItemInInventory(req, res) {
+async function updateItemInSFSPatrickInventory(req, res) {
   let params = {
     item_id: req.body.Delete,
     item_name: req.body.Name,
@@ -63,7 +63,7 @@ async function updateItemInInventory(req, res) {
     contact: req.body.Contact,
   };
   pool.query(
-    `UPDATE inventory 
+    `UPDATE sfs45_patrick 
           SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item}, courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}'
             WHERE item_id = '${params.item_id}'`,
     (error, results) => {
@@ -77,10 +77,10 @@ async function updateItemInInventory(req, res) {
   );
 }
 
-async function deleteItemFromInventory(req, res) {
+async function deleteItemFromSFSPatrickInventory(req, res) {
   const item_id = req.body.id;
   pool.query(
-    `DELETE FROM inventory WHERE item_id='${item_id}'`,
+    `DELETE FROM sfs45_patrick  WHERE item_id='${item_id}'`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
@@ -94,7 +94,7 @@ async function deleteItemFromInventory(req, res) {
 
 module.exports = {
   getSFSPatrickInventory,
-  addItemToInventory,
-  updateItemInInventory,
-  deleteItemFromInventory,
+  addItemToSFSPatrickInventory,
+  updateItemInSFSPatrickInventory,
+  deleteItemFromSFSPatrickInventory,
 };

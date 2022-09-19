@@ -98,8 +98,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             === "45 SFS - Patrick" ? (
               <SFS_Patrick
                 inventory={SFSPatrickInventory}
-                setInventory={setSFSPatrickInventory}
-                fetchInventory={fetchSFSPatrickInventory}
+                fetchSFSPatrickInventory ={fetchSFSPatrickInventory}
                 shoppingCart={shoppingCart}
                 setShoppingCart={setShoppingCart}
               />
@@ -124,15 +123,15 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 }
 
 
-          {/* <Box sx={{ ml: 8, mt: 1 }}>
-            <InventoryTable
-              inventory={inventory}
-              fetchInventory={fetchInventory}
-              spinner={spinner}
-              shoppingCart={shoppingCart}
-              setShoppingCart={setShoppingCart}
-            />
-          </Box> */}
+          // <Box sx={{ ml: 8, mt: 1 }}>
+          //   <InventoryTable
+          //     inventory={inventory}
+          //     fetchInventory={fetchInventory}
+          //     spinner={spinner}
+          //     shoppingCart={shoppingCart}
+          //     setShoppingCart={setShoppingCart}
+          //   />
+          // </Box> 
 
 
 export default Inventory;

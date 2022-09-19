@@ -76,8 +76,7 @@ export default function RowsGrid({
     axios({
       method: "delete",
       url:
-        "http://localhost:3000/inventory" ||
-        "https://postgres-apr.herokuapp.com/inventory",
+        "http://localhost:3000/45sfspatrickinventory",
       data: {
         id: id,
       },
@@ -105,7 +104,7 @@ export default function RowsGrid({
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/inventory" ||
+        "http://localhost:3000/45sfspatrickinventory" ||
         "https://postgres-apr.herokuapp.com/inventory",
       data: {
         Delete: newValue.Delete,
