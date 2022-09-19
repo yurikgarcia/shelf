@@ -14,11 +14,11 @@ import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useLocation } from 'react-router-dom';
 
 
 
-
-export default function AddModal({ inventory, setInventory, fetchInventory }) {
+export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
     item_name: '',
@@ -42,7 +42,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
   const handleCloseAddModal = () => setAddModalOpen(false);
 
   /**
-   * adds a new item to the DB based on the state set from the textfields
+   * adds a new item to the DEMO TABLE based on the state set from the textfields
    */
   const addItemToInventory = async () => {
     const newInventory = addedItem;
@@ -60,6 +60,25 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
       })
   };
 
+    /**
+   * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
+   */
+    const addItemToSFSPatrickInventory = async () => {
+      const newInventory = addedItem;
+      axios.post('http://localhost:3000/45sfspatrickinventory', { item: newInventory })
+        .then(res => {
+          if (res.status === 200) {
+            setInventory([...inventory, newInventory])
+            fetchSFSPatrickInventory()
+            setAddModalOpen(false)
+          }
+        })
+        .catch(err => {
+          alert('Sorry! Something went wrong. Please try again.')
+          console.log('err', err);
+        })
+    };
+
   const [initial, setInitial] = useState('');
   const handleChange = (event) => {
     setInitial(event.target.value);
@@ -69,6 +88,10 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
   const handleReturnable = (event) => {
     setReturnable(event.target.value);
   };
+
+  const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
+
+  console.log("location from the add modal", location.state);
 
   return (
     <div>
@@ -255,9 +278,21 @@ export default function AddModal({ inventory, setInventory, fetchInventory }) {
               >
                 Cancel
               </Button>
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addItemToInventory()}>
+
+              {location.state.warehouse === "45 SFS - Patrick"  ? (
+              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+              onClick={() => addItemToSFSPatrickInventory()}>
                 Submit
               </Button>
+              ) : (
+                <h1>No warehouse</h1>
+              )}
+{/* 
+              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+              onClick={() => addItemToInventory()}>
+                Submit
+              </Button> */}
+
             </Stack>
           </Box>
         </Box>
