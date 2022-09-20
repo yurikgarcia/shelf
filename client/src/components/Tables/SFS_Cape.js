@@ -24,7 +24,7 @@ import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
 
 export default function RowsGrid({
-  fetchSFSPatrickInventory,
+  fetchSFSCapeInventory,
   inventory,
   fetchInventory,
   spinner,
@@ -84,7 +84,7 @@ export default function RowsGrid({
     })
       .then((res) => {
         if (res.status === 200) {
-          fetchSFSPatrickInventory();
+          fetchSFSCapeInventory();
         }
       })
       .catch((err) => {
@@ -126,7 +126,7 @@ export default function RowsGrid({
     })
       .then(() => {
         console.log("success");
-        fetchSFSPatrickInventory();
+        fetchSFSCapeInventory();
       })
       .catch((err) => {
         console.log("err", err);

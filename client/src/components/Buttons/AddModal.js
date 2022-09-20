@@ -18,7 +18,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
-export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory }) {
+export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory, fetchSFSCapeInventory  }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
     item_name: '',
@@ -78,6 +78,25 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
           console.log('err', err);
         })
     };
+
+        /**
+   * adds a new item to the 45 SFS CAPE TABLE based on the state set from the textfields
+   */
+        const addItemToSFSCapeInventory = async () => {
+          const newInventory = addedItem;
+          axios.post('http://localhost:3000/45sfscapeinventory', { item: newInventory })
+            .then(res => {
+              if (res.status === 200) {
+                setInventory([...inventory, newInventory])
+                fetchSFSCapeInventory()
+                setAddModalOpen(false)
+              }
+            })
+            .catch(err => {
+              alert('Sorry! Something went wrong. Please try again.')
+              console.log('err', err);
+            })
+        };
 
   const [initial, setInitial] = useState('');
   const handleChange = (event) => {
@@ -284,9 +303,15 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
               onClick={() => addItemToSFSPatrickInventory()}>
                 Submit
               </Button>
+              ) : location.state.warehouse === "45 SFS - Cape" ? (
+                <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                onClick={() => addItemToSFSCapeInventory()}>
+                  Submit
+                </Button> 
               ) : (
-                <h1>No warehouse</h1>
-              )}
+                <h3>NO WAREHOUSE</h3>
+                )
+              }
 {/* 
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
               onClick={() => addItemToInventory()}>
