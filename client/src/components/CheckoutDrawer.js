@@ -25,7 +25,7 @@ import TextField from "@mui/material/TextField";
 import { useLocation } from 'react-router-dom';
 
 
-export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory}) {
+export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory }) {
   const user_dod = localStorage.getItem("user_dod");
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
@@ -33,6 +33,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
   const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete dropdown
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const location = useLocation();//Raact Router Hooked used to bring in the state of selected user to process checkout
   const [newQuantity, setNewQuantity] = useState({ 
     Quantity: " ",
@@ -124,6 +125,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   useEffect(() => {
     fetchUsers();
     fetchNewShoppingCart();
+    fetchLoggedAdminWarehouses();
   }, []);
 
   /**
@@ -146,6 +148,25 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         // setSpinner(false);
       });
   };
+
+          /**
+     * fetches the logged in user's warehouses from the DB
+     */
+          const fetchLoggedAdminWarehouses = async () => {
+            let adminID = localStorage.user_dod
+            axios
+            .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+              },
+            })
+            .then((res) => {
+              setAdminWarehouses(res.data);
+            })
+            .catch((err) => { 
+              console.log(err);
+            });
+          };
   
 
   // function to delete item from shopping_cart column in the users table in db
@@ -292,6 +313,16 @@ const changeItemQuantity = async (items, index) => {
         setOpenSnack(true);
       };
     
+
+
+
+      const availableWarehouses = adminWarehouses.map(warehouse => warehouse.warehouse_access.map(warehouses => {
+        return warehouses
+      }))
+
+      const flatWarehouses = availableWarehouses.flat()
+
+      console.log("FLATWAREHOUSES", flatWarehouses)
 
 
 
@@ -510,7 +541,7 @@ const changeItemQuantity = async (items, index) => {
                     <Box sx={{mt:2}}>
                     <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
                     <h4>Return To: </h4>
-                      <Autocomplete
+                      {/* <Autocomplete
                         disablePortal
                         id="combo-box-demo"
                         options={warehouses}
@@ -520,7 +551,34 @@ const changeItemQuantity = async (items, index) => {
                           // setValue(newValue.dod_id);
                           setValue('inventory')
                         }}
-                      />
+                      /> */}
+
+                      <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={flatWarehouses}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+
+                        getOptionLabel={(option) => option.Name }
+                        
+
+                        // getOptionLabel=
+                        // {(option) => option.warehouse_access.map((house, index) => {
+                        //   return house.Name 
+                        // })}
+
+                        // getOptionLabel={(option) => option.warehouse_access.Name}
+
+                        style={{ width: 300 }}
+                        renderInput={(params) => (
+                          <TextField {...params} label="Warehouses" variant="outlined" />
+                          )}
+                          />
+                          
+                          
+
                     <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
                         <Button
                           variant="contained"
