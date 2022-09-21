@@ -322,9 +322,9 @@ const changeItemQuantity = async (items, index) => {
 
       const flatWarehouses = availableWarehouses.flat()
 
-      console.log("FLATWAREHOUSES", flatWarehouses)
+      // console.log("FLATWAREHOUSES", flatWarehouses)
 
-
+console.log("VALUE", value)
 
   return (
     <div>
@@ -558,7 +558,7 @@ const changeItemQuantity = async (items, index) => {
                         id="combo-box-demo"
                         options={flatWarehouses}
                         onChange={(event, newValue) => {
-                          setValue(newValue);
+                          setValue(newValue.Table);
                         }}
 
                         getOptionLabel={(option) => option.Name }
