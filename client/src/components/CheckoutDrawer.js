@@ -39,6 +39,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     Quantity: " ",
     uuidDate: " ",
     UUID: " ",
+    Original_warehouse: " "
   });   //initial state for updating the Quantity of a requested item in the cart
 
 
@@ -264,8 +265,8 @@ const changeItemQuantity = async (items, index) => {
       let quantity = newQuantity.Quantity
       let newCount = currentItemCount + +quantity ;
       let user_dodid = location.state.DoD;
-      console.log("ITEMS FROM USER ADD", items);
-      console.log("NEWQNTY", newQuantity)
+      // console.log("ITEMS FROM USER ADD", items);
+      // console.log("NEWQNTY", newQuantity)
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
@@ -324,7 +325,9 @@ const changeItemQuantity = async (items, index) => {
 
       // console.log("FLATWAREHOUSES", flatWarehouses)
 
-console.log("VALUE", value)
+      // console.log("VALUE", value)
+      console.log("ITEM IN CART/c/odrwr", newShoppingCart)
+      console.log("New QUNAT/c/odrwr", newQuantity)
 
   return (
     <div>
@@ -430,10 +433,10 @@ console.log("VALUE", value)
                               sx={{ ml: 2 }}
                               onChange={(e) => 
                                 {if (e.target.value === "" || e.target.value === null || e.target.value === undefined || e.target.value < 0) {
-                                  setNewQuantity({ ...newQuantity, Quantity: 0, uuidDate: items.UUIDfetcha, UUID: items.UUID })                
+                                  setNewQuantity({ ...newQuantity, Quantity: 0, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.original_warehouse })                
                               } else {
                                 {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined && e.target.value > 0) {
-                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, uuidDate: items.UUIDfetcha, UUID: items.UUID })
+                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.original_warehouse  })
                                       }}}}}
                               onBlur={() => { changeItemQuantity(items, index)
                                               fetchCurrentItemCount()

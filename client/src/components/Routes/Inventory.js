@@ -96,10 +96,10 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
-  console.log("location from nav selection", location);
-  console.log("PATRICK", SFSPatrickInventory);
+  // console.log("location from nav selection", location);
+  // console.log("PATRICK", SFSPatrickInventory);
 
-  console.log("CAPE", SFSCapeInventory)
+  // console.log("CAPE", SFSCapeInventory)
 
   return (
     <div>

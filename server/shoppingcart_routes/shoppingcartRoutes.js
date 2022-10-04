@@ -54,11 +54,12 @@ async function addToCart(req, res) {
     Ordered: req.body.Ordered,
     Returnable: req.body.Returnable,
     UUID: req.body.UUID,
-    Quantity: req.body.Quantity
+    Quantity: req.body.Quantity,
+    Original_warehouse: req.body.original_warehouse
   };
   let user_id = req.params.dod_id;
   let date = req.params.current_date;
-  console.log("IS IT THIS?????", req.params)
+  console.log("IS IT THIS?????", req.body)
   pool.query(
     `UPDATE users SET shopping_cart = COALESCE(shopping_cart, '[]'::jsonb) ||
     '{"Name": "${params.Name}",
@@ -70,6 +71,7 @@ async function addToCart(req, res) {
       "Returnable": "${params.Returnable}",
       "Quantity": "${params.Quantity}",
       "Date" : "${date}",
+      "Original_warehouse" : "${req.body.Original}",
       "UUIDfetcha" : "${params.UUID}${date}"}' ::jsonb
       WHERE dod_id= '${user_id}'`,
       (error, results) => {
