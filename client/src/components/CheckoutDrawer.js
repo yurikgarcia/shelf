@@ -105,8 +105,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
    */
     const fetchCurrentItemCount = async () => {
       let itemUUID = newQuantity.UUID
+      let ogWarehouse = newQuantity.Original_warehouse;
       axios
-      .get(`http://localhost:3000/currentItemCount/${itemUUID}`, {
+      .get(`http://localhost:3000/currentItemCount/${itemUUID}/${ogWarehouse}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -118,8 +119,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
           console.log(err);
         });
     };
-
-
 
 
   //initial call to grab inventory from DB on load
@@ -222,7 +221,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 //function that updates the requested quantity of the item in the cart
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
-  console.log("FROM QUANTOTY", newQuantity);
   axios
     .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
     newQuantity, 
@@ -243,8 +241,9 @@ const changeItemQuantity = async (items, index) => {
   const subtractFromInventory = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = currentItemCount-newQuantity.Quantity;
+    let ogWarehouse = newQuantity.Original_warehouse;
     axios
-      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}`,
+      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       newQuantity, 
       )
       .then((res) => {
@@ -323,11 +322,7 @@ const changeItemQuantity = async (items, index) => {
 
       const flatWarehouses = availableWarehouses.flat()
 
-      // console.log("FLATWAREHOUSES", flatWarehouses)
 
-      // console.log("VALUE", value)
-      console.log("ITEM IN CART/c/odrwr", newShoppingCart)
-      // console.log("New QUNAT/c/odrwr", newQuantity)
 
   return (
     <div>

@@ -98,7 +98,7 @@ app.delete('/45sfspatrickinventory', deleteItemFromSFSPatrickInventory)
 
 //--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------
 
-app.patch('/inventorysubtractcount/:id/:newCount/:dod_id', updateItemCount)
+app.patch('/inventorysubtractcount/:id/:newCount/:dod_id/:ogWarehouse', updateItemCount)
 
 //--------------------------------INVENTORY ITEM ADD TO COUNT ----------------------------------------------------------------------------------------------------------------
 
@@ -130,9 +130,9 @@ app.patch('/shopping-cart/:dod_id', addToCartFromUser)
 app.patch('/shopping-cart-quantity/:id/:user_dod', updateQuantity)
 
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
-app.get('/currentItemCount/:uuid', itemCurrentCount)
+app.get('/currentItemCount/:uuid/:ogWarehouse', itemCurrentCount)
 
-//--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
+//--------------------------------SHOPPING CART - WAREHOUSES----------------------------------------------------------------------------------------------------------------
 app.get('/admin-warehouses/:adminID', adminWarehouses)
 
 

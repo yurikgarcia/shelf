@@ -20,8 +20,9 @@ async function updateItemCount(req, res) {
   let newCount = req.params.newCount;
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
+  let ogWarehouse = req.params.ogWarehouse;
   pool.query(
-    `UPDATE inventory 
+    `UPDATE ${ogWarehouse}
           SET item_count='${newCount}'
             WHERE item_id = '${UUID}';
             UPDATE users SET shopping_cart = NULL 

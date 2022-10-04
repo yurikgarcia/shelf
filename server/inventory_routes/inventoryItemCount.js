@@ -17,10 +17,11 @@ const pool = new Pool({
 
 async function itemCurrentCount(req, res) {
   let UUID = req.params.uuid;
+  let ogWarehouse = req.params.ogWarehouse
   verifyToken(req, res, (authData) => {
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
-      pool.query(`SELECT item_count FROM inventory WHERE item_id = '${UUID}'`, (error, results) => {
+      pool.query(`SELECT item_count FROM ${ogWarehouse} WHERE item_id = '${UUID}'`, (error, results) => {
         if (error) {
           res.send("error" + error);
         }
