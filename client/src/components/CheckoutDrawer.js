@@ -327,7 +327,7 @@ const changeItemQuantity = async (items, index) => {
 
       // console.log("VALUE", value)
       console.log("ITEM IN CART/c/odrwr", newShoppingCart)
-      console.log("New QUNAT/c/odrwr", newQuantity)
+      // console.log("New QUNAT/c/odrwr", newQuantity)
 
   return (
     <div>
@@ -433,10 +433,10 @@ const changeItemQuantity = async (items, index) => {
                               sx={{ ml: 2 }}
                               onChange={(e) => 
                                 {if (e.target.value === "" || e.target.value === null || e.target.value === undefined || e.target.value < 0) {
-                                  setNewQuantity({ ...newQuantity, Quantity: 0, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.original_warehouse })                
+                                  setNewQuantity({ ...newQuantity, Quantity: 0, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.Original_warehouse })                
                               } else {
                                 {if (e.target.value !== "" || e.target.value !== null || e.target.value !== undefined && e.target.value > 0) {
-                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.original_warehouse  })
+                                      setNewQuantity({ ...newQuantity, Quantity: e.target.value, uuidDate: items.UUIDfetcha, UUID: items.UUID, Original_warehouse: items.Original_warehouse  })
                                       }}}}}
                               onBlur={() => { changeItemQuantity(items, index)
                                               fetchCurrentItemCount()
