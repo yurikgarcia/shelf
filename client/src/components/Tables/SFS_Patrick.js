@@ -64,7 +64,7 @@ export default function RowsGrid({
     Aisle: "",
     Initial: false,
     MinCount: 0,
-    Ordered: 0,
+    Ordered: "",
     Returnable: true,
     Courier: "-",
     Tracking: "-",
@@ -313,9 +313,9 @@ export default function RowsGrid({
                       </div>
                     ),
                   },
-                  { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+                  { field: "Ordered", minWidth: 100 },
                   { field: "Courier", minWidth: 100 },
                   { field: "Tracking", minWidth: 100 },
                   {
@@ -381,11 +381,11 @@ export default function RowsGrid({
                     Initial: row.intial_gear,
                     MinCount: row.minimum_count,
                     Ordered: row.ordered,
+                    Courier: row.courier,
+                    Tracking: row.tracking,
                     Returnable: row.returnable_item,
                     UUID: row.item_id,
                     Original: row.original_warehouse,
-                    Courier: row.courier,
-                    Tracking: row.tracking,
                   };
                 })}
               />
@@ -451,6 +451,27 @@ export default function RowsGrid({
                           sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, NSN: e.target.value })
+                          }
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          disabled={false}
+                          id="outlined-error"  
+                          label="Gender"
+                          defaultValue={editedItem?.Gender}
+                          sx={{ borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Gender: e.target.value })
+                          }
+                        />
+                        <TextField
+                          id="filled"
+                          label="Brand"
+                          defaultValue={editedItem?.Brand}
+                          sx={{ borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Brand: e.target.value })
                           }
                         />
                       </div>

@@ -34,7 +34,7 @@ function Orders2() {
             <OrdersTable2/>
           </Box>
 
-          <Box sx={{ ml: 20, mt: 1 }}>
+          {/* <Box sx={{ ml: 20, mt: 1 }}>
           <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
       <RadioGroup
@@ -47,7 +47,7 @@ function Orders2() {
         <FormControlLabel value="other" control={<Radio />} label="Other" />
       </RadioGroup>
     </FormControl>
-    </Box>
+    </Box> */}
         </main>
       </div>
     </div>

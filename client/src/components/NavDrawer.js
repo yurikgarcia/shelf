@@ -26,6 +26,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
+import SidebarWarehouses from "./SidebarWarehouses.js";
 import shelfLogo from './/Images/shelfLogo.png'
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from '@mui/material/Tooltip';
@@ -345,6 +346,9 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       </ListItemButton>
                 </ListItem>
               </Link>  
+
+
+              <SidebarWarehouses/>
 
           </List>
         </Drawer>

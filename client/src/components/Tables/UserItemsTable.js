@@ -141,7 +141,7 @@ export default function RowsGrid({ }) {
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Original", minWidth: 100 },
+                  { field: "Issued", minWidth: 100 },
                   {
                     field: "Return",
                     minWidth: 10,
@@ -149,7 +149,7 @@ export default function RowsGrid({ }) {
                     renderCell: (params) => (
                       <Tooltip title="Return Item">
                         <AssignmentReturnedIcon 
-                          sx={{ cursor: "pointer", color: "#4CAF" }}
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
 
                       //     onClick={() => 
                       //       addToCart(params)
@@ -177,6 +177,7 @@ export default function RowsGrid({ }) {
                     UUID: row.UUID,
                     Count: row.Count,
                     Gender: row.Gender,
+                    Issued: row.Date,
                     uuidFetcha: row.UUIDfetcha,
                     Original: row.Original_warehouse                   
                   };
