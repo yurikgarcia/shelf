@@ -110,8 +110,8 @@ app.patch('/inventoryaddcount/:id/:newCount/:user_dodid/:dod_id', addToItemCount
 
 app.get('/users', getUsers)
 app.post('/users', addUser)
-app.delete('/users', deleteUser)
-app.patch('/users', updateUser)
+app.delete('/users', deleteUser)  
+app.patch('/users', updateUser)  
 //--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------//
 
 app.get('/issueditems/:dod_id', getSelectedUser)

@@ -85,6 +85,7 @@ export default function RowsGrid({ }) {
 
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
+      console.log("WHATTTTTTTTTTTTTTTTTT", params.row)
       axios
       .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
@@ -98,6 +99,7 @@ export default function RowsGrid({ }) {
           console.log("err", err);
         });
       };
+
 
 
   return (
@@ -139,6 +141,7 @@ export default function RowsGrid({ }) {
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+                  { field: "Original", minWidth: 100 },
                   {
                     field: "Return",
                     minWidth: 10,
@@ -146,7 +149,7 @@ export default function RowsGrid({ }) {
                     renderCell: (params) => (
                       <Tooltip title="Return Item">
                         <AssignmentReturnedIcon 
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          sx={{ cursor: "pointer", color: "#4CAF" }}
 
                       //     onClick={() => 
                       //       addToCart(params)
@@ -175,6 +178,7 @@ export default function RowsGrid({ }) {
                     Count: row.Count,
                     Gender: row.Gender,
                     uuidFetcha: row.UUIDfetcha,
+                    Original: row.Original_warehouse                   
                   };
                 })}
               />
