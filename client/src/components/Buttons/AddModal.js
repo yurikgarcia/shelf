@@ -241,7 +241,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
               />
             </div>
             <div>
-              <TextField
+              {/* <TextField
                 id="outlined-error"
                 label="Initial Gear"
                 onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
@@ -250,11 +250,11 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
                 id="outlined-error"
                 label="Returnable Item"
                 onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
-              />
+              /> */}
             </div>
           </Box>
-          {/* <Stack direction="row" spacing={2}> */}
-          {/* <Box sx={{ ml: 1 }}>
+          <Stack direction="row" spacing={2}>
+          <Box sx={{ ml: 1 }}>
               <FormControl sx={{ minWidth: 135 }}>
                 <InputLabel id="demo-simple-select-label">Initial</InputLabel>
                 <Select
@@ -262,15 +262,14 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
                   id="demo-simple-select"
                   value={initial}
                   label="Age"
-                  onChange={handleChange}
-                  
+                  onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}  
                 >
                   <MenuItem value={true}>Yes</MenuItem>
                   <MenuItem value={false}>No</MenuItem>
                 </Select>
               </FormControl>
-          </Box> */}
-          {/* <Box sx={{ml: 1}}>
+          </Box>
+          <Box sx={{ml: 1}}>
               <FormControl sx={{ minWidth: 135 }}>
                 <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
                 <Select
@@ -278,7 +277,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
                   id="demo-simple-select"
                   value={returnable}
                   label="Age"
-                  onChange={handleReturnable}
+                  onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
                   
                 >
                   <MenuItem value={true}>Yes</MenuItem>
@@ -286,7 +285,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
                 </Select>
               </FormControl>
           </Box>
-          </Stack> */}
+          </Stack>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 1 }}>
             <Stack direction="row" spacing={2}>
               <Button

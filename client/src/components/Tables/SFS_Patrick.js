@@ -313,9 +313,11 @@ export default function RowsGrid({
                       </div>
                     ),
                   },
-                  // { field: "Ordered", minWidth: 100 },
+                  { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+                  { field: "Courier", minWidth: 100 },
+                  { field: "Tracking", minWidth: 100 },
                   {
                     field: "Issue",
                     renderCell: (params) => (
@@ -381,7 +383,9 @@ export default function RowsGrid({
                     Ordered: row.ordered,
                     Returnable: row.returnable_item,
                     UUID: row.item_id,
-                    Original: row.original_warehouse
+                    Original: row.original_warehouse,
+                    Courier: row.courier,
+                    Tracking: row.tracking,
                   };
                 })}
               />
@@ -518,22 +522,20 @@ export default function RowsGrid({
                             })
                           }
                         />
-                        {/* <TextField
+                        <TextField
                           id="filled"
-                          variant="filled"
                           label="Courier"
                           defaultValue={editedItem?.Courier}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) => setNewValue({ ...newValue, Courier: e.target.value })}
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Tracking"
                           defaultValue={editedItem?.Tracking}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: "5" }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
-                        />  */}
+                        /> 
                         <TextField
                           id="filled"
                           label="Initial Gear"

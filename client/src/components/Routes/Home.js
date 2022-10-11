@@ -19,7 +19,7 @@ function Home() {
     });
   }, []);
 
-  console.log("LOCAL STORAGE", localStorage)
+  // console.log("LOCAL STORAGE", localStorage)
   
   return (
     <div>
