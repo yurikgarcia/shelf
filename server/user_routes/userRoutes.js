@@ -30,7 +30,7 @@ async function getUsers(req, res) {
 
 async function addUser(req, res) {
   pool.query(
-    `INSERT INTO users (dod_id, first_name, last_name, email) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}')`,
+    `INSERT INTO users (dod_id, first_name, last_name, email, ima) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}')`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);
@@ -61,10 +61,11 @@ async function updateUser(req, res) {
     first_name: req.body.First,
     last_name: req.body.Last,
     email: req.body.Email,
+    ima: req.body.IMA
   };
   pool.query(
     `UPDATE users
-          SET dod_id='${params.dod_id}', first_name='${params.first_name}', last_name='${params.last_name}', email='${params.email}'
+          SET dod_id='${params.dod_id}', first_name='${params.first_name}', last_name='${params.last_name}', email='${params.email}', ima='${params.ima}'
           WHERE dod_id = '${params.dod_id}'`,
     (error, results) => {
       if (error) {

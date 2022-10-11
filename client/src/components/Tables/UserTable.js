@@ -26,6 +26,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Last: '',
     DoD: '',
     Email: '',
+    IMA: ''
   });
 
   const [newValue, setNewValue] = useState({
@@ -33,6 +34,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Last: '',
     DoD: '',
     Email: '',
+    IMA: ''
     // Password: '',
     // Admin: false
   });
@@ -79,6 +81,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
         Last: newValue.Last,
         DoD: newValue.DoD,
         Email: newValue.Email,
+        IMA: newValue.IMA
         // Password: newValue.Password,
         // Admin: newValue.Admin
       }
@@ -146,6 +149,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Last", minWidth: 130 },
                   // { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 170 },
+                  { field: "IMA", minWidth: 170 },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },
                   {
@@ -199,6 +203,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     Last: row.last_name,
                     DoD: row.dod_id,
                     Email: row.email,
+                    IMA: row.ima,
                     // Password: row.user_password,
                     // Admin: row.is_admin
                   };
@@ -245,37 +250,42 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                         <TextField
                           disabled={false}
                           id="filled"
-                          variant="filled"
                           label="First Name"
                           defaultValue={editedUser?.First}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, First: e.target.value })}
                         />
-                        <TextField
+                        <TextField 
                           id="filled"
-                          variant="filled"
                           label="Last Name"
                           defaultValue={editedUser?.Last}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Last: e.target.value })}
                         />
                       </div>
                       <div>
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Building"
                           defaultValue={editedUser?.DoD}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, DoD: e.target.value })}
                         />
                         <TextField
                           id="filled"
-                          variant="filled"
                           label="Email"
                           defaultValue={editedUser?.Email}
-                          sx={{ backgroundColor: "#ffb74d", borerRadius: '5' }}
+                          sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Email: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          id="filled"
+                          label="IMA"
+                          defaultValue={editedUser?.IMA}
+                          sx={{ borerRadius: '5' }}
+                          onChange={(e) => setNewValue({ ...newValue, IMA: e.target.value })}
                         />
                       </div>
                     </Box>

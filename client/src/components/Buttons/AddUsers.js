@@ -22,6 +22,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     first_name: '',
     last_name: '',
     email: '',
+    ima: ''
   })
   
   const handleUserOpen = () => setAddUserOpen(true);
@@ -122,6 +123,13 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 id="outlined-error-helper-text"
                 label="E-Mail"
                 onChange={(e) => setAddedUsers({ ...addedUsers, email: e.target.value })}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-error-helper-text"
+                label="IMA"
+                onChange={(e) => setAddedUsers({ ...addedUsers, ima: e.target.value })}
               />
             </div>
           </Box>

@@ -293,18 +293,8 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link> 
 
-              <Link to="/inventory" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        <Tooltip title="Inventory" placement="right-end">
-                          <InventoryIcon sx={{color: 'white', fontSize: '30px'}} />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Inventory" />
-                      </ListItemButton>
-                </ListItem>
-              </Link>   
+              <SidebarWarehouses/>
+
               
               {/* <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
                 <ListItem disablePadding>
@@ -346,10 +336,6 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                       </ListItemButton>
                 </ListItem>
               </Link>  
-
-
-              <SidebarWarehouses/>
-
           </List>
         </Drawer>
           <DrawerHeader />
