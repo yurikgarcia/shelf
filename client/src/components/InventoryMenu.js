@@ -95,7 +95,7 @@ export default function CustomizedMenus() {
 
         const navigate = useNavigate();
 
-        const goToUserDetails = () => {
+        const goToUserDetails = (params) => {
           navigate('/inventory', {state: {warehouse: selectedWarehouse}});
           console.log("STATE wAREHOUSE", selectedWarehouse)
         }
@@ -132,9 +132,12 @@ export default function CustomizedMenus() {
                     <MenuItem key={index} 
                     onClick={(event, newValue) => {
                       setSelectedWarehouse(warehouse_access.Name);
+                      // setTimeout(() => {
+                      //   navigate('/inventory', {state: {warehouse: selectedWarehouse}})
+                      // }, "500")
                       setTimeout(() => {
                         goToUserDetails();
-                      }, "50")
+                      }, "500")
                       handleClose();
                     }}
                     >

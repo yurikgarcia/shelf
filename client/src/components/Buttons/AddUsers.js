@@ -36,7 +36,6 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
       .then(res => {
         if (res.status === 200) {
           setUsers([...users, newUsers])
-          fetchUsers()
           setAddUserOpen(false)
         }
       })
@@ -136,7 +135,9 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               >
                 Cancel
               </Button>
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} onClick={() => addUserToUserTable()}>
+              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                      onClick={() => {addUserToUserTable()  
+                      window.location.reload()}}>
                 Submit
               </Button>
             </Stack>

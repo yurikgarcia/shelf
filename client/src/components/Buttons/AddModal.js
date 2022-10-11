@@ -69,7 +69,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
         .then(res => {
           if (res.status === 200) {
             setInventory([...inventory, newInventory])
-            fetchSFSPatrickInventory()
+            // fetchSFSPatrickInventory()
             setAddModalOpen(false)
           }
         })
@@ -110,7 +110,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
-  console.log("location from the add modal", location.state);
+  // console.log("location from the add modal", location.state);
 
   return (
     <div>
@@ -300,12 +300,16 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
 
               {location.state.warehouse === "45 SFS - Patrick"  ? (
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-              onClick={() => addItemToSFSPatrickInventory()}>
+              onClick={() => {addItemToSFSPatrickInventory()
+                window.location.reload()
+              }}>
                 Submit
               </Button>
               ) : location.state.warehouse === "45 SFS - Cape" ? (
                 <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-                onClick={() => addItemToSFSCapeInventory()}>
+                onClick={() => {addItemToSFSCapeInventory()
+                  window.location.reload()
+              }}>
                   Submit
                 </Button> 
               ) : (

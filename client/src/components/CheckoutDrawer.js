@@ -501,9 +501,6 @@ const changeItemQuantity = async (items, index) => {
                   </RadioGroup>
                 </FormControl>
                   
-
-
-
                   {radioValue === "Issue To User" ? (
                     
                     <Box sx={{mt:2}}>
@@ -529,7 +526,9 @@ const changeItemQuantity = async (items, index) => {
                         size= "large"
                         onClick={() => {
                           addToIssuedItems();
-                          subtractFromInventory();
+                          setTimeout(() => {
+                            subtractFromInventory();
+                          }, "450")
                           setTimeout(() => {
                             window.location.reload();
                           }, "900")
@@ -581,8 +580,6 @@ const changeItemQuantity = async (items, index) => {
                           )}
                           />
                           
-                          
-
                     <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
                         <Button
                           variant="contained"
@@ -590,13 +587,13 @@ const changeItemQuantity = async (items, index) => {
                           size= "large"
                           onClick={() => {
                             addToInventoryCount ();
-                            // setTimeout(() => {
-                            //   window.location.reload();
-                            // }, "1000")
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, "1000")
                             }
                           }
                         >
-                          CHECKOUTTTTTTT
+                          CHECKOUT
                         </Button>
                       </Box>
                   </Box>
