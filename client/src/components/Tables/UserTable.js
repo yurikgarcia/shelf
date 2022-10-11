@@ -264,13 +264,13 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                         />
                       </div>
                       <div>
-                        <TextField
+                        {/* <TextField
                           id="filled"
-                          label="Building"
+                          label="DoD ID"
                           defaultValue={editedUser?.DoD}
                           sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, DoD: e.target.value })}
-                        />
+                        /> */}
                         <TextField
                           id="filled"
                           label="Email"
@@ -278,8 +278,6 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                           sx={{ borerRadius: '5' }}
                           onChange={(e) => setNewValue({ ...newValue, Email: e.target.value })}
                         />
-                      </div>
-                      <div>
                         <TextField
                           id="filled"
                           label="IMA"

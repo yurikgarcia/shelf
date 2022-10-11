@@ -32,26 +32,31 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     minimum_count: 0,
     count_status: '',
     ordered: 0,
-    intial_gear: false,
+    intial_gear: '',
     returnable_item: true,
     courier: '',
     tracking: '',
-    contact: ''
+    contact: '',
+    initial: ''
   })
-  const handleAddOpen = () => setAddModalOpen(true);
-  const handleCloseAddModal = () => setAddModalOpen(false);
 
-  /**
-   * adds a new item to the DEMO TABLE based on the state set from the textfields
-   */
-  const addItemToInventory = async () => {
-    const newInventory = addedItem;
-    axios.post('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory', { item: newInventory })
-      .then(res => {
-        if (res.status === 200) {
-          setInventory([...inventory, newInventory])
-          fetchInventory()
-          setAddModalOpen(false)
+
+
+const handleAddOpen = () => setAddModalOpen(true);
+const handleCloseAddModal = () => setAddModalOpen(false);
+
+/**
+ * adds a new item to the DEMO TABLE based on the state set from the textfields
+ */
+const addItemToInventory = async () => {
+  const newInventory = addedItem;
+  console.log("NEWWWWWWWInventory", newInventory)
+  axios.post('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory', { item: newInventory })
+  .then(res => {
+    if (res.status === 200) {
+      setInventory([...inventory, newInventory])
+      fetchInventory()
+      setAddModalOpen(false)
         }
       })
       .catch(err => {
@@ -60,6 +65,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
       })
   };
 
+  console.log("ADDDEDDD", addedItem)
     /**
    * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
    */
@@ -99,9 +105,14 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
         };
 
   const [initial, setInitial] = useState('');
-  const handleChange = (event) => {
+
+  const handleInitial = (event) => {
     setInitial(event.target.value);
   };
+  const handleInitialValue = (e) => {
+    setAddedItem({ ...addedItem, initial: e.target.value })
+  }
+
 
   const [returnable, setReturnable] = useState('');
   const handleReturnable = (event) => {
@@ -111,6 +122,8 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
   // console.log("location from the add modal", location.state);
+
+  console.log("Initial form Add Modal", initial);
 
   return (
     <div>
@@ -241,7 +254,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
               />
             </div>
             <div>
-              {/* <TextField
+              <TextField
                 id="outlined-error"
                 label="Initial Gear"
                 onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
@@ -250,42 +263,10 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
                 id="outlined-error"
                 label="Returnable Item"
                 onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
-              /> */}
+              />
             </div>
           </Box>
-          <Stack direction="row" spacing={2}>
-          <Box sx={{ ml: 1 }}>
-              <FormControl sx={{ minWidth: 135 }}>
-                <InputLabel id="demo-simple-select-label">Initial</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={initial}
-                  label="Age"
-                  onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}  
-                >
-                  <MenuItem value={true}>Yes</MenuItem>
-                  <MenuItem value={false}>No</MenuItem>
-                </Select>
-              </FormControl>
-          </Box>
-          <Box sx={{ml: 1}}>
-              <FormControl sx={{ minWidth: 135 }}>
-                <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={returnable}
-                  label="Age"
-                  onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
-                  
-                >
-                  <MenuItem value={true}>Yes</MenuItem>
-                  <MenuItem value={false}>No</MenuItem>
-                </Select>
-              </FormControl>
-          </Box>
-          </Stack>
+        
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 1 }}>
             <Stack direction="row" spacing={2}>
               <Button

@@ -44,13 +44,15 @@ export default function RowsGrid({
     Count: 0,
     Gender: "-",
     Aisle: "",
-    Initial: false,
+    Initial: "",
     MinCount: 0,
     Ordered: 0,
     Returnable: false,
     Courier: "-",
     Tracking: "-",
   });
+
+
 
   const [newValue, setNewValue] = useState({
     Delete: "",
@@ -62,7 +64,7 @@ export default function RowsGrid({
     Count: 0,
     Gender: "-",
     Aisle: "",
-    Initial: false,
+    Initial: "",
     MinCount: 0,
     Ordered: "",
     Returnable: true,
