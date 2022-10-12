@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 // import AddCart from "..//Buttons/AddCart.js";
+import axios from "axios";
 import AddModal from "../Buttons/AddModal.js";
 import Box from "@mui/material/Box";
+import InventoryTable from "../Tables/InventoryTable.js";
 import SFS_Cape from "../Tables/SFS_Cape.js";
 import SFS_Patrick from "../Tables/SFS_Patrick.js";
-import InventoryTable from "../Tables/InventoryTable.js";
-import axios from "axios";
 import { useLocation } from 'react-router-dom';
+import warehouse from "..//Images/warehouse.gif";
 
 
 function Inventory({ shoppingCart, setShoppingCart }) {
@@ -137,8 +138,8 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               setShoppingCart={setShoppingCart}
             />
             ) : (
-            <Box sx={{ ml: 8, mt: 1 }}>
-              <h1>Currently working on installing the 45 SFS Cape Warehouse</h1>
+            <Box sx={{ display: 'flex', justifyContent:'center', mt: 1 }}>
+              <img alt="warehouse" src={warehouse} width="900" />
             </Box>
             )}
           </Box>
