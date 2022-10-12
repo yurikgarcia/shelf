@@ -22,7 +22,6 @@ const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
 
 
-
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.HOST,

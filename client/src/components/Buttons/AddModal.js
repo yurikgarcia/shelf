@@ -65,7 +65,7 @@ const addItemToInventory = async () => {
       })
   };
 
-  console.log("ADDDEDDD", addedItem)
+
     /**
    * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
    */
@@ -90,11 +90,13 @@ const addItemToInventory = async () => {
    */
         const addItemToSFSCapeInventory = async () => {
           const newInventory = addedItem;
+
+        console.log("THIS")
           axios.post('http://localhost:3000/45sfscapeinventory', { item: newInventory })
             .then(res => {
               if (res.status === 200) {
                 setInventory([...inventory, newInventory])
-                fetchSFSCapeInventory()
+                // fetchSFSCapeInventory()
                 setAddModalOpen(false)
               }
             })
@@ -121,9 +123,7 @@ const addItemToInventory = async () => {
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
-  // console.log("location from the add modal", location.state);
 
-  console.log("Initial form Add Modal", initial);
 
   return (
     <div>

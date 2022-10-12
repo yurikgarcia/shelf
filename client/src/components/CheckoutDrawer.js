@@ -264,12 +264,6 @@ const changeItemQuantity = async (items, index) => {
       let quantity = newQuantity.Quantity
       let newCount = currentItemCount + +quantity ;
       let user_dodid = location.state.DoD;
-
-      console.log("NEWQNTYYYYYYYYYYYYY", quantity)
-      console.log("NEWWWWWCOOOOUNNNTT", newCount)
-      console.log("USER", user_dodid)
-
-
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
@@ -317,17 +311,11 @@ const changeItemQuantity = async (items, index) => {
         setOpenSnack(true);
       };
     
-
-
-
       const availableWarehouses = adminWarehouses.map(warehouse => warehouse.warehouse_access.map(warehouses => {
         return warehouses
       }))
 
       const flatWarehouses = availableWarehouses.flat()
-
-      console.log("VALUE", value)
-
 
 
   return (
