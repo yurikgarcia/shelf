@@ -221,8 +221,9 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 //function that updates the requested quantity of the item in the cart
 const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
+  let ogWarehouse = newQuantity.Original_warehouse;
   axios
-    .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}`,
+    .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}/${ogWarehouse}`,
     newQuantity, 
     )
     .then((res) => {

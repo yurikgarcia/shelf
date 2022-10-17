@@ -150,7 +150,7 @@ export default function RowsGrid({
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-            fetchInventory();
+            // fetchInventory();
             fetchNewShoppingCart();
           }
         })

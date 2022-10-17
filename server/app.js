@@ -126,7 +126,7 @@ app.patch('/shopping-cart/:dod_id/:current_date', addToCart)
 app.patch('/shopping-cart/:dod_id', addToCartFromUser)
 
 //--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
-app.patch('/shopping-cart-quantity/:id/:user_dod', updateQuantity)
+app.patch('/shopping-cart-quantity/:id/:user_dod/:ogWarehouse', updateQuantity)
 
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/currentItemCount/:uuid/:ogWarehouse', itemCurrentCount)

@@ -68,6 +68,7 @@ export default function RowsGrid({
     Returnable: true,
     Courier: "-",
     Tracking: "-",
+    Original: ""
   });
 
   const [open, setOpen] = useState(false);
@@ -380,6 +381,7 @@ export default function RowsGrid({
                     Ordered: row.ordered,
                     Returnable: row.returnable_item,
                     UUID: row.item_id,
+                    Original: row.original_warehouse,
                   };
                 })}
               />
