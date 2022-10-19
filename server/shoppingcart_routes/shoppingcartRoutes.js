@@ -32,6 +32,24 @@ async function getCart(req, res) {
   });
 }
 
+//GET call that fetches the shopping_cart column in database in 
+//order to display the items in the cart
+
+async function getCartColumn(req, res) {
+  let adminID = req.params.adminID;
+  verifyToken(req, res, (authData) => {
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (authData === undefined) return res.send(403);
+      pool.query(`SELECT shopping_cart FROM users WHERE dod_id = '${adminID}'`, (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        res.send(results.rows);
+      });
+    });
+  });
+};
+
 
 //PATCH call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
 // based on the dod_id of the logged in user
@@ -166,5 +184,6 @@ module.exports = {
   getCart,
   addToCart,
   deleteItemFromShoppingCart,
-  addToCartFromUser
+  addToCartFromUser,
+  getCartColumn
 };

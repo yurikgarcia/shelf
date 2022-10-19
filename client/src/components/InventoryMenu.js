@@ -91,13 +91,13 @@ export default function CustomizedMenus() {
           });
         };
 
-        console.log("selectedWarehouse!", selectedWarehouse);
+        // console.log("selectedWarehouse!", selectedWarehouse);
 
         const navigate = useNavigate();
 
         const goToUserDetails = (params) => {
           navigate('/inventory', {state: {warehouse: selectedWarehouse}});
-          console.log("STATE wAREHOUSE", selectedWarehouse)
+          // console.log("STATE wAREHOUSE", selectedWarehouse)
         }
 
 

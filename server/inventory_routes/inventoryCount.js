@@ -25,8 +25,11 @@ async function updateItemCount(req, res) {
     `UPDATE ${ogWarehouse}
           SET item_count='${newCount}'
             WHERE item_id = '${UUID}';
-            UPDATE users SET shopping_cart = NULL 
-            WHERE dod_id = '${admin_id}'`,
+            UPDATE users SET shopping_cart = shopping_cart - 
+            Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
+                ordinality arr(item_object, position) 
+                WHERE dod_id='${admin_id}' and item_object->>'UUID' = '${UUID}') as int)
+                WHERE dod_id='${admin_id}'`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);

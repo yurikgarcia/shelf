@@ -140,8 +140,9 @@ export default function RowsGrid({ }) {
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
                   { field: "Quantity", minWidth: 100 },
-                  { field: "Returnable", minWidth: 100 },
                   { field: "Issued", minWidth: 100 },
+                  { field: "Returnable", minWidth: 100 },
+                  { field: "Warehouse", minWidth: 150 },
                   {
                     field: "Return",
                     minWidth: 10,
@@ -179,7 +180,8 @@ export default function RowsGrid({ }) {
                     Gender: row.Gender,
                     Issued: row.Date,
                     uuidFetcha: row.UUIDfetcha,
-                    Original: row.Original_warehouse                   
+                    Original: row.Original_warehouse,
+                    Warehouse: row.Original_warehouse                     
                   };
                 })}
               />

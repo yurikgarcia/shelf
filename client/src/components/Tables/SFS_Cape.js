@@ -316,6 +316,7 @@ export default function RowsGrid({
                   // { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
+
                   {
                     field: "Issue",
                     renderCell: (params) => (
@@ -382,6 +383,7 @@ export default function RowsGrid({
                     Returnable: row.returnable_item,
                     UUID: row.item_id,
                     Original: row.original_warehouse,
+                    Warehouse: row.original_warehouse,
                   };
                 })}
               />

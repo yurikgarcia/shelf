@@ -18,12 +18,12 @@ const pool = new Pool({
 //inside of user selected'd issued_items column (jsob)
 
 async function addToIssuedItems(req, res) {
+  const item_id = req.params.id;
+  console.log("PARAMMMMMSSSS", req.params)
   pool.query(
     `UPDATE users SET issued_items = COALESCE(issued_items, '[]'::jsonb) ||
     ((SELECT shopping_cart FROM users WHERE dod_id = '${req.params.id}')) ::jsonb
-    WHERE dod_id= '${req.params.dod_id}';
-    UPDATE users SET shopping_cart = NULL 
-    WHERE dod_id = '${req.params.id}'`,
+    WHERE dod_id= '${req.params.dod_id}'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);

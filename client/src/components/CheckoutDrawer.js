@@ -32,8 +32,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [value, setValue] = useState(''); //value state for users drop down
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
-  const warehouses = [ "45 SFS - Patrick Supply"]// hard coded warehouse for warehouse autocomplete dropdown
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+  const [adminCart, setAdminCart] = React.useState([]);//warehouses admin has access to
   const location = useLocation();//Raact Router Hooked used to bring in the state of selected user to process checkout
   const [newQuantity, setNewQuantity] = useState({ 
     Quantity: " ",
@@ -41,6 +41,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     UUID: " ",
     Original_warehouse: " "
   });   //initial state for updating the Quantity of a requested item in the cart
+  const [items, setItems] = useState([]); //state for items in the cart
 
 
 
@@ -126,7 +127,31 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     fetchUsers();
     fetchNewShoppingCart();
     fetchLoggedAdminWarehouses();
+    fetchLoggedAdminCart();
   }, []);
+
+
+    /**
+     * fetches the logged in user's shopping cart from the DB
+     */
+            const fetchLoggedAdminCart = async () => {
+              let adminID = localStorage.user_dod
+              console.log("adminID", adminID)
+              axios
+              .get(`http://localhost:3000/admin-cart/${adminID}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+                },
+              })
+              .then((res) => {
+                setAdminCart(res.data);
+              })
+              .catch((err) => { 
+                console.log(err);
+              });
+            };
+    
+            console.log("CART SHULD BE SHOPPING", adminCart)
 
   /**
    * shopping Cart fetch
@@ -243,6 +268,7 @@ const changeItemQuantity = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = currentItemCount-newQuantity.Quantity;
     let ogWarehouse = newQuantity.Original_warehouse;
+    flatCart.forEach((item) => {
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       newQuantity, 
@@ -257,7 +283,8 @@ const changeItemQuantity = async (items, index) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
-    };
+    })
+  };
 
   //Change count of item in th inventory after the requested quantity is submitted in the cart
     const addToInventoryCount = async (items, index) => {
@@ -317,6 +344,18 @@ const changeItemQuantity = async (items, index) => {
       }))
 
       const flatWarehouses = availableWarehouses.flat()
+
+    
+
+      const cart = newShoppingCart?.map((item, index) => item.shopping_cart?.map((items, index) => {
+        return items
+      }))
+
+      const flatCart = cart.flat()
+
+      console.log("flatCart", flatCart)
+
+
 
 
   return (
@@ -513,15 +552,16 @@ const changeItemQuantity = async (items, index) => {
                         variant="contained"
                         color="primary"
                         size= "large"
+
                         onClick={() => {
                           addToIssuedItems();
-                          setTimeout(() => {
-                            subtractFromInventory();
-                          }, "450")
+                          // setTimeout(() => {
+                          //   flatCart.forEach(subtractFromInventory());
+                          // }, "450")
+                          flatCart.forEach(subtractFromInventory());
                           setTimeout(() => {
                             window.location.reload();
                           }, "900")
-                          // handleClick();
                           }
                         }
                       >
@@ -608,6 +648,7 @@ const changeItemQuantity = async (items, index) => {
     </div>
   );
 }
+
 
                 
 

@@ -16,7 +16,7 @@ const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/user
 const { adminWarehouses } = require('./user_routes/admin_warehouses');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
-const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser } = require('./shoppingcart_routes/shoppingcartRoutes');
+const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser, getCartColumn } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { updateQuantity } = require('./shoppingcart_routes/shoppingCartQuantity');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
@@ -131,8 +131,11 @@ app.patch('/shopping-cart-quantity/:id/:user_dod/:ogWarehouse', updateQuantity)
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/currentItemCount/:uuid/:ogWarehouse', itemCurrentCount)
 
-//--------------------------------SHOPPING CART - WAREHOUSES----------------------------------------------------------------------------------------------------------------
+//--------------------------------WAREHOUSES----------------------------------------------------------------------------------------------------------------
 app.get('/admin-warehouses/:adminID', adminWarehouses)
+
+//--------------------------------ADMIN CART ----------------------------------------------------------------------------------------------------------------
+app.get('/admin-cart/:adminID', getCartColumn)
 
 
 
