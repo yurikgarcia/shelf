@@ -75,6 +75,10 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     fetchUsers();
     fetchNewShoppingCart();
     fetchCurrentItemCount();
+    fetchUsers();
+    fetchNewShoppingCart();
+    fetchLoggedAdminWarehouses();
+    fetchLoggedAdminCart();
     //breaks the app into a loop *****
     // if (localStorage.getItem("authorization") === null)
     //   window.location.href = "/login";
@@ -120,15 +124,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
           console.log(err);
         });
     };
-
-
-  //initial call to grab inventory from DB on load
-  useEffect(() => {
-    fetchUsers();
-    fetchNewShoppingCart();
-    fetchLoggedAdminWarehouses();
-    fetchLoggedAdminCart();
-  }, []);
 
 
     /**
@@ -268,10 +263,13 @@ const changeItemQuantity = async (items, index) => {
     let id = newQuantity.UUID;
     let newCount = currentItemCount-newQuantity.Quantity;
     let ogWarehouse = newQuantity.Original_warehouse;
-    flatCart.forEach((item) => {
-    axios
-      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
-      newQuantity, 
+    flatCart.forEach((items, index) => {
+    // axios
+    //   .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
+    //   newQuantity, 
+    //   )
+      axios
+      .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`,
       )
       .then((res) => {
         if (res.status === 200) {
@@ -553,12 +551,12 @@ const changeItemQuantity = async (items, index) => {
                         color="primary"
                         size= "large"
 
-                        onClick={() => {
+                        onClick={(items, index) => {
                           addToIssuedItems();
                           // setTimeout(() => {
                           //   flatCart.forEach(subtractFromInventory());
                           // }, "450")
-                          flatCart.forEach(subtractFromInventory());
+                          flatCart.forEach(subtractFromInventory(items, index));
                           setTimeout(() => {
                             window.location.reload();
                           }, "900")

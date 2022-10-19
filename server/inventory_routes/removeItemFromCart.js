@@ -16,16 +16,16 @@ const pool = new Pool({
 
 
 
-async function updateItemCount(req, res) {
-  let newCount = req.params.newCount;
+async function removeItemFromCart(req, res) {
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
-  let ogWarehouse = req.params.ogWarehouse;
-  console.log("HITTITNNGGGG SUBTRACT FROM COUNT")
+console.log("HITTING THE REMOVE FROM CART")
   pool.query(
-    `UPDATE ${ogWarehouse}
-          SET item_count='${newCount}'
-            WHERE item_id = '${UUID}'`,
+            `UPDATE users SET shopping_cart = shopping_cart - 
+            Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
+                ordinality arr(item_object, position) 
+                WHERE dod_id='${admin_id}' and item_object->>'UUID' = '${UUID}') as int)
+                WHERE dod_id='${admin_id}'`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);
@@ -40,5 +40,5 @@ async function updateItemCount(req, res) {
 
 
 module.exports = {
-  updateItemCount,
+  removeItemFromCart,
 };

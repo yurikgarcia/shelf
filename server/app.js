@@ -10,6 +10,7 @@ const { getSFSCapeInventory, addItemToSFSCapeInventory, updateItemInSFSCapeInven
 const { getSFSPatrickInventory, addItemToSFSPatrickInventory, updateItemInSFSPatrickInventory, deleteItemFromSFSPatrickInventory, } = require('./sfs_patrick_inventory_routes/sfsPatrick_inventoryRoutes');
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
+const { removeItemFromCart } = require('./inventory_routes/removeItemFromCart');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
 const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
@@ -98,6 +99,10 @@ app.delete('/45sfspatrickinventory', deleteItemFromSFSPatrickInventory)
 //--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------
 
 app.patch('/inventorysubtractcount/:id/:newCount/:dod_id/:ogWarehouse', updateItemCount)
+
+//--------------------------------REMOVE ITEM FROM CART ----------------------------------------------------------------------------------------------------------------
+
+app.patch('/removeitemfromcart/:id/:dod_id', removeItemFromCart)
 
 //--------------------------------INVENTORY ITEM ADD TO COUNT ----------------------------------------------------------------------------------------------------------------
 
