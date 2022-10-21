@@ -70,7 +70,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
 
 
-  //initial call to grab users from DB on load
+  //initial calls
   useEffect(() => {
     fetchUsers();
     fetchNewShoppingCart();
@@ -79,9 +79,6 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     fetchNewShoppingCart();
     fetchLoggedAdminWarehouses();
     fetchLoggedAdminCart();
-    //breaks the app into a loop *****
-    // if (localStorage.getItem("authorization") === null)
-    //   window.location.href = "/login";
   }, []);
 
 
@@ -146,7 +143,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
               });
             };
     
-            console.log("CART SHULD BE SHOPPING", adminCart)
+            // console.log("CART SHULD BE SHOPPING", adminCart)
 
   /**
    * shopping Cart fetch
@@ -260,14 +257,21 @@ const changeItemQuantity = async (items, index) => {
 
   // Function that updates the count of an item after its been issued to a user
   const subtractFromInventory = async (items, index) => {
-    let id = newQuantity.UUID;
-    let newCount = currentItemCount-newQuantity.Quantity;
-    let ogWarehouse = newQuantity.Original_warehouse;
     flatCart.forEach((items, index) => {
-    // axios
-    //   .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
-    //   newQuantity, 
-    //   )
+      // let id = newQuantity.UUID;
+      // let newCount = currentItemCount-newQuantity.Quantity;
+      // let ogWarehouse = newQuantity.Original_warehouse;
+      let id = items.UUID;
+      let newCount = currentItemCount-items.Quantity;
+      let ogWarehouse = items.Original_warehouse;
+      console.log("newCounttttttttttttt", newCount)
+      console.log("idddddddddddddd", id)
+      console.log("ogWarehouse", ogWarehouse)
+      console.log("itemssssssssssssssssssssssssssssssss", items)
+    axios
+      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
+      newQuantity, 
+      )
       axios
       .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`,
       )
@@ -351,7 +355,7 @@ const changeItemQuantity = async (items, index) => {
 
       const flatCart = cart.flat()
 
-      console.log("flatCart", flatCart)
+      // console.log("flatCart", flatCart)
 
 
 
