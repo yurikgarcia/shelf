@@ -12,6 +12,7 @@ const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromI
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { removeItemFromCart } = require('./inventory_routes/removeItemFromCart');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
+const { addToSelectedWarehouse } = require('./inventory_routes/addToSelectedWarehouse');
 const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { adminWarehouses } = require('./user_routes/admin_warehouses');
@@ -108,6 +109,9 @@ app.patch('/removeitemfromcart/:id/:dod_id', removeItemFromCart)
 
 app.patch('/inventoryaddcount/:id/:newCount/:user_dodid/:dod_id', addToItemCount)
 
+//--------------------------------ISSUES ITEMS TO SELECTED WAREHOUSE ----------------------------------------------------------------------------------------------------------------
+
+app.patch('/addToSelectedWarehouse/:selectedWarehouse', addToSelectedWarehouse)
 
 
 //--------------------------------USERS TABLE----------------------------------------------------------------------------------------------------------------

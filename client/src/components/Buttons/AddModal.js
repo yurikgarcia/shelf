@@ -91,7 +91,7 @@ const addItemToInventory = async () => {
         const addItemToSFSCapeInventory = async () => {
           const newInventory = addedItem;
 
-        console.log("THIS")
+        console.log("THISSSSSSSS")
           axios.post('http://localhost:3000/45sfscapeinventory', { item: newInventory })
             .then(res => {
               if (res.status === 200) {

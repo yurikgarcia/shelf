@@ -310,6 +310,28 @@ const changeItemQuantity = async (items, index) => {
       }
 
 
+  //Change count of item in th inventory after the requested quantity is submitted in the cart
+  const addToSelectedWarehouse = async (items, index) => {
+    let selectedWarehouse = value
+    console.log("SELECTED WAREHOUSE", selectedWarehouse)
+    axios
+      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}`,
+      { item: flatCart[0]} 
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          // fetchNewShoppingCart();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+    }
+
+    console.log("VALUE", value)
+    
+
 
 //States and funcitons for snackbars
     const [openSnack, setOpenSnack] = React.useState(false);
@@ -528,6 +550,7 @@ const changeItemQuantity = async (items, index) => {
                   >
                     <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User"  />
                     <FormControlLabel value="Return To Warehouse"  control={<Radio />} label="Return To Warehouse"  />
+                    <FormControlLabel value="Issue To Warehouse"  control={<Radio />} label="Issue To Warehouse"  />
                   </RadioGroup>
                 </FormControl>
                   
@@ -557,10 +580,9 @@ const changeItemQuantity = async (items, index) => {
 
                         onClick={(items, index) => {
                           addToIssuedItems();
-                          // setTimeout(() => {
-                          //   flatCart.forEach(subtractFromInventory());
-                          // }, "450")
-                          flatCart.forEach(subtractFromInventory(items, index));
+                          setTimeout(() => {
+                            flatCart.forEach(subtractFromInventory(items, index))
+                          }, "450")
                           setTimeout(() => {
                             window.location.reload();
                           }, "900")
@@ -628,6 +650,66 @@ const changeItemQuantity = async (items, index) => {
                         </Button>
                       </Box>
                   </Box>
+                                    ) : radioValue === "Issue To Warehouse" ? (
+                                      <Box sx={{mt:2}}>
+                                      <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                                      <h4>Return To: </h4>
+                                        {/* <Autocomplete
+                                          disablePortal
+                                          id="combo-box-demo"
+                                          options={warehouses}
+                                          sx={{ width: 300 }}
+                                          renderInput={(params) => <TextField {...params} label="Warehouses" />}
+                                          onChange={(event, newValue) => {
+                                            // setValue(newValue.dod_id);
+                                            setValue('inventory')
+                                          }}
+                                        /> */}
+                  
+                                        <Autocomplete
+                                          disablePortal
+                                          id="combo-box-demo"
+                                          options={flatWarehouses}
+                                          onChange={(event, newValue) => {
+                                            setValue(newValue.Table);
+                                          }}
+                  
+                                          getOptionLabel={(option) => option.Name }
+                                          
+                  
+                                          // getOptionLabel=
+                                          // {(option) => option.warehouse_access.map((house, index) => {
+                                          //   return house.Name 
+                                          // })}
+                  
+                                          // getOptionLabel={(option) => option.warehouse_access.Name}
+                  
+                                          style={{ width: 300 }}
+                                          renderInput={(params) => (
+                                            <TextField {...params} label="Warehouses" variant="outlined" />
+                                            )}
+                                            />
+                                            
+                                      <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                                          <Button
+                                            variant="contained"
+                                            color="primary"
+                                            size= "large"
+                                            onClick={(items, index) => {
+                                              addToSelectedWarehouse ();//this needs to be the new function
+                                              // setTimeout(() => {
+                                              //   flatCart.forEach(subtractFromInventory(items, index))
+                                              // }, "450")
+                                              // setTimeout(() => {
+                                              //   window.location.reload();
+                                              // }, "900")
+                                              }
+                                            }
+                                          >
+                                            CHECKOUTTTTTTTTTT
+                                          </Button>
+                                        </Box>
+                                    </Box>
                   ) : null}
                 </Box>
                 ) : 
