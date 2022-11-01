@@ -261,11 +261,6 @@ const changeItemQuantity = async (items, index) => {
       let id = items.UUID;
       let newCount = currentItemCount-items.Quantity;
       let ogWarehouse = items.Original_warehouse;
-      // console.log("newCounttttttttttttt", newCount)
-      // console.log("idddddddddddddd", id)
-      // console.log("ogWarehouse", ogWarehouse)
-      // console.log("itemssssssssssssssssssssssssssssssss", items)
-    
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       newQuantity, 
@@ -321,6 +316,8 @@ const changeItemQuantity = async (items, index) => {
     let gender = items.Gender;
     let quantity = newQuantity.Quantity
     let selectedWarehouse = value;
+    let newCount = currentItemCount-items.Quantity;
+    let ogWarehouse = items.Original_warehouse;
     // let item = flatCart[0]
     // console.log("ITEM", item)
     // console.log("NAME", name)
@@ -329,6 +326,9 @@ const changeItemQuantity = async (items, index) => {
     console.log("NEW QNTY", newQuantity)
     axios
       .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}/${name}/${brand}/${nsn}/${size}/${gender}/${quantity}`,
+      )
+      axios
+      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       )
       axios
       .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
@@ -342,8 +342,9 @@ const changeItemQuantity = async (items, index) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
+      window.location.reload();
     })
-    }
+  }
 
 
     

@@ -22,10 +22,10 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
     item_name: '',
-    brand: '',
-    nsn: '',
-    item_size: '',
-    gender: '',
+    brand: '-',
+    nsn: '-',
+    item_size: '-',
+    gender: '-',
     building: '',
     aisle: '',
     item_count: 0,
