@@ -128,7 +128,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
      */
             const fetchLoggedAdminCart = async () => {
               let adminID = localStorage.user_dod
-              console.log("adminID", adminID)
+              // console.log("adminID", adminID)
               axios
               .get(`http://localhost:3000/admin-cart/${adminID}`, {
                 headers: {
@@ -258,16 +258,14 @@ const changeItemQuantity = async (items, index) => {
   // Function that updates the count of an item after its been issued to a user
   const subtractFromInventory = async (items, index) => {
     flatCart.forEach((items, index) => {
-      // let id = newQuantity.UUID;
-      // let newCount = currentItemCount-newQuantity.Quantity;
-      // let ogWarehouse = newQuantity.Original_warehouse;
       let id = items.UUID;
       let newCount = currentItemCount-items.Quantity;
       let ogWarehouse = items.Original_warehouse;
-      console.log("newCounttttttttttttt", newCount)
-      console.log("idddddddddddddd", id)
-      console.log("ogWarehouse", ogWarehouse)
-      console.log("itemssssssssssssssssssssssssssssssss", items)
+      // console.log("newCounttttttttttttt", newCount)
+      // console.log("idddddddddddddd", id)
+      // console.log("ogWarehouse", ogWarehouse)
+      // console.log("itemssssssssssssssssssssssssssssssss", items)
+    
     axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       newQuantity, 
@@ -310,26 +308,44 @@ const changeItemQuantity = async (items, index) => {
       }
 
 
+  
+
   //Change count of item in th inventory after the requested quantity is submitted in the cart
   const addToSelectedWarehouse = async (items, index) => {
-    let selectedWarehouse = value
-    console.log("SELECTED WAREHOUSE", selectedWarehouse)
+    flatCart.forEach((items, index) => {
+    let id = items.UUID;
+    let name = items.Name
+    let brand = items.Brand;
+    let nsn = items.NSN;
+    let size = items.Size;
+    let gender = items.Gender;
+    let quantity = newQuantity.Quantity
+    let selectedWarehouse = value;
+    // let item = flatCart[0]
+    // console.log("ITEM", item)
+    // console.log("NAME", name)
+    // console.log("BRAND", brand)
+    // console.log("QUANTITY", quantity)
+    console.log("NEW QNTY", newQuantity)
     axios
-      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}`,
-      { item: flatCart[0]} 
+      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}/${name}/${brand}/${nsn}/${size}/${gender}/${quantity}`,
+      )
+      axios
+      .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
       )
       .then((res) => {
         if (res.status === 200) {
-          // fetchNewShoppingCart();
+          fetchNewShoppingCart();
         }
       })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
+    })
     }
 
-    console.log("VALUE", value)
+
     
 
 
@@ -377,8 +393,11 @@ const changeItemQuantity = async (items, index) => {
 
       const flatCart = cart.flat()
 
-      // console.log("flatCart", flatCart)
+      // console.log("FLAT", flatCart)
 
+      // console.log("CART", cart)
+
+    
 
 
 
@@ -696,7 +715,7 @@ const changeItemQuantity = async (items, index) => {
                                             color="primary"
                                             size= "large"
                                             onClick={(items, index) => {
-                                              addToSelectedWarehouse ();//this needs to be the new function
+                                              addToSelectedWarehouse()//this needs to be the new function
                                               // setTimeout(() => {
                                               //   flatCart.forEach(subtractFromInventory(items, index))
                                               // }, "450")

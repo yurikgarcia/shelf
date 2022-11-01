@@ -19,7 +19,6 @@ const pool = new Pool({
 async function removeItemFromCart(req, res) {
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
-console.log("HITTING THE REMOVE FROM CART")
   pool.query(
             `UPDATE users SET shopping_cart = shopping_cart - 
             Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 

@@ -111,7 +111,7 @@ app.patch('/inventoryaddcount/:id/:newCount/:user_dodid/:dod_id', addToItemCount
 
 //--------------------------------ISSUES ITEMS TO SELECTED WAREHOUSE ----------------------------------------------------------------------------------------------------------------
 
-app.patch('/addToSelectedWarehouse/:selectedWarehouse', addToSelectedWarehouse)
+app.patch('/addToSelectedWarehouse/:selectedWarehouse/:name/:brand/:nsn/:size/:gender/:quantity', addToSelectedWarehouse)
 
 
 //--------------------------------USERS TABLE----------------------------------------------------------------------------------------------------------------

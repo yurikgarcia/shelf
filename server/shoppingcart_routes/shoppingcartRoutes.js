@@ -84,6 +84,7 @@ async function addToCart(req, res) {
       "UUID": "${params.UUID}",
       "Brand": "${params.Brand}",
       "Count": "${params.Count}",
+      "Gender": "${params.Gender}",
       "NSN": "${params.NSN}",
       "Size": "${params.Size}",
       "Returnable": "${params.Returnable}",
