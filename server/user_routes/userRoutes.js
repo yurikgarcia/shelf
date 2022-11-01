@@ -29,8 +29,9 @@ async function getUsers(req, res) {
 };
 
 async function addUser(req, res) {
+  console.log("req.body", req.body);
   pool.query(
-    `INSERT INTO users (dod_id, first_name, last_name, email, ima) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}')`,
+    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}', '${req.body.users.organization}')`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);

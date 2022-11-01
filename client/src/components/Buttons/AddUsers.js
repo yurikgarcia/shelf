@@ -22,6 +22,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     first_name: '',
     last_name: '',
     email: '',
+    organization: '',
     ima: ''
   })
   
@@ -130,6 +131,11 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 id="outlined-error-helper-text"
                 label="IMA"
                 onChange={(e) => setAddedUsers({ ...addedUsers, ima: e.target.value })}
+              />
+              <TextField
+                id="outlined-error-helper-text"
+                label="Organization"
+                onChange={(e) => setAddedUsers({ ...addedUsers, organization: e.target.value })}
               />
             </div>
           </Box>

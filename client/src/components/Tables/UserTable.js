@@ -26,6 +26,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Last: '',
     DoD: '',
     Email: '',
+    Organization: '',
     IMA: ''
   });
 
@@ -34,6 +35,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Last: '',
     DoD: '',
     Email: '',
+    Organization: '',
     IMA: ''
     // Password: '',
     // Admin: false
@@ -81,6 +83,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
         Last: newValue.Last,
         DoD: newValue.DoD,
         Email: newValue.Email,
+        Organization: newValue.Organization,
         IMA: newValue.IMA
         // Password: newValue.Password,
         // Admin: newValue.Admin
@@ -149,6 +152,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Last", minWidth: 130 },
                   // { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 170 },
+                  { field: "Organization", minWidth: 100 },
                   { field: "IMA", minWidth: 170 },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },
@@ -201,6 +205,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     Items: row.dod_id,
                     First: row.first_name,
                     Last: row.last_name,
+                    Organization: row.organization,
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,

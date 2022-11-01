@@ -37,7 +37,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     courier: '',
     tracking: '',
     contact: '',
-    initial: ''
+    initial: '',
   })
 
 
