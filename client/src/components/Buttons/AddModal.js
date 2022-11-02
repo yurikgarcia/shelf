@@ -232,11 +232,6 @@ const addItemToInventory = async () => {
                 type="number"
                 onChange={(e) => setAddedItem({ ...addedItem, minimum_count: e.target.value })}
               />
-              {/* <TextField
-                id="outlined-error-helper-text"
-                label="Count Status"
-                onChange={(e) => setAddedItem({ ...addedItem, count_status: e.target.value })}
-              /> */}
               <TextField
                 id="outlined-error-helper-text"
                 label="Ordered"
@@ -256,12 +251,7 @@ const addItemToInventory = async () => {
               />
             </div>
             <div>
-              {/* <TextField
-                id="outlined-error"
-                label="Initial Gear"
-                onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
-              /> */}
-
+            <Stack direction="row" spacing={2}>
             <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
                   <FormControl sx={{width: 135}}>
                     <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
@@ -278,8 +268,8 @@ const addItemToInventory = async () => {
                   </FormControl>
             </Box>
 
-            <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
-                  <FormControl sx={{width: 135}}>
+            <Box >
+                  <FormControl sx={{width: 135, mt: 1}}>
                     <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
@@ -293,12 +283,7 @@ const addItemToInventory = async () => {
                     </Select>
                   </FormControl>
             </Box>
-
-              <TextField
-                id="outlined-error"
-                label="Returnable Item"
-                onChange={(e) => setAddedItem({ ...addedItem, returnable_item: e.target.value })}
-              />
+            </Stack>
             </div>
           </Box>
         
