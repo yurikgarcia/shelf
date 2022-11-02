@@ -33,7 +33,9 @@ export default function ProfileMenu() {
       >
         {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My Account</MenuItem> */}
-        <Link to="/signup"style={{ textDecoration: 'none', color: 'black'}}> <MenuItem onClick={handleClose}>Register Account</MenuItem></Link>
+        <Link to="/signup"style={{ textDecoration: 'none', color: 'black'}}> <MenuItem onClick={handleClose}>New Account</MenuItem></Link>
+        <MenuItem style={{ textDecoration: 'none', color: 'black'}} onClick={(e) => (window.location = 'https://tinyurl.com/shelf-inventory')}>New Warehouse</MenuItem>
+        <MenuItem style={{ textDecoration: 'none', color: 'black'}} onClick={(e) => (window.location = 'https://docs.google.com/forms/d/1voabKLs8gkcZ_EOAiHBHqY3kjhNzUDO-8TbXYQyJXOs/edit')}>Report An Issue</MenuItem>
         <MenuItem onClick={handleLogOut}>Logout</MenuItem>
       </Menu>
     </div>

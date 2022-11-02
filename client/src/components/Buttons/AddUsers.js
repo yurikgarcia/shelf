@@ -23,7 +23,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     last_name: '',
     email: '',
     organization: '',
-    ima: ''
+    ima: '-'
   })
   
   const handleUserOpen = () => setAddUserOpen(true);
@@ -123,6 +123,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               <TextField
                 id="outlined-error-helper-text"
                 label="E-Mail"
+                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, email: e.target.value })}
               />
             </div>
@@ -135,6 +136,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               <TextField
                 id="outlined-error-helper-text"
                 label="Organization"
+                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, organization: e.target.value })}
               />
             </div>

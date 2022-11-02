@@ -78,6 +78,7 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path='/external' component={() => { window.location = 'https://tinyurl.com/shelf-inventory'; return null;} }/>
 
               </Routes>
             </div>
