@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -40,6 +41,12 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     initial: '',
   })
 
+  const options = [
+    { label: 'Yes'},
+    { label: 'No'},
+  ];
+  const [initialValue, setInitialValue] = useState(''); //value state for users drop down
+
 
 
 const handleAddOpen = () => setAddModalOpen(true);
@@ -71,6 +78,7 @@ const addItemToInventory = async () => {
    */
     const addItemToSFSPatrickInventory = async () => {
       const newInventory = addedItem;
+      console.log("NEWWWWWWWInventory", newInventory)
       axios.post('http://localhost:3000/45sfspatrickinventory', { item: newInventory })
         .then(res => {
           if (res.status === 200) {
@@ -111,9 +119,9 @@ const addItemToInventory = async () => {
   const handleInitial = (event) => {
     setInitial(event.target.value);
   };
-  const handleInitialValue = (e) => {
-    setAddedItem({ ...addedItem, initial: e.target.value })
-  }
+  // const handleInitialValue = (e) => {
+  //   setAddedItem({ ...addedItem, initial: e.target.value })
+  // }
 
 
   const [returnable, setReturnable] = useState('');
@@ -123,7 +131,17 @@ const addItemToInventory = async () => {
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
+  console.log("VALUE", initialValue)
 
+  const handleInitialValue = (e) => {
+    setAddedItem({ ...addedItem, intial_gear: e.target.value })
+  };
+
+  const [age, setAge] = React.useState('');
+
+  const handleAge = (event) => {
+    setAge(event.target.value);
+  };
 
   return (
     <div>
@@ -254,11 +272,28 @@ const addItemToInventory = async () => {
               />
             </div>
             <div>
-              <TextField
+              {/* <TextField
                 id="outlined-error"
                 label="Initial Gear"
                 onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
-              />
+              /> */}
+
+                  <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                        <FormControl sx={{width: 135}}>
+                          <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={addedItem.intial_gear}
+                            label="Initial"
+                            onChange={handleInitialValue}
+                          >
+                            <MenuItem value={'Yes'}>Yes</MenuItem>
+                            <MenuItem value={'No'}>No</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+
               <TextField
                 id="outlined-error"
                 label="Returnable Item"
