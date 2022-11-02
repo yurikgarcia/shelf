@@ -3,7 +3,11 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
 import SaveIcon from '@mui/icons-material/Save';
+import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
@@ -25,9 +29,22 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     organization: '',
     ima: '-'
   })
+
+  const options = [
+    { label: '45 SFS'},
+    { label: 'SLD 45'},
+  ];
   
   const handleUserOpen = () => setAddUserOpen(true);
   const handleCloseAddUser = () => setAddUserOpen(false);
+
+  const handleIMA = (e) => {
+    setAddedUsers({ ...addedUsers, ima: e.target.value })
+};
+
+  const handleOrganization = (e) => {
+        setAddedUsers({ ...addedUsers, organization: e.target.value })
+  };
 
   /**
    * adds a new users to the DB based on the state set from the textfields
@@ -128,17 +145,38 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               />
             </div>
             <div>
-              <TextField
-                id="outlined-error-helper-text"
-                label="IMA"
-                onChange={(e) => setAddedUsers({ ...addedUsers, ima: e.target.value })}
-              />
-              <TextField
-                id="outlined-error-helper-text"
-                label="Organization"
-                required={true}
-                onChange={(e) => setAddedUsers({ ...addedUsers, organization: e.target.value })}
-              />
+            <Stack direction="row" spacing={2}>
+              <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                <FormControl sx={{width: 135}}>
+                  <InputLabel id="demo-simple-select-label">IMA</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={addedUsers.ima}
+                    label="IMA"
+                    onChange={handleIMA}
+                  >
+                    <MenuItem value={'YES'}>Yes</MenuItem>
+                    <MenuItem value={'NO'}>No</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+              <FormControl sx={{width: 135, mt: 1}}>
+                  <InputLabel id="demo-simple-select-label">Organization</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={addedUsers.organization}
+                    label="Organization"
+                    onChange={handleOrganization}
+                  >
+                    <MenuItem value={'45 SFS'}>45 SFS</MenuItem>
+                    <MenuItem value={'SLD 45'}>SLD 45</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Stack>
             </div>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 2 }}>
