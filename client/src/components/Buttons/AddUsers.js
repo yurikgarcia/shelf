@@ -3,8 +3,14 @@ import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Checkbox from '@mui/material/Checkbox';
+import Divider from "@mui/material/Divider";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 import MenuItem from '@mui/material/MenuItem';
 import SaveIcon from '@mui/icons-material/Save';
 import Select from '@mui/material/Select';
@@ -27,14 +33,11 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     last_name: '',
     email: '',
     organization: '',
-    ima: '-'
+    ima: '',
+    warehouses: '',
   })
 
-  const options = [
-    { label: '45 SFS'},
-    { label: 'SLD 45'},
-  ];
-  
+
   const handleUserOpen = () => setAddUserOpen(true);
   const handleCloseAddUser = () => setAddUserOpen(false);
 
@@ -73,6 +76,21 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
   // const handleReturnable = (event) => {
   //   setReturnable(event.target.value);
   // };
+
+  const [state, setState] = React.useState({
+    sfs45_patrick: false,
+    sfs45_cape: false,
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const { sfs45_patrick, sfs45_cape } = state;
+  // const error = [sfs45_patrick, sfs45_cape].filter((v) => v).length !== 2;
 
   return (
     <div>
@@ -179,6 +197,35 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
             </Stack>
             </div>
           </Box>
+          <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+
+          <Box sx={{ display: 'flex' }}>
+      <FormControl
+        // required
+        // error={error}
+        component="fieldset"
+        sx={{ m: 3 }}
+        variant="standard"
+      >
+        <FormLabel component="legend">Warehouse Access:</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={sfs45_patrick} onChange={handleChange} name="sfs45_patrick"  />
+            }
+            label="45 SFS - Patrick"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={sfs45_cape} onChange={handleChange} name="sfs45_cape" />
+            }
+            label="45 SFS - Cape"
+          />
+        </FormGroup>
+      </FormControl>
+    </Box>
+
+        
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 2 }}>
             <Stack direction="row" spacing={2}>
               <Button
