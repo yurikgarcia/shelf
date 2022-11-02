@@ -11,9 +11,13 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
 import Modal from "@mui/material/Modal";
 import QuantityError from "../Buttons/quantityError.js";
 import SaveIcon from "@mui/icons-material/Save";
+import Select from '@mui/material/Select';
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
@@ -64,10 +68,10 @@ export default function RowsGrid({
     Count: 0,
     Gender: "-",
     Aisle: "",
-    Initial: "",
+    Initial: '',
     MinCount: 0,
     Ordered: "",
-    Returnable: true,
+    Returnable: "",
     Courier: "-",
     Tracking: "-",
     Original: ""
@@ -212,6 +216,14 @@ export default function RowsGrid({
         console.log(err);
         // setSpinner(false);
       });
+  };
+
+  const handleInitialValue = (e) => {
+    setNewValue({ ...newValue, Initial: e.target.value })
+  };
+
+  const handleReturnableValue = (e) => {
+    setNewValue({ ...newValue, Returnable: e.target.value })
   };
 
 
@@ -559,30 +571,39 @@ export default function RowsGrid({
                           sx={{ borerRadius: "5" }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
                         /> 
-                        <TextField
-                          id="filled"
-                          label="Initial Gear"
-                          defaultValue={editedItem?.Initial}
-                          sx={{ borerRadius: "5" }}
-                          onChange={(e) =>
-                            setNewValue({
-                              ...newValue,
-                              Initial: e.target.value,
-                            })
-                          }
-                        />
-                        <TextField
-                          id="filled"
-                          label="Returnable Item"
-                          defaultValue={editedItem?.Returnable}
-                          sx={{ borerRadius: "5" }}
-                          onChange={(e) =>
-                            setNewValue({
-                              ...newValue,
-                              Returnable: e.target.value,
-                            })
-                          }
-                        />
+                      <Stack direction="row" spacing={2}>
+                        <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                          <FormControl sx={{width: 135}}>
+                            <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={newValue.Initial}
+                              label="Initial"
+                              onChange={handleInitialValue}
+                            >
+                              <MenuItem value={'Yes'}>Yes</MenuItem>
+                              <MenuItem value={'No'}>No</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
+
+                        <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                        <FormControl sx={{width: 135, mt: 1}}>
+                            <InputLabel id="demo-simple-select-label">Returnable Gear</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={newValue.Returnable}
+                              label="Returnable"
+                              onChange={handleReturnableValue}
+                            >
+                              <MenuItem value={'Yes'}>Yes</MenuItem>
+                              <MenuItem value={'No'}>No</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </Box>
+                      </Stack>
                       </div>
                     </Box>
                   </CardContent>
