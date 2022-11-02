@@ -34,7 +34,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     count_status: '',
     ordered: 0,
     intial_gear: '',
-    returnable_item: true,
+    returnable_item: '',
     courier: '',
     tracking: '',
     contact: '',
@@ -114,34 +114,18 @@ const addItemToInventory = async () => {
             })
         };
 
-  const [initial, setInitial] = useState('');
-
-  const handleInitial = (event) => {
-    setInitial(event.target.value);
-  };
-  // const handleInitialValue = (e) => {
-  //   setAddedItem({ ...addedItem, initial: e.target.value })
-  // }
-
-
-  const [returnable, setReturnable] = useState('');
-  const handleReturnable = (event) => {
-    setReturnable(event.target.value);
-  };
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
-
-  console.log("VALUE", initialValue)
 
   const handleInitialValue = (e) => {
     setAddedItem({ ...addedItem, intial_gear: e.target.value })
   };
 
-  const [age, setAge] = React.useState('');
-
-  const handleAge = (event) => {
-    setAge(event.target.value);
+  const handleReturnableValue = (e) => {
+    setAddedItem({ ...addedItem, returnable_item: e.target.value })
   };
+
+
 
   return (
     <div>
@@ -278,21 +262,37 @@ const addItemToInventory = async () => {
                 onChange={(e) => setAddedItem({ ...addedItem, intial_gear: e.target.value })}
               /> */}
 
-                  <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
-                        <FormControl sx={{width: 135}}>
-                          <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={addedItem.intial_gear}
-                            label="Initial"
-                            onChange={handleInitialValue}
-                          >
-                            <MenuItem value={'Yes'}>Yes</MenuItem>
-                            <MenuItem value={'No'}>No</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Box>
+            <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                  <FormControl sx={{width: 135}}>
+                    <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={addedItem.intial_gear}
+                      label="Initial"
+                      onChange={handleInitialValue}
+                    >
+                      <MenuItem value={'Yes'}>Yes</MenuItem>
+                      <MenuItem value={'No'}>No</MenuItem>
+                    </Select>
+                  </FormControl>
+            </Box>
+
+            <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+                  <FormControl sx={{width: 135}}>
+                    <InputLabel id="demo-simple-select-label">Returnable</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={addedItem.returnable_item}
+                      label="Initial"
+                      onChange={handleReturnableValue}
+                    >
+                      <MenuItem value={'Yes'}>Yes</MenuItem>
+                      <MenuItem value={'No'}>No</MenuItem>
+                    </Select>
+                  </FormControl>
+            </Box>
 
               <TextField
                 id="outlined-error"
