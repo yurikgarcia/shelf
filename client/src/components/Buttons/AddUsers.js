@@ -35,6 +35,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     organization: '-',
     ima: '-',
     warehouses: '',
+    warehouse_key: '',
   })
 
 
@@ -92,21 +93,48 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
 
 
 
-  //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
-  const handleCheckbox = (event) => {
-    handleWarehouseChange(event)
-    handleChange(event)
-  }
 
-  //function that checks if event.target.checked is true or false and adds to the state of addedUsers.organization array to the name of the checkbox 
-  //if event.tagret.checked is false, it removes the name of the checkbox from the state of addedUsers.organization array
+
+  //function that checks if event.target.checked is true or false and adds to the state of addedUsers.warehouses array to the name of the checkbox and set addedUsers.warehouse_key
+  //to the value of addedUsers.warehouses
+  //if event.target.checked is false, it removes the name of the checkbox from the state of addedUsers.warehouses array and addedUsers.warehouse_key 
+
   const handleWarehouseChange = (event) => {
     if (event.target.checked === true) {
       setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] })
+      setAddedUsers({ ...addedUsers, warehouse_key: addedUsers.warehouses })
     } else {
-      setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((org) => org !== event.target.name) })
+      setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((warehouse) => warehouse !== event.target.name) })
     }
   }
+
+
+
+
+  // const handleWarehouseChange = (event) => {
+  //   if (event.target.checked === true) {
+  //     setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] }) &&
+  //     setAddedUsers({ ...addedUsers, warehouses_key: "HELLO" })
+  //   } else {
+  //     setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((org) => org !== event.target.name) })
+  //   }
+  // }
+
+  // const handleWarehouseKeyChange = (event) => {
+  //   if (event.target.checked === true) {
+  //     setAddedUsers({ ...addedUsers, warehouse_key: [...addedUsers.warehouse_key, event.target.name] })
+  //   } else {
+  //     setAddedUsers({ ...addedUsers, warehouse_key: addedUsers.warehouse_key.filter((org) => org !== event.target.name) })
+  //   }
+  // }
+
+  //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
+  const handleCheckbox = (event) => {
+    handleWarehouseChange(event)
+    // handleWarehouseKeyChange(event)
+    handleChange(event)
+  }
+
 
     
       
