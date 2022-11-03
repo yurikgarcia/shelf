@@ -32,9 +32,9 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     first_name: '',
     last_name: '',
     email: '',
-    organization: '',
+    organization: [],
     ima: '',
-    warehouses: '',
+    warehouses: "",
   })
 
 
@@ -67,29 +67,83 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
       })
   };
 
-  // const [initial, setInitial] = useState('');
-  // const handleChange = (event) => {
-  //   setInitial(event.target.value);
-  // };
 
-  // const [returnable, setReturnable] = useState('');
-  // const handleReturnable = (event) => {
-  //   setReturnable(event.target.value);
-  // };
 
-  const [state, setState] = React.useState({
+  const [warehouseAccess, setWarehouseAccess] = useState({
     sfs45_patrick: false,
     sfs45_cape: false,
   });
 
+  const handleSelect = (event) => {
+    handleChange()
+  }
+
   const handleChange = (event) => {
-    setState({
-      ...state,
+    setWarehouseAccess({
+      ...warehouseAccess,
       [event.target.name]: event.target.checked,
     });
+    // warehouseAccess.map((warehouse) => {
+    //   if (event.target.checked === 'true') {
+    //     setAddedUsers({ ...addedUsers, warehouses: 'HELLO' })
+    //   }
+    // })
   };
 
-  const { sfs45_patrick, sfs45_cape } = state;
+
+
+  //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
+  const handleCheckbox = (event) => {
+    handleOrganizationChange(event)
+    handleChange(event)
+  }
+
+  //function that checks if event.target.checked is true or false and adds to the state of addedUsers.organization array to the name of the checkbox 
+
+  const handleOrganizationChange = (event) => {
+    if (event.target.checked === true) {
+      setAddedUsers({ ...addedUsers, organization: [...addedUsers.organization, event.target.name] })
+    }
+  }
+    
+    
+      
+
+  // const handleOrganizationChange = (event) => {
+  //   if (event.target.checked === true) {
+  //     setAddedUsers({ ...addedUsers, organization: event.target.name })
+  //   }
+  // }
+
+
+
+
+  
+
+
+
+  console.log("USERS", addedUsers)
+
+  // const addToUserWarehouses = async (params) => {
+  //   let userShoppingCart = params.row;
+  //   axios
+  //   .patch(`http://localhost:3000/shopping-cart/${user_dod}/${currentDate}`, userShoppingCart)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         setNewShoppingCart([...newShoppingCart, userShoppingCart]);
+  //         // fetchInventory();
+  //         fetchNewShoppingCart();
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Sorry! Something went wrong. Please try again.");
+  //       console.log("err", err);
+  //     });
+  //   };
+
+  console.log('state', warehouseAccess);
+
+  const { sfs45_patrick, sfs45_cape } = warehouseAccess;
   // const error = [sfs45_patrick, sfs45_cape].filter((v) => v).length !== 2;
 
   return (
@@ -211,13 +265,13 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
         <FormGroup>
           <FormControlLabel
             control={
-              <Checkbox checked={sfs45_patrick} onChange={handleChange} name="sfs45_patrick"  />
+              <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick"  />
             }
             label="45 SFS - Patrick"
           />
           <FormControlLabel
             control={
-              <Checkbox checked={sfs45_cape} onChange={handleChange} name="sfs45_cape" />
+              <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" />
             }
             label="45 SFS - Cape"
           />
@@ -237,8 +291,11 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 Cancel
               </Button>
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-                      onClick={() => {addUserToUserTable()  
-                      window.location.reload()}}>
+                      onClick={() => {
+                        // addUserToUserTable()  
+                        // handleWarehouseAccess ()
+                        // window.location.reload()
+                        }}>
                 Submit
               </Button>
             </Stack>
