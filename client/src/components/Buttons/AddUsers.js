@@ -32,9 +32,9 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     first_name: '',
     last_name: '',
     email: '',
-    organization: [],
+    organization: '',
     ima: '',
-    warehouses: "",
+    warehouses: [],
   })
 
 
@@ -94,18 +94,20 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
 
   //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
   const handleCheckbox = (event) => {
-    handleOrganizationChange(event)
+    handleWarehouseChange(event)
     handleChange(event)
   }
 
   //function that checks if event.target.checked is true or false and adds to the state of addedUsers.organization array to the name of the checkbox 
-
-  const handleOrganizationChange = (event) => {
+  //if event.tagret.checked is false, it removes the name of the checkbox from the state of addedUsers.organization array
+  const handleWarehouseChange = (event) => {
     if (event.target.checked === true) {
-      setAddedUsers({ ...addedUsers, organization: [...addedUsers.organization, event.target.name] })
+      setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] })
+    } else {
+      setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((org) => org !== event.target.name) })
     }
   }
-    
+
     
       
 

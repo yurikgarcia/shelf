@@ -154,6 +154,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Email", minWidth: 170 },
                   { field: "Organization", minWidth: 100 },
                   { field: "IMA", minWidth: 170 },
+                  { field: "Warehouses", minWidth: 170 },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },
                   {
@@ -209,8 +210,10 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    // Password: row.user_password,
-                    // Admin: row.is_admin
+                    Warehouses: row.warehouse_access?.map((warehouse) => {
+                      return warehouse.Name
+                    }
+                    ).join(', ')
                   };
                 })}
               />
