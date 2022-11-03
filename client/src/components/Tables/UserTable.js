@@ -211,10 +211,10 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    Warehouses: row.warehouse_access?.map((warehouse) => {
-                      return warehouse.Name
-                    }
-                    ).join(', ')
+                    // Warehouses: row.warehouse_access?.map((warehouse) => {
+                    //   return warehouse.Name
+                    // }
+                    // ).join(', ')
                   };
                 })}
               />

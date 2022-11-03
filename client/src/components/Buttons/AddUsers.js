@@ -28,12 +28,12 @@ import axios from 'axios';
 export default function AddUsers({ users, setUsers, fetchUsers }) {
   const [AddUserOpen, setAddUserOpen] = useState(false); //Event Handler for Add Modal 
   const [addedUsers, setAddedUsers] = useState({
-    dod_id: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    organization: '',
-    ima: '',
+    dod_id: '-',
+    first_name: '-',
+    last_name: '-',
+    email: '-',
+    organization: '-',
+    ima: '-',
     warehouses: '',
   })
 
