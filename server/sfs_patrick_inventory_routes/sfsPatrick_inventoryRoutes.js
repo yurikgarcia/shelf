@@ -45,6 +45,7 @@ async function addItemToSFSPatrickInventory(req, res) {
 }
 
 async function updateItemInSFSPatrickInventory(req, res) {
+  console.log("PARAMS", req.body);
   let params = {
     item_id: req.body.Delete,
     item_name: req.body.Name,

@@ -34,7 +34,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     email: '',
     organization: '',
     ima: '',
-    warehouses: [],
+    warehouses: '',
   })
 
 
@@ -294,9 +294,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               </Button>
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
-                        // addUserToUserTable()  
-                        // handleWarehouseAccess ()
-                        // window.location.reload()
+                        addUserToUserTable()  
+                        window.location.reload()
                         }}>
                 Submit
               </Button>

@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Modal from '@mui/material/Modal';
+
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
@@ -154,7 +155,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                   { field: "Email", minWidth: 170 },
                   { field: "Organization", minWidth: 100 },
                   { field: "IMA", minWidth: 170 },
-                  { field: "Warehouses", minWidth: 170 },
+                  // { field: "Warehouses", minWidth: 250 },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },
                   {
@@ -210,10 +211,10 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    Warehouses: row.warehouse_access?.map((warehouse) => {
-                      return warehouse.Name
-                    }
-                    ).join(', ')
+                    // Warehouses: row.warehouse_access?.map((warehouse) => {
+                    //   return warehouse.Name
+                    // }
+                    // ).join(', ')
                   };
                 })}
               />
