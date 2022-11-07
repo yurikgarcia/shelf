@@ -5,9 +5,15 @@ import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import Checkbox from '@mui/material/Checkbox';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Divider from "@mui/material/Divider";
 import EditIcon from '@mui/icons-material/Edit';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Modal from '@mui/material/Modal';
 
@@ -28,7 +34,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     DoD: '',
     Email: '',
     Organization: '',
-    IMA: ''
+    IMA: '',
+    Warehouses: ''
   });
 
   const [newValue, setNewValue] = useState({
@@ -37,13 +44,23 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     DoD: '',
     Email: '',
     Organization: '',
-    IMA: ''
-    // Password: '',
-    // Admin: false
+    IMA: '',
   });
+
+  const [editedUserWarehouses, setEditedUserWarehouses] = useState({
+    Warehouses: ''
+});
+
+
   const [open, setOpen] = useState(false);
+  const [warehouseAccess, setWarehouseAccess] = useState({
+    sfs45_patrick: false,
+    sfs45_cape: false,
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
 
   const onDelete = async (params) => {
     let id = params.formattedValue;
@@ -85,7 +102,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
         DoD: newValue.DoD,
         Email: newValue.Email,
         Organization: newValue.Organization,
-        IMA: newValue.IMA
+        IMA: newValue.IMA,
+        Warehouses: newValue.Warehouses
         // Password: newValue.Password,
         // Admin: newValue.Admin
       }
@@ -112,8 +130,42 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     console.log("params.row", params.row)
 } 
 
+  //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
+  const handleCheckbox = (event) => {
+    handleChange(event)
+    handleWarehouseChange(event)
+    // handleWarehouseKeyChange(event)
+  }
+
+  const handleChange = (event) => {
+    setWarehouseAccess({
+      ...warehouseAccess,
+      [event.target.name]: event.target.checked,
+    });
+    console.log("HIIIT")
+  }; 
+
+    //function that checks if event.target.checked is true or false and adds to the state of addedUsers.warehouses array to the name of the checkbox and set addedUsers.warehouse_key
+  //to the value of addedUsers.warehouses
+  //if event.target.checked is false, it removes the name of the checkbox from the state of addedUsers.warehouses array and addedUsers.warehouse_key 
+
+  const handleWarehouseChange = (event) => {
+    // console.log("event.target.checked", [event.target.checked])
+    if (event.target.checked === true) {
+      // setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, event.target.checked] })
+      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, event.target.name] })
+      // setNewValue({ ...newValue, Warehouses: "HELLO" })
+      // setAddedUsers({ ...addedUsers, warehouse_key: 'hello' })
+      // console.log("NAMMEEEE", event.target.name)
+    }
+  }
+
+  const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 
+console.log("newValue", newValue)
+console.log('stateFROMEDIT', warehouseAccess);
+console.log('EDITWARHSE', editedUserWarehouses);
 
 
 
@@ -211,10 +263,10 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    // Warehouses: row.warehouse_access?.map((warehouse) => {
-                    //   return warehouse.Name
-                    // }
-                    // ).join(', ')
+                    Warehouses: row.warehouse_access?.map((warehouse) => {
+                      return warehouse.Name
+                    }
+                    ).join(', ')
                   };
                 })}
               />
@@ -296,6 +348,35 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
                         />
                       </div>
                     </Box>
+
+                    <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+
+                    <Box sx={{ display: 'flex' }}>
+                      <FormControl
+                        // required
+                        // error={error}
+                        component="fieldset"
+                        sx={{ m: 3 }}
+                        variant="standard"
+                      >
+                        <FormLabel component="legend">Warehouse Access:</FormLabel>
+                          <FormGroup>
+                            <FormControlLabel
+                              control={
+                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick"  />
+                              }
+                              label="45 SFS - Patrick"
+                            />
+                            <FormControlLabel
+                              control={
+                                <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" />
+                              }
+                              label="45 SFS - Cape"
+                            />
+                          </FormGroup>
+                        </FormControl>
+                    </Box>
+
                   </CardContent>
                   <CardActions>
                     <Box sx={{ ml: 7, mt: 1 }}>

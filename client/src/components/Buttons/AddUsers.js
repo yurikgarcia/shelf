@@ -102,7 +102,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
   const handleWarehouseChange = (event) => {
     if (event.target.checked === true) {
       setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] })
-      setAddedUsers({ ...addedUsers, warehouse_key: addedUsers.warehouses })
+      // setAddedUsers({ ...addedUsers, warehouse_key: 'hello' })
     } else {
       setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((warehouse) => warehouse !== event.target.name) })
     }
@@ -152,7 +152,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
 
 
 
-  console.log("USERS", addedUsers)
+  // console.log("USERS", addedUsers)
 
   // const addToUserWarehouses = async (params) => {
   //   let userShoppingCart = params.row;
@@ -171,7 +171,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
   //     });
   //   };
 
-  console.log('state', warehouseAccess);
+  // console.log('state', warehouseAccess);
 
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
   // const error = [sfs45_patrick, sfs45_cape].filter((v) => v).length !== 2;
