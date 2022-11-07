@@ -48,7 +48,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   });
 
   const [editedUserWarehouses, setEditedUserWarehouses] = useState({
-    Warehouses: '',
+    Warehouses: ''
 });
 
 const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
@@ -121,6 +121,38 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       })
   }
 
+  const handleUserPermissions = async (e) => {
+    e.preventDefault();
+    console.log("PERMISSIONS")
+    let warehouseName = editedUserWarehousesName.WarehousesName
+    let warehouseID = editedUserWarehouses.Warehouses
+    console.log("warehouseName", warehouseName)
+    console.log("warehouseID", warehouseID)
+    // axios({
+    //   method: "patch",
+    //   url:
+    //     "http://localhost:3000/users" ,
+    //   data: {
+    //     First: newValue.First,
+    //     Last: newValue.Last,
+    //     DoD: newValue.DoD,
+    //     Email: newValue.Email,
+    //     Organization: newValue.Organization,
+    //     IMA: newValue.IMA,
+    //     Warehouses: newValue.Warehouses
+    //     // Password: newValue.Password,
+    //     // Admin: newValue.Admin
+    //   }
+    // })
+    //   .then(() => {
+    //     console.log("success");
+    //     fetchUsers();
+    //   })
+    //   .catch((err) => {
+    //     console.log('err', err)
+    //   })
+  }
+
 
   const [selectedUserDodId, setSelectedUserDodId] = useState({
     DoD: '',
@@ -150,35 +182,49 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
     console.log("HIIIT")
   }; 
 
-    //function that checks if event.target.checked is true or false and adds to the state of addedUsers.warehouses array to the name of the checkbox and set addedUsers.warehouse_key
-  //to the value of addedUsers.warehouses
+  //function that checks if event.target.checked is true or false and adds to the state of editedUserWarehousesUsers array 
   //if event.target.checked is false, it removes the name of the checkbox from the state of addedUsers.warehouses array and addedUsers.warehouse_key 
-
   const handleWarehouseChange = (event) => {
-    // console.log("event.target.checked", [event.target.checked])
     if (event.target.checked === true) {
-      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, event.target.name] })
-    }
+      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {Name: event.target.name}] })
+    } 
+    // else {
+    // if (event.target.checked === false) {
+    //   setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: editedUserWarehouses.Warehouses.filter(warehouse => warehouse !== event.target.name) })
+    //   }
+    // }
   }
 
+
+  //function that check if event.target.checked is true and adds to editedUserWarehousesName.WarehousesName array the name of the checkbox
+  //and if event.target.check is false it removes the name from 
   const handleWarehouseChangeName = (event) => {
     if (event.target.checked === true & event.target.name === 'sfs45_patrick') {
       setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Patrick'] })
     } else {
       if (event.target.checked === true & event.target.name === 'sfs45_cape') {
         setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Cape'] })
+      } else 
+      if (event.target.checked === false & event.target.name === 'sfs45_patrick') {
+        setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Patrick') })
+      } else {
+        if (event.target.checked === false & event.target.name === 'sfs45_cape') {
+          setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Cape') })
+        }
       }
     }
   }
 
 
+
+
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 
-console.log("newValue", newValue)
-console.log('stateFROMEDIT', warehouseAccess);
+// console.log("newValue", newValue)
+// console.log('stateFROMEDIT', warehouseAccess);
 console.log('EDITWARHSE', editedUserWarehouses);
-console.log('EDITNaAME', editedUserWarehousesName);
+// console.log('EDITNaAME', editedUserWarehousesName);
 
 
 
@@ -276,10 +322,10 @@ console.log('EDITNaAME', editedUserWarehousesName);
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    Warehouses: row.warehouse_access?.map((warehouse) => {
-                      return warehouse.Name
-                    }
-                    ).join(', ')
+                    // Warehouses: row.warehouse_access?.map((warehouse) => {
+                    //   return warehouse.Name
+                    // }
+                    // ).join(', ')
                   };
                 })}
               />
@@ -394,7 +440,15 @@ console.log('EDITNaAME', editedUserWarehousesName);
                   <CardActions>
                     <Box sx={{ ml: 7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
-                        <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} onClick={(e) => handleSubmit(e)}>
+                        <Button color='secondary' variant="contained" type="submit" startIcon={<SaveIcon />} 
+
+                        
+                        onClick={(e) => {
+                          handleSubmit(e)
+                          handleUserPermissions(e)
+                          }
+                        }
+                        >
                           Save
                         </Button>
 
