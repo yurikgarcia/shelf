@@ -48,7 +48,11 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   });
 
   const [editedUserWarehouses, setEditedUserWarehouses] = useState({
-    Warehouses: ''
+    Warehouses: '',
+});
+
+const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
+  WarehousesName: ''
 });
 
 
@@ -134,6 +138,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const handleCheckbox = (event) => {
     handleChange(event)
     handleWarehouseChange(event)
+    handleWarehouseChangeName(event)
     // handleWarehouseKeyChange(event)
   }
 
@@ -152,13 +157,20 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const handleWarehouseChange = (event) => {
     // console.log("event.target.checked", [event.target.checked])
     if (event.target.checked === true) {
-      // setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, event.target.checked] })
       setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, event.target.name] })
-      // setNewValue({ ...newValue, Warehouses: "HELLO" })
-      // setAddedUsers({ ...addedUsers, warehouse_key: 'hello' })
-      // console.log("NAMMEEEE", event.target.name)
     }
   }
+
+  const handleWarehouseChangeName = (event) => {
+    if (event.target.checked === true & event.target.name === 'sfs45_patrick') {
+      setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Patrick'] })
+    } else {
+      if (event.target.checked === true & event.target.name === 'sfs45_cape') {
+        setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Cape'] })
+      }
+    }
+  }
+
 
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
@@ -166,6 +178,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 console.log("newValue", newValue)
 console.log('stateFROMEDIT', warehouseAccess);
 console.log('EDITWARHSE', editedUserWarehouses);
+console.log('EDITNaAME', editedUserWarehousesName);
 
 
 
@@ -363,7 +376,7 @@ console.log('EDITWARHSE', editedUserWarehouses);
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick"  />
+                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick" nameTwo="45 SFS - Patrick" />
                               }
                               label="45 SFS - Patrick"
                             />
