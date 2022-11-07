@@ -123,34 +123,26 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
 
   const handleUserPermissions = async (e) => {
     e.preventDefault();
-    console.log("PERMISSIONS")
-    let warehouseName = editedUserWarehousesName.WarehousesName
-    let warehouseID = editedUserWarehouses.Warehouses
-    console.log("warehouseName", warehouseName)
-    console.log("warehouseID", warehouseID)
-    // axios({
-    //   method: "patch",
-    //   url:
-    //     "http://localhost:3000/users" ,
-    //   data: {
-    //     First: newValue.First,
-    //     Last: newValue.Last,
-    //     DoD: newValue.DoD,
-    //     Email: newValue.Email,
-    //     Organization: newValue.Organization,
-    //     IMA: newValue.IMA,
-    //     Warehouses: newValue.Warehouses
-    //     // Password: newValue.Password,
-    //     // Admin: newValue.Admin
-    //   }
-    // })
-    //   .then(() => {
-    //     console.log("success");
-    //     fetchUsers();
-    //   })
-    //   .catch((err) => {
-    //     console.log('err', err)
-    //   })
+    console.log("PERMISSIONS", editedUserWarehouses )
+    console.log("USER ID", editedUser.DoD)
+    axios({
+      method: "patch",
+      url:
+        "http://localhost:3000/usersPermissions" ,
+      data: {
+        DoD: editedUser.DoD,
+        Warehouses: editedUserWarehouses.Warehouses
+        // Password: newValue.Password,
+        // Admin: newValue.Admin
+      }
+    })
+      .then(() => {
+        console.log("success");
+        fetchUsers();
+      })
+      .catch((err) => {
+        console.log('err', err)
+      })
   }
 
 
@@ -195,36 +187,13 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   }
 
 
-
-  //function that check if event.target.checked is true and adds to editedUserWarehousesName.WarehousesName array the name of the checkbox
-  //and if event.target.check is false it removes the name from 
-  // const handleWarehouseChangeName = (event) => {
-  //   if (event.target.checked === true & event.target.name === 'sfs45_patrick') {
-  //     setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Patrick'] })
-  //   } else {
-  //     if (event.target.checked === true & event.target.name === 'sfs45_cape') {
-  //       setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Cape'] })
-  //     } else 
-  //     if (event.target.checked === false & event.target.name === 'sfs45_patrick') {
-  //       setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Patrick') })
-  //     } else {
-  //       if (event.target.checked === false & event.target.name === 'sfs45_cape') {
-  //         setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Cape') })
-  //       }
-  //     }
-  //   }
-  // }
-
-
-
-
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 
-// console.log("newValue", newValue)
+
 console.log('stateFROMEDIT', warehouseAccess);
 console.log('EDITWARHSE', editedUserWarehouses);
-// console.log('EDITNaAME', editedUserWarehousesName);
+
 
 
 
