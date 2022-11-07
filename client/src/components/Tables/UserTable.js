@@ -170,7 +170,7 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   const handleCheckbox = (event) => {
     handleChange(event)
     handleWarehouseChange(event)
-    handleWarehouseChangeName(event)
+    // handleWarehouseChangeName(event)
     // handleWarehouseKeyChange(event)
   }
 
@@ -183,37 +183,37 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   }; 
 
   //function that checks if event.target.checked is true or false and adds to the state of editedUserWarehousesUsers array 
-  //if event.target.checked is false, it removes the name of the checkbox from the state of addedUsers.warehouses array and addedUsers.warehouse_key 
+  //if event.target.checked is false, it removes the entire object from the array
   const handleWarehouseChange = (event) => {
+    console.log("ID CHECK", event.target.id)
     if (event.target.checked === true) {
-      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {Name: event.target.name}] })
+      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {Name: event.target.id, Table: event.target.name}] })
     } 
-    // else {
-    // if (event.target.checked === false) {
-    //   setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: editedUserWarehouses.Warehouses.filter(warehouse => warehouse !== event.target.name) })
-    //   }
-    // }
+    if (event.target.checked === false) {
+      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: editedUserWarehouses.Warehouses.filter((warehouse) => warehouse.Name !== event.target.name) })
+    }
   }
+
 
 
   //function that check if event.target.checked is true and adds to editedUserWarehousesName.WarehousesName array the name of the checkbox
   //and if event.target.check is false it removes the name from 
-  const handleWarehouseChangeName = (event) => {
-    if (event.target.checked === true & event.target.name === 'sfs45_patrick') {
-      setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Patrick'] })
-    } else {
-      if (event.target.checked === true & event.target.name === 'sfs45_cape') {
-        setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Cape'] })
-      } else 
-      if (event.target.checked === false & event.target.name === 'sfs45_patrick') {
-        setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Patrick') })
-      } else {
-        if (event.target.checked === false & event.target.name === 'sfs45_cape') {
-          setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Cape') })
-        }
-      }
-    }
-  }
+  // const handleWarehouseChangeName = (event) => {
+  //   if (event.target.checked === true & event.target.name === 'sfs45_patrick') {
+  //     setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Patrick'] })
+  //   } else {
+  //     if (event.target.checked === true & event.target.name === 'sfs45_cape') {
+  //       setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: [...editedUserWarehousesName.WarehousesName, '45 SFS - Cape'] })
+  //     } else 
+  //     if (event.target.checked === false & event.target.name === 'sfs45_patrick') {
+  //       setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Patrick') })
+  //     } else {
+  //       if (event.target.checked === false & event.target.name === 'sfs45_cape') {
+  //         setEditedUserWarehousesName({ ...editedUserWarehousesName, WarehousesName: editedUserWarehousesName.WarehousesName.filter((item) => item !== '45 SFS - Cape') })
+  //       }
+  //     }
+  //   }
+  // }
 
 
 
@@ -222,7 +222,7 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
 
 
 // console.log("newValue", newValue)
-// console.log('stateFROMEDIT', warehouseAccess);
+console.log('stateFROMEDIT', warehouseAccess);
 console.log('EDITWARHSE', editedUserWarehouses);
 // console.log('EDITNaAME', editedUserWarehousesName);
 
@@ -422,13 +422,13 @@ console.log('EDITWARHSE', editedUserWarehouses);
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick" nameTwo="45 SFS - Patrick" />
+                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick" id="45 SFS - Patrick" />
                               }
                               label="45 SFS - Patrick"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" />
+                                <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" id="45 SFS - Cape" />
                               }
                               label="45 SFS - Cape"
                             />
