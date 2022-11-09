@@ -17,24 +17,27 @@ const pool = new Pool({
 
 //////PATCH CALL THAT UPDATES THE USERS WAREHOUSE PERMISSIONS
 async function updateUserPermissions(req, res) {
+
   console.log("PPPAAARRAMMMMMSSS", req.body)
-  let DoD_ID = req.body.DoD;
-  let Warehouses = req.body.Warehouse;
-  console.log("DOD", DoD_ID)
-  console.log("WARE", Warehouses)
-  // pool.query(
-  //   `UPDATE users SET warehouse_access = '${req.body.Warehouses}' ::jsonb
-  //     WHERE dod_id= '${dod_id}'`,
-  //     (error, results) => {
-  //       if (error) {
-  //         res.send("error" + error);
-  //       }
-  //       console.log("placed item into shopping cart");
-  //       res.status(200);
-  //       res.send("Success")
-  //     }
-  //   );
+  // console.log("BODYYYYYY.WAREHOUSES", req.body.Warehouses)
+
+  pool.query(
+    `UPDATE users SET warehouse_access = '${req.body.Warehouses}' ::jsonb
+      WHERE dod_id = '${req.body.DoD}'`,
+      (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        console.log("updated warehouse permissions");
+        res.status(200);
+        res.send("Success")
+      }
+    );
 }
+
+// `UPDATE users SET warehouse_access = '[{"Name" : "Test"}, {"Name" : "Test2"} ]' ::jsonb THIS WORKS
+
+
 
 // //POST call to add item to JSON cell inside of users table in the shopping_cart column (jsob)
 // // based on the dod_id of the logged in user

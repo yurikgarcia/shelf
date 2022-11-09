@@ -121,17 +121,42 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       })
   }
 
+
+  //function that takes in editedUserWarehouses.Warehouses and returns the key in the key value pair as a string
+  // example [{Name: "45 SFS Patrick ", Table: "sfs45_patrick"}, {Name: "45 SFS Cape ", Table: "sfs45_cape"}] => 
+  //[{"Name": "45 SFS Patrick ", "Table": "sfs45_patrick"}, {"Name": "45 SFS Cape ", "Table": "sfs45_cape"}]
+  // const getWarehouses = (warehouses) => {
+  //   let warehouseArray = warehouses.split(',');
+  //   let warehouseObject = {};
+  //   warehouseArray.forEach(warehouse => {
+  //     warehouseObject[warehouse] = true;
+  //   })
+  //   return warehouseObject;
+  // }
+
+
+
+
+
+
+
+
+
+
+
+  //function that takes in editedUserWarehouses and sets the keys in the object key value pair to a string
+  //example {Name : "45 SFS Patrick AFB", Table: "sfs45_patrick"} becomes {"Name" : "45 SFS Patrick", "Table" : "sfs45_patrick"}
   const handleUserPermissions = async (e) => {
+      let warehousePermissions = JSON.stringify(editedUserWarehouses.Warehouses)
+      console.log("PREMISSIONS", warehousePermissions)
     e.preventDefault();
-    console.log("PERMISSIONS", editedUserWarehouses )
-    console.log("USER ID", editedUser.DoD)
     axios({
       method: "patch",
       url:
         "http://localhost:3000/usersPermissions" ,
       data: {
         DoD: editedUser.DoD,
-        Warehouses: editedUserWarehouses.Warehouses
+        Warehouses: warehousePermissions
         // Password: newValue.Password,
         // Admin: newValue.Admin
       }
@@ -179,7 +204,7 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   const handleWarehouseChange = (event) => {
     console.log("ID CHECK", event.target.id)
     if (event.target.checked === true) {
-      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {Name: event.target.id, Table: event.target.name}] })
+      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {"Name": event.target.id, "Table": event.target.name}] })
     } 
     if (event.target.checked === false) {
       setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: editedUserWarehouses.Warehouses.filter((warehouse) => warehouse.Name !== event.target.name) })
@@ -414,6 +439,7 @@ console.log('EDITWARHSE', editedUserWarehouses);
                         
                         onClick={(e) => {
                           handleSubmit(e)
+                          // getWarehouses()
                           handleUserPermissions(e)
                           }
                         }

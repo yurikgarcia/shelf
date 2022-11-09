@@ -55,6 +55,7 @@ async function getCartColumn(req, res) {
 // based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
+  console.log("ADD TO CART", req.body)
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
