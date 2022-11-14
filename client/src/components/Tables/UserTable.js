@@ -149,6 +149,8 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       let warehousePermissions = JSON.stringify(editedUserWarehouses.Warehouses)
       console.log("PREMISSIONS", warehousePermissions)
     e.preventDefault();
+    if (warehousePermissions.includes("Patrick")) {
+      console.log("HAS VALUE")
     axios({
       method: "patch",
       url:
@@ -161,13 +163,32 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       }
     })
       .then(() => {
-        console.log("success");
+        console.log("permissions granted");
+        fetchUsers();
+      })
+      .catch((err) => {
+        console.log('err', err)
+      })
+  } else {
+    console.log("NULL HIT")
+    axios({
+      method: "patch",
+      url:
+        "http://localhost:3000/usersPermissionsNull" ,
+      data: {
+        DoD: editedUser.DoD,
+        Warehouses: warehousePermissions
+      }
+    })
+      .then(() => {
+        console.log("access set to null");
         fetchUsers();
       })
       .catch((err) => {
         console.log('err', err)
       })
   }
+}
 
 
   const [selectedUserDodId, setSelectedUserDodId] = useState({

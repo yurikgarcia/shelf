@@ -17,6 +17,7 @@ const { itemCurrentCount } = require('./inventory_routes/inventoryItemCount');
 const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
 const { adminWarehouses } = require('./user_routes/admin_warehouses');
 const { updateUserPermissions } = require('./user_routes/userPermissions');
+const { updateUserPermissionsNull } = require('./user_routes/userPermissionsNull');
 const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
 const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser, getCartColumn } = require('./shoppingcart_routes/shoppingcartRoutes');
@@ -125,6 +126,10 @@ app.patch('/users', updateUser)
 //--------------------------------USERS WAREHOUSE PERMISSIONS----------------------------------------------------------------------------------------------------------------
 
 app.patch('/usersPermissions', updateUserPermissions)  
+
+//--------------------------------USERS WAREHOUSE PERMISSIONS NULL----------------------------------------------------------------------------------------------------------------
+
+app.patch('/usersPermissionsNull', updateUserPermissionsNull) 
 //--------------------------------USERS ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------//
 
 app.get('/issueditems/:dod_id', getSelectedUser)
