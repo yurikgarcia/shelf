@@ -57,14 +57,35 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
 
 
   const [open, setOpen] = useState(false);
+
+  //checks editUser.Warehouse if it includes the warehouse name set to true
   const [warehouseAccess, setWarehouseAccess] = useState({
     sfs45_patrick: false,
     sfs45_cape: false,
   });
+  
+//function that checks for the users current warehouse access and sets the warehouseAccess state to true/false
+  const setWarehouseCheck = (editedUser) => {
+    console.log("FROM FUNCTION: ", editedUser.row.Warehouses);
+    let access = {
+      sfs45_patrick: false,
+      sfs45_cape: false,
+    }
+    if (editedUser.row.Warehouses.includes("45 SFS - Patrick")) {
+      access.sfs45_patrick = true;
+    }
+    if (editedUser.row.Warehouses.includes("45 SFS - Cape")) {
+      access.sfs45_cape = true;
+    }
+    console.log("ACCESS: ", access);
+    setWarehouseAccess(access);  
+  }
+
+
+
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-
 
   const onDelete = async (params) => {
     let id = params.formattedValue;
@@ -122,28 +143,6 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   }
 
 
-  //function that takes in editedUserWarehouses.Warehouses and returns the key in the key value pair as a string
-  // example [{Name: "45 SFS Patrick ", Table: "sfs45_patrick"}, {Name: "45 SFS Cape ", Table: "sfs45_cape"}] => 
-  //[{"Name": "45 SFS Patrick ", "Table": "sfs45_patrick"}, {"Name": "45 SFS Cape ", "Table": "sfs45_cape"}]
-  // const getWarehouses = (warehouses) => {
-  //   let warehouseArray = warehouses.split(',');
-  //   let warehouseObject = {};
-  //   warehouseArray.forEach(warehouse => {
-  //     warehouseObject[warehouse] = true;
-  //   })
-  //   return warehouseObject;
-  // }
-
-
-
-
-
-
-
-
-
-
-
   //function that takes in editedUserWarehouses and sets the keys in the object key value pair to a string
   //example {Name : "45 SFS Patrick AFB", Table: "sfs45_patrick"} becomes {"Name" : "45 SFS Patrick", "Table" : "sfs45_patrick"}
   const handleUserPermissions = async (e) => {
@@ -196,7 +195,6 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       ...warehouseAccess,
       [event.target.name]: event.target.checked,
     });
-    console.log("HIIIT")
   }; 
 
   //function that checks if event.target.checked is true or false and adds to the state of editedUserWarehousesUsers array 
@@ -215,9 +213,9 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 
-
+console.log("EDITED USER", editedUser)
 console.log('stateFROMEDIT', warehouseAccess);
-console.log('EDITWARHSE', editedUserWarehouses);
+// console.log('EDITWARHSE', editedUserWarehouses);
 
 
 
@@ -271,7 +269,10 @@ console.log('EDITWARHSE', editedUserWarehouses);
                       <Tooltip title='Edit User'>
                       <EditIcon
                         sx={{ cursor: "pointer", color: '#FF9A01' }}
-                        onClick={() => onEditOpen(params)}
+                        onClick={() => {
+                          onEditOpen(params)
+                          setWarehouseCheck(params)
+                          }}
                       />
                       </Tooltip>
 
@@ -316,10 +317,10 @@ console.log('EDITWARHSE', editedUserWarehouses);
                     DoD: row.dod_id,
                     Email: row.email,
                     IMA: row.ima,
-                    // Warehouses: row.warehouse_access?.map((warehouse) => {
-                    //   return warehouse.Name
-                    // }
-                    // ).join(', ')
+                    Warehouses: row.warehouse_access?.map((warehouse) => {
+                      return warehouse.Name
+                    }
+                    ).join(', ')
                   };
                 })}
               />
@@ -416,13 +417,21 @@ console.log('EDITWARHSE', editedUserWarehouses);
                           <FormGroup>
                             <FormControlLabel
                               control={
-                                <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick" id="45 SFS - Patrick" />
+                                <Checkbox 
+                                checked={sfs45_patrick} 
+                                onChange={handleCheckbox} 
+                                name="sfs45_patrick" 
+                                id="45 SFS - Patrick" />
                               }
-                              label="45 SFS - Patrick"
+                                label="45 SFS - Patrick"
                             />
                             <FormControlLabel
                               control={
-                                <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" id="45 SFS - Cape" />
+                                <Checkbox 
+                                checked={sfs45_cape} 
+                                onChange={handleCheckbox} 
+                                name="sfs45_cape" 
+                                id="45 SFS - Cape" />
                               }
                               label="45 SFS - Cape"
                             />
