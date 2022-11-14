@@ -148,13 +148,14 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   const handleUserPermissions = async (e) => {
       let warehousePermissions = JSON.stringify(editedUserWarehouses.Warehouses)
       console.log("PREMISSIONS", warehousePermissions)
+      console.log("LENGHT", warehousePermissions.length)
     e.preventDefault();
-    if (warehousePermissions.includes("Patrick")) {
-      console.log("HAS VALUE")
+    if (warehousePermissions.length === 2) {
+      console.log("Null")
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/usersPermissions" ,
+        "http://localhost:3000/usersPermissionsNull" ,
       data: {
         DoD: editedUser.DoD,
         Warehouses: warehousePermissions
@@ -163,7 +164,7 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       }
     })
       .then(() => {
-        console.log("permissions granted");
+        console.log("set to null");
         fetchUsers();
       })
       .catch((err) => {
@@ -174,20 +175,21 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/usersPermissionsNull" ,
+        "http://localhost:3000/usersPermissions" ,
       data: {
         DoD: editedUser.DoD,
         Warehouses: warehousePermissions
       }
     })
       .then(() => {
-        console.log("access set to null");
+        console.log("permissions set");
         fetchUsers();
       })
       .catch((err) => {
         console.log('err', err)
       })
   }
+
 }
 
 
@@ -471,7 +473,10 @@ console.log('stateFROMEDIT', warehouseAccess);
                           handleSubmit(e)
                           // getWarehouses()
                           handleUserPermissions(e)
-                          }
+                          // setTimeout(() => {
+                          // window.location.reload()
+                          // } , 500)
+                        }
                         }
                         >
                           Save
