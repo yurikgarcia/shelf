@@ -35,7 +35,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Email: '',
     Organization: '',
     IMA: '',
-    Warehouses: ''
+    Warehouses: '',
+    FullWarehouses: '',
   });
 
   const [newValue, setNewValue] = useState({
@@ -51,9 +52,9 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Warehouses: ''
 });
 
-const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
-  WarehousesName: ''
-});
+// const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
+//   WarehousesName: ''
+// });
 
 
   const [open, setOpen] = useState(false);
@@ -66,7 +67,7 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
   
 //function that checks for the users current warehouse access and sets the warehouseAccess state to true/false
   const setWarehouseCheck = (editedUser) => {
-    console.log("FROM FUNCTION: ", editedUser.row.Warehouses);
+    // console.log("FROM FUNCTION: ", editedUser.row.Warehouses);
     let access = {
       sfs45_patrick: false,
       sfs45_cape: false,
@@ -77,7 +78,6 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
     if (editedUser.row.Warehouses.includes("45 SFS - Cape")) {
       access.sfs45_cape = true;
     }
-    console.log("ACCESS: ", access);
     setWarehouseAccess(access);  
   }
 
@@ -142,13 +142,17 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       })
   }
 
+  //function that sets the initial state of editedUserWarehouses to editedUser.Warehouses
+  const setWarehouses = (editedUser) => {
+    setEditedUserWarehouses(editedUser.row.FullWarehouses);
+  }
+
+  // console.log("SETWAREHOUSES: ", editedUserWarehouses);
 
   //function that takes in editedUserWarehouses and sets the keys in the object key value pair to a string
   //example {Name : "45 SFS Patrick AFB", Table: "sfs45_patrick"} becomes {"Name" : "45 SFS Patrick", "Table" : "sfs45_patrick"}
   const handleUserPermissions = async (e) => {
       let warehousePermissions = JSON.stringify(editedUserWarehouses.Warehouses)
-      console.log("PREMISSIONS", warehousePermissions)
-      console.log("LENGHT", warehousePermissions.length)
     e.preventDefault();
     if (warehousePermissions.length === 2) {
       console.log("Null")
@@ -159,8 +163,6 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       data: {
         DoD: editedUser.DoD,
         Warehouses: warehousePermissions
-        // Password: newValue.Password,
-        // Admin: newValue.Admin
       }
     })
       .then(() => {
@@ -218,26 +220,32 @@ const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
       ...warehouseAccess,
       [event.target.name]: event.target.checked,
     });
+    handleUserPermissions()
   }; 
 
   //function that checks if event.target.checked is true or false and adds to the state of editedUserWarehousesUsers array 
-  //if event.target.checked is false, it removes the entire object from the array
+  //if event.target.checked is false, it removes the index from the array
+
+  // funcntion that finds the index of 45 SFS - Patrick in the editedUsersWarehouses array
   const handleWarehouseChange = (event) => {
-    console.log("ID CHECK", event.target.id)
     if (event.target.checked === true) {
       setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {"Name": event.target.id, "Table": event.target.name}] })
     } 
     if (event.target.checked === false) {
-      setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: editedUserWarehouses.Warehouses.filter((warehouse) => warehouse.Name !== event.target.name) })
+      let wareHouseIndex = editedUserWarehouses.Warehouses.findIndex(object => {
+        return object.Name === event.target.id
+      })
+      editedUserWarehouses.Warehouses.splice(wareHouseIndex, 1)
     }
-  }
-
+}
+  
+console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
 
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 
-console.log("EDITED USER", editedUser)
-console.log('stateFROMEDIT', warehouseAccess);
+// console.log("EDITED USER", editedUser)
+// console.log('stateFROMEDIT', warehouseAccess);
 // console.log('EDITWARHSE', editedUserWarehouses);
 
 
@@ -295,6 +303,7 @@ console.log('stateFROMEDIT', warehouseAccess);
                         onClick={() => {
                           onEditOpen(params)
                           setWarehouseCheck(params)
+                          // setWarehouses(params)
                           }}
                       />
                       </Tooltip>
@@ -343,7 +352,8 @@ console.log('stateFROMEDIT', warehouseAccess);
                     Warehouses: row.warehouse_access?.map((warehouse) => {
                       return warehouse.Name
                     }
-                    ).join(', ')
+                    ).join(', '),
+                    FullWarehouses: row.warehouse_access,
                   };
                 })}
               />
