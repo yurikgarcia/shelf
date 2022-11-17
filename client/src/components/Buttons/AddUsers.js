@@ -19,10 +19,6 @@ import TextField from "@mui/material/TextField";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 
 
 export default function AddUsers({ users, setUsers, fetchUsers }) {
@@ -69,7 +65,6 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
   };
 
 
-
   const [warehouseAccess, setWarehouseAccess] = useState({
     sfs45_patrick: false,
     sfs45_cape: false,
@@ -84,14 +79,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
       ...warehouseAccess,
       [event.target.name]: event.target.checked,
     });
-    // warehouseAccess.map((warehouse) => {
-    //   if (event.target.checked === 'true') {
-    //     setAddedUsers({ ...addedUsers, warehouses: 'HELLO' })
-    //   }
-    // })
   };
-
-
 
 
 
@@ -102,79 +90,18 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
   const handleWarehouseChange = (event) => {
     if (event.target.checked === true) {
       setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] })
-      // setAddedUsers({ ...addedUsers, warehouse_key: 'hello' })
     } else {
       setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((warehouse) => warehouse !== event.target.name) })
     }
   }
 
-
-
-
-  // const handleWarehouseChange = (event) => {
-  //   if (event.target.checked === true) {
-  //     setAddedUsers({ ...addedUsers, warehouses: [...addedUsers.warehouses, event.target.name] }) &&
-  //     setAddedUsers({ ...addedUsers, warehouses_key: "HELLO" })
-  //   } else {
-  //     setAddedUsers({ ...addedUsers, warehouses: addedUsers.warehouses.filter((org) => org !== event.target.name) })
-  //   }
-  // }
-
-  // const handleWarehouseKeyChange = (event) => {
-  //   if (event.target.checked === true) {
-  //     setAddedUsers({ ...addedUsers, warehouse_key: [...addedUsers.warehouse_key, event.target.name] })
-  //   } else {
-  //     setAddedUsers({ ...addedUsers, warehouse_key: addedUsers.warehouse_key.filter((org) => org !== event.target.name) })
-  //   }
-  // }
-
   //function that fires handleOrganizationChange and handleChange when a checkbox is clicked
   const handleCheckbox = (event) => {
     handleWarehouseChange(event)
-    // handleWarehouseKeyChange(event)
     handleChange(event)
   }
 
-
-    
-      
-
-  // const handleOrganizationChange = (event) => {
-  //   if (event.target.checked === true) {
-  //     setAddedUsers({ ...addedUsers, organization: event.target.name })
-  //   }
-  // }
-
-
-
-
-  
-
-
-
-  // console.log("USERS", addedUsers)
-
-  // const addToUserWarehouses = async (params) => {
-  //   let userShoppingCart = params.row;
-  //   axios
-  //   .patch(`http://localhost:3000/shopping-cart/${user_dod}/${currentDate}`, userShoppingCart)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-  //         // fetchInventory();
-  //         fetchNewShoppingCart();
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert("Sorry! Something went wrong. Please try again.");
-  //       console.log("err", err);
-  //     });
-  //   };
-
-  // console.log('state', warehouseAccess);
-
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
-  // const error = [sfs45_patrick, sfs45_cape].filter((v) => v).length !== 2;
 
   return (
     <div>
@@ -258,8 +185,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                     label="IMA"
                     onChange={handleIMA}
                   >
-                    <MenuItem value={'YES'}>Yes</MenuItem>
-                    <MenuItem value={'NO'}>No</MenuItem>
+                    <MenuItem value={'Yes'}>Yes</MenuItem>
+                    <MenuItem value={'No'}>No</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -281,10 +208,10 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
             </Stack>
             </div>
           </Box>
-          <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+          {/* <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>  */}
 
           <Box sx={{ display: 'flex' }}>
-      <FormControl
+      {/* <FormControl
         // required
         // error={error}
         component="fieldset"
@@ -306,7 +233,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
             label="45 SFS - Cape"
           />
         </FormGroup>
-      </FormControl>
+      </FormControl> */}
     </Box>
 
         

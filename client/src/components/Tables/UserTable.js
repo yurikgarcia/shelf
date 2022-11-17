@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
@@ -16,7 +16,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Modal from '@mui/material/Modal';
-
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
@@ -52,6 +51,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Warehouses: ''
 });
 
+const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+
 // const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
 //   WarehousesName: ''
 // });
@@ -81,6 +82,31 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     setWarehouseAccess(access);  
   }
 
+        //initial call to grab users from DB on load
+        useEffect(() => {
+          fetchLoggedAdminWarehouses();
+        }, []);
+    
+          /**
+       * fetches the logged in user's warehouses from the DB
+       */
+          const fetchLoggedAdminWarehouses = async () => {
+            let adminID = localStorage.user_dod
+            axios
+            .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+              },
+            })
+            .then((res) => {
+              setAdminWarehouses(res.data);
+            })
+            .catch((err) => { 
+              console.log(err);
+            });
+          };
+
+          console.log("fetch", adminWarehouses);
 
 
 
@@ -211,8 +237,6 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const handleCheckbox = (event) => {
     handleChange(event)
     handleWarehouseChange(event)
-    // handleWarehouseChangeName(event)
-    // handleWarehouseKeyChange(event)
   }
 
   const handleChange = (event) => {
@@ -226,7 +250,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   //function that checks if event.target.checked is true or false and adds to the state of editedUserWarehousesUsers array 
   //if event.target.checked is false, it removes the index from the array
 
-  // funcntion that finds the index of 45 SFS - Patrick in the editedUsersWarehouses array
+  // function that finds the index of 45 SFS - Patrick in the editedUsersWarehouses array
   const handleWarehouseChange = (event) => {
     if (event.target.checked === true) {
       setEditedUserWarehouses({ ...editedUserWarehouses, Warehouses: [...editedUserWarehouses.Warehouses, {"Name": event.target.id, "Table": event.target.name}] })
@@ -239,17 +263,11 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     }
 }
   
-console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
 
-  const { sfs45_patrick, sfs45_cape } = warehouseAccess;
+const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
-
-// console.log("EDITED USER", editedUser)
-// console.log('stateFROMEDIT', warehouseAccess);
-// console.log('EDITWARHSE', editedUserWarehouses);
-
-
-
+const wareHouseLength = adminWarehouses.length;
+  console.log("length", wareHouseLength)
 
   return (
     <Box
@@ -269,9 +287,10 @@ console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
 
       ) : (
         <div style={{ display: "flex", justifyContent: "center", height: "75vh", width: "100%" }}>
-          <div style={{ display: "flex", height: "100%", width: "100%" }}>
-            <div style={{ flexGrow: 1 }}>
+          <div style={{ display: "flex", height: "100%", width: "100%"}}>
+            <div style={{ flexGrow: 1, whiteSpace: 'normal'  }}>
               <DataGrid
+                sx={{whiteSpace: 'normal', }}
                 initialState={{
                   sorting: {
                     sortModel: [{ field: 'First', sort: 'asc' }],
@@ -286,7 +305,7 @@ console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
                   { field: "First", minWidth: 150, },
                   { field: "Last", minWidth: 130 },
                   // { field: "DoD", minWidth: 100 },
-                  { field: "Email", minWidth: 170 },
+                  { field: "Email", minWidth: 200 },
                   { field: "Organization", minWidth: 100 },
                   { field: "IMA", minWidth: 170 },
                   { field: "Warehouses", minWidth: 250 },
@@ -437,7 +456,9 @@ console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
                     </Box>
 
                     <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
-
+                  
+                  
+                  {wareHouseLength > 0 ? (
                     <Box sx={{ display: 'flex' }}>
                       <FormControl
                         // required
@@ -471,7 +492,8 @@ console.log("EDITED USER WAREHOUSES", editedUserWarehouses)
                           </FormGroup>
                         </FormControl>
                     </Box>
-
+                  ) : null}
+                  
                   </CardContent>
                   <CardActions>
                     <Box sx={{ ml: 7, mt: 1 }}>

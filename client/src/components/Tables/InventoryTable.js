@@ -34,6 +34,9 @@ export default function RowsGrid({
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [currentShoppingCart, setCurrentShoppingCart] = useState([]); //shopping cart state
   const user_dod = localStorage.getItem("user_dod");
+  const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
+  const handleOpenDeleteModal = () => setOpenDeleteModal(true);
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const [editedItem, setEditedItem] = useState({
     Name: "",
     Brand: "",
@@ -357,7 +360,11 @@ export default function RowsGrid({
                       <Tooltip title="Delete Item">
                         <DeleteIcon
                           sx={{ cursor: "pointer", color: "#ef5350" }}
-                          onClick={() => onDelete(params)}
+                          onClick={() => 
+                            // onDelete(params)
+                            handleOpenDeleteModal(params)
+
+                          }
                         />
                       </Tooltip>
                     ),
@@ -588,6 +595,44 @@ export default function RowsGrid({
                 </Box>
               </Modal>
 
+              <Modal
+                open={openDeleteModal}
+                onClose={handleCloseDeleteModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          border: '6px solid #000',
+          borderRadius: '16px',
+          boxShadow: 19,
+          p: 4,
+          borderColor: "#c62828",
+        }} >
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+            Are You Sure You Want To Delete {editedItem?.Name} {editedItem.Brand}?
+          </Typography>
+          <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
+            Data from this item will be <Typography > PERMENENTLY </Typography> DELETED!
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Stack direction="row" spacing={2}>
+              <Button color='secondary' variant="contained" startIcon={<DeleteIcon />}>
+                Delete
+              </Button>
+              <Button color='secondary' variant="contained" startIcon={<CancelIcon />}>
+                Cancel
+              </Button>
+            </Stack>
+          </Box>
+        </Box>
+      </Modal>
+
               <Snackbar
                 open={openSnack} 
                 autoHideDuration={3250} 
@@ -605,5 +650,6 @@ export default function RowsGrid({
         </div>
       )}
     </Box>
+    
   );
 }

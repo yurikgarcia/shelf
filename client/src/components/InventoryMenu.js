@@ -67,9 +67,6 @@ export default function CustomizedMenus() {
       //initial call to grab users from DB on load
       useEffect(() => {
         fetchLoggedAdminWarehouses();
-        //breaks the app into a loop *****
-        // if (localStorage.getItem("authorization") === null)
-        //   window.location.href = "/login";
       }, []);
   
         /**
