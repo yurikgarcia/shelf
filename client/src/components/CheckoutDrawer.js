@@ -380,13 +380,11 @@ const changeItemQuantity = async (items, index) => {
         setOpenSnack(true);
       };
     
-      const availableWarehouses = adminWarehouses.map(warehouse => warehouse.warehouse_access.map(warehouses => {
+      const availableWarehouses = adminWarehouses?.map(warehouse => warehouse?.warehouse_access?.map(warehouses => {
         return warehouses
       }))
 
       const flatWarehouses = availableWarehouses.flat()
-
-    
 
       const cart = newShoppingCart?.map((item, index) => item.shopping_cart?.map((items, index) => {
         return items

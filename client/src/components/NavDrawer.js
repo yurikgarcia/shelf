@@ -150,6 +150,34 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+
+      //initial call to grab users from DB on load
+      useEffect(() => {
+        fetchLoggedAdminWarehouses();
+      }, []);
+  
+        /**
+     * fetches the logged in user's warehouses from the DB
+     */
+        const fetchLoggedAdminWarehouses = async () => {
+          let adminID = localStorage.user_dod
+          axios
+          .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+            },
+          })
+          .then((res) => {
+            setAdminWarehouses(res.data);
+          })
+          .catch((err) => { 
+            console.log(err);
+          });
+        };
+
+        console.log("ADMIN", adminWarehouses)
   
 
   // const handleDrawerOpen = () => {
@@ -164,6 +192,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
     setOpen(false);
   };
 
+  console.log("LENGTH", adminWarehouses.length)
 
 
   return (
@@ -217,7 +246,11 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
             </Link> */}
 
+            {adminWarehouses.length > 1 ? (
             <InventoryMenu/>
+            ) : (
+              null
+            )}
 
             {/* <Link to="/deploymentinventory"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Deployment</Button>
@@ -293,7 +326,11 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link> 
 
+                {adminWarehouses.length > 1 ? (
               <SidebarWarehouses/>
+              ) : (
+                null
+              )}
 
               
               {/* <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>

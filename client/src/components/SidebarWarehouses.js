@@ -124,10 +124,10 @@ export default function CustomizedMenus() {
           open={open}
           onClose={handleClose}
         >
-          {adminWarehouses.map((warehouses, index) => {
+          {adminWarehouses?.map((warehouses, index) => {
               return (
                 <div key={index}>
-                {warehouses.warehouse_access?.map((warehouse_access, index) => {
+                {warehouses?.warehouse_access?.map((warehouse_access, index) => {
                   return (
                     <MenuItem key={index} 
                     onClick={(event, newValue) => {
@@ -141,7 +141,11 @@ export default function CustomizedMenus() {
                       handleClose();
                     }}
                     >
+                      {warehouse_access.lenght > 0 ? (
                       <p>{warehouse_access.Name}</p>
+                      ) : (
+                        "No Available Warehouse"
+                      )}
                     </MenuItem>
                   )})}
                 </div>
