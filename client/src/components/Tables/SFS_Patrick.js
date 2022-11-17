@@ -695,8 +695,7 @@ export default function RowsGrid({
                 open={openSnack} 
                 autoHideDuration={3250} 
                 onClose={handleCloseSnack}
-                TransitionComponent={transition}
-              
+                TransitionComponent={transition}  
                 key={transition ? transition.name : ''}
                 >
                 <Alert  severity="warning" sx={{ width: '1000%' }}>

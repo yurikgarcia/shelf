@@ -9,6 +9,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import EditIcon from "@mui/icons-material/Edit";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Modal from "@mui/material/Modal";
@@ -35,6 +36,12 @@ export default function RowsGrid({
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [currentShoppingCart, setCurrentShoppingCart] = useState([]); //shopping cart state
   const user_dod = localStorage.getItem("user_dod");
+  const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
+  const handleOpenDeleteModal = (params) => {
+  setEditedItem(params.row)
+  setOpenDeleteModal(true);
+  };
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const [editedItem, setEditedItem] = useState({
     Name: "",
     Brand: "",
@@ -74,7 +81,8 @@ export default function RowsGrid({
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const onDelete = async (params) => {
-    let id = params.formattedValue;
+    let id = editedItem.Delete;
+    console.log("DELETE HIT",id);
     axios({
       method: "delete",
       url:
@@ -358,7 +366,8 @@ export default function RowsGrid({
                       <Tooltip title="Delete Item">
                         <DeleteIcon
                           sx={{ cursor: "pointer", color: "#ef5350" }}
-                          onClick={() => onDelete(params)}
+                          onClick={() => 
+                            handleOpenDeleteModal(params)}
                         />
                       </Tooltip>
                     ),
@@ -591,6 +600,54 @@ export default function RowsGrid({
                 </Box>
               </Modal>
 
+              <Modal
+                open={openDeleteModal}
+                onClose={handleCloseDeleteModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 400,
+                  bgcolor: 'background.paper',
+                  border: '6px solid #000',
+                  borderRadius: '16px',
+                  boxShadow: "0px 2px 0px 0px #c62828,0px 2px 25px 5px #c62828",
+                  p: 4,
+                  borderColor: "#c62828",
+                }} >
+                  <DangerousOutlinedIcon sx={{ display: 'flex', justifyContent: 'center', ml:15, fontSize: 80 }}/>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                      Are You Sure You Want To Delete: 
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <h3>{editedItem?.Name} {editedItem.Brand} {editedItem.Size}</h3>
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
+                      Data from this item will be PERMENENTLY DELETED!
+                    </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                    <Stack direction="row" spacing={2}>
+                      <Button
+                        onClick={() => setOpenDeleteModal(false)}
+                      color='secondary' variant="outlined" startIcon={<CancelIcon />}>
+                        Cancel
+                      </Button>
+                      <Button color='secondary' variant="contained"                           
+                          onClick={(params) => {
+                            onDelete(params);
+                            handleCloseDeleteModal();
+                            }
+                          } startIcon={<DeleteIcon />}>
+                        Delete
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Box>
+              </Modal>
               <Snackbar
                 open={openSnack} 
                 autoHideDuration={3250} 
