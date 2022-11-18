@@ -268,6 +268,8 @@ const wareHouseLength = adminWarehouses.length;
 
 console.log("editedUser", editedUser)
 
+console.log("adminWarehouses", adminWarehouses)
+
 
   return (
     <Box

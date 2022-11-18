@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -15,16 +15,21 @@ export default function Login() {
   const [user, setUser] = useState({
     user_email: "",
     user_password: "",
+    user_warehouses: "",
   });
+
 
   /**
    * verify if the user is logged in
    */
+  //check to see if user.user_warehouse is not undefined and console.log"admin" if it is
+  //if user.user_warehouse is undefined then console.log "user"
     const loginUser = async () => {
     axios
       .post("http://localhost:3000/login", {
         user_email: user.user_email,
         user_password: user.user_password,
+        user_warehouses: user.user_password,
       })
       .then((res) => {
         if (res.status === 200) {
@@ -32,11 +37,25 @@ export default function Login() {
           const token = res.data.token;
           localStorage.setItem("authorization", token);
           const user = res.data.user;
-          console.log(user)
+          console.log("USER",user)
+          // console.log("LENGTH", user.user_warehouses.length)
           localStorage.setItem("user_email", user.user_email);
           localStorage.setItem("user_dod", user.user_dod_id);
+          localStorage.setItem("user_warehouses", user.user_email);
+          // let wareHouseLength = user.user_warehouses.length
+          // console.log("USER ADMIN", wareHouseLength)
+          console.log("user.user_warehouses", user.user_first_name)
+          console.log("OKEN", res.data.user)
         }
-        if(localStorage.getItem("authorization") !== undefined ) window.location.href = "/home";
+        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses !== null  ) window.location.href = "/home";
+        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses === null) window.location.href = "/orders2";
+        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses != null  ) window.location.href = "/home";
+        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses == null) window.location.href = "/users";
+        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses !== null ) console.log("ADMIN");
+        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses == null) console.log("USER");
+
+        if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
+        else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) window.location.href = "/users";
       })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");

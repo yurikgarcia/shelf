@@ -177,7 +177,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
           });
         };
 
-       
+
   
 
   // const handleDrawerOpen = () => {
@@ -199,6 +199,8 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   }))
 
   const flatWarehouses = availableWarehouses?.flat()
+
+  console.log( "FLAT WAREHOUSES", flatWarehouses)
 
   return (
       <Box sx={{ display: "flex", }}>
@@ -243,9 +245,18 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button sx={{mr:1}} variant="contained">Home</Button>
             </Link>
 
+
+            {flatWarehouses[0] !== undefined ? (
             <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
+            <Button  sx={{mr:1}} variant="contained">Users</Button>
+          </Link>
+            ) : (
+              null
+            )}
+
+            {/* <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Users</Button>
-            </Link>
+            </Link> */}
 
             {/* <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
@@ -318,18 +329,24 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link>
 
-              <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        < Tooltip title="Users" placement="right-end">              
-                          <GroupIcon sx={{color: "white", fontSize: '30px'}} />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Users" />
-                      </ListItemButton>
-                </ListItem>
-              </Link> 
+              {flatWarehouses[0] !== undefined ? (
+                  <Link to="/users" style={{ textDecoration: 'none', color: 'black'}}>
+                  <ListItem disablePadding>
+                        <ListItemButton>
+                          <ListItemIcon>
+                          < Tooltip title="Users" placement="right-end">              
+                            <GroupIcon sx={{color: "white", fontSize: '30px'}} />
+                          </Tooltip>
+                          </ListItemIcon>
+                          <ListItemText primary="Users" />
+                        </ListItemButton>
+                  </ListItem>
+                </Link> 
+              ) : (
+                null
+              )}
+
+
 
                 {flatWarehouses[0] !== undefined ? (
               <SidebarWarehouses/>

@@ -30,6 +30,7 @@ async function login(req, res) {
   let user = {
     email: req.body.user_email,
     password: req.body.user_password,
+    warehouses: req.body.user_password
   };
   console.log("user when login", user);
   console.log("REQ", req.body);
@@ -55,7 +56,9 @@ async function login(req, res) {
                   user_email: result.rows[0].email,
                   user_dod_id: result.rows[0].dod_id,
                   user_first_name: result.rows[0].first_name,
-                  user_last_name: result.rows[0].last_name
+                  user_last_name: result.rows[0].last_name,
+                  user_dod_id: result.rows[0].dod_id,
+                  USER_warehouses: result.rows[0].warehouse_access,
                 }
               });
               // console.log("token in app.js", token);
