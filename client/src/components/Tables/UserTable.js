@@ -7,6 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
 import EditIcon from '@mui/icons-material/Edit';
@@ -51,14 +52,14 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     Warehouses: ''
 });
 
-const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
-
-// const [editedUserWarehousesName, setEditedUserWarehousesName] = useState({
-//   WarehousesName: ''
-// });
-
-
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [open, setOpen] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
+  const handleOpenDeleteModal = (params) => {
+  setEditedUser(params.row)
+  setOpenDeleteModal(true);
+  };
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
 
   //checks editUser.Warehouse if it includes the warehouse name set to true
   const [warehouseAccess, setWarehouseAccess] = useState({
@@ -106,15 +107,12 @@ const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses ad
             });
           };
 
-          console.log("fetch", adminWarehouses);
-
-
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onDelete = async (params) => {
-    let id = params.formattedValue;
+    let id = editedUser.Delete;
+    console.log("ID: ", id);
     axios({
       method: "delete",
       url:
@@ -267,7 +265,9 @@ const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses ad
 const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 const wareHouseLength = adminWarehouses.length;
-  console.log("length", wareHouseLength)
+
+console.log("editedUser", editedUser)
+
 
   return (
     <Box
@@ -336,7 +336,7 @@ const wareHouseLength = adminWarehouses.length;
                       <Tooltip title='Delete User'>
                         <DeleteIcon
                           sx={{ cursor: "pointer", color: '#ef5350' }}
-                          onClick={() => onDelete(params)}
+                          onClick={() => handleOpenDeleteModal(params)}
                         />
                       </Tooltip>
                     ),
@@ -520,6 +520,55 @@ const wareHouseLength = adminWarehouses.length;
                       </Stack>
                     </Box>
                   </CardActions>
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openDeleteModal}
+                onClose={handleCloseDeleteModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 400,
+                  bgcolor: 'background.paper',
+                  border: '6px solid #000',
+                  borderRadius: '16px',
+                  boxShadow: "0px 2px 0px 0px #c62828,0px 2px 25px 5px #c62828",
+                  p: 4,
+                  borderColor: "#c62828",
+                }} >
+                  <DangerousOutlinedIcon sx={{ display: 'flex', justifyContent: 'center', ml:15, fontSize: 80 }}/>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                      Are You Sure You Want To Delete: 
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <h3>{editedUser?.First} {editedUser.Last}</h3>
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
+                      Data from this item will be PERMENENTLY DELETED!
+                    </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                    <Stack direction="row" spacing={2}>
+                      <Button
+                        onClick={() => setOpenDeleteModal(false)}
+                      color='secondary' variant="outlined" startIcon={<CancelIcon />}>
+                        Cancel
+                      </Button>
+                      <Button color='secondary' variant="contained"                           
+                          onClick={(params) => {
+                            onDelete(params);
+                            handleCloseDeleteModal();
+                            }
+                          } startIcon={<DeleteIcon />}>
+                        Delete
+                      </Button>
+                    </Stack>
+                  </Box>
                 </Box>
               </Modal>
             </div>

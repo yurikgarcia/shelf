@@ -177,7 +177,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
           });
         };
 
-        console.log("ADMIN", adminWarehouses)
+       
   
 
   // const handleDrawerOpen = () => {
@@ -192,17 +192,13 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
     setOpen(false);
   };
 
-  console.log("LENGTH", adminWarehouses.length)
-  console.log("ADWH", adminWarehouses.warehouse_access)
+
 
   const availableWarehouses = adminWarehouses?.map(warehouse => warehouse?.warehouse_access?.map(warehouses => {
     return warehouses
   }))
 
   const flatWarehouses = availableWarehouses?.flat()
-
-
-  console.log("FLAT", flatWarehouses)
 
   return (
       <Box sx={{ display: "flex", }}>

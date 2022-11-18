@@ -91,7 +91,7 @@ export default function CustomizedMenus() {
           });
         };
 
-        console.log("selectedWarehouse!", selectedWarehouse);
+        // console.log("selectedWarehouse!", selectedWarehouse);
 
         const navigate = useNavigate();
 
