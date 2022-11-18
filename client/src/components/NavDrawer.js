@@ -193,7 +193,16 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   };
 
   console.log("LENGTH", adminWarehouses.length)
+  console.log("ADWH", adminWarehouses.warehouse_access)
 
+  const availableWarehouses = adminWarehouses?.map(warehouse => warehouse?.warehouse_access?.map(warehouses => {
+    return warehouses
+  }))
+
+  const flatWarehouses = availableWarehouses?.flat()
+
+
+  console.log("FLAT", flatWarehouses)
 
   return (
       <Box sx={{ display: "flex", }}>
@@ -246,7 +255,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               <Button sx={{mr:1}} variant="contained">Inventory</Button>
             </Link> */}
 
-            {adminWarehouses.length > 1 ? (
+            {flatWarehouses[0] !== undefined ? (
             <InventoryMenu/>
             ) : (
               null
@@ -326,7 +335,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link> 
 
-                {adminWarehouses.length > 1 ? (
+                {flatWarehouses[0] !== undefined ? (
               <SidebarWarehouses/>
               ) : (
                 null
