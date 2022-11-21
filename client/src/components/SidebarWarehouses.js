@@ -141,11 +141,9 @@ export default function CustomizedMenus() {
                       handleClose();
                     }}
                     >
-                      {warehouse_access.lenght > 0 ? (
+                      
                       <p>{warehouse_access.Name}</p>
-                      ) : (
-                        "No Available Warehouse"
-                      )}
+                
                     </MenuItem>
                   )})}
                 </div>

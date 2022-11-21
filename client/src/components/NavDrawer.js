@@ -248,8 +248,8 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
             {flatWarehouses[0] !== undefined ? (
             <Link to="/users"  style={{ textDecoration: 'none', color: 'white'}}>
-            <Button  sx={{mr:1}} variant="contained">Users</Button>
-          </Link>
+              <Button  sx={{mr:1}} variant="contained">Users</Button>
+            </Link>
             ) : (
               null
             )}
@@ -273,9 +273,13 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             </Link> */}
 
 
+            {flatWarehouses[0] !== undefined ? (
             <Link to="/orders2"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
             </Link>
+            ) : (
+              null
+            )}
 
             {/* <Link to="/login"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Login</Button>
@@ -349,7 +353,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
 
                 {flatWarehouses[0] !== undefined ? (
-              <SidebarWarehouses/>
+                  <SidebarWarehouses/>
               ) : (
                 null
               )}
@@ -383,18 +387,27 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 </ListItem>
               </Link>   */}
 
+
+              {flatWarehouses[0] !== undefined ? (
               <Link to="/orders2" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        <Tooltip title="Orders" placement="right-end">
-                          <LocalShippingIcon  sx={{color: "white", fontSize: '30px'}} />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Users" />
-                      </ListItemButton>
-                </ListItem>
-              </Link>  
+              <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                      <Tooltip title="Orders" placement="right-end">
+                        <LocalShippingIcon  sx={{color: "white", fontSize: '30px'}} />
+                      </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText primary="Users" />
+                    </ListItemButton>
+              </ListItem>
+            </Link> 
+              ) : (
+                null
+              )}
+
+
+
+
           </List>
         </Drawer>
           <DrawerHeader />
