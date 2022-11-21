@@ -10,10 +10,13 @@ function UserDetails( ) {
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
+  console.log("LOCATION FROM PAGE", location.state.First)
+
         return (
           <main>  
             <Box sx={{ml: 15, mt: 2}}>
               {/* <h1>{location.state.First} {location.state.Last}: Issued Items </h1> */}
+                <h1>{location.state.First} {location.state.Last}: Issued Items </h1>
             </Box>
 
             <Box sx={{ ml: 8, mt: 1 }}>

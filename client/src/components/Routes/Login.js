@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
@@ -17,6 +17,16 @@ export default function Login() {
     user_password: "",
     user_warehouses: "",
   });
+
+  const navigate = useNavigate();
+
+  const goToUserDetails = (params) => {
+    // console.log("PARAMS", params)
+    let state = { First: params.user_first_name, Last: params.user_last_name, DoD: params.user_dod_id
+    }
+    console.log("STATE FROM LOGIN", state)
+    navigate('/issueditems', {state: state});
+} 
 
 
   /**
@@ -47,15 +57,9 @@ export default function Login() {
           console.log("user.user_warehouses", user.user_first_name)
           console.log("OKEN", res.data.user)
         }
-        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses !== null  ) window.location.href = "/home";
-        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses === null) window.location.href = "/orders2";
-        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses != null  ) window.location.href = "/home";
-        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses == null) window.location.href = "/users";
-        // if(localStorage.getItem("authorization") !== undefined && user.user_warehouses !== null ) console.log("ADMIN");
-        // else if(localStorage.getItem("authorization") !== undefined && user.user_warehouses == null) console.log("USER");
-
         if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
-        else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) window.location.href = "/users";
+        // else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) window.location.href = "/users";
+        else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) goToUserDetails(res.data.user);
       })
       .catch((err) => {
         alert("Sorry! Something went wrong. Please try again.");

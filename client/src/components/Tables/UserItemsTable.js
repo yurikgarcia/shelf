@@ -18,6 +18,8 @@ export default function RowsGrid({ }) {
   const user_dod = localStorage.getItem("user_dod"); //Pulling Dod ID from local storage to use as param for SQL calls
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
 
+  console.log("LOCATION", location.state)
+
   useEffect(() => {
     fetchUsers2();
     if (localStorage.getItem("authorization") === null)
