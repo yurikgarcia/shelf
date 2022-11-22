@@ -4,13 +4,17 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
 import Tooltip from '@mui/material/Tooltip';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import Snackbar from '@mui/material/Snackbar';
 import warehouse from "..//Images/warehouse.gif";
 
 
 export default function RowsGrid({ }) {
 
+  const [currentShoppingCart, setCurrentShoppingCart] = useState([]); //shopping cart state
   const [spinner, setSpinner] = useState(false); //spinner state
   const [user, setUser] = useState([]); //selected user state
   const location = useLocation(); //React Router Dom hook used to pull the dod_id from the URL
@@ -25,9 +29,32 @@ export default function RowsGrid({ }) {
 
   useEffect(() => {
     fetchUsers2();
+    fetchCurrentShoppingCart();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
+
+  
+      // /**
+    //  * shopping Cart fetch
+    //  */
+    const fetchCurrentShoppingCart = async () => {
+      // setSpinner(true);
+      axios
+        .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+          },
+        })
+        .then((res) => {
+          setCurrentShoppingCart(res.data);
+          // setSpinner(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          // setSpinner(false);
+        });
+    };
 
 
   const fetchUsers2 = async () => {
@@ -104,18 +131,37 @@ export default function RowsGrid({ }) {
         });
       };
 
-      // const [columnBool, setColumnBool] = useState();
+      const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+      });
+      
+      
+        const [openSnack, setOpenSnack] = React.useState(false);
+      
+      
+        function TransitionLeft(props) {
+          return <Slide {...props} direction="left" />;
+        }
+      
+        const handleCloseSnack = (event, reason) => {
+          if (reason === 'clickaway') {
+            return;
+          }
+              setOpenSnack(false);
+        };
+      
+      
+        const handleClick = (Transition) => () => {
+          setTransition(() => Transition);
+          setOpenSnack(true);
+        };
+      
+      
+        const [transition, setTransition] = React.useState(undefined)
 
-      // const columBoolSetter = () => {
-      //   if (localStorage.user_warehouses !== null) {
-      //     setColumnBool(true)
-      //   } else {
-      //     setColumnBool(false)
-      //   }
-      // }
 
-      //   console.log("COLUMN BOOL", columnBool)
 
+console.log("CURRENT SHOPPING CART", currentShoppingCart)
 
   return (
     <Box
@@ -159,27 +205,40 @@ export default function RowsGrid({ }) {
                   { field: "Issued", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   { field: "Original", minWidth: 150 },
-                  {
-                    field: "Return",
-                    minWidth: 10,
-
-
-                    renderCell: (params) => (
-                      <Tooltip title="Return Item">
-                        <AssignmentReturnedIcon 
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
-
-                      //     onClick={() => 
-                      //       addToCart(params)
-                      // }
-
-                      onClick={() => {
-                        addToCart(params)
-                        window.location.reload()
-                      }}
-                        />
-                      </Tooltip>
-                    ),
+                  // {
+                  //   field: "Return",
+                  //   minWidth: 10,
+                  //   renderCell: (params) => (
+                  //     <Tooltip title="Return Item">
+                  //       <AssignmentReturnedIcon 
+                  //         sx={{ cursor: "pointer", color: "#4CAF50" }}
+                  //     onClick={() => {
+                  //       addToCart(params)
+                  //       window.location.reload()
+                  //     }}
+                  //       />
+                  //     </Tooltip>
+                  //   )},
+                    {
+                      field: "RETURN",
+                      renderCell: (params) => (
+                        <div>
+                        {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
+                            <AssignmentReturnedIcon 
+                            sx={{ cursor: "pointer", color: "#ff0000" }}
+                            onClick={handleClick(TransitionLeft)}
+                            />  
+                        ) : (
+                            <AssignmentReturnedIcon  
+                            sx={{ cursor: "pointer", color: "#4CAF50" }}
+                              onClick={() => {
+                                addToCart(params)
+                                window.location.reload()
+                              }}
+                            />
+                        ),)}
+                        </div>
+                      ),
                   },
                 ]}
                 rows={issuedItems[0]?.map((row, index) => {
@@ -202,11 +261,25 @@ export default function RowsGrid({ }) {
                   };
                 })}
               />
+
+              <Snackbar
+                open={openSnack} 
+                autoHideDuration={3250} 
+                onClose={handleCloseSnack}
+                TransitionComponent={transition}  
+                key={transition ? transition.name : ''}
+                >
+                <Alert  severity="warning" sx={{ width: '1000%' }}>
+                  Item is already in Cart!
+                </Alert>
+              </Snackbar>              
             </div>
           </div>
         </div>
       )
       }
     </Box >
+
+    
   );
 }
