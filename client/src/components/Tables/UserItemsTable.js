@@ -163,6 +163,22 @@ export default function RowsGrid({ }) {
 
 console.log("CURRENT SHOPPING CART", currentShoppingCart)
 
+//funtion that maps over currentShoppingCart and returns the shopping_cart.UUIDfetch array as shoppingCart
+const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
+  return currentShoppingCart.shopping_cart;
+}
+);
+
+
+
+
+
+
+
+
+// console.log("SHOPPING CART ITEMS", shoppingCart)
+
+
   return (
     <Box
       sx={{
@@ -219,27 +235,29 @@ console.log("CURRENT SHOPPING CART", currentShoppingCart)
                   //       />
                   //     </Tooltip>
                   //   )},
-                    {
-                      field: "RETURN",
-                      renderCell: (params) => (
-                        <div>
-                        {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
-                            <AssignmentReturnedIcon 
-                            sx={{ cursor: "pointer", color: "#ff0000" }}
-                            onClick={handleClick(TransitionLeft)}
-                            />  
-                        ) : (
-                            <AssignmentReturnedIcon  
-                            sx={{ cursor: "pointer", color: "#4CAF50" }}
-                              onClick={() => {
-                                addToCart(params)
-                                window.location.reload()
-                              }}
-                            />
-                        ),)}
-                        </div>
-                      ),
+                  {
+                    field: "Issue",
+                    renderCell: (params) => (
+                      <div>
+                      {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
+                          <AssignmentReturnedIcon
+                          sx={{ cursor: "pointer", color: "#ff0000" }}
+                          onClick={handleClick(TransitionLeft)}
+                          />  
+                      ) : (
+                          <AssignmentReturnedIcon 
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                            onClick={() => {
+                              addToCart(params)
+                              window.location.reload()
+                            }}
+                          />
+                      ),)}
+                      </div>
+                    ),
                   },
+
+                  
                 ]}
                 rows={issuedItems[0]?.map((row, index) => {
                   return {

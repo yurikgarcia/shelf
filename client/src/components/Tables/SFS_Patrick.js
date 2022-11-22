@@ -344,7 +344,7 @@ export default function RowsGrid({
                       <div>
                       {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
                           <AddCircleIcon
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          sx={{ cursor: "pointer", color: "#ff0000" }}
                           onClick={handleClick(TransitionLeft)}
                           />  
                       ) : (
