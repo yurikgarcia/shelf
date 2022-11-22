@@ -51,7 +51,7 @@ function Home() {
           <Box 
           sx={{mt:2, mr:1}}
           >
-            <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
+            {/* <Link to="/inventory" style={{ textDecoration: 'none', color: 'white'}}>
               <Button 
                 color='secondary' 
                 variant="contained" 
@@ -62,7 +62,7 @@ function Home() {
                 >
                     Inventory
               </Button>
-            </Link>
+            </Link> */}
           </Box>
         </Box>
 

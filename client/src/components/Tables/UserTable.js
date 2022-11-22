@@ -266,9 +266,9 @@ const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 const wareHouseLength = adminWarehouses.length;
 
-console.log("editedUser", editedUser)
+// console.log("editedUser", editedUser)
 
-console.log("adminWarehouses", adminWarehouses)
+// console.log("adminWarehouses", adminWarehouses)
 
 
   return (

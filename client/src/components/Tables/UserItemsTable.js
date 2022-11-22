@@ -18,7 +18,10 @@ export default function RowsGrid({ }) {
   const user_dod = localStorage.getItem("user_dod"); //Pulling Dod ID from local storage to use as param for SQL calls
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
 
-  console.log("LOCATION", location.state)
+
+  // console.log("LOCAL STORAGE WAREHOUSES", localStorage.user_warehouses)
+
+
 
   useEffect(() => {
     fetchUsers2();
@@ -87,7 +90,6 @@ export default function RowsGrid({ }) {
 
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
-      console.log("WHATTTTTTTTTTTTTTTTTT", params.row)
       axios
       .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
@@ -102,6 +104,17 @@ export default function RowsGrid({ }) {
         });
       };
 
+      // const [columnBool, setColumnBool] = useState();
+
+      // const columBoolSetter = () => {
+      //   if (localStorage.user_warehouses !== null) {
+      //     setColumnBool(true)
+      //   } else {
+      //     setColumnBool(false)
+      //   }
+      // }
+
+      //   console.log("COLUMN BOOL", columnBool)
 
 
   return (
@@ -135,6 +148,7 @@ export default function RowsGrid({ }) {
                 }}
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
+                
                 columns={[
                   { field: "Name", minWidth: 150 },
                   { field: "Brand", minWidth: 130 },
@@ -144,11 +158,12 @@ export default function RowsGrid({ }) {
                   { field: "Quantity", minWidth: 100 },
                   { field: "Issued", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Warehouse", minWidth: 150 },
+                  { field: "Original", minWidth: 150 },
                   {
                     field: "Return",
                     minWidth: 10,
-                    editable: true,
+
+
                     renderCell: (params) => (
                       <Tooltip title="Return Item">
                         <AssignmentReturnedIcon 
@@ -187,7 +202,6 @@ export default function RowsGrid({ }) {
                   };
                 })}
               />
-
             </div>
           </div>
         </div>

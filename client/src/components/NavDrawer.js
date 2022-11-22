@@ -200,7 +200,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
   const flatWarehouses = availableWarehouses?.flat()
 
-  console.log( "FLAT WAREHOUSES", flatWarehouses)
+
 
   return (
       <Box sx={{ display: "flex", }}>
@@ -301,7 +301,12 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               
             </Search> */}
             <ProfileMenu/>
-            <CheckoutDrawer shoppingCart={shoppingCart}/>   
+
+            {flatWarehouses[0] !== undefined ? (
+            <CheckoutDrawer shoppingCart={shoppingCart}/> 
+            ) : (
+            null)}
+            
           </Toolbar>
         </AppBar>
 

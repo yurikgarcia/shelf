@@ -15,16 +15,17 @@ export default function Login() {
   const [user, setUser] = useState({
     user_email: "",
     user_password: "",
-    user_warehouses: "",
+    USER_warehouses: "",
   });
 
   const navigate = useNavigate();
 
   const goToUserDetails = (params) => {
     // console.log("PARAMS", params)
-    let state = { First: params.user_first_name, Last: params.user_last_name, DoD: params.user_dod_id
+    let state = { First: params.user_first_name, Last: params.user_last_name, DoD: params.user_dod_id, Warehouses: params.USER_warehouses 
     }
-    console.log("STATE FROM LOGIN", state)
+    // console.log("PARAMS", params)
+    // console.log("STATE FROM LOGIN", state)
     navigate('/issueditems', {state: state});
 } 
 
@@ -50,15 +51,18 @@ export default function Login() {
           console.log("USER",user)
           // console.log("LENGTH", user.user_warehouses.length)
           localStorage.setItem("user_email", user.user_email);
+          localStorage.setItem("user_first", user.user_first_name);
+          localStorage.setItem("user_name", user.user_first_name + " " + user.user_last_name);
           localStorage.setItem("user_dod", user.user_dod_id);
-          localStorage.setItem("user_warehouses", user.user_email);
+          localStorage.setItem("USER_warehouses", user.user_warehouses);
           // let wareHouseLength = user.user_warehouses.length
           // console.log("USER ADMIN", wareHouseLength)
-          console.log("user.user_warehouses", user.user_first_name)
-          console.log("OKEN", res.data.user)
+          // console.log("user.user_warehouses", user.user_first_name)
+          // console.log("OKEN", res.data.user)
         }
         if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
-        // else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) window.location.href = "/users";
+        // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) console.log("TOKEN", res.data.user);
+        // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) goToUserDetails(res.data.user);
         else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) goToUserDetails(res.data.user);
       })
       .catch((err) => {

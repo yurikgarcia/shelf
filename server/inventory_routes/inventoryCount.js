@@ -21,7 +21,7 @@ async function updateItemCount(req, res) {
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
   let ogWarehouse = req.params.ogWarehouse;
-  console.log("HITTITNNGGGG SUBTRACT FROM COUNT")
+  // console.log("HITTITNNGGGG SUBTRACT FROM COUNT")
   pool.query(
     `UPDATE ${ogWarehouse}
           SET item_count='${newCount}'

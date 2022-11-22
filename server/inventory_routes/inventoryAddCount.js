@@ -23,9 +23,9 @@ async function addToItemCount(req, res) {
   let user_id = req.params.user_dodid;
   let ogWarehouse = req.body.Original_warehouse
 
-console.log("PARAMS FROM RETURNING ITEM", req.params)
-console.log("BODY FROM RETURNING ITEM", req.body)
-console.log("WAREHOUSEE", ogWarehouse)
+// console.log("PARAMS FROM RETURNING ITEM", req.params)
+// console.log("BODY FROM RETURNING ITEM", req.body)
+// console.log("WAREHOUSEE", ogWarehouse)
 
   pool.query(
     `WITH cte 
@@ -33,7 +33,6 @@ console.log("WAREHOUSEE", ogWarehouse)
     SET item_count = '${newCount}'
     WHERE item_id = '${uuid}'
     )
-    UPDATE users SET shopping_cart = NULL WHERE dod_id = '${admin_id}'; 
     UPDATE users SET issued_items = issued_items - 
         Cast((SELECT position - 1 FROM users, jsonb_array_elements(issued_items) with 
             ordinality arr(item_object, position) 

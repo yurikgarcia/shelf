@@ -281,26 +281,64 @@ const changeItemQuantity = async (items, index) => {
     })
   };
 
-  //Change count of item in th inventory after the requested quantity is submitted in the cart
-    const addToInventoryCount = async (items, index) => {
-      let id = newQuantity.UUID;
-      let quantity = newQuantity.Quantity
-      let newCount = currentItemCount + +quantity ;
+//function that for each index of flatCart, updates the count of the item in the warehouse and then removes the item from the cart
+  const addToInventoryCount = async (items, index) => {
+    flatCart.forEach((items, index) => {
+      let id = items.UUID;
+      let newCount = currentItemCount+items.Quantity;
+      let ogWarehouse = items.Original_warehouse;
       let user_dodid = location.state.DoD;
+      console.log("ID", id)
+      console.log("newCount", newCount)
+      console.log("ogWarehouse", ogWarehouse)
+      console.log("user_dodid", user_dodid)
+      console.log("USER_DOD", user_dod)
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
         )
-        .then((res) => {
-          if (res.status === 200) {
-            // fetchNewShoppingCart();
-          }
-        })
-        .catch((err) => {
-          alert("Sorry! Something went wrong. Please try again.");
-          console.log("err", err);
-        });
-      }
+        axios
+        .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
+        )
+      .then((res) => {
+        if (res.status === 200) {
+          fetchNewShoppingCart();
+          // fetchInventory();
+        }
+      })
+      .catch((err) => {
+        alert("Sorry! Something went wrong. Please try again.");
+        console.log("err", err);
+      });
+    })
+  };
+
+    // const addToInventoryCount = async (items, index) => {
+    //   flatCart.forEach((items, index) => {
+    //   let id = newQuantity.UUID;
+    //   let quantity = newQuantity.Quantity
+    //   let newCount = currentItemCount + +quantity ;
+    //   let user_dodid = location.state.DoD;
+    //   console.log("CART",flatCart)
+    //   // axios
+    //   //   .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
+    //   //   newQuantity, 
+    //   //   )
+    //     axios
+    //     .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
+    //     )
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         // fetchNewShoppingCart();
+    //         console.log("Added Item to inventory")
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       alert("Sorry! Something went wrong. Please try again.");
+    //       console.log("err", err);
+    //     });
+    //   }
+    // )};
 
 
   
@@ -323,7 +361,7 @@ const changeItemQuantity = async (items, index) => {
     // console.log("NAME", name)
     // console.log("BRAND", brand)
     // console.log("QUANTITY", quantity)
-    console.log("NEW QNTY", newQuantity)
+    // console.log("NEW QNTY", newQuantity)
     axios
       .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}/${name}/${brand}/${nsn}/${size}/${gender}/${quantity}`,
       )
@@ -614,7 +652,7 @@ const changeItemQuantity = async (items, index) => {
                   ) : radioValue === "Return To Warehouse" ? (
                     <Box sx={{mt:2}}>
                     <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                    <h4>Return To: </h4>
+                    <h4>Return To: {value}  </h4>
                       {/* <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -656,22 +694,22 @@ const changeItemQuantity = async (items, index) => {
                           variant="contained"
                           color="primary"
                           size= "large"
-                          onClick={() => {
+                          onClick={(items, index) => {
                             addToInventoryCount ();
-                            setTimeout(() => {
-                              window.location.reload();
-                            }, "1000")
+                            // setTimeout(() => {
+                            //   window.location.reload();
+                            // }, "1000")
                             }
                           }
                         >
-                          CHECKOUT
+                          CHECKOUT TEST
                         </Button>
                       </Box>
                   </Box>
                                     ) : radioValue === "Issue To Warehouse" ? (
                                       <Box sx={{mt:2}}>
                                       <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                                      <h4>Return To: </h4>
+                                      <h4>Issue To: {value}  </h4> 
                                         {/* <Autocomplete
                                           disablePortal
                                           id="combo-box-demo"
@@ -724,7 +762,7 @@ const changeItemQuantity = async (items, index) => {
                                               }
                                             }
                                           >
-                                            CHECKOUTTTTTTTTTT
+                                            CHECKOUT
                                           </Button>
                                         </Box>
                                     </Box>

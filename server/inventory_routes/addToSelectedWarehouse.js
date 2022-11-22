@@ -49,9 +49,9 @@ const pool = new Pool({
 
 async function addToSelectedWarehouse(req, res) {
   let selectedWarehouse = req.params.selectedWarehouse
-  // console.log("HIIIIIIIIIIIIT  YYYYOOOUUUU BITCHHHHHHHHHHHHH", req.params)
-  // console.log("BBBOOODDDYYYY", req.body)
-  // console.log("NAME", req.body.item.Name)
+  console.log("HIIIIIIIIIIIIT  YYYYOOOUUUU BITCHHHHHHHHHHHHH", req.params)
+  console.log("BBBOOODDDYYYY", req.body)
+  console.log("NAME", req.body.item.Name)
   console.log("PAAAAARRRRAAAMMMMMMMMMMMMM", req.params)
   pool.query(
     `INSERT INTO ${selectedWarehouse} (item_name, brand, nsn, item_size, gender, item_count) values('${req.params.name}', '${req.params.brand}', '${req.params.nsn}', '${req.params.size}', '${req.params.gender}', '${req.params.quantity}')`,

@@ -19,6 +19,9 @@ const pool = new Pool({
 async function removeItemFromCart(req, res) {
   let UUID = req.params.id;
   let admin_id = req.params.dod_id;
+  console.log("PARAM FROM REMOVE", req.params)
+  console.log("UUID FROM REMOVE", UUID)
+  console.log("ADMIN ID FROM REMOVE", admin_id)
   pool.query(
             `UPDATE users SET shopping_cart = shopping_cart - 
             Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
@@ -29,7 +32,7 @@ async function removeItemFromCart(req, res) {
       if (error) {
         return res.send("error" + error);
       }
-      console.log("updated count in the inventory");
+      console.log("removed from shopping cart");
       res.status(204);
       res.send("Success");
     }
