@@ -347,24 +347,12 @@ const changeItemQuantity = async (items, index) => {
   const addToSelectedWarehouse = async (items, index) => {
     flatCart.forEach((items, index) => {
     let id = items.UUID;
-    let name = items.Name
-    let brand = items.Brand;
-    let nsn = items.NSN;
-    let size = items.Size;
-    let gender = items.Gender;
-    let quantity = newQuantity.Quantity
     let selectedWarehouse = value;
     let newCount = currentItemCount-items.Quantity;
     let ogWarehouse = items.Original_warehouse;
-    // let item = flatCart[0]
-    // console.log("ITEM", item)
-    // console.log("NAME", name)
-    // console.log("BRAND", brand)
-    // console.log("QUANTITY", quantity)
-    // console.log("NEW QNTY", newQuantity)
     axios
-      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}/${name}/${brand}/${nsn}/${size}/${gender}/${quantity}`,
-      )
+      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}`, items
+      ); console.log("ITEMS ADD TO SELECTED", items)
       axios
       .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       )
@@ -756,9 +744,9 @@ const changeItemQuantity = async (items, index) => {
                                               // setTimeout(() => {
                                               //   flatCart.forEach(subtractFromInventory(items, index))
                                               // }, "450")
-                                              // setTimeout(() => {
-                                              //   window.location.reload();
-                                              // }, "900")
+                                              setTimeout(() => {
+                                                window.location.reload();
+                                              }, "1000")
                                               }
                                             }
                                           >

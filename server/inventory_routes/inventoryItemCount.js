@@ -18,6 +18,7 @@ const pool = new Pool({
 async function itemCurrentCount(req, res) {
   let UUID = req.params.uuid;
   let ogWarehouse = req.params.ogWarehouse
+  console.log("COUNT", req.params)
   verifyToken(req, res, (authData) => {
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);

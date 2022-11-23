@@ -49,12 +49,10 @@ const pool = new Pool({
 
 async function addToSelectedWarehouse(req, res) {
   let selectedWarehouse = req.params.selectedWarehouse
-  console.log("HIIIIIIIIIIIIT  YYYYOOOUUUU BITCHHHHHHHHHHHHH", req.params)
   console.log("BBBOOODDDYYYY", req.body)
-  console.log("NAME", req.body.item.Name)
-  console.log("PAAAAARRRRAAAMMMMMMMMMMMMM", req.params)
+  console.log("PARAMS", req.params)
   pool.query(
-    `INSERT INTO ${selectedWarehouse} (item_name, brand, nsn, item_size, gender, item_count) values('${req.params.name}', '${req.params.brand}', '${req.params.nsn}', '${req.params.size}', '${req.params.gender}', '${req.params.quantity}')`,
+    `INSERT INTO ${selectedWarehouse} (item_name, brand, nsn, item_size, gender, item_count, original_warehouse) values('${req.body.Name}', '${req.body.Brand}', '${req.body.NSN}', '${req.body.Size}', '${req.body.Gender}', '${req.body.Quantity}', '${selectedWarehouse}')`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
