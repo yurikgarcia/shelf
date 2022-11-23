@@ -221,22 +221,7 @@ const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
                   { field: "Issued", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   { field: "Original", minWidth: 150 },
-                  // {
-                  //   field: "Return",
-                  //   minWidth: 10,
-                  //   renderCell: (params) => (
-                  //     <Tooltip title="Return Item">
-                  //       <AssignmentReturnedIcon 
-                  //         sx={{ cursor: "pointer", color: "#4CAF50" }}
-                  //     onClick={() => {
-                  //       addToCart(params)
-                  //       window.location.reload()
-                  //     }}
-                  //       />
-                  //     </Tooltip>
-                  //   )},
-                  {
-                    field: "Issue",
+                  { field: "Return",
                     renderCell: (params) => (
                       <div>
                       {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
@@ -256,8 +241,6 @@ const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
                       </div>
                     ),
                   },
-
-                  
                 ]}
                 rows={issuedItems[0]?.map((row, index) => {
                   return {

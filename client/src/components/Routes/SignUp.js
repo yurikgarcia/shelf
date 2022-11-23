@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from 'react';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import Box from "@mui/material/Box";
@@ -16,6 +16,39 @@ import TextField from "@mui/material/TextField";
 
 
 export default function SignUp() {
+
+  const [newUser, setNewUser] = useState({
+    dod_id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    organization: '',
+    password: '',
+    password_verify:''
+  })
+
+  const [variant, setVariant] = useState({
+    dod_id: 'false',
+    first_name: 'false',
+    last_name: 'false',
+    email: 'false',
+    organization: '',
+    password: '',
+    password_verify:''
+  })
+
+//function that sets variant to true if newUser.first_name has a value
+  const variantSetter = (e) => {
+    (newUser.first_name === '') ? setVariant({...variant, first_name: 'false'}) : setVariant({...variant, first_name: 'true'})
+    }
+    
+
+
+
+console.log("NEW USER", newUser)
+
+console.log("Variant", variant)
+
   return (
     <div
     className="fill-window"
@@ -53,42 +86,66 @@ export default function SignUp() {
         <div>
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
             <Box>
-              <h1>SIGN UP</h1>
+              <h1>SIGN UP !</h1>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
               <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField 
-              required={true} 
-              id="input-with-sx" 
-              label="Your First Name" 
-              variant="standard" 
+                required={true} 
+                error={variant.first_name}
+                id="input-with-sx" 
+                label="First Name" 
+                variant="standard"
+                onChange={(e) => {
+                  setNewUser({ ...newUser, first_name: e.target.value });
+                  setVariant({ ...variant, first_name: false });
+                  }
+                } 
               />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
               <AccountCircleOutlinedIcon  sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField 
-              required={true} 
+              required={true}
+              error={variant.last_name}
               id="input-with-sx" 
-              label="Your Last Name"
+              label="Last Name"
               variant="standard"
-              />
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <CreditCardOutlinedIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField 
-              required={true} 
-              id="input-with-sx" 
-              label="Your DOD-ID" 
-              variant="standard" 
+              onChange={(e) => {
+                setNewUser({ ...newUser, last_name: e.target.value });
+                setVariant({ ...variant, last_name: false });
+                }
+              } 
               />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
               <EmailIcon  sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField 
-              required={true} 
+              required={true}
+              error={variant.email} 
               id="input-with-sx" 
-              label="Your E-mail" 
+              label="E-mail" 
               variant="standard" 
+              onChange={(e) => {
+                setNewUser({ ...newUser, email: e.target.value });
+                setVariant({ ...variant, email: false });
+                }
+              } 
+              />
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <CreditCardOutlinedIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+              <TextField 
+              required={true}
+              error={variant.dod_id} 
+              id="input-with-sx" 
+              label="DOD-ID" 
+              variant="standard" 
+              onChange={(e) => {
+                setNewUser({ ...newUser, dod_id: e.target.value });
+                setVariant({ ...variant, dod_id: false });
+                }
+              } 
               />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -98,7 +155,11 @@ export default function SignUp() {
               id="outlined-password-input" 
               type="password"
               label="Password" 
-              variant="standard" 
+              variant="standard"
+              onChange={(e) => {
+                setNewUser({ ...newUser, password: e.target.value });
+                }
+              } 
               />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -109,8 +170,17 @@ export default function SignUp() {
               id="outlined-password-input" 
               label="Confirm Password" 
               variant="standard" 
+              onChange={(e) => setNewUser({ ...newUser, password_verify: e.target.value })}
               />
             </Box>
+            {newUser.password !== newUser.password_verify ? (
+            <Box>
+              <h6>PASSWORDS DO NOT MATCH! </h6>
+            </Box>
+            ) : (
+              null
+            )
+          }
           </Box>
         </div>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 18 }}>
@@ -138,13 +208,17 @@ export default function SignUp() {
       </Link>
       </Box>
     </CardActions>
-
-
-
-
-
-
         </Card>
+      </Box>
+
+      <Box>
+        {newUser.first_name}
+        {newUser.last_name}
+        {newUser.dod_id}
+        {newUser.email}
+        {newUser.password}
+        {newUser.password_verify}
+        {newUser.organization}
       </Box>
     </div>
   );
