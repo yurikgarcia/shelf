@@ -152,6 +152,7 @@ console.log("Variant", variant)
               <LockIcon  sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField  
               required={true} 
+              error={variant.password_verify}
               id="outlined-password-input" 
               type="password"
               label="Password" 
@@ -166,6 +167,7 @@ console.log("Variant", variant)
               <LockOutlinedIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField 
               required={true} 
+              error={variant.password_verify}
               type="password" 
               id="outlined-password-input" 
               label="Confirm Password" 
@@ -173,14 +175,6 @@ console.log("Variant", variant)
               onChange={(e) => setNewUser({ ...newUser, password_verify: e.target.value })}
               />
             </Box>
-            {newUser.password !== newUser.password_verify ? (
-            <Box>
-              <h6>PASSWORDS DO NOT MATCH! </h6>
-            </Box>
-            ) : (
-              null
-            )
-          }
           </Box>
         </div>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 18 }}>
@@ -190,36 +184,50 @@ console.log("Variant", variant)
       </Box>
     </CardContent>
     <CardActions>
-      <Box sx={{display: 'flex', justifyContent: 'center', ml:20, mb:2}}>
-        <Button
-          color="secondary"
-          variant="contained"
-          type="submit" 
-        >
-          REGISTER!
-        </Button>                  
-      </Box>
-      <Box sx={{mb:2}}>
-        <h5>Already Have An Account?</h5>
-      </Box>
-      <Box sx={{mb:2.1}}>
-      <Link to="/login" style={{ color: '#FC9A01'}}>
-        <h4>Login</h4>
-      </Link>
-      </Box>
-    </CardActions>
-        </Card>
-      </Box>
-
-      <Box>
-        {newUser.first_name}
-        {newUser.last_name}
-        {newUser.dod_id}
-        {newUser.email}
-        {newUser.password}
-        {newUser.password_verify}
-        {newUser.organization}
-      </Box>
+          {newUser.password !== newUser.password_verify ? (
+            <Box sx={{display:"flex", flexDirection:"column"}}>
+              <Box sx={{display: 'flex', justifyContent: 'center', ml:20, mb:2}}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  type="submit" 
+                  onClick={() => {
+                    setVariant({...variant, password: true})
+                    setVariant({...variant, password_verify: true})
+                  }}
+                >
+                 BAD!
+                </Button>  
+              {/* <h5>Passwords Do Not Match!</h5>     */}
+            </Box>
+          </Box>
+            ) : (
+              <Box sx={{display: 'flex', justifyContent: 'center', ml:20, mb:2}}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  type="submit"
+                  onClick={() => {
+                    setVariant({...variant, password: false})
+                    setVariant({...variant, password_verify: false})
+                  }}
+                >
+                  GOOD!
+                </Button>                  
+              </Box>
+              )
+            }
+            <Box sx={{mb:2}}>
+              <h5>Already Have An Account?</h5>
+            </Box>
+            <Box sx={{mb:2.1}}>
+            <Link to="/login" style={{ color: '#FC9A01'}}>
+              <h4>Login</h4>
+            </Link>
+            </Box>       
+          </CardActions>
+              </Card>
+            </Box>
     </div>
   );
 }
