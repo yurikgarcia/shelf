@@ -288,11 +288,11 @@ const changeItemQuantity = async (items, index) => {
       let newCount = currentItemCount+items.Quantity;
       let ogWarehouse = items.Original_warehouse;
       let user_dodid = location.state.DoD;
-      console.log("ID", id)
-      console.log("newCount", newCount)
-      console.log("ogWarehouse", ogWarehouse)
-      console.log("user_dodid", user_dodid)
-      console.log("USER_DOD", user_dod)
+      // console.log("ID", id)
+      // console.log("newCount", newCount)
+      // console.log("ogWarehouse", ogWarehouse)
+      // console.log("user_dodid", user_dodid)
+      // console.log("USER_DOD", user_dod)
       axios
         .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
@@ -744,11 +744,10 @@ const changeItemQuantity = async (items, index) => {
                                               // setTimeout(() => {
                                               //   flatCart.forEach(subtractFromInventory(items, index))
                                               // }, "450")
-                                              setTimeout(() => {
-                                                window.location.reload();
-                                              }, "1000")
-                                              }
-                                            }
+                                                // setTimeout(() => {
+                                                //   window.location.reload();
+                                                // }, "1000")
+                                              }}
                                           >
                                             CHECKOUT
                                           </Button>

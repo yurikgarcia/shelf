@@ -52,7 +52,7 @@ export default function RowsGrid({
     Size: "-",
     Count: 0,
     Gender: "-",
-    Aisle: "",
+    Aisle: "-",
     Initial: "",
     MinCount: 0,
     Ordered: 0,
@@ -72,7 +72,7 @@ export default function RowsGrid({
     Size: "-",
     Count: 0,
     Gender: "-",
-    Aisle: "",
+    Aisle: "-",
     Initial: '',
     MinCount: 0,
     Ordered: "",
@@ -407,6 +407,7 @@ export default function RowsGrid({
                     Returnable: row.returnable_item,
                     UUID: row.item_id,
                     Original: row.original_warehouse,
+                    Original_UUID: row.original_uuid,
                   };
                 })}
               />

@@ -324,7 +324,7 @@ export default function RowsGrid({
                   // { field: "Ordered", minWidth: 100 },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Original", minWidth: 100 },
+                  // { field: "Original", minWidth: 100 },
 
                   {
                     field: "Issue",
@@ -332,7 +332,7 @@ export default function RowsGrid({
                       <div>
                       {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
                           <AddCircleIcon
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                          sx={{ cursor: "pointer", color: "#ff0000" }}
                           onClick={handleClick(TransitionLeft)}
                           />  
                       ) : (

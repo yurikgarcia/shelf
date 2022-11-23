@@ -74,7 +74,8 @@ async function addToCart(req, res) {
     Returnable: req.body.Returnable,
     UUID: req.body.UUID,
     Quantity: req.body.Quantity,
-    Original_warehouse: req.body.original_warehouse
+    Original_warehouse: req.body.original_warehouse,
+    Original_uuid: req.body.original_uuid,
   };
   let user_id = req.params.dod_id;
   let date = req.params.current_date;
@@ -92,6 +93,7 @@ async function addToCart(req, res) {
       "Quantity": "${params.Quantity}",
       "Date" : "${date}",
       "Original_warehouse" : "${req.body.Original}",
+      "Original_uuid" : "${req.body.uuid}", 
       "UUIDfetcha" : "${params.UUID}${date}"}' ::jsonb
       WHERE dod_id= '${user_id}'`,
       (error, results) => {

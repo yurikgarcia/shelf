@@ -52,7 +52,7 @@ async function addToSelectedWarehouse(req, res) {
   console.log("BBBOOODDDYYYY", req.body)
   console.log("PARAMS", req.params)
   pool.query(
-    `INSERT INTO ${selectedWarehouse} (item_name, brand, nsn, item_size, gender, item_count, original_warehouse) values('${req.body.Name}', '${req.body.Brand}', '${req.body.NSN}', '${req.body.Size}', '${req.body.Gender}', '${req.body.Quantity}', '${selectedWarehouse}')`,
+    `INSERT INTO ${selectedWarehouse} (item_name, brand, nsn, item_size, gender, item_count, original_warehouse, original_uuid) values('${req.body.Name}', '${req.body.Brand}', '${req.body.NSN}', '${req.body.Size}', '${req.body.Gender}', '${req.body.Quantity}', '${selectedWarehouse}','${req.body.UUID}')`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
