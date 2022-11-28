@@ -744,9 +744,9 @@ const changeItemQuantity = async (items, index) => {
                                               // setTimeout(() => {
                                               //   flatCart.forEach(subtractFromInventory(items, index))
                                               // }, "450")
-                                                // setTimeout(() => {
-                                                //   window.location.reload();
-                                                // }, "1000")
+                                                setTimeout(() => {
+                                                  window.location.reload();
+                                                }, "900")
                                               }}
                                           >
                                             CHECKOUT
