@@ -19,7 +19,8 @@ function Home() {
     });
   }, []);
 
-  // console.log("LOCAL STORAGE", localStorage)
+  console.log("LOCAL STORAGE", localStorage)
+  
   
   return (
     <div>
@@ -38,7 +39,8 @@ function Home() {
         >
           <Box sx={{ mt: 10, ml:15, fontSize: 100, height: '0%',}}>
             <div>
-              <p>Welcome to Shelf!</p>
+              <p>Welcome to Shelf! </p>
+             
             </div>
           </Box>
 

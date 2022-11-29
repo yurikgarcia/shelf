@@ -23,6 +23,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import ProfileMenu from "./ProfileMenu.js";
@@ -202,6 +203,9 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
 
 
+
+
+
   return (
       <Box sx={{ display: "flex", }}>
         <CssBaseline/>
@@ -273,13 +277,29 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             </Link> */}
 
 
-            {flatWarehouses[0] !== undefined ? (
+            {/* {flatWarehouses[0] !== undefined ? (
             <Link to="/orders2"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Orders</Button>
             </Link>
             ) : (
               null
-            )}
+            )} */}
+
+            {/* {flatWarehouses[0] !== undefined ? (
+            <Link to="/transfers"  style={{ textDecoration: 'none', color: 'white'}}>
+              <Button  sx={{mr:1}} variant="contained">Transfers</Button>
+              
+            </Link>
+            ) : (
+              null
+            )} */}
+
+            
+         < NotificationsIcon
+          onClick = {() => {
+            window.location.href = "/transfers"
+          }}
+         /> 
 
             {/* <Link to="/login"  style={{ textDecoration: 'none', color: 'white'}}>
               <Button  sx={{mr:1}} variant="contained">Login</Button>
@@ -393,7 +413,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               </Link>   */}
 
 
-              {flatWarehouses[0] !== undefined ? (
+              {/* {flatWarehouses[0] !== undefined ? (
               <Link to="/orders2" style={{ textDecoration: 'none', color: 'black'}}>
               <ListItem disablePadding>
                     <ListItemButton>
@@ -408,7 +428,24 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             </Link> 
               ) : (
                 null
-              )}
+              )} */}
+
+              {flatWarehouses[0] !== undefined ? (
+              <Link to="/transfers" style={{ textDecoration: 'none', color: 'black'}}>
+              <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                      <Tooltip title="Transfers" placement="right-end">
+                        <LocalShippingIcon  sx={{color: "white", fontSize: '30px'}} />
+                      </Tooltip>
+                      </ListItemIcon>
+                      <ListItemText primary="Users" />
+                    </ListItemButton>
+              </ListItem>
+            </Link> 
+              ) : (
+                null
+              )}             
 
 
 

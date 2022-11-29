@@ -338,6 +338,7 @@ export default function RowsGrid({
                   { field: "Ordered", minWidth: 100 },
                   { field: "Courier", minWidth: 100 },
                   { field: "Tracking", minWidth: 100 },
+
                   {
                     field: "Issue",
                     renderCell: (params) => (
@@ -385,6 +386,7 @@ export default function RowsGrid({
                       </Tooltip>
                     ),
                   },
+                  { field: "Notes", minWidth: 200 },
                 ]}
                 rows={inventory?.map((row, index) => {
                   return {

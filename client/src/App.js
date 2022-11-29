@@ -7,6 +7,7 @@ import Inventory from ".//components/Routes/Inventory.js";
 import Login from ".//components/Routes/Login.js";
 import Orders from ".//components/Routes/Orders.js";
 import Orders2 from ".//components/Routes/Orders2.js";
+import Transfers from ".//components/Routes/Transfers.js";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import NavDrawer from "./components/NavDrawer";
 import { Outlet } from 'react-router-dom';
@@ -69,7 +70,8 @@ function App() {
                     }
                   />
                     <Route path="/users" element={<Users />} />
-                    <Route path="/users/:name" element={<UserIssuedItems />} /> 
+                    <Route path="/users/:name" element={<UserIssuedItems />} />
+                    <Route path="/transfers" element={<Transfers />} /> 
                     <Route path="/issueditems" element={<UserIssuedItems />} /> 
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/orders2" element={<Orders2 />} />

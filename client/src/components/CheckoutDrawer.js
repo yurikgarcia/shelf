@@ -690,7 +690,7 @@ const changeItemQuantity = async (items, index) => {
                             }
                           }
                         >
-                          CHECKOUT TEST
+                          CHECKOUT
                         </Button>
                       </Box>
                   </Box>
