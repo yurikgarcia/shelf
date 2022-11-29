@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 require("dotenv").config();
 
 const pool = new Pool({
@@ -26,28 +27,31 @@ function verifyToken(req, res, next) {
   }
 }
 
+//funciton that checks if user.password equals the hashed password in the database and returns a token if it does
 async function login(req, res) {
   let user = {
     email: req.body.user_email,
     password: req.body.user_password,
     warehouses: req.body.user_password
   };
-  console.log("user when login", user);
-  console.log("REQ", req.body);
-
-
-
-  //query DB to verify user and password are correct
-  pool.query(
-    "SELECT * FROM users WHERE email = $1 AND user_password = $2",
-    [user.email, user.password],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500);
-      } else {
-        if (result.rows.length > 0) {
-          //if user is found, create a token
+  // console.log("user when login", user);
+  // console.log("LOGIN REQ", req.body);
+pool.query(
+    `SELECT * FROM users WHERE email='${user.email}'`,
+    (error, results) => {
+      if (error) {
+        return res.send("error" + error);
+      }
+      // console.log("results.rows[0]", results.rows[0]);
+      if (results.rows[0] === undefined) {
+        return res.send("error" + error);
+      }
+      let hashedPassword = results.rows[0].user_password;
+      // console.log("hashedPassword", hashedPassword)
+      // console.log ("INPUT PASSWORD", user.password)
+      bcrypt.compare(user.password, hashedPassword).then(function(result) {
+        // result == true
+        if (result === true) {
           jwt.sign(
             { user },
             "secretkey",
@@ -56,22 +60,71 @@ async function login(req, res) {
               res.json({
                 token,
                 user: {
-                  user_email: result.rows[0].email,
-                  user_dod_id: result.rows[0].dod_id,
-                  user_first_name: result.rows[0].first_name,
-                  user_last_name: result.rows[0].last_name,
-                  user_dod_id: result.rows[0].dod_id,
-                  USER_warehouses: result.rows[0].warehouse_access,
+                  user_email: results.rows[0].email,
+                  user_dod_id: results.rows[0].dod_id,
+                  user_first_name: results.rows[0].first_name,
+                  user_last_name: results.rows[0].last_name,
+                  user_dod_id: results.rows[0].dod_id,
+                  USER_warehouses: results.rows[0].warehouse_access,
                 }
               });
-              // console.log("token in app.js", token);
-              // console.log("user app.js", user);
-            });
-        }
-      }
+              console.log("TOKEN", user)
+            }
+            );
+          } else {
+            res.send("error" + error);
+            console.log("NO BRO YOURE NOT ALLOWED")
+          }
+          // console.log("TOOOKKKENNN", token);
+      // console.log("token in app.js", token);
+      // console.log("user app.js", user);
+      });
     }
   );
 }
+
+
+
+
+
+ 
+
+
+//   query DB to verify user and password are correct
+//   pool.query(
+//     "SELECT * FROM users WHERE email = $1 AND user_password = $2",
+//     [user.email, user.password],
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//         res.status(500);
+//       } else {
+//         if (result.rows.length > 0) {
+//           //if user is found, create a token
+//           jwt.sign(
+//             { user },
+//             "secretkey",
+//             { expiresIn: "1hr" },
+//             (err, token) => {
+//               res.json({
+//                 token,
+//                 user: {
+//                   user_email: result.rows[0].email,
+//                   user_dod_id: result.rows[0].dod_id,
+//                   user_first_name: result.rows[0].first_name,
+//                   user_last_name: result.rows[0].last_name,
+//                   user_dod_id: result.rows[0].dod_id,
+//                   USER_warehouses: result.rows[0].warehouse_access,
+//                 }
+//               });
+//               // console.log("token in app.js", token);
+//               // console.log("user app.js", user);
+//             });
+//         }
+//       }
+//     }
+//   );
+// }
 
 module.exports = {
   verifyToken,

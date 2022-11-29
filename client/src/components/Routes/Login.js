@@ -59,14 +59,13 @@ export default function Login() {
           // console.log("USER ADMIN", wareHouseLength)
           // console.log("user.user_warehouses", user.user_first_name)
           // console.log("OKEN", res.data.user)
+          console.log("TOKEN",token)
         }
         if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
-        // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) console.log("TOKEN", res.data.user);
-        // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) goToUserDetails(res.data.user);
         else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) goToUserDetails(res.data.user);
       })
       .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
+        alert("Sorry! You are not authorized to access this page.");
         console.log("err", err);
       });
   };
