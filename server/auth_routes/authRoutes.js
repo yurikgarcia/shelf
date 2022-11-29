@@ -34,6 +34,9 @@ async function login(req, res) {
   };
   console.log("user when login", user);
   console.log("REQ", req.body);
+
+
+
   //query DB to verify user and password are correct
   pool.query(
     "SELECT * FROM users WHERE email = $1 AND user_password = $2",

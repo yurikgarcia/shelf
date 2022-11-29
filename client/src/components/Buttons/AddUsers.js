@@ -34,6 +34,9 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     warehouse_key: '',
   })
 
+console.log('users', addedUsers)
+
+
 
   const handleUserOpen = () => setAddUserOpen(true);
   const handleCloseAddUser = () => setAddUserOpen(false);
@@ -171,6 +174,19 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 label="E-Mail"
                 required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, email: e.target.value })}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-error-helper-text"
+                label="EMPTY"
+                // onChange={(e) => setAddedUsers({ ...addedUsers, dod_id: e.target.value })}
+              />
+              <TextField
+                id="outlined-error-helper-text"
+                label="Password"
+                required={true}
+                onChange={(e) => setAddedUsers({ ...addedUsers, password: e.target.value })}
               />
             </div>
             <div>

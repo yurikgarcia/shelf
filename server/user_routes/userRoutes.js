@@ -1,6 +1,7 @@
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
 const { verifyToken } = require("../auth_routes/authRoutes");
+const bcrypt = require('bcrypt');
 require("dotenv").config();
 
 const pool = new Pool({
@@ -29,14 +30,18 @@ async function getUsers(req, res) {
 };
 
 async function addUser(req, res) {
-  console.log("req.body", req.body);
+  console.log("ADD USER BODY", req.body);
+
+  const password = await bcrypt.hash(req.body.users.password, 10);
+
+  console.log("PASSWORD", password)
   pool.query(
-    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}', '${req.body.users.organization}')`,
+    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization, user_password) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}', '${req.body.users.organization}', '${password}')`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);
       }
-      console.log("placed in DB");
+      console.log("Added User to Database");
       res.status(200);
       res.send("Success");
     }
@@ -49,7 +54,7 @@ async function deleteUser(req, res) {
     if (error) {
       res.send("error" + error);
     }
-    console.log("removed from DB");
+    console.log("Deleted User");
     res.status(200);
     res.send("Success");
   });
