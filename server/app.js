@@ -51,9 +51,9 @@ app.listen(PORT, () => {
 async function connectToDB() {
   try {
     const client = await pool.connect();
-    return console.log("connected to db");
+    return console.log("Connected to Database");
   } catch (err) {
-    console.log(err);
+    console.log("Error Connecting to DB", err);
   };
 };
 
