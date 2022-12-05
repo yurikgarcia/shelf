@@ -37,7 +37,7 @@ export default function Login() {
   //if user.user_warehouse is undefined then console.log "user"
     const loginUser = async () => {
     axios
-      .post("http://localhost:3000/login", {
+      .post("https://shelf-management.netlify.app/login", {
         user_email: user.user_email,
         user_password: user.user_password,
         user_warehouses: user.user_password,
