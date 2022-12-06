@@ -1,0 +1,62 @@
+//dockerfile inside client folder
+
+// FROM node:13-alpine
+// WORKDIR /src
+// COPY package.json ./
+// COPY package-lock.json ./
+// RUN npm install
+// COPY . ./
+// EXPOSE 80
+// CMD ["npm", "start"]
+
+// 
+
+//docker-compose.yaml inside app 
+// version: '3.8'
+// services: 
+//   db:
+//     container_name: pg_container
+//     image: postgres 
+//     restart: always 
+//     environment:
+//       POSTGRES_USER: root
+//       POSTGRES_PASSWORD: root
+//       POSTGRES_DB: test_db
+//     ports:
+//       - "5432:5432"
+//   pgadmin:
+//     container_name: pgadmin4_container
+//     image: dpage/pgadmin4
+//     restart: always
+//     environment: 
+//       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+//       PGADMIN_DEFAULT_PASSWORD: root
+//     ports:
+//       - "5050:80"
+//     links:
+//       - db
+//   server:
+//     build: ./server
+//     restart: always
+//     depends_on:
+//       - db
+//     ports:
+//       - "3000:3000"
+//     links:
+//       - db
+//   client:
+//     build: ./client
+//     restart: always
+//     ports:
+//       - "80:80"
+//     links:
+//       - server
+//       - pgadmin
+//       - db
+
+
+
+
+// # git init
+
+// # https://github.com/yurikgarcia/Shelf.git
