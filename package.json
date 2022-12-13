@@ -9,7 +9,6 @@
   "dependencies": {
     "@mui/x-data-grid-generator": "^5.10.0",
     "@mui/x-data-grid-pro": "^5.10.0",
-    "bcrypt": "^5.1.0",
     "concurrently": "^7.6.0",
     "jsonwebtoken": "^8.5.1",
     "webfontloader": "^1.6.28"
