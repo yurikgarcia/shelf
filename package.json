@@ -14,5 +14,7 @@
     "jsonwebtoken": "^8.5.1",
     "webfontloader": "^1.6.28"
   },
-  "engines": { "node" : ">=10 <11" }
+  "engines": {
+    "node": ">=14.0.0"
+   }
 }
