@@ -1,8 +1,9 @@
 
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
+import AppContext from "../AppContext.js";
 import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import homePage from '..//Images/homePage.jpg'
 import WebFont from 'webfontloader';
 
@@ -10,7 +11,10 @@ import WebFont from 'webfontloader';
 
 function Home() {
 
+  const { API } = useContext(AppContext);
   
+    console.log("WEBISTE FROM USECONTEXT", API.website)
+
   useEffect(() => {
     WebFont.load({
       google: {

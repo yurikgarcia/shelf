@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import AppContext from "../AppContext.js";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -29,6 +30,10 @@ export default function Login() {
     navigate('/issueditems', {state: state});
 } 
 
+const { API } = useContext(AppContext);
+  
+console.log("WEBSITE FROM USECONTEXT", API.website)
+
 
   /**
    * verify if the user is logged in
@@ -37,7 +42,8 @@ export default function Login() {
   //if user.user_warehouse is undefined then console.log "user"
     const loginUser = async () => {
     axios
-    .post("http://localhost:3000/login", {
+    // .post("http://localhost:3000/login", {
+      .post(`${API.website}/login`, {
         user_email: user.user_email,
         user_password: user.user_password,
         user_warehouses: user.user_password,

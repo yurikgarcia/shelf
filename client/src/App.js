@@ -1,5 +1,6 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
+import AppContext from './components/AppContext.js';
 import { createTheme } from "@mui/material/styles";
 import Home from ".//components/Routes/Home.js";
 import SignUp from ".//components/Routes/SignUp.js";
@@ -14,6 +15,8 @@ import { Outlet } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import Users from ".//components/Routes/Users.js";
 import UserIssuedItems from "./components/Routes/UserIssuedItems.js";
+
+
 
 
 const customTheme = createTheme({
@@ -32,6 +35,15 @@ const customTheme = createTheme({
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
+
+  const API = {
+    website: 'http://shelf-env.eba-ewquyicd.us-gov-west-1.elasticbeanstalk.com/'
+  };
+
+
+
+console.log("API from App.js", API.website) 
+
   useEffect(() => {
     //used to test and remove token and will be used in a logout button **wink wink**
     // console.log(localStorage.removeItem("authorization"))
@@ -47,7 +59,8 @@ function App() {
   
 
   return (
-    <ThemeProvider theme={customTheme}>
+      <AppContext.Provider value={{ API }}>
+        <ThemeProvider theme={customTheme} >
 
           {/* <NavDrawer
             shoppingCart={shoppingCart}
@@ -85,15 +98,8 @@ function App() {
               </Routes>
             </div>
           </Router>
-
-  
-    
-
-
-
-    
-  
-    </ThemeProvider>
+        </ThemeProvider>
+      </AppContext.Provider>
   );
 }
 export default App;
