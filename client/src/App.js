@@ -36,13 +36,15 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
 
+  // const API = {
+  //   website: 'http://shelf-env.eba-ewquyicd.us-gov-west-1.elasticbeanstalk.com/'
+  // };
+
   const API = {
-    website: 'http://shelf-env.eba-ewquyicd.us-gov-west-1.elasticbeanstalk.com/'
+    website: 'http://localhost:3000'
   };
 
 
-
-console.log("API from App.js", API.website) 
 
   useEffect(() => {
     //used to test and remove token and will be used in a logout button **wink wink**

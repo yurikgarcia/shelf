@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AddUsers from "..//Buttons/AddUsers.js";
+import AppContext from "../AppContext.js";
 import Box from '@mui/material/Box';
 import UserTable from "../Tables/UserTable.js";
 import axios from 'axios';
@@ -8,6 +9,7 @@ function Users() {
   const [users, setUsers] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
+  const { API } = useContext(AppContext);
 
   //initial call to grab users from DB on load
   useEffect(() => {
@@ -24,7 +26,7 @@ function Users() {
    */
   const fetchUsers = async () => {
     setSpinner(true);
-    axios.get('http://localhost:3000/users',
+    axios.get(`${API.website}/users`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,

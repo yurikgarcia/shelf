@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // import AddCart from "..//Buttons/AddCart.js";
 import axios from "axios";
 import AddModal from "../Buttons/AddModal.js";
+import AppContext from "../AppContext.js";
 import Box from "@mui/material/Box";
 import InventoryTable from "../Tables/InventoryTable.js";
 import SFS_Cape from "../Tables/SFS_Cape.js";
@@ -16,6 +17,9 @@ function Inventory({ shoppingCart, setShoppingCart }) {
   const [SFSPatrickInventory, setSFSPatrickInventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
+  const { API } = useContext(AppContext);
+
+
   //initial call to grab inventory from DB on load
   useEffect(() => {
     fetchInventory();
@@ -27,14 +31,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   /**
    * @returns DEMO inventory
-   * fetches DB after any changes to the resutls array from the user on the front end
+   * fetches DB after any changes to the results array from the user on the front end
    */
   const fetchInventory = async () => {
     setSpinner(true);
     axios
       .get(
-        "http://localhost:3000/inventory" ||
-          "https://postgres-apr.herokuapp.com/inventory",
+        `${API.website}/inventory`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authorization")}`,
@@ -56,7 +59,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     setSpinner(true);
     axios
       .get(
-        "http://localhost:3000/45sfspatrickinventory",
+        `${API.website}/45sfspatrickinventory`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authorization")}`,
@@ -78,7 +81,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
       setSpinner(true);
       axios
         .get(
-          "http://localhost:3000/45sfscapeinventory",
+          `${API.website}/45sfscapeinventory`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authorization")}`,

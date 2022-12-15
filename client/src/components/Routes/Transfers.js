@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
+import AppContext from "../AppContext.js";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
@@ -14,9 +15,10 @@ import TextField from "@mui/material/TextField";
 
 function Transfers() {
 
-  const [value, setValue] = useState(''); //value state for users drop down
+const [value, setValue] = useState(''); //value state for users drop down
 const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
 
+const { API } = useContext(AppContext);
 
   //initial calls
   useEffect(() => {
@@ -29,7 +31,7 @@ const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses ad
            const fetchLoggedAdminWarehouses = async () => {
             let adminID = localStorage.user_dod
             axios
-            .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+            .get(`${API.website}/admin-warehouses/${adminID}`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("authorization")}`,
               },

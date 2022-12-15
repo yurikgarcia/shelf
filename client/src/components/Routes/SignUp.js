@@ -43,12 +43,6 @@ export default function SignUp() {
     }
     
 
-
-
-console.log("NEW USER", newUser)
-
-console.log("Variant", variant)
-
   return (
     <div
     className="fill-window"
