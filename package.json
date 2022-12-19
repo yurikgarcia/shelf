@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "install": "concurrently \"cd client && npm install\" \"cd server && npm install\"",
-    "start": "concurrently --kill-others \"cd client && npm run start\" \"cd server && npm start\""
+    "start": "concurrently --kill-others \"cd client && npm run build\" \"cd server && npm start\""
   },
   "dependencies": {
     "@mui/x-data-grid-generator": "^5.10.0",

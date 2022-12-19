@@ -58,7 +58,6 @@ const handleCloseAddModal = () => setAddModalOpen(false);
  */
 const addItemToInventory = async () => {
   const newInventory = addedItem;
-  console.log("NEWWWWWWWInventory", newInventory)
   axios.post('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory', { item: newInventory })
   .then(res => {
     if (res.status === 200) {
@@ -79,7 +78,6 @@ const addItemToInventory = async () => {
    */
     const addItemToSFSPatrickInventory = async () => {
       const newInventory = addedItem;
-      console.log("NEWWWWWWWInventory", newInventory)
       axios.post('http://localhost:3000/45sfspatrickinventory', { item: newInventory })
         .then(res => {
           if (res.status === 200) {
@@ -99,8 +97,6 @@ const addItemToInventory = async () => {
    */
         const addItemToSFSCapeInventory = async () => {
           const newInventory = addedItem;
-
-        console.log("THISSSSSSSS")
           axios.post('http://localhost:3000/45sfscapeinventory', { item: newInventory })
             .then(res => {
               if (res.status === 200) {
