@@ -10,9 +10,10 @@
     "@mui/x-data-grid-pro": "^5.10.0",
     "concurrently": "^7.6.0",
     "jsonwebtoken": "^8.5.1",
+    "react-scripts": "^5.0.1",
     "webfontloader": "^1.6.28"
   },
   "engines": {
     "node": ">=14.0.0"
-   }
+  }
 }
