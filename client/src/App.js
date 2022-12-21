@@ -36,13 +36,13 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
 
-  // const API = {
-  //   website: 'http://shelf-env.eba-ewquyicd.us-gov-west-1.elasticbeanstalk.com/'
-  // };
-
   const API = {
-    website: 'http://localhost:3000'
+    website: 'http://inventory-env.eba-z8dpv2zd.us-gov-west-1.elasticbeanstalk.com/'
   };
+
+  // const API = {
+  //   website: 'http://localhost:3000'
+  // };
 
 
 
