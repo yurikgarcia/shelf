@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import AppContext from './components/AppContext.js';
 import { createTheme } from "@mui/material/styles";
 import Home from ".//components/Routes/Home.js";
@@ -73,7 +73,7 @@ function App() {
             <div>
               <Routes>
                 <Route element={<NavBarLayout />}>
-                    <Route path="home" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/users" element={<Users />} />
                     <Route
                     path="/inventory"
