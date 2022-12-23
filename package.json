@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "install": "cd client && npm install",
-    "start": "cd client && npm run start"
+    "start": "cd client && npm install && npm run start"
   },
   "dependencies": {
     "@mui/x-data-grid-generator": "^5.10.0",
