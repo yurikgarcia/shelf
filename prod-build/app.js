@@ -28,15 +28,16 @@ require("dotenv").config();
 
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.HOST,
-  database: process.env.DB,
-  password: process.env.PASSWORD,
-  port: process.env.PRT,
+  user: "postgres",
+  host: "shelfdatabase.ca4lcabxs5eo.us-gov-west-1.rds.amazonaws.com",
+  database: "shelfdatabase",
+  password: "Shelfcodesucks!",
+  port: "5432",
   ssl: {
     rejectUnauthorized: false,
   },
 });
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,6 +51,7 @@ app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
 
+
 async function connectToDB() {
   try {
     await pool.connect();
@@ -60,15 +62,24 @@ async function connectToDB() {
 };
 
 
-//uncomment out to play @Garcia
-// app.get('/', (req,res) => {
-//   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-// });
+// uncomment out to play @Garcia
+app.get('/', (req,res) => {
+  // res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  res.send(200);
+});
 
 
 app.get('/test', (req, res) => {
-  res.send(`Test Successful ${PORT}, Bitchez! `);
+  res.send(`Test Successful ${PORT}, Bitchez!
+  ${JSON.stringify(pool)}
+`);
 })
+
+app.get('/ELB-HealthChecker/2.0', (req, res) => {
+  res.send(200);
+})
+
+
 //--------------------------------LOGIN AUTH----------------------------------------------------------------------------------------------------------------
 app.post('/login', login)
 

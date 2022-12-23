@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "install": "concurrently \"cd client && npm install\" \"cd server && npm install\"",
-    "start": "concurrently --kill-others \"cd client && npm run build\" \"cd server && npm start\""
+    "install": "cd client && npm install",
+    "start": "cd client && npm run build"
   },
   "dependencies": {
     "@mui/x-data-grid-generator": "^5.10.0",

@@ -15,8 +15,6 @@ const paths = {
   server_sfs_patrick_inventory_routes: '../prod-build/sfs_patrick_inventory_routes',
   server_shoppingcart_routes: '../prod-build/shoppingcart_routes',
   server_user_routes: '../prod-build/user_routes',
-  react_src: '../client/build/**/*',
-  react_dist: '../prod-build/client/build',
   zipped_file_name: 'react-nodejs.zip'
 };
 
@@ -37,20 +35,8 @@ function createProdBuildFolder() {
   return Promise.resolve('the value is ignored');
 }
 
-function buildReactCodeTask(cb) {
-  log('building React code into the directory')
-  return exec('cd ../client && npm run build', function (err, stdout, stderr) {
-    log(stdout);
-    log(stderr);
-    cb(err);
-  })
-}
 
-function copyReactCodeTask() {
-  log('copying React code into the directory')
-  return src(`${paths.react_src}`)
-        .pipe(dest(`${paths.react_dist}`));
-}
+
 
 function copyNodeJSCodeTask() {
   log('building and copying server code into the directory')
@@ -111,11 +97,7 @@ function zippingTask() {
 exports.default = series(
   clean,
   createProdBuildFolder,
-  buildReactCodeTask,
-  parallel(
-    copyReactCodeTask, 
-    copyNodeJSCodeTask
-    ),
+  copyNodeJSCodeTask,
   parallel(
     copyAuthRoutesTask, 
     copyInventoryRoutesTask, 

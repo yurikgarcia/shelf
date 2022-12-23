@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 require("dotenv").config();
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.HOST,
-  database: process.env.DB,
-  password: process.env.PASSWORD,
-  port: process.env.PRT,
+  user: "postgres",
+  host: "shelfdatabase.ca4lcabxs5eo.us-gov-west-1.rds.amazonaws.com",
+  database: "shelfdatabase",
+  password: "Shelfcodesucks!",
+  port: "5432",
   ssl: {
     rejectUnauthorized: false,
   },
