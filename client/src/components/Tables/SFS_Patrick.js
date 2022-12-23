@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
+import AppContext from "../AppContext.js";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -43,6 +44,7 @@ export default function RowsGrid({
   setEditedItem(params.row)
   setOpenDeleteModal(true);
   };
+  const { API } = useContext(AppContext);
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const [editedItem, setEditedItem] = useState({
     Name: "",
@@ -90,7 +92,7 @@ export default function RowsGrid({
     axios({
       method: "delete",
       url:
-        "http://localhost:3000/45sfspatrickinventory",
+        `${API.website}/45sfspatrickinventory`,
       data: {
         id: id,
       },
@@ -118,7 +120,7 @@ export default function RowsGrid({
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/45sfspatrickinventory",
+        `${API.website}/45sfspatrickinventory`,
       data: {
         Delete: newValue.Delete,
         Name: newValue.Name,
@@ -156,7 +158,7 @@ export default function RowsGrid({
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
       axios
-      .patch(`http://localhost:3000/shopping-cart/${user_dod}/${currentDate}`, userShoppingCart)
+      .patch(`${API.website}/shopping-cart/${user_dod}/${currentDate}`, userShoppingCart)
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
@@ -183,7 +185,7 @@ export default function RowsGrid({
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/users", {
+      .get(`${API.website}/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -209,7 +211,7 @@ export default function RowsGrid({
   const fetchCurrentShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
+      .get(`${API.website}/shopping-cart/${user_dod}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },

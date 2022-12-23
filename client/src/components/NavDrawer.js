@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import axios from "axios";
+import AppContext from "./AppContext.js";
 import { styled, useTheme } from "@mui/material/styles";
 // import {alpha } from '@mui/material/styles';
 import Box from "@mui/material/Box";
@@ -154,6 +155,8 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
 
+    const { API } = useContext(AppContext);
+
       //initial call to grab users from DB on load
       useEffect(() => {
         fetchLoggedAdminWarehouses();
@@ -165,7 +168,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
         const fetchLoggedAdminWarehouses = async () => {
           let adminID = localStorage.user_dod
           axios
-          .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+          .get(`${API.website}/admin-warehouses/${adminID}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authorization")}`,
             },
@@ -202,9 +205,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const flatWarehouses = availableWarehouses?.flat()
 
 
-console.log("AVAILABLE WAREHOUSES: ", availableWarehouses)
 
-console.log("FLAT WAREHOUSES: ", flatWarehouses)
 
   return (
       <Box sx={{ display: "flex", }}>

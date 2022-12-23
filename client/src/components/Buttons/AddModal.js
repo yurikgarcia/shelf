@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+import AppContext from "../AppContext.js";
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -53,12 +54,14 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
 const handleAddOpen = () => setAddModalOpen(true);
 const handleCloseAddModal = () => setAddModalOpen(false);
 
+const { API } = useContext(AppContext);
+
 /**
  * adds a new item to the DEMO TABLE based on the state set from the textfields
  */
 const addItemToInventory = async () => {
   const newInventory = addedItem;
-  axios.post('http://localhost:3000/inventory' || 'https://postgres-apr.herokuapp.com/inventory', { item: newInventory })
+  axios.post(`${API.website}/inventory`, { item: newInventory })
   .then(res => {
     if (res.status === 200) {
       setInventory([...inventory, newInventory])
@@ -78,7 +81,7 @@ const addItemToInventory = async () => {
    */
     const addItemToSFSPatrickInventory = async () => {
       const newInventory = addedItem;
-      axios.post('http://localhost:3000/45sfspatrickinventory', { item: newInventory })
+      axios.post(`${API.website}/45sfspatrickinventory`, { item: newInventory })
         .then(res => {
           if (res.status === 200) {
             setInventory([...inventory, newInventory])
@@ -97,7 +100,7 @@ const addItemToInventory = async () => {
    */
         const addItemToSFSCapeInventory = async () => {
           const newInventory = addedItem;
-          axios.post('http://localhost:3000/45sfscapeinventory', { item: newInventory })
+          axios.post(`${API.website}/45sfscapeinventory`, { item: newInventory })
             .then(res => {
               if (res.status === 200) {
                 setInventory([...inventory, newInventory])

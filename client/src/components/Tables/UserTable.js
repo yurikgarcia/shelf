@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from 'react';
+import AppContext from "../AppContext.js";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
@@ -15,7 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from '@mui/material/Modal';
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
@@ -51,6 +52,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const [editedUserWarehouses, setEditedUserWarehouses] = useState({
     Warehouses: ''
 });
+
+  const { API } = useContext(AppContext); 
 
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [open, setOpen] = useState(false);
@@ -94,7 +97,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
           const fetchLoggedAdminWarehouses = async () => {
             let adminID = localStorage.user_dod
             axios
-            .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+            .get(`${API.website}/admin-warehouses/${adminID}`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("authorization")}`,
               },
@@ -107,7 +110,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
             });
           };
 
-  const handleOpen = () => setOpen(true);
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onDelete = async (params) => {
@@ -116,7 +119,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "delete",
       url:
-        "http://localhost:3000/users", 
+        `${API.website}/users`, 
       data: {
         id: id,
       },
@@ -144,7 +147,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/users" ,
+        `${API.website}/users` ,
       data: {
         First: newValue.First,
         Last: newValue.Last,
@@ -167,9 +170,9 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   }
 
   //function that sets the initial state of editedUserWarehouses to editedUser.Warehouses
-  const setWarehouses = (editedUser) => {
-    setEditedUserWarehouses(editedUser.row.FullWarehouses);
-  }
+  // const setWarehouses = (editedUser) => {
+  //   setEditedUserWarehouses(editedUser.row.FullWarehouses);
+  // }
 
   // console.log("SETWAREHOUSES: ", editedUserWarehouses);
 
@@ -183,7 +186,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/usersPermissionsNull" ,
+        `${API.website}/usersPermissionsNull` ,
       data: {
         DoD: editedUser.DoD,
         Warehouses: warehousePermissions
@@ -201,7 +204,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     axios({
       method: "patch",
       url:
-        "http://localhost:3000/usersPermissions" ,
+        `${API.website}/usersPermissions` ,
       data: {
         DoD: editedUser.DoD,
         Warehouses: warehousePermissions

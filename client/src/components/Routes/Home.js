@@ -13,7 +13,7 @@ function Home() {
 
   const { API } = useContext(AppContext);
   
-    console.log("WEBISTE FROM USECONTEXT", API.website)
+
 
   useEffect(() => {
     WebFont.load({
@@ -23,7 +23,7 @@ function Home() {
     });
   }, []);
 
-  console.log("LOCAL STORAGE", localStorage)
+
   
   
   return (

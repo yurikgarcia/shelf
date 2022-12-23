@@ -3,11 +3,9 @@ import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import axios from "axios";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { Route, Link, useMatch, matchPath, useLocation } from 'react-router-dom';
+import {useLocation } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import Tooltip from '@mui/material/Tooltip';
-import ViewListIcon from '@mui/icons-material/ViewList';
 import Snackbar from '@mui/material/Snackbar';
 import warehouse from "..//Images/warehouse.gif";
 
@@ -164,10 +162,10 @@ export default function RowsGrid({ }) {
 console.log("CURRENT SHOPPING CART", currentShoppingCart)
 
 //funtion that maps over currentShoppingCart and returns the shopping_cart.UUIDfetch array as shoppingCart
-const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
-  return currentShoppingCart.shopping_cart;
-}
-);
+// const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
+//   return currentShoppingCart.shopping_cart;
+// }
+// );
 
 
 
@@ -254,7 +252,6 @@ const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
                     Returnable: row.Returnable,
                     UUID: row.UUID,
                     Count: row.Count,
-                    Gender: row.Gender,
                     Issued: row.Date,
                     uuidFetcha: row.UUIDfetcha,
                     Original: row.Original_warehouse,

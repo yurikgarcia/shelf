@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "./AppContext.js";
 import axios from "axios";
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -63,6 +64,7 @@ export default function CustomizedMenus() {
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [selectedWarehouse, setSelectedWarehouse] = useState(''); //value state for users drop down
 
+  const { API } = useContext(AppContext);
 
       //initial call to grab users from DB on load
       useEffect(() => {
@@ -75,7 +77,7 @@ export default function CustomizedMenus() {
         const fetchLoggedAdminWarehouses = async () => {
           let adminID = localStorage.user_dod
           axios
-          .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+          .get(`${API.website}/admin-warehouses/${adminID}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authorization")}`,
             },

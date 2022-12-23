@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AddIcon from '@mui/icons-material/Add';
+import AppContext from "../AppContext.js";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -34,7 +35,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     warehouse_key: '',
   })
 
-console.log('users', addedUsers)
+  const { API } = useContext(AppContext);
 
 
 
@@ -54,7 +55,7 @@ console.log('users', addedUsers)
    */
   const addUserToUserTable = async () => {
     const newUsers = addedUsers;
-    axios.post('http://localhost:3000/users', { users: newUsers })
+    axios.post(`${API.website}/users`, { users: newUsers })
       .then(res => {
         if (res.status === 200) {
           setUsers([...users, newUsers])
