@@ -202,9 +202,9 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   const flatWarehouses = availableWarehouses?.flat()
 
 
+console.log("AVAILABLE WAREHOUSES: ", availableWarehouses)
 
-
-
+console.log("FLAT WAREHOUSES: ", flatWarehouses)
 
   return (
       <Box sx={{ display: "flex", }}>
