@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "../AppContext.js";
 import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -19,7 +20,7 @@ export default function RowsGrid({ }) {
   const selectedUserDodId = location.state.DoD //Pulling Dod ID from location to use as param for SQL calls
   const user_dod = localStorage.getItem("user_dod"); //Pulling Dod ID from local storage to use as param for SQL calls
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
-
+  const { API } = useContext(AppContext);
 
   // console.log("LOCAL STORAGE WAREHOUSES", localStorage.user_warehouses)
 
@@ -39,7 +40,7 @@ export default function RowsGrid({ }) {
     const fetchCurrentShoppingCart = async () => {
       // setSpinner(true);
       axios
-        .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
+        .get(`${API.website}/shopping-cart/${user_dod}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authorization")}`,
           },
@@ -57,7 +58,7 @@ export default function RowsGrid({ }) {
 
   const fetchUsers2 = async () => {
     setSpinner(true);
-    axios.get(`http://localhost:3000/issueditems/${selectedUserDodId}`, {
+    axios.get(`${API.website}/issueditems/${selectedUserDodId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
       },
@@ -86,7 +87,7 @@ export default function RowsGrid({ }) {
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-      .get("http://localhost:3000/users", {
+      .get(`${API.website}/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -116,7 +117,7 @@ export default function RowsGrid({ }) {
     const addToCart = async (params) => {
       let userShoppingCart = params.row;
       axios
-      .patch(`http://localhost:3000/shopping-cart/${user_dod}`, userShoppingCart)
+      .patch(`${API.website}/shopping-cart/${user_dod}`, userShoppingCart)
         .then((res) => {
           if (res.status === 200) {
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);

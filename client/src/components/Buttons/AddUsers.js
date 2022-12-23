@@ -55,15 +55,18 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
    */
   const addUserToUserTable = async () => {
     const newUsers = addedUsers;
+    console.log('NEW USER', newUsers)
+    console.log('API', API.website)
     axios.post(`${API.website}/users`, { users: newUsers })
       .then(res => {
         if (res.status === 200) {
           setUsers([...users, newUsers])
           setAddUserOpen(false)
+          console.log('NEW USER', newUsers)
         }
       })
       .catch(err => {
-        alert('Sorry! Something went wrong. Please try again.')
+        alert('Sorry! Something went wrong. Please try to add user again.')
         console.log('err', err);
       })
   };
@@ -178,19 +181,6 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               />
             </div>
             <div>
-              <TextField
-                id="outlined-error-helper-text"
-                label="EMPTY"
-                // onChange={(e) => setAddedUsers({ ...addedUsers, dod_id: e.target.value })}
-              />
-              <TextField
-                id="outlined-error-helper-text"
-                label="Password"
-                required={true}
-                onChange={(e) => setAddedUsers({ ...addedUsers, password: e.target.value })}
-              />
-            </div>
-            <div>
             <Stack direction="row" spacing={2}>
               <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
                 <FormControl sx={{width: 135}}>
@@ -225,33 +215,29 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
             </Stack>
             </div>
           </Box>
-          {/* <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>  */}
+          <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
 
-          <Box sx={{ display: 'flex' }}>
-      {/* <FormControl
-        // required
-        // error={error}
-        component="fieldset"
-        sx={{ m: 3 }}
-        variant="standard"
-      >
-        <FormLabel component="legend">Warehouse Access:</FormLabel>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={sfs45_patrick} onChange={handleCheckbox} name="sfs45_patrick"  />
-            }
-            label="45 SFS - Patrick"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={sfs45_cape} onChange={handleCheckbox} name="sfs45_cape" />
-            }
-            label="45 SFS - Cape"
-          />
-        </FormGroup>
-      </FormControl> */}
-    </Box>
+          <div>
+              <Box
+                    sx={{
+                      width: 290,
+                      maxWidth: '100%',
+                      mt: 2,
+                      ml: 2,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+              >
+              <TextField
+                id="outlined-error-helper-text"
+                label="Password"
+                fullWidth
+                type="password"
+                required={true}
+                onChange={(e) => setAddedUsers({ ...addedUsers, password: e.target.value })}
+              />
+              </Box>
+            </div>
 
         
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2, mr: 2 }}>
@@ -267,7 +253,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addUserToUserTable()  
-                        window.location.reload()
+                        // window.location.reload()
                         }}>
                 Submit
               </Button>
