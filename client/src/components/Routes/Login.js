@@ -33,7 +33,7 @@ export default function Login() {
 const { API } = useContext(AppContext);
   
 
-
+console.log("WEB", API.website)
 
   /**
    * verify if the user is logged in

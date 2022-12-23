@@ -37,7 +37,7 @@ function App() {
 
 
   const API = {
-    website: 'Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
+    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
   };
 
   // const API = {
