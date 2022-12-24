@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Grid from "@mui/material/Grid";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import shelfLogo from '..//Images/shelfLogo.png'
@@ -89,10 +90,13 @@ console.log("WEB", API.website)
       width: "100vw",
     }}
     >
-      <Box sx={{ display: "flex", justifyContent: "center", mt:20 }}>
+      <Grid container >
+        <Grid item xs={12} m={6} l={6}>
+      <Box sx={{ display: "flex", justifyContent: "center", mt:20, flexGrow: 1}}>
       <Card
         sx={{
-          width: "700px",
+         
+          // width: "100%",
           boxShadow: 19,
           borderRadius: "16px",
         }}
@@ -109,11 +113,11 @@ console.log("WEB", API.website)
           >
             <div>
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                <Box>
+                <Box >
                   <h1>LOGIN</h1>
                 </Box>
-                <Box sx={{ mt: 1000 }}>
-                  <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+                <Box sx={{ mt: 1000, width:"1000" }}>
+                  <Box sx={{ display: "flex", justifyContent: "center", width:"1000" }}>
                     <AccountCircle
                       sx={{ color: "action.active", mr: 1, my: 0.5 }}
                     />
@@ -143,8 +147,8 @@ console.log("WEB", API.website)
                 </Box>
               </Box>
             </div>
-            <Box sx={{ mt: 4 }}>
-              <img alt="shelf logo" src={shelfLogo} width="250" height="250" />
+            <Box sx={{ mt: 5, display:"flex", justifyContent:"center", flexGrow: 1 }}>
+              <img alt="shelf logo" src={shelfLogo} width="50%" height="100%" />
             </Box>
           </Box>
         </CardContent>
@@ -171,7 +175,10 @@ console.log("WEB", API.website)
           </Box>
         </CardActions>
       </Card>
+
       </Box>
+      </Grid>
+      </Grid>
     </div>
     </body>
   );

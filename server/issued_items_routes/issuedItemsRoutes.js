@@ -16,6 +16,7 @@ const pool = new Pool({
 
 
 async function getSelectedUser(req, res) {
+console.log("GET SEELECTED USER", req.params.dod_id)
   verifyToken(req, res, (authData) => {
     console.log(authData);
     jwt.verify(req.token, "secretkey", (err, authData) => {

@@ -41,7 +41,7 @@ function Home() {
             fontFamily:'Arvo',
           }}
         >
-          <Box sx={{ mt: 10, ml:15, fontSize: 100, height: '0%',}}>
+          <Box sx={{ mt: 10, ml:15, fontSize: 100, height: '0%'}}>
             <div>
               <p>Welcome to Shelf! </p>
              
@@ -75,7 +75,7 @@ function Home() {
 
 
         <Box
-        sx={{display:'flex', justifyContent:'flex-end', mt: 2, ml:10}}
+        sx={{display:'flex', justifyContent:'flex-end', mt: 2, ml:10, flexGrow: 1}}
         >
             <img alt="home page" src={homePage} width='1500' height='750'/>
         </Box>
