@@ -210,7 +210,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
   return (
       <Box sx={{ display: "flex", }}>
         <CssBaseline/>
-        <AppBar position="fixed" open={open}>
+        <AppBar position="static" open={open}>
           <Toolbar>
             {/* <IconButton
               color="inherit"
