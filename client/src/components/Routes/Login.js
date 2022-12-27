@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppContext from "../AppContext.js";
 import axios from "axios";
@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
 import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
@@ -96,7 +96,7 @@ console.log("WEB", API.website)
       <Card
         sx={{
          
-          // width: "100%",
+          width: "80%",
           boxShadow: 19,
           borderRadius: "16px",
         }}
@@ -147,31 +147,36 @@ console.log("WEB", API.website)
                 </Box>
               </Box>
             </div>
-            <Box sx={{ mt: 5, display:"flex", justifyContent:"center", flexGrow: 1 }}>
-              <img alt="shelf logo" src={shelfLogo} width="50%" height="100%" />
+            <Box sx={{ mt: 5, display:"flex", justifyContent:"center", flexGrow: 1, width: '25px' }}>
+              <img alt="shelf logo" src={shelfLogo} width="75%" height="100%" />
             </Box>
           </Box>
         </CardContent>
         <CardActions>
-          <Box
-            sx={{ display: "flex", justifyContent: "center", ml: 13, mb: 2 }}
-          >
-            <Button
-              color="secondary"
-              variant="contained"
-              type="submit"
-              onClick={loginUser}
-            >
-              LOGIN!
-            </Button>
+          <Box sx={{
+            display:'flex', 
+            flexDirection: 'row', 
+            justifyContent: 'center',
+            width: '100%'
+            }}>
+            <Box sx={{ display: 'flex', alignItems: 'center'}} >
+              <Button
+                color="secondary"
+                variant="contained"
+                type="submit"
+                onClick={loginUser}
+              >
+                LOGIN!
+              </Button>
           </Box>
-          <Box sx={{ mb: 2 }}>
+          <Box>
             <h5>Don't Have An Account?</h5>
           </Box>
-          <Box sx={{ mb: 2.1 }}>
+          <Box>
             <Link to="/signup" style={{ color: "#FC9A01" }}>
               <h5>Register!</h5>
             </Link>
+          </Box>
           </Box>
         </CardActions>
       </Card>

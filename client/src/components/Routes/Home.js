@@ -1,9 +1,7 @@
 
 import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
-import AppContext from "../AppContext.js";
-import { Link } from "react-router-dom";
-import React, { useEffect, useContext } from "react";
+
+import React, { useEffect } from "react";
 import homePage from '..//Images/homePage.jpg'
 import WebFont from 'webfontloader';
 
@@ -11,7 +9,7 @@ import WebFont from 'webfontloader';
 
 function Home() {
 
-  const { API } = useContext(AppContext);
+ 
   
 
 
@@ -29,7 +27,7 @@ function Home() {
   return (
     <div>
       <Box 
-      sx={{display:'flex', flexDirection:'row', display:'flex', justifyContent:'center',
+      sx={{ flexDirection:'row', display:'flex', justifyContent:'center',
             alignItems:'center', }}>
         <Box
           sx={{
