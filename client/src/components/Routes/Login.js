@@ -10,6 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import LockIcon from "@mui/icons-material/Lock";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import shelfLogo from '..//Images/shelfLogo.png'
 import TextField from "@mui/material/TextField";
 
@@ -32,6 +33,8 @@ export default function Login() {
 } 
 
 const { API } = useContext(AppContext);
+
+const matches = useMediaQuery("(min-width:1200px)");
   
 
 console.log("WEB", API.website)
@@ -90,34 +93,25 @@ console.log("WEB", API.website)
       width: "100vw",
     }}
     >
-      <Grid container >
-        <Grid item xs={12} m={6} l={6}>
+
       <Box sx={{ display: "flex", justifyContent: "center", mt:20, flexGrow: 1}}>
       <Card
         sx={{
-         
           width: "80%",
+          maxWidth: 800,
           boxShadow: 19,
           borderRadius: "16px",
         }}
         variant="outlined"
       >
         <CardContent>
-          <Box
-            sx={{
-              display: "flex",
-              ml: 3,
-              mt: 5,
-              justifyContent: "space-evenly",
-            }}
-          >
+              <Box sx={{ml: 6}}>
+                <h1>LOGIN</h1>
+              </Box>
             <div>
-              <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                <Box >
-                  <h1>LOGIN</h1>
-                </Box>
-                <Box sx={{ mt: 1000, width:"1000" }}>
-                  <Box sx={{ display: "flex", justifyContent: "center", width:"1000" }}>
+          <Box sx={{ display: "flex", ml: 3, flexDirection: 'row', flexGrow: 1, }} >
+                <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', width:300, justifyContent: 'space-evenly' }}>
+                  <Box sx={{ display: "flex", alignItems:"flex-end" }}>
                     <AccountCircle
                       sx={{ color: "action.active", mr: 1, my: 0.5 }}
                     />
@@ -126,31 +120,32 @@ console.log("WEB", API.website)
                       id="input-with-sx"
                       label="User Name"
                       variant="standard"
+                      sx={{width: '100%'}}
                       onChange={(e) =>
                         setUser({ ...user, user_email: e.target.value })
                       }
                     />
                   </Box>
                   <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-                    <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+                    <LockIcon sx={{ color: "action.active", mr: 1, my: 0.5, mt:5 }} />
                     <TextField
                       required={true}
                       id="outlined-password-input"
                       type="password"
                       label="Password"
                       variant="standard"
+                      sx={{width: '100%'}}
                       onChange={(e) =>
                         setUser({ ...user, user_password: e.target.value })
                       }
                     />
                   </Box>
                 </Box>
-              </Box>
-            </div>
-            <Box sx={{ mt: 5, display:"flex", justifyContent:"center", flexGrow: 1, width: '25px' }}>
-              <img alt="shelf logo" src={shelfLogo} width="75%" height="100%" />
+            <Box sx={{ mt: 1, display:"flex", justifyContent:'center', alignItems: 'center'}}>
+              <img alt="shelf logo" src={shelfLogo} width="45%" height="115%" />
             </Box>
           </Box>
+            </div>
         </CardContent>
         <CardActions>
           <Box sx={{
@@ -169,10 +164,10 @@ console.log("WEB", API.website)
                 LOGIN!
               </Button>
           </Box>
-          <Box>
+          <Box sx={{ ml: 2}}>
             <h5>Don't Have An Account?</h5>
           </Box>
-          <Box>
+          <Box sx={{ ml: 1}}>
             <Link to="/signup" style={{ color: "#FC9A01" }}>
               <h5>Register!</h5>
             </Link>
@@ -182,8 +177,7 @@ console.log("WEB", API.website)
       </Card>
 
       </Box>
-      </Grid>
-      </Grid>
+
     </div>
     </body>
   );
