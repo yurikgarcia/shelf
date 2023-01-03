@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import axios from "axios";
+import AppContext from "./AppContext.js";
 import Autocomplete from '@mui/material/Autocomplete';
 import Badge from '@mui/material/Badge';
 import Box from "@mui/material/Box";
@@ -18,7 +19,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import shelfLogo from ".//Images/shelfLogo.png";
 import Slide from '@mui/material/Slide';
-import Snackbar from '@mui/material/Snackbar';
 import { styled } from '@mui/material/styles';
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
@@ -42,9 +42,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     Original_warehouse: " "
   });   //initial state for updating the Quantity of a requested item in the cart
   const [items, setItems] = useState([]); //state for items in the cart
-
-
-
+  const { API } = useContext(AppContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -88,7 +86,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
    */
   const fetchUsers = async () => {
     axios
-      .get("http://localhost:3000/users", {
+      .get(`h${API.website}/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -109,7 +107,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       let itemUUID = newQuantity.UUID
       let ogWarehouse = newQuantity.Original_warehouse;
       axios
-      .get(`http://localhost:3000/currentItemCount/${itemUUID}/${ogWarehouse}`, {
+      .get(`${API.website}/currentItemCount/${itemUUID}/${ogWarehouse}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -130,7 +128,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
               let adminID = localStorage.user_dod
               // console.log("adminID", adminID)
               axios
-              .get(`http://localhost:3000/admin-cart/${adminID}`, {
+              .get(`${API.website}/admin-cart/${adminID}`, {
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem("authorization")}`,
                 },
@@ -151,7 +149,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const fetchNewShoppingCart = async () => {
     // setSpinner(true);
     axios
-    .get(`http://localhost:3000/shopping-cart/${user_dod}`, {
+    .get(`${API.website}/shopping-cart/${user_dod}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -172,7 +170,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
           const fetchLoggedAdminWarehouses = async () => {
             let adminID = localStorage.user_dod
             axios
-            .get(`http://localhost:3000/admin-warehouses/${adminID}`, {
+            .get(`${API.website}/admin-warehouses/${adminID}`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("authorization")}`,
               },
@@ -189,7 +187,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   // function to delete item from shopping_cart column in the users table in db
   const onDelete  = async (items, index) => {
     let id = items.UUID;
-    axios.delete(`http://localhost:3000/shopping-cart/${id}/${user_dod}`)
+    axios.delete(`${API.website}/shopping-cart/${id}/${user_dod}`)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
@@ -206,7 +204,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
 
   const addToIssuedItems = async (items, index) => {
     axios
-      .patch(`http://localhost:3000/issued-items/${user_dod}/${value}`,)
+      .patch(`${API.website}/issued-items/${user_dod}/${value}`,)
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
@@ -240,7 +238,7 @@ const changeItemQuantity = async (items, index) => {
   let id = items.UUID;
   let ogWarehouse = newQuantity.Original_warehouse;
   axios
-    .patch(`http://localhost:3000/shopping-cart-quantity/${id}/${user_dod}/${ogWarehouse}`,
+    .patch(`${API.website}/shopping-cart-quantity/${id}/${user_dod}/${ogWarehouse}`,
     newQuantity, 
     )
     .then((res) => {
@@ -262,11 +260,11 @@ const changeItemQuantity = async (items, index) => {
       let newCount = currentItemCount-items.Quantity;
       let ogWarehouse = items.Original_warehouse;
     axios
-      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
+      .patch(`${API.website}/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       newQuantity, 
       )
       axios
-      .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`,
+      .patch(`${API.website}/removeitemfromcart/${id}/${user_dod}`,
       )
       .then((res) => {
         if (res.status === 200) {
@@ -294,11 +292,11 @@ const changeItemQuantity = async (items, index) => {
       // console.log("user_dodid", user_dodid)
       // console.log("USER_DOD", user_dod)
       axios
-        .patch(`http://localhost:3000/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
+        .patch(`${API.website}/inventoryaddcount/${id}/${newCount}/${user_dodid}/${user_dod}`,
         newQuantity, 
         )
         axios
-        .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
+        .patch(`${API.website}/removeitemfromcart/${id}/${user_dod}`, 
         )
       .then((res) => {
         if (res.status === 200) {
@@ -351,13 +349,13 @@ const changeItemQuantity = async (items, index) => {
     let newCount = currentItemCount-items.Quantity;
     let ogWarehouse = items.Original_warehouse;
     axios
-      .patch(`http://localhost:3000/addToSelectedWarehouse/${selectedWarehouse}`, items
+      .patch(`${API.website}/addToSelectedWarehouse/${selectedWarehouse}`, items
       ); console.log("ITEMS ADD TO SELECTED", items)
       axios
-      .patch(`http://localhost:3000/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
+      .patch(`${API.website}/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
       )
       axios
-      .patch(`http://localhost:3000/removeitemfromcart/${id}/${user_dod}`, 
+      .patch(`${API.website}/removeitemfromcart/${id}/${user_dod}`, 
       )
       .then((res) => {
         if (res.status === 200) {
