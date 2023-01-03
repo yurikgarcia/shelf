@@ -21,7 +21,6 @@ async function updateQuantity(req, res) {
   let user_id = req.params.user_dod;
   let ogWarehouse = req.params.ogWarehouse;
   const item_id = req.params.id;
-  console.log("QUANTITYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
   pool.query(
     `UPDATE users
     SET shopping_cart = s.json_array

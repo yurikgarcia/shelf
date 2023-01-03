@@ -15,21 +15,36 @@ const pool = new Pool({
 });
 
 
+// async function getSelectedUser(req, res) {
+//   verifyToken(req, res, (authData) => {
+//     console.log(authData);
+//     jwt.verify(req.token, "secretkey", (err, authData) => {
+//       if (authData === undefined) return res.send(403);
+//       console.log("GET SEELECTED USERRRRRRRRRRRRRRRRRRRR", req.params)
+// const user_id = req.params.dod;
+//       pool.query('SELECT * FROM users WHERE dod_id = 13', (error, results) => {
+//         if (error) {
+//           return res.send("error" + error);
+//         }
+//         res.send(results.rows);
+//       });
+//     });
+//   });
+// }
+
 async function getSelectedUser(req, res) {
   verifyToken(req, res, (authData) => {
-    console.log(authData);
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
-      let user_id = req.params.dod_id;
-      pool.query(`SELECT * FROM users WHERE dod_id = '${user_id}'`, (error, results) => {
+      pool.query("SELECT * FROM users", (error, results) => {
         if (error) {
-          return res.send("error" + error);
+          res.send("error" + error);
         }
         res.send(results.rows);
       });
     });
   });
-}
+};
 
 
 

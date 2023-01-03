@@ -69,11 +69,11 @@ app.get('/', (req,res) => {
 });
 
 
-app.get('/test', (req, res) => {
-  res.send(`Test Successful ${PORT}, Bitchez!
-  ${JSON.stringify(pool)}
-`);
-})
+// app.get('/test', (req, res) => {
+//   res.send(`Test Successful ${PORT}, Bitchez!
+//   ${JSON.stringify(pool)}
+// `);
+// })
 
 app.get('/ELB-HealthChecker/2.0', (req, res) => {
   res.send(200);
@@ -161,6 +161,12 @@ app.get('/admin-warehouses/:adminID', adminWarehouses)
 
 //--------------------------------ADMIN CART ----------------------------------------------------------------------------------------------------------------
 app.get('/admin-cart/:adminID', getCartColumn)
+
+//--------------------------------GET SELECTED USER FOR ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
+app.get('/getselecteduser/dod', getSelectedUser)
+
+
+
 
 
 
