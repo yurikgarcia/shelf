@@ -34,8 +34,8 @@ async function login(req, res) {
     password: req.body.user_password,
     warehouses: req.body.user_password
   };
-  console.log("user when login", user);
-  console.log("LOGIN REQ", req.body);
+  // console.log("user when login", user);
+  // console.log("LOGIN REQ", req.body);
 pool.query(
     `SELECT * FROM users WHERE email='${user.email}'`,
     (error, results) => {

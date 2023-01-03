@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import AppContext from './components/AppContext.js';
 import { createTheme } from "@mui/material/styles";
 import Home from ".//components/Routes/Home.js";
+import Items from ".//components/Routes/Items.js";
 import SignUp from ".//components/Routes/SignUp.js";
 import Inventory from ".//components/Routes/Inventory.js";
 import Login from ".//components/Routes/Login.js";
@@ -35,13 +36,13 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
 
-  const API = {
-    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
-  };
-
   // const API = {
-  //   website: 'http://localhost:3000'
+  //   website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
   // };
+
+  const API = {
+    website: 'http://localhost:3000'
+  };
 
 
 
@@ -83,6 +84,7 @@ function App() {
                       />
                     }
                   />
+                                      <Route path="/items" element={<Items />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/users/:name" element={<UserIssuedItems />} />
                     <Route path="/transfers" element={<Transfers />} /> 

@@ -162,6 +162,12 @@ app.get('/admin-warehouses/:adminID', adminWarehouses)
 //--------------------------------ADMIN CART ----------------------------------------------------------------------------------------------------------------
 app.get('/admin-cart/:adminID', getCartColumn)
 
+//--------------------------------GET SELECTED USER FOR ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
+app.get('/getselecteduser/dod', getSelectedUser)
+
+
+
+
 
 
 /*

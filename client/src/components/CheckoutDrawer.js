@@ -86,7 +86,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
    */
   const fetchUsers = async () => {
     axios
-      .get(`h${API.website}/users`, {
+      .get(`${API.website}/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authorization")}`,
         },
@@ -419,6 +419,8 @@ const changeItemQuantity = async (items, index) => {
       // console.log("FLAT", flatCart)
 
       // console.log("CART", cart)
+
+      // console.log("USERS FROM CHECKOUT", users)
 
     
 

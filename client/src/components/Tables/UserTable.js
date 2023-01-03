@@ -231,7 +231,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const goToUserDetails = (params) => {
     setSelectedUserDodId(params.row);
     navigate('/issueditems', {state: params.row});
-    console.log("params.row from go to userdetails", params.row)
+    // console.log("params.row from go to userdetails function", params.row)
 } 
 
   //function that fires handleOrganizationChange and handleChange when a checkbox is clicked

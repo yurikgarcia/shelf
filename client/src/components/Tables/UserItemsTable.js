@@ -22,13 +22,22 @@ export default function RowsGrid({ }) {
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const { API } = useContext(AppContext);
 
-  // console.log("LOCAL STORAGE WAREHOUSES", localStorage.user_warehouses)
+  // console.log("USER FROM TABLE", user)
+  // console.log("LOCATION", location)
+  // console.log("LOCALFROM TABLE", localStorage)
+  // console.log("SELECTED USER DOD ID", selectedUserDodId)
+  // // console.log("LOCAL STORAGE WAREHOUSES", localStorage.user_warehouses)
+  // console.log("newShoppingCart", newShoppingCart)
+  // console.log("API", API)
+  // console.log("CURRENT SHOPPING CART", currentShoppingCart)
+
 
 //  console.log("IMMM INNN ISSUES ITEMS/USERITEMSTABLE")
 
   useEffect(() => {
     fetchUsers();
     fetchCurrentShoppingCart();
+    fetchNewShoppingCart();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
@@ -53,14 +62,14 @@ export default function RowsGrid({ }) {
   //fetch that pulls the issues items of the selectedUserDodId from the db
   const fetchUsers = async () => {
     setSpinner(true);
-    axios.get(`${API.website}/users`,
+    axios.get(`${API.website}/getselecteduser/${selectedUserDodId}`,
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
       },
     })
       .then(res => {
-        // setUsers(res.data);
+        setUser(res.data);
         setSpinner(false);
       })
       .catch(err => {
@@ -70,20 +79,6 @@ export default function RowsGrid({ }) {
   };
 
   
-
-
-  // console.log("SELECTED USER DOD ID", selectedUserDodId)
-  const consoleCheck = () => {
-    console.log("CONSOLE CHECK")
-  }
-
-  // console.log("USER inside UserItemsTable", user)
-
-    //initial call to grab inventory from DB on load
-    useEffect(() => {
-      fetchNewShoppingCart();
-    }, []);
-
       /**
    * shopping Cart fetch
    */
@@ -109,10 +104,14 @@ export default function RowsGrid({ }) {
 
   //function that iterates through the user array and returns the issued_items array as issuedItems
   const issuedItems = user.map((user) => {
-    // console.log("USER inside issuedItems function", user)
-    return user.issued_items;
-  }
+      // console.log("USER inside issuedItems function", user)
+      return user.issued_items;
+    }
   );
+
+  console.log("USER inside issuedItems function", user)
+
+  // console.log("ITEMS inside UserItemsTable", issuedItems)
 
     /**
    * adds to shopping cart column in the users table
@@ -175,7 +174,7 @@ export default function RowsGrid({ }) {
 
 
 
-// console.log("ITEMS inside UserItemsTable", issuedItems)
+
 // console.log("SHOPPING CART ITEMS", shoppingCart)
 
 
