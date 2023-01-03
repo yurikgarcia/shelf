@@ -30,54 +30,52 @@ export default function RowsGrid({ }) {
   // console.log("newShoppingCart", newShoppingCart)
   // console.log("API", API)
   // console.log("CURRENT SHOPPING CART", currentShoppingCart)
-
-
-//  console.log("IMMM INNN ISSUES ITEMS/USERITEMSTABLE")
+  //  console.log("IMMM INNN ISSUES ITEMS/USERITEMSTABLE")
 
   useEffect(() => {
     fetchUsers2();
-    // fetchCurrentShoppingCart();
-    // fetchNewShoppingCart();
+    fetchCurrentShoppingCart();
+    fetchNewShoppingCart();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
 
 
-    // const fetchCurrentShoppingCart = async () => {
-    //   // setSpinner(true);
-    //   axios
-    //     .get(`${API.website}/shopping-cart/${user_dod}`, {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       setCurrentShoppingCart(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // };
+    const fetchCurrentShoppingCart = async () => {
+      // setSpinner(true);
+      axios
+        .get(`${API.website}/shopping-cart/${user_dod}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+          },
+        })
+        .then((res) => {
+          setCurrentShoppingCart(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
   //fetch that pulls the issues items of the selectedUserDodId from the db
-  // const fetchUsers = async () => {
-  //   console.log("FETCHING USERS", selectedUserDodId)
-  //   axios.get(`${API.website}/getselecteduser/${selectedUserDodId}`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-  //     },
-  //   })
-  //     .then(res => {
-  //       setUser(res.data);
-  //       setSpinner(false);
-  //       console.log("RES.DATA", res.data)
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       setSpinner(false);
-  //     })
-  // };
+  const fetchUsers = async () => {
+    console.log("FETCHING USERS", selectedUserDodId)
+    axios.get(`${API.website}/getselecteduser/${selectedUserDodId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+      },
+    })
+      .then(res => {
+        setUser(res.data);
+        setSpinner(false);
+        console.log("RES.DATA", res.data)
+      })
+      .catch(err => {
+        console.log(err);
+        setSpinner(false);
+      })
+  };
 
   const fetchUsers2 = async () => {
     console.log("FIRING FETCH USERS", selectedUserDodId)
@@ -102,23 +100,23 @@ export default function RowsGrid({ }) {
       /**
    * shopping Cart fetch
    */
-  // const fetchNewShoppingCart = async () => {
-  //   // setSpinner(true);
-  //   axios
-  //   .get(`${API.website}/shopping-cart/${user_dod}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setNewShoppingCart(res.data);
-  //       // setSpinner(false);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       // setSpinner(false);
-  //     });
-  // };
+  const fetchNewShoppingCart = async () => {
+    // setSpinner(true);
+    axios
+    .get(`${API.website}/shopping-cart/${user_dod}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
+      .then((res) => {
+        setNewShoppingCart(res.data);
+        // setSpinner(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setSpinner(false);
+      });
+  };
 
   // console.log("SHOPPING CART", newShoppingCart)
 
@@ -142,22 +140,22 @@ export default function RowsGrid({ }) {
    * adds to shopping cart column in the users table
    */
 
-    // const addToCart = async (params) => {
-    //   let userShoppingCart = params.row;
-    //   console.log("USER SHOPPING CART", userShoppingCart)
-    //   axios
-    //   .patch(`${API.website}/shopping-cart/${user_dod}`, userShoppingCart)
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         setNewShoppingCart([...newShoppingCart, userShoppingCart]);
-    //         fetchCurrentShoppingCart();
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       alert("Sorry! Something went wrong. Please try again.");
-    //       console.log("err", err);
-    //     });
-    //   };
+    const addToCart = async (params) => {
+      let userShoppingCart = params.row;
+      console.log("USER SHOPPING CART", userShoppingCart)
+      axios
+      .patch(`${API.website}/shopping-cart/${user_dod}`, userShoppingCart)
+        .then((res) => {
+          if (res.status === 200) {
+            setNewShoppingCart([...newShoppingCart, userShoppingCart]);
+            fetchCurrentShoppingCart();
+          }
+        })
+        .catch((err) => {
+          alert("Sorry! Something went wrong. Please try again.");
+          console.log("err", err);
+        });
+      };
 
       const Alert = React.forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -239,26 +237,26 @@ export default function RowsGrid({ }) {
                   { field: "Issued", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
                   { field: "Original", minWidth: 150 },
-                  // { field: "Return",
-                  //   renderCell: (params) => (
-                  //     <div>
-                  //     {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
-                  //         <AssignmentReturnedIcon
-                  //         sx={{ cursor: "pointer", color: "#ff0000" }}
-                  //         onClick={handleClick(TransitionLeft)}
-                  //         />  
-                  //     ) : (
-                  //         <AssignmentReturnedIcon 
-                  //         sx={{ cursor: "pointer", color: "#4CAF50" }}
-                  //           onClick={() => {
-                  //             addToCart(params)
-                  //             window.location.reload()
-                  //           }}
-                  //         />
-                  //     ),)}
-                  //     </div>
-                  //   ),
-                  // },
+                  { field: "Return",
+                    renderCell: (params) => (
+                      <div>
+                      {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
+                          <AssignmentReturnedIcon
+                          sx={{ cursor: "pointer", color: "#ff0000" }}
+                          onClick={handleClick(TransitionLeft)}
+                          />  
+                      ) : (
+                          <AssignmentReturnedIcon 
+                          sx={{ cursor: "pointer", color: "#4CAF50" }}
+                            onClick={() => {
+                              addToCart(params)
+                              window.location.reload()
+                            }}
+                          />
+                      ),)}
+                      </div>
+                    ),
+                  },
                 ]}
                 rows={flatItems?.map((row, index) => {
                   return {
