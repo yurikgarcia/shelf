@@ -23,13 +23,13 @@ export default function RowsGrid({ }) {
   const { API } = useContext(AppContext);
 
   // console.log("USER FROM TABLE", user)
-  // console.log("LOCATION", location)
-  // console.log("LOCALFROM TABLE", localStorage)
-  // console.log("SELECTED USER DOD ID", selectedUserDodId)
+  console.log("LOCATION", location)
+  console.log("LOCALFROM TABLE", localStorage)
+  console.log("SELECTED USER DOD ID", selectedUserDodId)
   // // console.log("LOCAL STORAGE WAREHOUSES", localStorage.user_warehouses)
-  // console.log("newShoppingCart", newShoppingCart)
-  // console.log("API", API)
-  // console.log("CURRENT SHOPPING CART", currentShoppingCart)
+  console.log("newShoppingCart", newShoppingCart)
+  console.log("API", API)
+  console.log("CURRENT SHOPPING CART", currentShoppingCart)
 
 
 //  console.log("IMMM INNN ISSUES ITEMS/USERITEMSTABLE")
@@ -60,22 +60,38 @@ export default function RowsGrid({ }) {
     };
 
   //fetch that pulls the issues items of the selectedUserDodId from the db
+  // const fetchUsers = async () => {
+  //   console.log("FETCHING USERS", selectedUserDodId)
+  //   axios.get(`${API.website}/getselecteduser/${selectedUserDodId}`,
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+  //     },
+  //   })
+  //     .then(res => {
+  //       setUser(res.data);
+  //       setSpinner(false);
+  //       console.log("RES.DATA", res.data)
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       setSpinner(false);
+  //     })
+  // };
+
   const fetchUsers = async () => {
-    setSpinner(true);
-    axios.get(`${API.website}/getselecteduser/${selectedUserDodId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authorization")}`,
-      },
-    })
-      .then(res => {
+    axios
+      .get(`${API.website}/getselecteduser/${selectedUserDodId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+        },
+      })
+      .then((res) => {
         setUser(res.data);
-        setSpinner(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-        setSpinner(false);
-      })
+      });
   };
 
   
@@ -159,29 +175,16 @@ export default function RowsGrid({ }) {
         };
       
       
-        const [transition, setTransition] = React.useState(undefined)
+  const [transition, setTransition] = React.useState(undefined)
 
-
-
-// console.log("CURRENT SHOPPING CART", currentShoppingCart)
-
-//function that maps over currentShoppingCart and returns the shopping_cart.UUIDfetch array as shoppingCart
-const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
-  return currentShoppingCart.shopping_cart;
-  }
-);
-
-
-
-
-
-// console.log("SHOPPING CART ITEMS", shoppingCart)
-
+  //function that maps over currentShoppingCart and returns the shopping_cart.UUIDfetch array as shoppingCart
+  const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
+    return currentShoppingCart.shopping_cart;
+    }
+  );
 
   return (
-    // <div>
-    //   handleCloseDeleteModal
-    //   </div>
+<div>
     <Box
       sx={{
         display: "flex",
@@ -281,5 +284,6 @@ const shoppingCart = currentShoppingCart.map((currentShoppingCart) => {
       )
       }
     </Box >
+    </div>
   );
 }
