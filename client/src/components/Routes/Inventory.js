@@ -100,7 +100,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
 
-  // console.log("location from nav selection", location);
+  console.log("location from inv", location.state.warehouse.length)
   // console.log("PATRICK", SFSPatrickInventory);
 
   // console.log("CAPE", SFSCapeInventory)
@@ -113,12 +113,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             <h1>{location.state.warehouse}</h1>
           </Box>
 
-          <Box sx={{display:"flex", flexDirection: 'row'}}>
+          <Box sx={{display:"flex", flexDirection: 'row', justifyContent: 'flex-end', mr: 2}}>
+          {location.state.warehouse.length !== 0 ? (
             <AddModal
               inventory={inventory}
               setInventory={setInventory}
               fetchInventory={fetchInventory}
-            />
+            /> ) : null}
           </Box>
 
           <Box sx={{ ml: 4, mt: 1 }}>

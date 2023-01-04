@@ -264,12 +264,6 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
-
-
-
-
-
-
   return (
     <Box
       sx={{

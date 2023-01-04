@@ -51,7 +51,8 @@ function Users() {
               <h1>Users</h1>
           </Box>
 
-          <Box sx={{display:"flex", flexDirection: 'row'}}>
+
+          <Box sx={{display:"flex", flexDirection: 'row', justifyContent: 'flex-end', mr: 2}}>
               <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    
           </Box>
 
