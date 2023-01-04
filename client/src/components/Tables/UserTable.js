@@ -266,15 +266,6 @@ const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
 const wareHouseLength = adminWarehouses.length;
 
-// console.log("editedUser", editedUser)
-
-// console.log("adminWarehouses", adminWarehouses)
-
-const [ bool, setBool ] = useState([])
-
-
-
-
     //function that maps through adminWarehouses and returns adminWarehouse.warehouse_access
     const warehouses = adminWarehouses.map((adminWarehouse) => {
       return adminWarehouse.warehouse_access.flat()
@@ -283,7 +274,7 @@ const [ bool, setBool ] = useState([])
   //function that flatens the warehouses array
     const flatWarehouses = warehouses.flat()
 
-    const drill = flatWarehouses.map((warehouse) => {
+    const warehouseTables = flatWarehouses.map((warehouse) => {
       return warehouse.Table
     })
 
@@ -489,7 +480,7 @@ const [ bool, setBool ] = useState([])
                         <FormLabel component="legend">Warehouse Access:</FormLabel>
                           <FormGroup>
                           
-                          {drill.some(house => house === 'sfs45_patrick') ? (
+                          {warehouseTables.some(house => house === 'sfs45_patrick') ? (
                             <FormControlLabel
                               control={
                                 <Checkbox 
@@ -501,7 +492,7 @@ const [ bool, setBool ] = useState([])
                                 label="45 SFS - Patrick"
                             />) : null}
 
-                            {drill.some(house => house === 'sfs45_cape') ? (
+                            {warehouseTables.some(house => house === 'sfs45_cape') ? (
                             <FormControlLabel
                               control={
                                 <Checkbox 
