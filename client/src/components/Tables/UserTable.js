@@ -296,9 +296,16 @@ const wareHouseLength = adminWarehouses.length;
         </div>
 
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", height: "75vh", width: "100%" }}>
-          <div style={{ display: "flex", height: "100%", width: "100%"}}>
-            <div style={{ flexGrow: 1, whiteSpace: 'normal'  }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            height: "63vh",
+            width: "100%",
+          }}
+        >
+          <div style={{ display: "flex", height: "100%", width: "100%" }}>
+            <div style={{ flexGrow: 1 }}>
               <DataGrid
                 sx={{whiteSpace: 'normal', }}
                 initialState={{

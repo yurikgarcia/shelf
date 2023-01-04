@@ -279,7 +279,7 @@ export default function RowsGrid({
           style={{
             display: "flex",
             justifyContent: "center",
-            height: "75vh",
+            height: "63vh",
             width: "100%",
           }}
         >

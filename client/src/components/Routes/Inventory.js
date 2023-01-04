@@ -98,7 +98,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
         });
     };
 
-  const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
+  const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
 
   // console.log("location from nav selection", location);
   // console.log("PATRICK", SFSPatrickInventory);
@@ -109,22 +109,19 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     <div>
       <div>
         <main>
-          <Box sx={{ ml: 15, mt: 2 }}>
+          <Box sx={{ ml: 11, mt: 2 }}>
             <h1>{location.state.warehouse}</h1>
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Box sx={{display:"flex", flexDirection: 'row'}}>
             <AddModal
               inventory={inventory}
               setInventory={setInventory}
               fetchInventory={fetchInventory}
             />
-          
-            {/* <AddCart inventory={inventory} setInventory={setInventory} fetchInventory={fetchInventory}/>    */}
           </Box>
 
-
-          <Box sx={{ ml: 8, mt: 1 }}>
+          <Box sx={{ ml: 4, mt: 1 }}>
             {location.state.warehouse  
             === "45 SFS - Patrick" ? (
               <SFS_Patrick
@@ -146,32 +143,10 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             </Box>
             )}
           </Box>
-{/* 
-          <Box sx={{ ml: 8, mt: 1 }}>
-            <SFS_Patrick
-              inventory={SFSPatrickInventory}
-              setInventory={setSFSPatrickInventory}
-              fetchInventory={fetchSFSPatrickInventory}
-              shoppingCart={shoppingCart}
-              setShoppingCart={setShoppingCart}
-            />
-          </Box> */}
         </main>
       </div>
     </div>
   );
 }
-
-
-          // <Box sx={{ ml: 8, mt: 1 }}>
-          //   <InventoryTable
-          //     inventory={inventory}
-          //     fetchInventory={fetchInventory}
-          //     spinner={spinner}
-          //     shoppingCart={shoppingCart}
-          //     setShoppingCart={setShoppingCart}
-          //   />
-          // </Box> 
-
 
 export default Inventory;

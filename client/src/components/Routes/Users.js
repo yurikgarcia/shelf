@@ -47,7 +47,7 @@ function Users() {
     <div>
       <div>
         <main>
-          <Box sx={{ml: 15, mt: 2}}>
+          <Box sx={{ml: 11, mt: 2}}>
               <h1>Users</h1>
           </Box>
 
@@ -55,7 +55,7 @@ function Users() {
               <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    
           </Box>
 
-          <Box sx={{ ml: 8, mt: 1 }}>
+          <Box sx={{ ml: 4, mt: 1 }}>
             <UserTable users={users} fetchUsers={fetchUsers} spinner={spinner}/>
           </Box>
         </main>

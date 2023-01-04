@@ -290,7 +290,7 @@ export default function RowsGrid({
           style={{
             display: "flex",
             justifyContent: "center",
-            height: "75vh",
+            height: "63vh",
             width: "100%",
           }}
         >
@@ -310,8 +310,8 @@ export default function RowsGrid({
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "Name", minWidth: 150 },
-                  { field: "Brand", minWidth: 130 },
+                  { field: "Name", minWidth: 120 },
+                  { field: "Brand", minWidth: 100 },
                   { field: "NSN", minWidth: 100 },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
