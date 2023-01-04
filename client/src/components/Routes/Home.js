@@ -58,9 +58,9 @@ function Home() {
           </Box>
         </Box>
         <Box
-          sx={{ ml:10, flexShrink: 1}}
+          // sx={{ ml:10, mb:10, flexGrow: 1}}
           >
-            <img alt="home page" src={homePage} width='1500' height='750'/>
+            <img alt="home page" src={homePage} width='600' height='500' sx={{ flexGrow: 1}}/>
         </Box>
       </Box>
 

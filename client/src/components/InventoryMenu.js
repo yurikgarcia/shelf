@@ -9,58 +9,98 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: 6,
-    marginTop: theme.spacing(1),
-    minWidth: 180,
-    color:
-      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-    boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0',
-    },
-    '& .MuiMenuItem-root': {
-      '& .MuiSvgIcon-root': {
-        fontSize: 18,
-        color: theme.palette.text.secondary,
-        marginRight: theme.spacing(1.5),
-      },
-      '&:active': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
-        ),
-      },
-    },
-  },
-}));
+// const StyledMenu = styled((props) => (
+//   <Menu
+//     elevation={2}
+//     anchorOrigin={{
+//       vertical: 'bottom',
+//       horizontal: 'right',
+//     }}
+//     transformOrigin={{
+//       vertical: 'top',
+//       horizontal: 'right',
+//     }}
+//     {...props}
+//   />
+// ))(({ theme }) => ({
+//   '& .MuiPaper-root': {
+//     borderRadius: 6,
+//     marginTop: theme.spacing(1),
+//     minWidth: 110,
+//     color:
+//       theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+//     boxShadow:
+//       'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+//     '& .MuiMenu-list': {
+//       padding: '4px 0',
+//     },
+//     '& .MuiMenuItem-root': {
+//       '& .MuiSvgIcon-root': {
+//         fontSize: 18,
+//         color: theme.palette.text.secondary,
+//         marginRight: theme.spacing(1.5),
+//       },
+//       '&:active': {
+//         backgroundColor: alpha(
+//           theme.palette.primary.main,
+//           theme.palette.action.selectedOpacity,
+//         ),
+//       },
+//     },
+//   },
+// }));
 
 
 
-export default function CustomizedMenus() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+// export default function CustomizedMenus() {
+//   const [anchorEl, setAnchorEl] = React.useState(null);
+//   const open = Boolean(anchorEl);
+//   const handleClick = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+//   const handleClose = () => {
+//     setAnchorEl(null);
+//   };
+//   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
+//   const [selectedWarehouse, setSelectedWarehouse] = useState(''); //value state for users drop down
+
+//   const { API } = useContext(AppContext);
+
+//       //initial call to grab users from DB on load
+//       useEffect(() => {
+//         fetchLoggedAdminWarehouses();
+//       }, []);
+  
+//         /**
+//      * fetches the logged in user's warehouses from the DB
+//      */
+//         const fetchLoggedAdminWarehouses = async () => {
+//           let adminID = localStorage.user_dod
+//           axios
+//           .get(`${API.website}/admin-warehouses/${adminID}`, {
+//             headers: {
+//               Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+//             },
+//           })
+//           .then((res) => {
+//             setAdminWarehouses(res.data);
+//           })
+//           .catch((err) => { 
+//             console.log(err);
+//           });
+//         };
+
+//         // console.log("selectedWarehouse!", selectedWarehouse);
+
+//         const navigate = useNavigate();
+
+//         const goToUserDetails = (params) => {
+//           navigate('/inventory', {state: {warehouse: selectedWarehouse}});
+//           // console.log("STATE wAREHOUSE", selectedWarehouse)
+        // }
+
+  export default function BasicMenu() {
+
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [selectedWarehouse, setSelectedWarehouse] = useState(''); //value state for users drop down
 
@@ -99,6 +139,15 @@ export default function CustomizedMenus() {
           // console.log("STATE wAREHOUSE", selectedWarehouse)
         }
 
+        const [anchorEl, setAnchorEl] = React.useState(null);
+        const open = Boolean(anchorEl);
+        const handleClick = (event) => {
+          setAnchorEl(event.currentTarget);
+        };
+        const handleClose = () => {
+          setAnchorEl(null);
+        };
+
 
 
   return (
@@ -114,7 +163,7 @@ export default function CustomizedMenus() {
       >
         Inventory
       </Button>
-        <StyledMenu
+        <Menu
           id="demo-customized-menu"
           MenuListProps={{
             'aria-labelledby': 'demo-customized-button',
@@ -140,14 +189,14 @@ export default function CustomizedMenus() {
                       handleClose();
                     }}
                     >
-                      <p>{warehouse_access.Name}</p>
+                      {warehouse_access.Name}
                     </MenuItem>
                   )})}
                 </div>
               )
             }
           )}
-        </StyledMenu>
+        </Menu>
     </div>
   );
 }

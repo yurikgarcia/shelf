@@ -163,7 +163,7 @@ app.get('/admin-warehouses/:adminID', adminWarehouses)
 app.get('/admin-cart/:adminID', getCartColumn)
 
 //--------------------------------GET SELECTED USER FOR ISSUED ITEMS ----------------------------------------------------------------------------------------------------------------
-app.get('/getselecteduser/dod', getSelectedUser)
+app.get('/getselecteduser/:dod', getSelectedUser)
 
 
 

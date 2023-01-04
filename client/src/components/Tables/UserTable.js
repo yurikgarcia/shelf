@@ -169,12 +169,9 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
       })
   }
 
-  //function that sets the initial state of editedUserWarehouses to editedUser.Warehouses
-  // const setWarehouses = (editedUser) => {
-  //   setEditedUserWarehouses(editedUser.row.FullWarehouses);
-  // }
 
-  // console.log("SETWAREHOUSES: ", editedUserWarehouses);
+
+
 
   //function that takes in editedUserWarehouses and sets the keys in the object key value pair to a string
   //example {Name : "45 SFS Patrick AFB", Table: "sfs45_patrick"} becomes {"Name" : "45 SFS Patrick", "Table" : "sfs45_patrick"}
@@ -272,6 +269,23 @@ const wareHouseLength = adminWarehouses.length;
 // console.log("editedUser", editedUser)
 
 // console.log("adminWarehouses", adminWarehouses)
+
+const [ bool, setBool ] = useState([])
+
+
+
+
+    //function that maps through adminWarehouses and returns adminWarehouse.warehouse_access
+    const warehouses = adminWarehouses.map((adminWarehouse) => {
+      return adminWarehouse.warehouse_access.flat()
+    })
+
+  //function that flatens the warehouses array
+    const flatWarehouses = warehouses.flat()
+
+    const drill = flatWarehouses.map((warehouse) => {
+      return warehouse.Table
+    })
 
 
   return (
@@ -474,6 +488,8 @@ const wareHouseLength = adminWarehouses.length;
                       >
                         <FormLabel component="legend">Warehouse Access:</FormLabel>
                           <FormGroup>
+                          
+                          {drill.some(house => house === 'sfs45_patrick') ? (
                             <FormControlLabel
                               control={
                                 <Checkbox 
@@ -483,7 +499,9 @@ const wareHouseLength = adminWarehouses.length;
                                 id="45 SFS - Patrick" />
                               }
                                 label="45 SFS - Patrick"
-                            />
+                            />) : null}
+
+                            {drill.some(house => house === 'sfs45_cape') ? (
                             <FormControlLabel
                               control={
                                 <Checkbox 
@@ -493,7 +511,7 @@ const wareHouseLength = adminWarehouses.length;
                                 id="45 SFS - Cape" />
                               }
                               label="45 SFS - Cape"
-                            />
+                            />) : null}
                           </FormGroup>
                         </FormControl>
                     </Box>

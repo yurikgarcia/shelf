@@ -206,11 +206,10 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
 
 
 
-
   return (
       <Box sx={{ display: "flex", }}>
         <CssBaseline/>
-        <AppBar position="static" open={open}>
+        <AppBar position="relative" open={open}>
           <Toolbar>
             {/* <IconButton
               color="inherit"
@@ -243,6 +242,15 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
             <Link to="/home" style={{ textDecoration: 'none', color: 'white', fontSize: "30px"}}>
               Shelf
               </Link>
+            </Typography>
+
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", mr: 2}}
+            > 
+              {localStorage.user_name} 
             </Typography>
 
           

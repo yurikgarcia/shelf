@@ -16,7 +16,6 @@ const pool = new Pool({
 });
 
 async function getUsers(req, res) {
-  console.log("GET USERSsfsfsfsfsfsfsfsfsfsfssfsfssf")
   verifyToken(req, res, (authData) => {
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
