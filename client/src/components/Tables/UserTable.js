@@ -289,9 +289,8 @@ const wareHouseLength = adminWarehouses.length;
       sx={{
         display: "flex",
         justifyContent: "center",
-        width: "93%",
+        width: "99%",
         overflow: "hidden",
-        ml: 7,
         boxShadow: 10
       }}
     >
@@ -305,7 +304,7 @@ const wareHouseLength = adminWarehouses.length;
           style={{
             display: "flex",
             justifyContent: "center",
-            height: "63vh",
+            height: "75vh",
             width: "100%",
           }}
         >

@@ -47,17 +47,18 @@ function Users() {
     <div>
       <div>
         <main>
-          <Box sx={{ml: 11, mt: 2}}>
-              <h1>Users</h1>
-          </Box>
+        <Box sx={{ display: 'flex', ml:1.5, flexDirection: 'column', width: '99%'}}>
+            <Box sx={{ml: 3 }}>
+                <h1>Users</h1>
+            </Box>
 
+            <Box sx={{display:"flex", justifyContent: 'flex-start'}}>
+                <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    
+            </Box>
 
-          <Box sx={{display:"flex", flexDirection: 'row', justifyContent: 'flex-end', mr: 2}}>
-              <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    
-          </Box>
-
-          <Box sx={{ ml: 4, mt: 1 }}>
-            <UserTable users={users} fetchUsers={fetchUsers} spinner={spinner}/>
+            <Box sx={{display:"flex", justifyContent: 'flex-start'}}>
+              <UserTable users={users} fetchUsers={fetchUsers} spinner={spinner}/>
+            </Box>
           </Box>
         </main>
       </div>

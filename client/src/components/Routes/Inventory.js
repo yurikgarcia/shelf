@@ -138,7 +138,6 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     <div>
       <div>
         <main>
-
         <Box sx={{ display: 'flex', ml:1, flexDirection: 'column', width: '99%'}}>
           <Box sx={{ ml:3}}>
             <h1>{location.state.warehouse}</h1>

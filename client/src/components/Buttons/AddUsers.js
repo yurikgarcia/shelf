@@ -112,7 +112,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
 
   return (
     <div>
-      <Box sx={{ ml: 15, mt: 1 }}>
+      <Box>
         <Button variant="contained"
           startIcon={<AddIcon />}
           onClick={handleUserOpen}
