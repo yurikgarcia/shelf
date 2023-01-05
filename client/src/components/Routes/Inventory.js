@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import InventoryTable from "../Tables/InventoryTable.js";
 import SFS_Cape from "../Tables/SFS_Cape.js";
 import SFS_Patrick from "../Tables/SFS_Patrick.js";
+import SFS_S6 from "../Tables/sfs45s6.js";
 import { useLocation } from 'react-router-dom';
 import warehouse from "..//Images/warehouse.gif";
 
@@ -15,6 +16,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
   const [inventory, setInventory] = useState([]); //inventory state
   const [SFSCapeInventory, setSFSCapeInventory] = useState([]); //inventory state
   const [SFSPatrickInventory, setSFSPatrickInventory] = useState([]); //inventory state
+  const [SFSs6Inventory, setSFSs6Inventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
   const { API } = useContext(AppContext);
@@ -25,6 +27,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     fetchInventory();
     fetchSFSPatrickInventory();
     fetchSFSCapeInventory();
+    fetchSFSs6Inventory();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
@@ -76,7 +79,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
       });
   };
 
-    //fetches 45 SFS Patrick Inventory
+    //fetches 45 SFS Cape Inventory
     const fetchSFSCapeInventory = async () => {
       setSpinner(true);
       axios
@@ -97,6 +100,28 @@ function Inventory({ shoppingCart, setShoppingCart }) {
           setSpinner(false);
         });
     };
+
+        //fetches 45 SFS S6 Inventory
+        const fetchSFSs6Inventory = async () => {
+          setSpinner(true);
+          axios
+            .get(
+              `${API.website}/45sfss6inventory`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+                },
+              }
+            )
+            .then((res) => {
+              setSFSs6Inventory (res.data);
+              setSpinner(false);
+            })
+            .catch((err) => {
+              console.log(err);
+              setSpinner(false);
+            });
+        };
 
   const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
 
@@ -138,7 +163,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               shoppingCart={shoppingCart}
               setShoppingCart={setShoppingCart}
             />
-            ) : (
+            ) : location.state.warehouse === "45 SFS - S6" ? (
+              <SFS_S6
+              inventory={SFSs6Inventory}
+              fetchSFSs6Inventory ={fetchSFSs6Inventory}
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+            /> ) : (
             <Box sx={{ display: 'flex', justifyContent:'center', mt: 1 }}>
               <img alt="warehouse" src={warehouse} width="900" />
             </Box>

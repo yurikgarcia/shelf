@@ -68,6 +68,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const [warehouseAccess, setWarehouseAccess] = useState({
     sfs45_patrick: false,
     sfs45_cape: false,
+    sfs45s6: false
   });
   
 //function that checks for the users current warehouse access and sets the warehouseAccess state to true/false
@@ -76,12 +77,16 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     let access = {
       sfs45_patrick: false,
       sfs45_cape: false,
+      sfs45s6: false
     }
     if (editedUser.row.Warehouses.includes("45 SFS - Patrick")) {
       access.sfs45_patrick = true;
     }
     if (editedUser.row.Warehouses.includes("45 SFS - Cape")) {
       access.sfs45_cape = true;
+    }
+    if (editedUser.row.Warehouses.includes("45 SFS - S6")) {
+      access.sfs45s6 = true;
     }
     setWarehouseAccess(access);  
   }
@@ -262,7 +267,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 }
   
 
-const { sfs45_patrick, sfs45_cape } = warehouseAccess;
+const { sfs45_patrick, sfs45_cape, sfs45s6 } = warehouseAccess;
 
 const wareHouseLength = adminWarehouses.length;
 
@@ -510,6 +515,18 @@ const wareHouseLength = adminWarehouses.length;
                               }
                               label="45 SFS - Cape"
                             />) : null}
+
+                            {warehouseTables.some(house => house === 'sfs45s6') ? (
+                            <FormControlLabel
+                              control={
+                                <Checkbox 
+                                checked={sfs45s6} 
+                                onChange={handleCheckbox} 
+                                name="sfs45s6" 
+                                id="45 SFS - S6" />
+                              }
+                              label="45 SFS - S6"
+                            /> ) : null}
                           </FormGroup>
                         </FormControl>
                     </Box>
