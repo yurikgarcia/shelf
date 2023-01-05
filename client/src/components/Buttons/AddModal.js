@@ -76,7 +76,7 @@ const addItemToInventory = async () => {
   };
 
 
-    /**
+  /**
    * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
    */
     const addItemToSFSPatrickInventory = async () => {
@@ -95,7 +95,7 @@ const addItemToInventory = async () => {
         })
     };
 
-        /**
+  /**
    * adds a new item to the 45 SFS CAPE TABLE based on the state set from the textfields
    */
         const addItemToSFSCapeInventory = async () => {
@@ -113,6 +113,25 @@ const addItemToInventory = async () => {
               console.log('err', err);
             })
         };
+
+  /**
+   * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
+   */
+       const addItemToSFSs6Inventory = async () => {
+        const newInventory = addedItem;
+        axios.post(`${API.website}/45sfss6inventory`, { item: newInventory })
+          .then(res => {
+            if (res.status === 200) {
+              setInventory([...inventory, newInventory])
+              // fetchSFSPatrickInventory()
+              setAddModalOpen(false)
+            }
+          })
+          .catch(err => {
+            alert('Sorry! Something went wrong. Please try again.')
+            console.log('err', err);
+          })
+      };
 
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
@@ -161,7 +180,7 @@ const addItemToInventory = async () => {
         }} >
           <Box>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add New Item
+              Add New Item: {location.state.warehouse}
             </Typography>
           </Box>
           <Box
@@ -312,7 +331,15 @@ const addItemToInventory = async () => {
               }}>
                   Submit
                 </Button> 
-              ) : (
+              ) : location.state.warehouse === "45 SFS - S6" ? (
+                <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                onClick={() => {addItemToSFSs6Inventory()
+                  window.location.reload()
+              }}>
+                  Submit
+                </Button> 
+              ) :
+              (
                 <h3>NO WAREHOUSE</h3>
                 )
               }

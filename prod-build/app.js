@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 const path = require('path');
 const Pool = require("pg").Pool;
 const jwt = require("jsonwebtoken");
+const { getSFSs6Inventory, addItemToSFSs6Inventory, updateItemInSFSs6Inventory, deleteItemFromSFSs6Inventory, } = require('./sfs_s6_inventory_routes/sfsS6_inventoryRoutes');
 const { getSFSCapeInventory, addItemToSFSCapeInventory, updateItemInSFSCapeInventory, deleteItemFromSFSCapeInventory, } = require('./sfs_cape_inventory_routes/sfsCape_inventoryRoutes');
 const { getSFSPatrickInventory, addItemToSFSPatrickInventory, updateItemInSFSPatrickInventory, deleteItemFromSFSPatrickInventory, } = require('./sfs_patrick_inventory_routes/sfsPatrick_inventoryRoutes');
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
@@ -103,6 +104,13 @@ app.get('/45sfspatrickinventory', getSFSPatrickInventory)
 app.post('/45sfspatrickinventory', addItemToSFSPatrickInventory)
 app.patch('/45sfspatrickinventory', updateItemInSFSPatrickInventory)
 app.delete('/45sfspatrickinventory', deleteItemFromSFSPatrickInventory)
+
+//-------------------------------- 45 SFS S6 INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
+
+app.get('/45sfss6inventory', getSFSs6Inventory)
+app.post('/45sfss6inventory', addItemToSFSs6Inventory)
+app.patch('/45sfss6inventory', updateItemInSFSs6Inventory)
+app.delete('/45sfss6inventory', deleteItemFromSFSs6Inventory)
 
 
 //--------------------------------INVENTORY ITEM SUBTRACT FROM COUNT ----------------------------------------------------------------------------------------------------------------

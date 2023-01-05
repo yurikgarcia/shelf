@@ -28,7 +28,7 @@ import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
 
 export default function RowsGrid({
-  fetchSFSPatrickInventory,
+  fetchSFSs6Inventory,
   inventory,
   fetchInventory,
   spinner,
@@ -92,14 +92,14 @@ export default function RowsGrid({
     axios({
       method: "delete",
       url:
-        `${API.website}/45sfss6`,
+        `${API.website}/45sfss6inventory`,
       data: {
         id: id,
       },
     })
       .then((res) => {
         if (res.status === 200) {
-          fetchSFSPatrickInventory();
+          fetchSFSs6Inventory();
         }
       })
       .catch((err) => {
@@ -120,7 +120,7 @@ export default function RowsGrid({
     axios({
       method: "patch",
       url:
-        `${API.website}/45sfss6`,
+        `${API.website}/45sfss6inventory`,
       data: {
         Delete: newValue.Delete,
         Name: newValue.Name,
@@ -141,13 +141,14 @@ export default function RowsGrid({
     })
       .then(() => {
         console.log("success");
-        fetchSFSPatrickInventory();
+        fetchSFSs6Inventory();
       })
       .catch((err) => {
         console.log("err", err);
       });
   };
 
+  // console.log('S6 Inv', inventory)
 
   /**
    * adds to shopping cart column in the users table

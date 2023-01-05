@@ -11,6 +11,7 @@ const paths = {
   server_auth_routes: '../prod-build/auth_routes',
   server_inventory_routes: '../prod-build/inventory_routes',
   server_issued_items_routes: '../prod-build/issued_items_routes',
+  server_sfs_s6_inventory_routes: '../prod-build/sfs_s6_inventory_routes',
   server_sfs_cape_inventory_routes: '../prod-build/sfs_cape_inventory_routes',
   server_sfs_patrick_inventory_routes: '../prod-build/sfs_patrick_inventory_routes',
   server_shoppingcart_routes: '../prod-build/shoppingcart_routes',
@@ -62,6 +63,12 @@ function copyIssuedItemsRoutesTask() {
         .pipe(dest(`${paths.server_issued_items_routes}`))
 }
 
+function copySfsS6InventoryRoutesTask() {
+  log('copying server S6 INV routes into the directory')
+  return src(['sfs_s6_inventory_routes/**'])
+        .pipe(dest(`${paths.server_sfs_s6_inventory_routes}`))
+}
+
 function copySfsCapeInventoryRoutesTask() {
   log('copying server CAPE INV routes into the directory')
   return src(['sfs_cape_inventory_routes/**'])
@@ -101,7 +108,8 @@ exports.default = series(
   parallel(
     copyAuthRoutesTask, 
     copyInventoryRoutesTask, 
-    copyIssuedItemsRoutesTask, 
+    copyIssuedItemsRoutesTask,
+    copySfsS6InventoryRoutesTask,  
     copySfsCapeInventoryRoutesTask, 
     copySfsPatrickInventoryRoutesTask, 
     copyShoppingCartRoutesTask, 

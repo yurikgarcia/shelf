@@ -14,11 +14,11 @@ const pool = new Pool({
   },
 });
 
-async function getInventory(req, res) {
+async function getSFSs6Inventory(req, res) {
   verifyToken(req, res, (authData) => {
     jwt.verify(req.token, "secretkey", (err, authData) => {
       if (authData === undefined) return res.send(403);
-      pool.query("SELECT * FROM inventory", (error, results) => {
+      pool.query("SELECT * FROM sfs45s6 ", (error, results) => {
         if (error) {
           res.sendStatus("error" + error);
         }
@@ -29,22 +29,22 @@ async function getInventory(req, res) {
   });
 }
 
-async function addItemToInventory(req, res) {
-  console.log("ITEM NAMEEEEEEEEEEEE", req.body.item.item_name)
+async function addItemToSFSs6Inventory(req, res) {
+  console.log("REQ", req.body.item.item_name)
   pool.query(
-    `INSERT INTO inventory (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, intial_gear, returnable_item, courier, tracking, contact) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, ${req.body.item.intial_gear}, ${req.body.item.returnable_item}, '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}')`,
+    `INSERT INTO sfs45s6 (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, returnable_item, courier, tracking, contact, intial_gear, original_warehouse) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, '${req.body.item.returnable_item}', '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}', '${req.body.item.intial_gear}', 'sfs45_cape')`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
       }
-      console.log("Added to Warehouse");
+      console.log("placed in DB");
       res.status(200);
       res.send("Success");
     }
   );
 }
 
-async function updateItemInInventory(req, res) {
+async function updateItemInSFSs6Inventory(req, res) {
   let params = {
     item_id: req.body.Delete,
     item_name: req.body.Name,
@@ -63,9 +63,10 @@ async function updateItemInInventory(req, res) {
     tracking: req.body.Tracking,
     contact: req.body.Contact,
   };
+  console.log("PATCH FOR CAPE", params)
   pool.query(
-    `UPDATE inventory 
-          SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, intial_gear=${params.initial_gear}, returnable_item=${params.returnable_item}, courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}'
+    `UPDATE sfs45s6 
+          SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, returnable_item='${params.returnable_item}', courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}', intial_gear='${params.initial_gear}'
             WHERE item_id = '${params.item_id}'`,
     (error, results) => {
       if (error) {
@@ -78,10 +79,10 @@ async function updateItemInInventory(req, res) {
   );
 }
 
-async function deleteItemFromInventory(req, res) {
+async function deleteItemFromSFSs6Inventory(req, res) {
   const item_id = req.body.id;
   pool.query(
-    `DELETE FROM inventory WHERE item_id='${item_id}'`,
+    `DELETE FROM sfs45s6  WHERE item_id='${item_id}'`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
@@ -94,8 +95,8 @@ async function deleteItemFromInventory(req, res) {
 }
 
 module.exports = {
-  getInventory,
-  addItemToInventory,
-  updateItemInInventory,
-  deleteItemFromInventory,
+  getSFSs6Inventory,
+  addItemToSFSs6Inventory,
+  updateItemInSFSs6Inventory,
+  deleteItemFromSFSs6Inventory,
 };

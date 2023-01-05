@@ -108,6 +108,8 @@ export default function RowsGrid({
       });
   };
 
+  // console.log('patrick Inv', inventory)
+
   const onEditOpen = (params) => {
     setEditedItem(params.row);
     setNewValue(params.row);
