@@ -26,6 +26,12 @@
       min-height: 100vh; 
       background: linear-gradient(to bottom,  #F8F8F8 70%, #F8F8F8);
     } */
+    
+    /* body {
+    
+      margin-left: 200px;
+      background: linear-gradient(to bottom,  #F5F5DC 70%, #ffbd45);
+    } */
 
     /* main { 
       min-height: 100vh; 
@@ -34,14 +40,17 @@
     .fill-window {
       height: 100%;
       position: absolute;
-      left: 0;
       width: 100%;
       overflow: hidden;
   }
 
 .MuiDrawer-paper{
+  position: float;
+  width: 200px;
   background: linear-gradient(to bottom,  #155E9D 100%, #155E9D);
 }
+
+
 
 .MuiDrawer-paperAnchorRight{
   background: linear-gradient(to bottom,  whitesmoke 100%, whitesmoke);

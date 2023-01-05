@@ -138,11 +138,12 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     <div>
       <div>
         <main>
-          <Box sx={{ ml: 11, mt: 2 }}>
+
+        <Box sx={{ display: 'flex', ml:1, flexDirection: 'column', width: '99%'}}>
+          <Box sx={{ ml:3}}>
             <h1>{location.state.warehouse}</h1>
           </Box>
-
-          <Box sx={{display:"flex", flexDirection: 'row', justifyContent: 'flex-end', mr: 2}}>
+          <Box sx={{display:"flex", justifyContent: 'flex-start'}}>
           {location.state.warehouse.length !== 0 ? (
             <AddModal
               inventory={inventory}
@@ -150,8 +151,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               fetchInventory={fetchInventory}
             /> ) : null}
           </Box>
-
-          <Box sx={{ ml: 4, mt: 1 }}>
+          <Box>
             {location.state.warehouse  
             === "45 SFS - Patrick" ? (
               <SFS_Patrick
@@ -179,6 +179,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             </Box>
             )}
           </Box>
+        </Box>
         </main>
       </div>
     </div>

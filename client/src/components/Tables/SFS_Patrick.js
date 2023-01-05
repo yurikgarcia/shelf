@@ -269,11 +269,8 @@ export default function RowsGrid({
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        width: "93%",
-        overflow: "hidden",
-        ml: 7,
+        width: "100%",
+        // overflow: "hidden",
         boxShadow: 10
       }}
     >
@@ -284,8 +281,7 @@ export default function RowsGrid({
       ) : (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
+            
             height: "63vh",
             width: "100%",
           }}

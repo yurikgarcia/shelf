@@ -340,7 +340,7 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
         </AppBar>
 
 
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="persistant" open={open}>
           <DrawerHeader >
               <img alt="shelf logo" src={shelfLogo} width='30' height='30'/>
             <IconButton onClick={handleDrawerClose}>
@@ -384,60 +384,11 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
                 null
               )}
 
-
-
                 {flatWarehouses[0] !== undefined ? (
                   <SidebarWarehouses/>
               ) : (
                 null
               )}
-
-              
-              {/* <Link to="/deploymentinventory" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        <Tooltip title="Deployment Gear" placement="right-end">
-                          <PublicIcon sx={{color: 'white'}} />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Deployment" />
-                      </ListItemButton>
-                </ListItem>
-              </Link>               */}
-
-
-
-              {/* <Link to="/orders" style={{ textDecoration: 'none', color: 'black'}}>
-                <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                        <Tooltip title="Orders" placement="right-end">
-                          <MarkunreadMailboxIcon sx={{color: "white"}}   />
-                        </Tooltip>
-                        </ListItemIcon>
-                        <ListItemText primary="Users" />
-                      </ListItemButton>
-                </ListItem>
-              </Link>   */}
-
-
-              {/* {flatWarehouses[0] !== undefined ? (
-              <Link to="/orders2" style={{ textDecoration: 'none', color: 'black'}}>
-              <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                      <Tooltip title="Orders" placement="right-end">
-                        <LocalShippingIcon  sx={{color: "white", fontSize: '30px'}} />
-                      </Tooltip>
-                      </ListItemIcon>
-                      <ListItemText primary="Users" />
-                    </ListItemButton>
-              </ListItem>
-            </Link> 
-              ) : (
-                null
-              )} */}
 
               {flatWarehouses[0] !== undefined ? (
               <Link to="/transfers" style={{ textDecoration: 'none', color: 'black'}}>
@@ -455,13 +406,9 @@ export default function MiniDrawer({shoppingCart, setShoppingCart}) {
               ) : (
                 null
               )}             
-
-
-
-
-          </List>
-        </Drawer>
-          <DrawerHeader />
+            </List>
+          </Drawer>
+        <DrawerHeader />
       </Box>
 
   );

@@ -148,7 +148,7 @@ const addItemToInventory = async () => {
 
   return (
     <div>
-      <Box sx={{ ml: 15, mt: 1 }}>
+      <Box>
       <Tooltip title='Add Item to Inventory' placement="top">
         <Button variant="contained"
           startIcon={<AddIcon />}
