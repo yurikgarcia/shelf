@@ -267,13 +267,7 @@ export default function RowsGrid({
     const [transition, setTransition] = React.useState(undefined)
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        // overflow: "hidden",
-        boxShadow: 10
-      }}
-    >
+    <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
         <div>
           <img alt="warehouse" src={warehouse} width="900" />
@@ -281,7 +275,6 @@ export default function RowsGrid({
       ) : (
         <div
           style={{
-            
             height: "63vh",
             width: "100%",
           }}
