@@ -32,7 +32,7 @@ async function getSFSs6Inventory(req, res) {
 async function addItemToSFSs6Inventory(req, res) {
   console.log("REQ", req.body.item.item_name)
   pool.query(
-    `INSERT INTO sfs45s6 (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, returnable_item, courier, tracking, contact, intial_gear, original_warehouse) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, '${req.body.item.returnable_item}', '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}', '${req.body.item.intial_gear}', 'sfs45_cape')`,
+    `INSERT INTO sfs45s6 (item_name, brand, nsn, item_size, gender, building, aisle, item_count, minimum_count, count_status, ordered, returnable_item, courier, tracking, contact, intial_gear, original_warehouse) values('${req.body.item.item_name}', '${req.body.item.brand}', '${req.body.item.nsn}', '${req.body.item.item_size}', '${req.body.item.gender}', '${req.body.item.building}', '${req.body.item.aisle}', ${req.body.item.item_count}, ${req.body.item.minimum_count}, '${req.body.item.count_status}', ${req.body.item.ordered}, '${req.body.item.returnable_item}', '${req.body.item.courier}', '${req.body.item.tracking}', '${req.body.item.contact}', '${req.body.item.intial_gear}', 'sfs45s6')`,
     (error, results) => {
       if (error) {
         res.send("error" + error);
