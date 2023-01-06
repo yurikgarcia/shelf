@@ -18,21 +18,31 @@ const pool = new Pool({
 async function itemCurrentCount(req, res) {
   let UUID = req.params.uuid;
   let ogWarehouse = req.params.ogWarehouse
-  console.log("COUNTTTTTT", req.params)
-  verifyToken(req, res, (authData) => {
-    jwt.verify(req.token, "secretkey", (err, authData) => {
-      if (authData === undefined) return res.send(403);
+  console.log("HITTING QTY")
+  console.log(` UUID :${UUID}, ogWarehouse: ${ogWarehouse}`)
       pool.query(`SELECT item_count FROM ${ogWarehouse} WHERE item_id = '${UUID}'`, (error, results) => {
         if (error) {
           res.send("error" + error);
         }
         res.send(results.rows);
       });
-    });
-  });
-};
+}
+
+async function cartItemCount(req, res) {
+  let UUID = req.params.uuid;
+  let ogWarehouse = req.params.ogWarehouse
+  console.log("HITTING NEW ROUTE")
+  console.log(` UUID :${UUID}, ogWarehouse: ${ogWarehouse}`)
+      pool.query(`SELECT item_count FROM ${ogWarehouse} WHERE item_id = '${UUID}'`, (error, results) => {
+        if (error) {
+          res.send("error" + error);
+        }
+        res.send(results.rows);
+      });
+}
 
 
 module.exports = {
   itemCurrentCount,
+  cartItemCount
 };

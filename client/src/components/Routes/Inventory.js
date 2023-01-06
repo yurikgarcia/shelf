@@ -59,7 +59,6 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   //fetches 45 SFS Patrick Inventory
   const fetchSFSPatrickInventory = async () => {
-    console.log("fetching 45 SFS Patrick Inventory")
     setSpinner(true);
     axios
       .get(
@@ -104,7 +103,6 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
         //fetches 45 SFS S6 Inventory
         const fetchSFSs6Inventory = async () => {
-          console.log ("fetching s6 inventory")
           setSpinner(true);
           axios
             .get(
@@ -126,13 +124,6 @@ function Inventory({ shoppingCart, setShoppingCart }) {
         };
 
   const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
-
-  // console.log("location from inv", location.state.warehouse.length)
-  console.log("PATRICK", SFSPatrickInventory);
-
-  // console.log("CAPE", SFSCapeInventory)
-
-  console.log("S6", SFSs6Inventory)
 
   return (
     <div>

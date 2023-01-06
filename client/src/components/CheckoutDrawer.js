@@ -32,6 +32,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [value, setValue] = useState(''); //value state for users drop down
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
+  const [cartItemCount, setCartItemCount] = React.useState(0);//value of count for the current item
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [adminCart, setAdminCart] = React.useState([]);//warehouses admin has access to
   const location = useLocation();//Raact Router Hooked used to bring in the state of selected user to process checkout
@@ -252,28 +253,35 @@ const changeItemQuantity = async (items, index) => {
     });
 }
 
+// console.log("QUNAT IS", cartItemCount)
 
   // Function that updates the count of an item after its been issued to a user
   const subtractFromInventory = async (items, index) => {
     flatCart.forEach((items, index) => {
       let id = items.UUID;
-      let newCount = currentItemCount-items.Quantity;
       let ogWarehouse = items.Original_warehouse;
-    axios
-      .patch(`${API.website}/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
-      newQuantity, 
-      )
+      let returnCount = 0
+      console.log("returnCount", returnCount)
+      console.log(`id: ${id}, ogWarehouse: ${ogWarehouse}, ItemCount: ${cartItemCount}, items.Quantity: ${items.Quantity}`);
       axios
-      .patch(`${API.website}/removeitemfromcart/${id}/${user_dod}`,
-      )
+      .get(`${API.website}/cartItemCount/${id}/${ogWarehouse}`,)
       .then((res) => {
-        if (res.status === 200) {
-          fetchNewShoppingCart();
-          // fetchInventory();
-        }
+        returnCount = res.data[0].item_count
+        let newCount = returnCount - items.Quantity;
+        axios
+          .patch(`${API.website}/inventorysubtractcount/${id}/${newCount}/${user_dod}/${ogWarehouse}`,
+          newQuantity, 
+          )
+          axios
+          .patch(`${API.website}/removeitemfromcart/${id}/${user_dod}`,
+          )
+          if (res.status === 200) {
+            fetchNewShoppingCart();
+            // fetchInventory();
+          }
       })
       .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
+        alert("Sorry! Something went wrong. With Issuing Items.");
         console.log("err", err);
       });
     })
@@ -366,7 +374,7 @@ const changeItemQuantity = async (items, index) => {
         alert("Sorry! Something went wrong. Please try again.");
         console.log("err", err);
       });
-      window.location.reload();
+      // window.location.reload();
     })
   }
 
@@ -537,10 +545,8 @@ const changeItemQuantity = async (items, index) => {
                                       }}}}}
                               onBlur={() => { changeItemQuantity(items, index)
                                               fetchCurrentItemCount()
-                              
                               }}
                             />
-
                               {window.location.href === "http://localhost:3001/inventory" ? (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Count}
@@ -566,7 +572,6 @@ const changeItemQuantity = async (items, index) => {
                               />
                             </Box>
                           </Box>
-                        
                               <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
                             </Box>
                           </Box>
@@ -576,198 +581,149 @@ const changeItemQuantity = async (items, index) => {
                         </div>  
                         )})}
             </ListItem>
-
-              <ListItem
-              sx={{ display: "flex", flexDirection: "column"}}
+            <ListItem
+            sx={{ display: "flex", flexDirection: "column"}}>
+              {cartLength >= 1 ? (
+            <Box>
+              <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label"> </FormLabel>
+              <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    defaultValue="Issue To User"
+                    name="controlled-radio-buttons-group"
+                    value={value}
+                    onChange={handleChange}
               >
-                {cartLength >= 1 ? (
-                <Box>
-  
-                  <FormControl>
-                  <FormLabel id="demo-radio-buttons-group-label"> </FormLabel>
-                  <RadioGroup
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        defaultValue="Issue To User"
-                        name="controlled-radio-buttons-group"
-                        value={value}
-                        onChange={handleChange}
+                <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User"  />
+                <FormControlLabel value="Return To Warehouse"  control={<Radio />} label="Return To Warehouse"  />
+                {/* <FormControlLabel value="Issue To Warehouse"  control={<Radio />} label="Issue To Warehouse"  /> */}
+              </RadioGroup>
+            </FormControl>
+              
+              {radioValue === "Issue To User" ? (  
+                <Box sx={{mt:2}}>
+                  <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                  <h4>Issue To: </h4>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={users}
+                    onChange={(event, newValue) => {
+                      setValue(newValue.dod_id);
+                    }}
+                    getOptionLabel={(option) => option.first_name + " " + option.last_name}
+                    style={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Users" variant="outlined" />
+                      )}
+                      />
+                <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size= "large"
+                    onClick={(items, index) => {
+                      addToIssuedItems();
+                      subtractFromInventory(items, index)      
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, "1200")
+                      }
+                    }
                   >
-                    <FormControlLabel value="Issue To User" control={<Radio />} label="Issue To User"  />
-                    <FormControlLabel value="Return To Warehouse"  control={<Radio />} label="Return To Warehouse"  />
-                    <FormControlLabel value="Issue To Warehouse"  control={<Radio />} label="Issue To Warehouse"  />
-                  </RadioGroup>
-                </FormControl>
-                  
-                  {radioValue === "Issue To User" ? (
-                    
-                    <Box sx={{mt:2}}>
-                      <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                      <h4>Issue To: </h4>
-                      <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={users}
-                        onChange={(event, newValue) => {
-                          setValue(newValue.dod_id);
-                        }}
-                        getOptionLabel={(option) => option.first_name + " " + option.last_name}
-                        style={{ width: 300 }}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Users" variant="outlined" />
-                          )}
-                          />
-                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                    CHECKOUT
+                  </Button>
+                </Box>
+              </Box>
+
+              ) : radioValue === "Return To Warehouse" ? (
+                <Box sx={{mt:2}}>
+                <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                <h4>Return To: {value}  </h4>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={flatWarehouses}
+                    onChange={(event, newValue) => {
+                      setValue(newValue.Table);
+                    }}
+                    getOptionLabel={(option) => option.Name }
+                    style={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Warehouses" variant="outlined" />
+                      )}
+                      />
+                <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size= "large"
+                      onClick={(items, index) => {
+                        addToInventoryCount ();
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, "1000")
+                        }
+                      }
+                    >
+                      CHECKOUT
+                    </Button>
+                  </Box>
+              </Box>
+                ) 
+                : radioValue === "Issue To Warehouse" ? (
+                  <Box sx={{mt:2}}>
+                  <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
+                  <h4>Issue To: {value}  </h4>        
+                    <Autocomplete
+                      disablePortal
+                      id="combo-box-demo"
+                      options={flatWarehouses}
+                      onChange={(event, newValue) => {
+                        setValue(newValue.Table);
+                      }}
+                      getOptionLabel={(option) => option.Name }             
+                      style={{ width: 300 }}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Warehouses" variant="outlined" />
+                        )}
+                        />
+                        
+                  <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
                       <Button
                         variant="contained"
                         color="primary"
                         size= "large"
-
                         onClick={(items, index) => {
-                          addToIssuedItems();
-                          setTimeout(() => {
-                            flatCart.forEach(subtractFromInventory(items, index))
-                          }, "450")
-                          setTimeout(() => {
-                            window.location.reload();
-                          }, "900")
-                          }
-                        }
+                          addToSelectedWarehouse()//this needs to be the new function
+                          // setTimeout(() => {
+                          //   flatCart.forEach(subtractFromInventory(items, index))
+                          // }, "450")
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, "900")
+                          }}
                       >
                         CHECKOUT
                       </Button>
                     </Box>
-                  </Box>
-                  ) : radioValue === "Return To Warehouse" ? (
-                    <Box sx={{mt:2}}>
-                    <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                    <h4>Return To: {value}  </h4>
-                      {/* <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={warehouses}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Warehouses" />}
-                        onChange={(event, newValue) => {
-                          // setValue(newValue.dod_id);
-                          setValue('inventory')
-                        }}
-                      /> */}
-
-                      <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={flatWarehouses}
-                        onChange={(event, newValue) => {
-                          setValue(newValue.Table);
-                        }}
-
-                        getOptionLabel={(option) => option.Name }
-                        
-
-                        // getOptionLabel=
-                        // {(option) => option.warehouse_access.map((house, index) => {
-                        //   return house.Name 
-                        // })}
-
-                        // getOptionLabel={(option) => option.warehouse_access.Name}
-
-                        style={{ width: 300 }}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Warehouses" variant="outlined" />
-                          )}
-                          />
-                          
-                    <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          size= "large"
-                          onClick={(items, index) => {
-                            addToInventoryCount ();
-                            // setTimeout(() => {
-                            //   window.location.reload();
-                            // }, "1000")
-                            }
-                          }
-                        >
-                          CHECKOUT
-                        </Button>
-                      </Box>
-                  </Box>
-                                    ) : radioValue === "Issue To Warehouse" ? (
-                                      <Box sx={{mt:2}}>
-                                      <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
-                                      <h4>Issue To: {value}  </h4> 
-                                        {/* <Autocomplete
-                                          disablePortal
-                                          id="combo-box-demo"
-                                          options={warehouses}
-                                          sx={{ width: 300 }}
-                                          renderInput={(params) => <TextField {...params} label="Warehouses" />}
-                                          onChange={(event, newValue) => {
-                                            // setValue(newValue.dod_id);
-                                            setValue('inventory')
-                                          }}
-                                        /> */}
-                  
-                                        <Autocomplete
-                                          disablePortal
-                                          id="combo-box-demo"
-                                          options={flatWarehouses}
-                                          onChange={(event, newValue) => {
-                                            setValue(newValue.Table);
-                                          }}
-                  
-                                          getOptionLabel={(option) => option.Name }
-                                          
-                  
-                                          // getOptionLabel=
-                                          // {(option) => option.warehouse_access.map((house, index) => {
-                                          //   return house.Name 
-                                          // })}
-                  
-                                          // getOptionLabel={(option) => option.warehouse_access.Name}
-                  
-                                          style={{ width: 300 }}
-                                          renderInput={(params) => (
-                                            <TextField {...params} label="Warehouses" variant="outlined" />
-                                            )}
-                                            />
-                                            
-                                      <Box sx={{mt:2, display: "flex", justifyContent: "center"}}>
-                                          <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size= "large"
-                                            onClick={(items, index) => {
-                                              addToSelectedWarehouse()//this needs to be the new function
-                                              // setTimeout(() => {
-                                              //   flatCart.forEach(subtractFromInventory(items, index))
-                                              // }, "450")
-                                                setTimeout(() => {
-                                                  window.location.reload();
-                                                }, "900")
-                                              }}
-                                          >
-                                            CHECKOUT
-                                          </Button>
-                                        </Box>
-                                    </Box>
-                  ) : null}
                 </Box>
-                ) : 
-                <div>
-                  <Box sx={{mt: 10}}>
-                    <Box sx={{ml: 5}}>
-                      Your cart is currently empty.
-                    </Box>
-                    <Box>
-                      Add to the cart to issue or return items.
-                    </Box>
+                  )
+                   : null}
+            </Box>
+              ) : 
+              <div>
+                <Box sx={{mt: 10}}>
+                  <Box sx={{ml: 5}}>
+                    Your cart is currently empty.
                   </Box>
-                </div>
-                }
-              </ListItem>
+                  <Box>
+                    Add to the cart to issue or return items.
+                  </Box>
+                </Box>
+              </div>
+              }
+            </ListItem>
             </List>
           </Drawer> 
         </React.Fragment>    

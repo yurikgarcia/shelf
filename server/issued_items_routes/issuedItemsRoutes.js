@@ -17,7 +17,6 @@ const pool = new Pool({
 
 async function getSelectedUser(req, res) {
       const user_id = req.params.dod;
-      console.log("GET SEELECTED USERRRRRRRRRRRRRRRRRRRR", user_id)
       pool.query(`SELECT * FROM users WHERE dod_id = '${user_id}'`, (error, results) => {
         if (error) {
           return res.send("error" + error);
