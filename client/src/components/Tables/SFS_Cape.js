@@ -14,6 +14,9 @@ import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import EditIcon from "@mui/icons-material/Edit";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Modal from "@mui/material/Modal";
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import PropTypes from 'prop-types';
 import SaveIcon from "@mui/icons-material/Save";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -23,6 +26,140 @@ import warehouse from "..//Images/warehouse.gif";
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
+
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+const GridCellExpand = React.memo(function GridCellExpand(props) {
+  const { width, value } = props;
+  const wrapper = React.useRef(null);
+  const cellDiv = React.useRef(null);
+  const cellValue = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showFullCell, setShowFullCell] = React.useState(false);
+  const [showPopper, setShowPopper] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    const isCurrentlyOverflown = isOverflown(cellValue.current);
+    setShowPopper(isCurrentlyOverflown);
+    setAnchorEl(cellDiv.current);
+    setShowFullCell(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowFullCell(false);
+  };
+
+  React.useEffect(() => {
+    if (!showFullCell) {
+      return undefined;
+    }
+
+    function handleKeyDown(nativeEvent) {
+      // IE11, Edge (prior to using Bink?) use 'Esc'
+      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+        setShowFullCell(false);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setShowFullCell, showFullCell]);
+
+  return (
+    <Box
+      ref={wrapper}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      sx={{
+        alignItems: 'center',
+        lineHeight: '24px',
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        display: 'flex',
+      }}
+    >
+      <Box
+        ref={cellDiv}
+        sx={{
+          height: '100%',
+          width,
+          display: 'block',
+          position: 'absolute',
+          top: 0,
+        }}
+      />
+      <Box
+        ref={cellValue}
+        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+      >
+        {value}
+      </Box>
+      {showPopper && (
+        <Popper
+  open={showFullCell && anchorEl !== null}
+  anchorEl={anchorEl}
+  style={{ width, marginLeft: -17 }}
+>
+<Paper
+        elevation={1}
+        style={{
+          whiteSpace: 'normal',
+          display: 'inline-block',
+          width: '100%',
+          backgroundColor: '#f8f8f8',
+          border: '1px solid #ccc'
+        }}
+      >
+    <div style={{ whiteSpace: 'normal', display: 'inline-block', width: '100%' }}>
+      <Typography
+        variant="body2"
+        style={{ padding: 8, display: 'block', width: '100%' }}
+        overflow="auto"
+      >
+        {value}
+      </Typography>
+    </div>
+  </Paper>
+</Popper>
+      )}
+    </Box>
+  );
+});
+
+GridCellExpand.propTypes = {
+  value: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+};
+
+function renderCellExpand(params) {
+  return (
+    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+  );
+}
+
+renderCellExpand.propTypes = {
+  /**
+   * The column of the row that the current cell belongs to.
+   */
+  colDef: PropTypes.object.isRequired,
+  /**
+   * The cell value.
+   * If the column has `valueGetter`, use `params.row` to directly access the fields.
+   */
+  value: PropTypes.string,
+};
+
+
+
 
 export default function RowsGrid({
   fetchSFSCapeInventory,
@@ -77,6 +214,7 @@ export default function RowsGrid({
     Tracking: "-",
     Original: ""
   });
+  
 
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -255,7 +393,13 @@ export default function RowsGrid({
 
 
 
-
+    
+    //   return (
+    //     <div style={{ height: 800, width: '90%' }}>
+    //       <DataGrid rows={rows} columns={columns} />
+    //     </div>
+    //   );
+    // }
 
 
 
@@ -288,13 +432,13 @@ export default function RowsGrid({
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "Name", minWidth: 150 },
-                  { field: "Brand", minWidth: 130 },
-                  { field: "NSN", minWidth: 100 },
+                  { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
+                  { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
+                  { field: "NSN", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Size", minWidth: 100 },
                   { field: "Gender", minWidth: 100 },
                   // { field: "Bldg", minWidth: 100 },
-                  { field: "Aisle", minWidth: 100 },
+                  { field: "Aisle", minWidth: 100, },
                   { field: "Count", minWidth: 100 },
                   {
                     field: "Count Status",

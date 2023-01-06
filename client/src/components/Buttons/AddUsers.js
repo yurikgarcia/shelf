@@ -66,7 +66,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
         }
       })
       .catch(err => {
-        alert('Sorry! Something went wrong. Please try to add user again.')
+        alert('Sorry! Something went wrong. Please try to add User again.')
         console.log('err', err);
       })
   };
