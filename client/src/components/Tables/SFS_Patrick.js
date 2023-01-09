@@ -506,7 +506,7 @@ export default function RowsGrid({
                       </Tooltip>
                     ),
                   },
-                  { field: "Notes", minWidth: 200 },
+                  { field: "Notes", minWidth: 200, renderCell: renderCellExpand  },
                 ]}
                 rows={inventory?.map((row, index) => {
                   return {
