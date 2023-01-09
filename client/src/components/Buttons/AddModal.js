@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import AppContext from "../AppContext.js";
-import Autocomplete from '@mui/material/Autocomplete';
+// import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 import Box from '@mui/material/Box';
+import { ButtonGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Divider from "@mui/material/Divider";
@@ -21,6 +22,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
+
 export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory, fetchSFSCapeInventory  }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
@@ -35,19 +37,27 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     minimum_count: 0,
     count_status: '',
     ordered: 0,
-    intial_gear: '',
-    returnable_item: '',
+    intial_gear: '-',
+    returnable_item: '-',
     courier: '-',
     tracking: '-',
     contact: '-',
     initial: '-',
   })
 
+  const [handleNameError, setHandleNameError] = useState({
+    item_name: '',
+  })
+
+  const [handleNSNError, setHandleNSNError] = useState({
+    nsn: '',
+  })
+
   const options = [
     { label: 'Yes'},
     { label: 'No'},
   ];
-  const [initialValue, setInitialValue] = useState(''); //value state for users drop down
+  // const [initialValue, setInitialValue] = useState(''); //value state for users drop down
 
 
 
@@ -144,6 +154,28 @@ const addItemToInventory = async () => {
     setAddedItem({ ...addedItem, returnable_item: e.target.value })
   };
 
+  // const errorHandler = (e) => {
+  //   addedItem.item_name.length == 0 ? setHandleErrors({...handleErrors, item_name: false}) : setHandleErrors({...handleErrors, item_name: true})
+  // }
+
+  const errorHandlerName = (e) => {
+    console.log("NAME FIRE")
+    addedItem.item_name.length === 0 ? setHandleNameError({...handleNameError, item_name: false}) : setHandleNameError({...handleNameError, item_name: true});
+  }
+
+  const errorHandlerNsn = (e) => {
+    addedItem.nsn === '-' ? setHandleNSNError({...handleNSNError, nsn: false}) : setHandleNSNError({...handleNSNError, nsn: true});
+  }
+
+
+  console.log("errorNAMEHandler", handleNameError)
+
+
+//   console.log("errorNSNHandler", handleNameError)
+
+
+// console.log('addedItem', addedItem.nsn)
+console.log('addedNAMEItem', addedItem.item_name.length)
 
 
   return (
@@ -179,8 +211,8 @@ const addItemToInventory = async () => {
           // borderColor: "#58D407"
         }} >
           <Box>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add New Item: {location.state.warehouse}
+            <Typography id="modal-modal-title" variant="h6" component="h2" sx={{display: 'flex', justifyContent: 'center'}}>
+              Add New Item to {location.state.warehouse}
             </Typography>
           </Box>
           <Box
@@ -193,12 +225,22 @@ const addItemToInventory = async () => {
             autoComplete="off"
           >
             <div>
+              {handleNameError.item_name === false ?
               <TextField
                 id="outlined-error"
                 label="Name"
                 required={true}
+                error={true}
                 onChange={(e) => setAddedItem({ ...addedItem, item_name: e.target.value })}
               />
+              :
+              <TextField
+              id="outlined-error"
+              label="Name"
+              required={true}
+              onChange={(e) => setAddedItem({ ...addedItem, item_name: e.target.value })}
+            />}
+
               <TextField
                 id="outlined-error"
                 label="Brand"
@@ -206,35 +248,38 @@ const addItemToInventory = async () => {
               />
             </div>
             <div>
+           
               <TextField
                 id="outlined-error-helper-text"
                 label="NSN"
                 onChange={(e) => setAddedItem({ ...addedItem, nsn: e.target.value })}
-              />
+              /> 
               <TextField
                 id="outlined-error-helper-text"
                 label="Size"
                 onChange={(e) => setAddedItem({ ...addedItem, item_size: e.target.value })}
               />
-            </div>
-            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Gender"
                 onChange={(e) => setAddedItem({ ...addedItem, gender: e.target.value })}
               />
+            </div>
+            <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Building"
                 onChange={(e) => setAddedItem({ ...addedItem, building: e.target.value })}
               />
-            </div>
-            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Aisle"
                 onChange={(e) => setAddedItem({ ...addedItem, aisle: e.target.value })}
               />
+            </div>
+            <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Item Count"
@@ -242,8 +287,6 @@ const addItemToInventory = async () => {
                 type="number"
                 onChange={(e) => setAddedItem({ ...addedItem, item_count: e.target.value })}
               />
-            </div>
-            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Minimum Count"
@@ -251,6 +294,8 @@ const addItemToInventory = async () => {
                 type="number"
                 onChange={(e) => setAddedItem({ ...addedItem, minimum_count: e.target.value })}
               />
+            </div>
+            <div>
               <TextField
                 id="outlined-error-helper-text"
                 label="Ordered"
@@ -258,17 +303,18 @@ const addItemToInventory = async () => {
                 type="Number"
                 onChange={(e) => setAddedItem({ ...addedItem, ordered: e.target.value })}
               />
-              <TextField
+              {/* <TextField
                 id="outlined-error-helper-text"
                 label="Courier"
                 onChange={(e) => setAddedItem({ ...addedItem, courier: e.target.value })}
-              />
+              /> */}
               <TextField
                 id="outlined-error-helper-text"
                 label="Tracking"
                 onChange={(e) => setAddedItem({ ...addedItem, tracking: e.target.value })}
               />
             </div>
+            <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
             <div>
             <Stack direction="row" spacing={2}>
             <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
@@ -317,37 +363,46 @@ const addItemToInventory = async () => {
                 Cancel
               </Button>
 
-              {location.state.warehouse === "45 SFS - Patrick"  ? (
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-              onClick={() => {addItemToSFSPatrickInventory()
-                window.location.reload()
-              }}>
-                Submit
-              </Button>
-              ) : location.state.warehouse === "45 SFS - Cape" ? (
-                <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-                onClick={() => {addItemToSFSCapeInventory()
-                  window.location.reload()
-              }}>
+              {addedItem.item_name.length > 0 ? (
+
+                <ButtonGroup>
+                  {location.state.warehouse === "45 SFS - Patrick"  ? (
+                    <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                      onClick={() => {
+                        addItemToSFSPatrickInventory()
+                        window.location.reload()
+                      }}>
+                      Submit
+                    </Button>
+                  ) : location.state.warehouse === "45 SFS - Cape" ? (
+                    <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                      onClick={() => {
+                        addItemToSFSCapeInventory()
+                        window.location.reload()
+                      }}>
+                      Submit
+                    </Button> 
+                  ) : location.state.warehouse === "45 SFS - S6" ? (
+                    <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                      onClick={() => {
+                        addItemToSFSs6Inventory()
+                        window.location.reload()
+                      }}>
+                      Submit
+                    </Button> 
+                  )
+                  : null}
+                </ButtonGroup>
+              ) : (
+                <Button color='secondary' variant="contained" startIcon={<SaveIcon />}
+                  onClick={() => {
+                    errorHandlerName()
+                    errorHandlerNsn()
+                  }}>
                   Submit
-                </Button> 
-              ) : location.state.warehouse === "45 SFS - S6" ? (
-                <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-                onClick={() => {addItemToSFSs6Inventory()
-                  window.location.reload()
-              }}>
-                  Submit
-                </Button> 
-              ) :
-              (
-                <h3>NO WAREHOUSE</h3>
-                )
-              }
-{/* 
-              <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
-              onClick={() => addItemToInventory()}>
-                Submit
-              </Button> */}
+                </Button>
+              )}
+
 
             </Stack>
           </Box>
@@ -356,3 +411,12 @@ const addItemToInventory = async () => {
     </div>
   );
 }
+
+
+{/* <Button color='secondary' variant="contained" startIcon={<SaveIcon />}
+                  onClick={() => {
+                  errorHandlerName()
+                  errorHandlerNsn()
+                }}>
+                ERROR
+                </Button> */}

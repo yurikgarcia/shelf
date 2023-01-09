@@ -25,14 +25,26 @@ import axios from 'axios';
 export default function AddUsers({ users, setUsers, fetchUsers }) {
   const [AddUserOpen, setAddUserOpen] = useState(false); //Event Handler for Add Modal 
   const [addedUsers, setAddedUsers] = useState({
-    dod_id: '-',
-    first_name: '-',
+    dod_id: '',
+    first_name: '',
     last_name: '-',
-    email: '-',
+    email: '',
     organization: '-',
     ima: '-',
     warehouses: '',
     warehouse_key: '',
+  })
+
+  const [handleFirstError, setHandleFirstError] = useState({
+    first_name: '',
+  })
+
+  const [handleDODError, setHandleDODError] = useState({
+    dod_id: '',
+  })
+
+  const [handleEmailError, setHandleEmailError] = useState({
+    email: '',
   })
 
   const { API } = useContext(AppContext);
@@ -110,6 +122,25 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
 
   const { sfs45_patrick, sfs45_cape } = warehouseAccess;
 
+
+  const errorHandlerFirst = (e) => {
+    addedUsers.first_name.length === 0 ? setHandleFirstError({...handleFirstError, item_name: false}) : setHandleFirstError({...handleFirstError, item_name: true});
+  }
+
+  const errorHandlerDod = (e) => {
+    addedUsers.dod_id.length === 0 ? setHandleDODError({...handleDODError, dod_id: false}) : setHandleDODError({...handleDODError, dod_id: true});
+  }
+
+  const errorHandlerEmail = (e) => {
+    addedUsers.email.length === 0 ? setHandleEmailError({...handleEmailError, email: false}) : setHandleEmailError({...handleEmailError, email: true});
+  }
+
+  // console.log("ADDED USERS", addedUsers)
+
+  console.log("HANDLE FIRST ERROR", handleFirstError)
+  console.log("HANDLE DOD ERROR", handleDODError)
+  console.log("HANDLE EMAIL ERROR", handleEmailError)
+
   return (
     <div>
       <Box>
@@ -154,26 +185,44 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
             autoComplete="off"
           >
             <div>
+            { handleFirstError.item_name === false ? (
               <TextField
+                id="outlined-error"
+                label="First Name"
+                required={true}
+                error={true}
+                onChange={(e) => setAddedUsers({ ...addedUsers, first_name: e.target.value })}
+              />) : (
+                <TextField
                 id="outlined-error"
                 label="First Name"
                 required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, first_name: e.target.value })}
               />
+              )}
               <TextField
                 id="outlined-error"
                 label="Last Name"
-                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, last_name: e.target.value })}
               />
             </div>
             <div>
+            { handleDODError.dod_id === false ? (
               <TextField
                 id="outlined-error-helper-text"
                 label="DOD ID"
+                required={true}
+                error={true}
+                onChange={(e) => setAddedUsers({ ...addedUsers, dod_id: e.target.value })}
+              />) : (
+                <TextField
+                id="outlined-error-helper-text"
+                label="DOD ID"
+                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, dod_id: e.target.value })}
               />
-              <TextField
+              )}
+                <TextField
                 id="outlined-error-helper-text"
                 label="E-Mail"
                 required={true}
@@ -233,7 +282,6 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                 label="Password"
                 fullWidth
                 type="password"
-                required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, password: e.target.value })}
               />
               </Box>
@@ -250,13 +298,22 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
               >
                 Cancel
               </Button>
+
+              {addedUsers.first_name.length !== 0 || addedUsers.dod_id.length !== 0 ?(
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addUserToUserTable()  
                         // window.location.reload()
                         }}>
                 Submit
-              </Button>
+              </Button>) : (
+                <Button color='secondary' variant="contained" startIcon={<SaveIcon />}
+                      onClick={() => {
+                        errorHandlerDod()
+                        errorHandlerFirst()
+                        }}
+                      >Submit</Button>
+              )}
             </Stack>
           </Box>
         </Box>

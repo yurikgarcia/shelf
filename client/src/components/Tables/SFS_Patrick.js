@@ -195,6 +195,7 @@ export default function RowsGrid({
     Returnable: false,
     Courier: "-",
     Tracking: "-",
+    Notes: "",
   });
 
 
@@ -215,7 +216,8 @@ export default function RowsGrid({
     Returnable: "",
     Courier: "-",
     Tracking: "-",
-    Original: ""
+    Original: "",
+    Notes: "",
   });
 
   const [open, setOpen] = useState(false);
@@ -273,6 +275,7 @@ export default function RowsGrid({
         Returnable: newValue.Returnable,
         Courier: newValue.Courier,
         Tracking: newValue.Tracking,
+        Notes: newValue.Notes,
       },
     })
       .then(() => {
@@ -284,6 +287,7 @@ export default function RowsGrid({
       });
   };
 
+  console.log("newValue from patrick", newValue)
 
   /**
    * adds to shopping cart column in the users table
@@ -427,11 +431,11 @@ export default function RowsGrid({
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
                   { field: "NSN", minWidth: 150, renderCell: renderCellExpand  },
-                  { field: "Size", minWidth: 100 },
-                  { field: "Gender", minWidth: 100 },
+                  { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
                   // { field: "Bldg", minWidth: 100 },
-                  { field: "Aisle", minWidth: 100 },
-                  { field: "Count", minWidth: 100 },
+                  { field: "Aisle", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
                   {
                     field: "Count Status",
                     renderCell: (params) => (
@@ -451,9 +455,9 @@ export default function RowsGrid({
                   },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Ordered", minWidth: 100 },
-                  { field: "Courier", minWidth: 100 },
-                  { field: "Tracking", minWidth: 100 },
+                  { field: "Ordered", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Courier", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
 
                   {
                     field: "Issue",
@@ -519,6 +523,7 @@ export default function RowsGrid({
                     Aisle: row.aisle,
                     Initial: row.intial_gear,
                     MinCount: row.minimum_count,
+                    Notes: row.notes,
                     Ordered: row.ordered,
                     Courier: row.courier,
                     Tracking: row.tracking,
@@ -569,6 +574,7 @@ export default function RowsGrid({
                       sx={{
                         "& .MuiTextField-root": { m: 1, width: "15ch" },
                         mt: 2,
+                        ml:2
                       }}
                       noValidate
                       autoComplete="off"
@@ -595,6 +601,15 @@ export default function RowsGrid({
                         />
                       </div>
                       <div>
+                      <TextField
+                          id="filled"
+                          label="Brand"
+                          defaultValue={editedItem?.Brand}
+                          sx={{ borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Brand: e.target.value })
+                          }
+                        />
                         <TextField
                           disabled={false}
                           id="outlined-error"  
@@ -603,15 +618,6 @@ export default function RowsGrid({
                           sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Gender: e.target.value })
-                          }
-                        />
-                        <TextField
-                          id="filled"
-                          label="Brand"
-                          defaultValue={editedItem?.Brand}
-                          sx={{ borerRadius: "5" }}
-                          onChange={(e) =>
-                            setNewValue({ ...newValue, Brand: e.target.value })
                           }
                         />
                       </div>
@@ -732,8 +738,17 @@ export default function RowsGrid({
                       </Stack>
                       </div>
                     </Box>
+                    <Box sx={{display: 'flex', justifyContent:"center",}}>
+                        <TextField
+                          id="filled"
+                          label="Notes"
+                          defaultValue={editedItem?.Notes}
+                          sx={{ borerRadius: "5", width: "85%", mt: 2 }}
+                          onChange={(e) => setNewValue({ ...newValue, Notes: e.target.value})}
+                        /> 
+                    </Box>
                   </CardContent>
-                  <CardActions>
+                <CardActions>
                     <Box sx={{ ml: 4.7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
                         <Button

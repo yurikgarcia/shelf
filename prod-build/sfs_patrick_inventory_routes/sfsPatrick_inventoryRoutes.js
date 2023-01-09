@@ -63,11 +63,12 @@ async function updateItemInSFSPatrickInventory(req, res) {
     courier: req.body.Courier,
     tracking: req.body.Tracking,
     contact: req.body.Contact,
+    notes: req.body.Notes,
   };
   console.log("PATCH IN PATRCIK", params);
   pool.query(
     `UPDATE sfs45_patrick 
-          SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, returnable_item='${params.returnable_item}', courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}', intial_gear='${params.initial_gear}'
+          SET item_name='${params.item_name}', brand='${params.brand}', nsn='${params.nsn}', item_size='${params.item_size}', gender='${params.gender}', building='${params.building}', aisle='${params.aisle}', item_count=${params.item_count}, minimum_count=${params.minimum_count}, count_status='${params.count_status}', ordered=${params.ordered}, returnable_item='${params.returnable_item}', courier='${params.courier}', tracking='${params.tracking}', contact='${params.contact}', intial_gear='${params.initial_gear}', notes='${params.notes}'
             WHERE item_id = '${params.item_id}'`,
     (error, results) => {
       if (error) {

@@ -391,7 +391,7 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
-
+console.log('iventory from capes', inventory)
 
     
     //   return (
@@ -435,11 +435,11 @@ export default function RowsGrid({
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
                   { field: "NSN", minWidth: 150, renderCell: renderCellExpand  },
-                  { field: "Size", minWidth: 100 },
-                  { field: "Gender", minWidth: 100 },
+                  { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
                   // { field: "Bldg", minWidth: 100 },
-                  { field: "Aisle", minWidth: 100, },
-                  { field: "Count", minWidth: 100 },
+                  { field: "Aisle", minWidth: 100, renderCell: renderCellExpand  },,
+                  { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
                   {
                     field: "Count Status",
                     renderCell: (params) => (
