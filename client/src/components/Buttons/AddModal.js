@@ -364,7 +364,6 @@ console.log('addedNAMEItem', addedItem.item_name.length)
               </Button>
 
               {addedItem.item_name.length > 0 ? (
-
                 <ButtonGroup>
                   {location.state.warehouse === "45 SFS - Patrick"  ? (
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
@@ -402,8 +401,6 @@ console.log('addedNAMEItem', addedItem.item_name.length)
                   Submit
                 </Button>
               )}
-
-
             </Stack>
           </Box>
         </Box>

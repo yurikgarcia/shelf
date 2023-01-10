@@ -40,7 +40,7 @@ function App() {
     website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
   };
 
-  //use for local testingg
+  // use for local testingg
   // const API = {
   //   website: 'http://localhost:3000'
   // };

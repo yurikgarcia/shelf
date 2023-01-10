@@ -451,7 +451,7 @@ const wareHouseLength = adminWarehouses.length;
                     sortModel: [{ field: 'First', sort: 'asc' }],
                   },
                   pagination: {
-                    pageSize: 50,
+                    pageSize: 100,
                   },
                 }}
                 components={{ Toolbar: GridToolbar }}

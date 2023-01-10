@@ -16,7 +16,7 @@ const { removeItemFromCart } = require('./inventory_routes/removeItemFromCart');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
 const { addToSelectedWarehouse } = require('./inventory_routes/addToSelectedWarehouse');
 const { itemCurrentCount, cartItemCount } = require('./inventory_routes/inventoryItemCount');
-const { getUsers, addUser, deleteUser, updateUser} = require('./user_routes/userRoutes');
+const { getUsers, addUser, deleteUser, updateUser,addAdmin} = require('./user_routes/userRoutes');
 const { adminWarehouses } = require('./user_routes/admin_warehouses');
 const { updateUserPermissions } = require('./user_routes/userPermissions');
 const { updateUserPermissionsNull } = require('./user_routes/userPermissionsNull');
@@ -135,7 +135,11 @@ app.patch('/addToSelectedWarehouse/:selectedWarehouse/', addToSelectedWarehouse)
 app.get('/users', getUsers)
 app.post('/users', addUser)
 app.delete('/users', deleteUser)  
-app.patch('/users', updateUser)  
+app.patch('/users', updateUser)
+
+//--------------------------------USERS TABLE ADD ADMIN----------------------------------------------------------------------------------------------------------------
+
+app.post('/admins', addAdmin)
 
 //--------------------------------USERS WAREHOUSE PERMISSIONS----------------------------------------------------------------------------------------------------------------
 

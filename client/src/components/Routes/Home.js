@@ -28,6 +28,8 @@ function Home() {
 
   const matches = useMediaQuery("(min-width:1200px)");
 
+  console.log("LOCAL FROM HOME", localStorage)
+
 
   return (
     <div>

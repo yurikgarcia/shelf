@@ -148,7 +148,7 @@ import MenuItem from '@mui/material/MenuItem';
           setAnchorEl(null);
         };
 
-
+console.log("localStorage", localStorage)
 
   return (
     <div>
@@ -181,11 +181,9 @@ import MenuItem from '@mui/material/MenuItem';
                     onClick={(event, newValue) => {
                       setSelectedWarehouse(warehouse_access.Name);
                       // setTimeout(() => {
-                      //   navigate('/inventory', {state: {warehouse: selectedWarehouse}})
+                      //   goToUserDetails();
                       // }, "500")
-                      setTimeout(() => {
-                        goToUserDetails();
-                      }, "500")
+                      goToUserDetails();
                       handleClose();
                     }}
                     >
@@ -196,6 +194,14 @@ import MenuItem from '@mui/material/MenuItem';
               )
             }
           )}
+          {/* <Button
+          onClick = {() => {
+            localStorage.setItem("selected_warehouse", 'sfs45_patrick');
+            window.location.href = "/inventory";
+          }}
+          >
+            45 SFS - Patrick Test
+          </Button> */}
         </Menu>
     </div>
   );

@@ -432,11 +432,11 @@ export default function RowsGrid({
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
-                  { field: "Brand", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Brand", minWidth: 120, renderCell: renderCellExpand  },
                   { field: "NSN", width: 125, renderCell: renderCellExpand  },
                   // { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Bldg", minWidth: 100 },
+                  { field: "Bldg", width: 60 },
                   { field: "Aisle", width: 55, renderCell: renderCellExpand  },
                   { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
                   {

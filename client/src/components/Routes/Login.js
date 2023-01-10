@@ -73,6 +73,9 @@ console.log("WEB", API.website)
         }
         if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
         else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) goToUserDetails(res.data.user);
+        // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) console.log("GOOD", localStorage)
+        // else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) console.log("BAD", localStorage)
+        // console.log("USER", user)
       })
       .catch((err) => {
         alert("Sorry! You are not authorized to access this page.");

@@ -125,6 +125,8 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
 
+  // console.log("LOCAL WAREHOUSE", localStorage.getItem("selected_Warehouse"))
+
   return (
     <div>
       <div>

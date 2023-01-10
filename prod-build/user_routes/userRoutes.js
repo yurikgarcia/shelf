@@ -31,9 +31,24 @@ async function getUsers(req, res) {
 
 async function addUser(req, res) {
   console.log("USERS HITTING")
+  pool.query(
+    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization, user_password, issued_items) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '', '${req.body.users.ima}', '${req.body.users.organization}', '', '[]'::jsonb)`,
+    (error, results) => {
+      if (error) {
+        return res.send("error" + error);
+      }
+      console.log("Added User to Database");
+      res.status(200);
+      res.send("Success");
+    }
+  );
+};
+
+async function addAdmin(req, res) {
+  console.log("ADMINS HITTING")
   const password = await bcrypt.hash(req.body.users.password, 10);
   pool.query(
-    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization, user_password, issued_items) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}', 'aa', '${password}', '[]'::jsonb)`,
+    `INSERT INTO users (dod_id, first_name, last_name, email, ima, organization, user_password, issued_items) values('${req.body.users.dod_id}', '${req.body.users.first_name}', '${req.body.users.last_name}', '${req.body.users.email}', '${req.body.users.ima}', '${req.body.users.organization}', '${password}', '[]'::jsonb)`,
     (error, results) => {
       if (error) {
         return res.send("error" + error);
@@ -128,6 +143,7 @@ async function updateUser(req, res) {
 module.exports = {
   getUsers,
   addUser,
+  addAdmin,
   deleteUser,
   updateUser,
   // addToCart
