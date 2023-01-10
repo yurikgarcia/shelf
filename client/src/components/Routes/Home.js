@@ -58,9 +58,11 @@ function Home() {
           </Box>
         </Box>
         <Box
-          // sx={{ ml:10, mb:10, flexGrow: 1}}
+          sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', ml: 10}}
           >
-            <img alt="home page" src={homePage} width='600' height='500' sx={{ flexGrow: 1}}/>
+            {/* <img alt="home page" src={homePage} width='600' height='500' sx={{ flexGrow: 1}}/> */}
+
+            <img alt="home page" src={homePage} width={matches ? 1000 : 600} height={matches ? 700 : 300} />
         </Box>
       </Box>
 

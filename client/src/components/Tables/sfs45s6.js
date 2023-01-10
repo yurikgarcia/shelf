@@ -411,7 +411,7 @@ export default function RowsGrid({
       ) : (
         <div
           style={{
-            height: "63vh",
+            height: "77vh",
             width: "100%",
           }}
         >

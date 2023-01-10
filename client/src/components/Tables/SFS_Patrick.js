@@ -411,7 +411,7 @@ export default function RowsGrid({
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
       ) : (
-        <div style={{ height: "63vh", width: "100%"}}>
+        <div style={{ height: "77vh", width: "100%"}}>
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
@@ -422,7 +422,7 @@ export default function RowsGrid({
                     sortModel: [{ field: "Name", sort: "asc" }],
                   },
                   pagination: {
-                    pageSize: 75,
+                    pageSize: 50,
                   },
                 }}
                 components={{ Toolbar: GridToolbar }}
