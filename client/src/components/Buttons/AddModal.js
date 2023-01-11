@@ -129,6 +129,7 @@ const addItemToInventory = async () => {
    */
        const addItemToSFSs6Inventory = async () => {
         const newInventory = addedItem;
+        console.log('newInventory', newInventory);
         axios.post(`${API.website}/45sfss6inventory`, { item: newInventory })
           .then(res => {
             if (res.status === 200) {
@@ -264,6 +265,13 @@ console.log('addedNAMEItem', addedItem.item_name.length)
                 label="Gender"
                 onChange={(e) => setAddedItem({ ...addedItem, gender: e.target.value })}
               />
+              {location.state.warehouse === "45 SFS - S6" ? (
+                <TextField
+                id="outlined-error-helper-text"
+                label="Area"
+                onChange={(e) => setAddedItem({ ...addedItem, courier: e.target.value })}
+              />) : null}
+  
             </div>
             <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
             <div>
@@ -385,7 +393,7 @@ console.log('addedNAMEItem', addedItem.item_name.length)
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addItemToSFSs6Inventory()
-                        window.location.reload()
+                        // window.location.reload()
                       }}>
                       Submit
                     </Button> 

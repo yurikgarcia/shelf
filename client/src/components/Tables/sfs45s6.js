@@ -253,6 +253,7 @@ export default function RowsGrid({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setOpen(false);
+    console.log("NEW VALUE", newValue)
     axios({
       method: "patch",
       url:
@@ -271,7 +272,7 @@ export default function RowsGrid({
         MinCount: newValue.MinCount,
         Ordered: newValue.Ordered,
         Returnable: newValue.Returnable,
-        Courier: newValue.Courier,
+        Courier: newValue.Area,
         Tracking: newValue.Tracking,
         Notes: newValue.Notes,
       },
@@ -402,6 +403,8 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
+    console.log("EDITED ITEM", editedItem)
+
   return (
     <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
@@ -437,7 +440,7 @@ export default function RowsGrid({
                   { field: "Area", minWidth: 100, renderCell: renderCellExpand  },
                   // { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Bldg", width: 60 },
+                  { field: "Bldg", width: 60, renderCell: renderCellExpand  },
                   { field: "Aisle", width: 55, renderCell: renderCellExpand  },
                   { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
                   {
@@ -460,7 +463,7 @@ export default function RowsGrid({
                   },
                   // { field: "Initial", minWidth: 100 },
                   // { field: "Returnable", minWidth: 100 },
-                  { field: "Ordered", width: 70, },
+                  { field: "Ordered", width: 70, renderCell: renderCellExpand  },
                   { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
                   {
                     field: "Issue",
@@ -695,10 +698,10 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          label="Courier"
-                          defaultValue={editedItem?.Courier}
+                          label="Area"
+                          defaultValue={editedItem?.Area}
                           sx={{ borerRadius: "5" }}
-                          onChange={(e) => setNewValue({ ...newValue, Courier: e.target.value })}
+                          onChange={(e) => setNewValue({ ...newValue, Area: e.target.value })}
                         />
                         <TextField
                           id="filled"
@@ -771,7 +774,6 @@ export default function RowsGrid({
                           variant="contained"
                           type="submit"
                           sx={{minWidth:"125px"}}
-                          
                           startIcon={<SaveIcon />}
                           onClick={(e) => handleSubmit(e)}
                         >

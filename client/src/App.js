@@ -36,14 +36,14 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
  
-  const API = {
-    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
-  };
+  // const API = {
+  //   website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
+  // };
 
   // use for local testingg
-  // const API = {
-  //   website: 'http://localhost:3000'
-  // };
+  const API = {
+    website: 'http://localhost:3000'
+  };
  
 
 
