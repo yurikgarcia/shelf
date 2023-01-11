@@ -434,6 +434,7 @@ export default function RowsGrid({
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Brand", minWidth: 120, renderCell: renderCellExpand  },
                   { field: "NSN", width: 125, renderCell: renderCellExpand  },
+                  { field: "Area(#)", minWidth: 100, renderCell: renderCellExpand  },
                   // { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Bldg", width: 60 },
@@ -460,7 +461,6 @@ export default function RowsGrid({
                   // { field: "Initial", minWidth: 100 },
                   // { field: "Returnable", minWidth: 100 },
                   { field: "Ordered", width: 70, },
-                  { field: "Courier", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
                   {
                     field: "Issue",
