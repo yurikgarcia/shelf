@@ -127,7 +127,7 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     first_name: '',
     last_name: '-',
     email: '',
-    organization: '-',
+    organization: '',
     ima: '-',
     warehouses: '',
     warehouse_key: '',
@@ -187,7 +187,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
    * adds a new users to the DB based on the state set from the textfields
    */
      const addUserToUserTable = async () => {
-      const newUsers = addedUsers;
+      const newUsers = addedUsers
+      console.log('newUsers inside of this fucked up function', newUsers)
       axios.post(`${API.website}/users`, { users: newUsers })
         .then(res => {
           if (res.status === 200) {
@@ -262,7 +263,8 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
     setGiveAdminRights(event.target.checked);
   };
 
-  console.log("giveAdminRights", giveAdminRights)
+ console.log('addedUsers BUG', addedUsers.dod_id)
+ console.log('handleDODError.dod_id', handleDODError.dod_id)
 
   return (
     <div>
@@ -503,23 +505,17 @@ export default function AddUsers({ users, setUsers, fetchUsers }) {
                         onClick={() => {
                           addUserToUserTable()  
                           }}
-                        > Submit</Button>
+                        > Submit </Button>
                 )}
             </ButtonGroup>
             ) : (
               <Button color='secondary' variant="contained" startIcon={<SaveIcon />}        
                 onClick={() => {
                   errorHandlerDod()
-                  errorHandlerFirst()
+                  // errorHandlerFirst()
                   }}
-                >Submit</Button>
+                > Submit </Button>
               )}
-
-              
-
-            
-
-
             </Stack>
           </Box>
         </Box>

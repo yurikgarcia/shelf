@@ -93,7 +93,12 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
         },
       })
       .then((res) => {
-        setUsers(res.data);
+        const sortedUsers = res.data.sort((a, b) => {
+          if (a.first_name < b.first_name) return -1;
+          if (a.first_name > b.first_name) return 1;
+          return 0;
+        });
+        setUsers(sortedUsers);
       })
       .catch((err) => {
         console.log(err);
@@ -424,16 +429,6 @@ const changeItemQuantity = async (items, index) => {
 
       const flatCart = cart.flat()
 
-      // console.log("FLAT", flatCart)
-
-      // console.log("CART", cart)
-
-      // console.log("USERS FROM CHECKOUT", users)
-
-    
-
-
-
   return (
     <div>
       {["right"].map((anchor) => (
@@ -475,9 +470,6 @@ const changeItemQuantity = async (items, index) => {
                 <Box sx={{ ml:1, fontSize: 19 }}>
                   <h2>Shopping Cart</h2>
                 </Box>
-                {/* <Box>
-                <QuantityError/>
-                </Box> */}
               </Box>
               </ListItem>
 
