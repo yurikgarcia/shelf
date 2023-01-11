@@ -393,7 +393,7 @@ console.log('addedNAMEItem', addedItem.item_name.length)
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addItemToSFSs6Inventory()
-                        // window.location.reload()
+                        window.location.reload()
                       }}>
                       Submit
                     </Button> 
