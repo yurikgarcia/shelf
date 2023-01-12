@@ -66,9 +66,12 @@ pool.query(
                   user_last_name: results.rows[0].last_name,
                   user_dod_id: results.rows[0].dod_id,
                   USER_warehouses: results.rows[0].warehouse_access,
+                  admin_warehouses: results.rows[0].warehouse_access,
+                  admin_organization: results.rows[0].organization
                 }
               });
               console.log("TOKEN", user)
+              console.log("HIT")
             }
             );
           } else {

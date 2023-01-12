@@ -24,11 +24,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const goToUserDetails = (params) => {
-    // console.log("PARAMS", params)
     let state = { First: params.user_first_name, Last: params.user_last_name, DoD: params.user_dod_id, Warehouses: params.USER_warehouses 
     }
-    // console.log("PARAMS", params)
-    // console.log("STATE FROM LOGIN", state)
     navigate('/issueditems', {state: state});
 } 
 
@@ -47,7 +44,6 @@ console.log("WEB", API.website)
     const loginUser = async () => {
     axios
     .post(`${API.website}/login`, {
-      // .post(`${API.website}/login`, {
         user_email: user.user_email,
         user_password: user.user_password,
         user_warehouses: user.user_password,
@@ -58,24 +54,19 @@ console.log("WEB", API.website)
           const token = res.data.token;
           localStorage.setItem("authorization", token);
           const user = res.data.user;
+          console.log("RES.DATA", res.data)
           console.log("USER",user)
-          // console.log("LENGTH", user.user_warehouses.length)
           localStorage.setItem("user_email", user.user_email);
           localStorage.setItem("user_first", user.user_first_name);
           localStorage.setItem("user_name", user.user_first_name + " " + user.user_last_name);
           localStorage.setItem("user_dod", user.user_dod_id);
-          localStorage.setItem("USER_warehouses", user.user_warehouses);
-          // let wareHouseLength = user.user_warehouses.length
-          // console.log("USER ADMIN", wareHouseLength)
-          // console.log("user.user_warehouses", user.user_first_name)
-          // console.log("OKEN", res.data.user)
-          console.log("TOKEN",token)
+          localStorage.setItem("admin_warehouses", user.admin_warehouses);
+          localStorage.setItem("admin_organization", user.admin_organization);
         }
         if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) window.location.href = "/home";
         else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) goToUserDetails(res.data.user);
         // if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses !== null ) console.log("GOOD", localStorage)
         // else if(localStorage.getItem("authorization") !== undefined && res.data.user.USER_warehouses == null) console.log("BAD", localStorage)
-        // console.log("USER", user)
       })
       .catch((err) => {
         alert("Sorry! You are not authorized to access this page.");

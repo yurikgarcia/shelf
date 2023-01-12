@@ -3,6 +3,7 @@ import AppContext from "../AppContext.js";
 import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
 import axios from "axios";
 import Box from "@mui/material/Box";
+import { ButtonGroup } from '@mui/material';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import {useLocation } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
@@ -13,6 +14,8 @@ import warehouse from "..//Images/warehouse.gif";
 
 export default function RowsGrid({ }) {
 
+
+  const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [currentShoppingCart, setCurrentShoppingCart] = useState([]); //shopping cart state
   const [spinner, setSpinner] = useState(false); //spinner state
   const [user, setUser] = useState([]); //selected user state
@@ -23,12 +26,35 @@ export default function RowsGrid({ }) {
   const { API } = useContext(AppContext);
 
   useEffect(() => {
-    fetchUsers2();
     fetchCurrentShoppingCart();
+    fetchLoggedAdminWarehouses();
     fetchNewShoppingCart();
+    fetchUsers2();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
+
+
+
+          /**
+     * fetches the logged in user's warehouses from the DB
+     */
+          const fetchLoggedAdminWarehouses = async () => {
+            let adminID = localStorage.user_dod
+            axios
+            .get(`${API.website}/admin-warehouses/${adminID}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+              },
+            })
+            .then((res) => {
+              setAdminWarehouses(res.data);
+              console.log("ADMIN WAREHOUSES", res.data[0].warehouse_access)
+            })
+            .catch((err) => { 
+              console.log(err);
+            });
+          };
 
 
     const fetchCurrentShoppingCart = async () => {
@@ -68,7 +94,6 @@ export default function RowsGrid({ }) {
   };
 
   const fetchUsers2 = async () => {
-    console.log("FIRING FETCH USERS", selectedUserDodId)
     const selected = selectedUserDodId
     axios
       .get(`${API.website}/getselecteduser/${selected}`, {
@@ -121,10 +146,7 @@ export default function RowsGrid({ }) {
 
   const flatItems = issuedItems?.flat();
 
-  console.log("USER inside issuedItems function", user)
-  console.log("ISSUED ITEMS", issuedItems)
 
-  // console.log("ITEMS inside UserItemsTable", issuedItems)
 
     /**
    * adds to shopping cart column in the users table
@@ -181,9 +203,39 @@ export default function RowsGrid({ }) {
     }
   );
 
-  // console.log("SHOPPING CART", shoppingCart)  
+  const availableWarehouses = adminWarehouses?.map(warehouse => warehouse?.warehouse_access?.map(warehouses => {
+    return warehouses
+  }))
+
+  const flatWarehouses = availableWarehouses.flat()
+
+// console.log("adminWarehouses issued items", flatWarehouses)
+
+// console.log("CHECKER", flatWarehouses.some(warehouse => warehouse.Table === 'sfs45s6'))
+
+// const adminWarehouse = [
+//   {Name: '45 SFS - Cape', Table: 'sfs45_cape'},
+//   {Name: '45 SFS - Patrick', Table: 'sfs45_patrick'},
+//   {Name: '45 SFS - S6', Table: 'sfs45s6'}
+//   ]
+const [stupidCheck, setStupidCheck] = useState('')
   
-  console.log("FLAT ITEMS", flatItems.length)
+//   write me a function name pleaseWork that if 'sfs45s6' is in the adminWarehouse array, then it sets stupidChecker to 'YES' and if it is not in the array, it sets stupidChecker to 'NO'
+
+const pleaseWork = () => {
+  if (flatWarehouses.some(warehouse => warehouse.Table === 'sfs45s6')) {
+    setStupidCheck('YES')
+    console.log('YES')
+  } else {
+    setStupidCheck('NO')
+    console.log('No')
+  }
+}
+
+
+console.log('DAMN YOU',flatWarehouses.some(warehouse => warehouse.Table === 'sfs45s6'))
+
+// console.log("STUPID CHECK", stupidCheck)
 
   return (
     <div>
@@ -228,25 +280,29 @@ export default function RowsGrid({ }) {
                   { field: "Returnable", minWidth: 100 },
                   { field: "Original", minWidth: 150 },
                   { field: "Return",
-                    renderCell: (params) => (
-                      <div>
-                      {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
-                          <AssignmentReturnedIcon
-                          sx={{ cursor: "pointer", color: "#ff0000" }}
-                          onClick={handleClick(TransitionLeft)}
-                          />  
-                      ) : (
-                          <AssignmentReturnedIcon 
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
-                            onClick={() => {
-                              addToCart(params)
-                              window.location.reload()
-                            }}
-                          />
-                      ),)}
-                      </div>
-                    ),
-                  },
+                  renderCell: (params) => (
+                    <div>
+                  { flatWarehouses.some(warehouse => warehouse.Table === params.row.Original) ? (
+                              <ButtonGroup>
+                                {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUIDfetcha === params.row.uuidFetcha ) ? (
+                                    <AssignmentReturnedIcon
+                                    sx={{ cursor: "pointer", color: "#ff0000" }}
+                                    onClick={handleClick(TransitionLeft)}
+                                    />  
+                                ) : (
+                                    <AssignmentReturnedIcon 
+                                    sx={{ cursor: "pointer", color: "#4CAF50" }}
+                                      onClick={() => {
+                                        addToCart(params)
+                                        window.location.reload()
+                                      }}
+                                    />
+                                ),)}
+                              </ButtonGroup>
+                    ) : null}
+                    </div>
+                  ),
+                },
                 ]}
                 rows={flatItems?.map((row, index) => {
                   return {
@@ -263,7 +319,6 @@ export default function RowsGrid({ }) {
                     Issued: row.Date,
                     uuidFetcha: row.UUIDfetcha,
                     Original: row.Original_warehouse,
-                    Warehouse: row.Original_warehouse  
                   };
                 })}
               />

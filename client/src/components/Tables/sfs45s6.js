@@ -403,7 +403,6 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
-    console.log("EDITED ITEM", editedItem)
 
   return (
     <Box sx={{ width: "100%", boxShadow: 10 }} >
