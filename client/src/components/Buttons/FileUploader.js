@@ -120,7 +120,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 
-export default function AddUsers({ users, setUsers, fetchUsers }) {
+export default function FileUploader({ users, setUsers, fetchUsers }) {
   const [AddUserOpen, setAddUserOpen] = useState(false); //Event Handler for Add Modal 
   const [addedUsers, setAddedUsers] = useState({
     dod_id: '',
@@ -273,7 +273,7 @@ console.log('users', users)
           onClick={handleUserOpen}
           color='secondary'
         >
-          ADD Users
+          ADD File
         </Button>
       </Box>
       <Modal
@@ -296,7 +296,7 @@ console.log('users', users)
         }} >
           <Box>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add New User
+              Add File
             </Typography>
           </Box>
           <Box

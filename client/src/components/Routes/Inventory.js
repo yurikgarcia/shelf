@@ -141,6 +141,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               inventory={inventory}
               setInventory={setInventory}
               fetchInventory={fetchInventory}
+              SFSs6Inventory={SFSs6Inventory}
             /> ) : null}
           </Box>
           <Box>

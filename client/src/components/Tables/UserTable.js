@@ -7,11 +7,15 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
+import CloudDoneIcon from '@mui/icons-material/CloudDone';
+import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 import Divider from "@mui/material/Divider";
+import Dropzone from 'react-dropzone-uploader'
 import EditIcon from '@mui/icons-material/Edit';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -21,6 +25,7 @@ import Modal from '@mui/material/Modal';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import PropTypes from 'prop-types';
+import 'react-dropzone-uploader/dist/styles.css'
 import SaveIcon from '@mui/icons-material/Save';
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
@@ -28,6 +33,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import warehouse from "..//Images/warehouse.gif";
+import { Widget } from "@uploadcare/react-widget";
 
 function isOverflown(element) {
   return (
@@ -191,12 +197,20 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 
   const [adminWarehouses, setAdminWarehouses] = React.useState([]);//warehouses admin has access to
   const [open, setOpen] = useState(false);
+
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
   const handleOpenDeleteModal = (params) => {
   setEditedUser(params.row)
   setOpenDeleteModal(true);
   };
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+
+  const [openFileUploaderModal, setOpenFileUploaderModal] = React.useState(false);
+  const handleOpenFileUploaderModal = (params) => {
+  setEditedUser(params.row)
+  setOpenFileUploaderModal(true);
+  };
+  const handleCloseFileUploaderModal = () => setOpenFileUploaderModal(false);
 
   //checks editUser.Warehouse if it includes the warehouse name set to true
   const [warehouseAccess, setWarehouseAccess] = useState({
@@ -417,6 +431,18 @@ const wareHouseLength = adminWarehouses.length;
       return warehouse.Table
     })
 
+      // specify upload params and url for your files
+  const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
+  
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
+  
+  // receives array of files that are done uploading when submit button is clicked
+  const handleSubmitFile = (files, allFiles) => {
+    console.log(files.map(f => f.meta))
+    allFiles.forEach(f => f.remove())
+  }
+
 
   return (
     <Box
@@ -510,6 +536,20 @@ const wareHouseLength = adminWarehouses.length;
                       </Tooltip>
                     ),
                   },
+                  // {
+                  //   field: "Files",
+                  //   minWidth: 10,
+                  //   renderCell: (params) => (
+                  //     <Tooltip title='Files'>
+                  //       {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
+                  //         <AttachFileIcon
+                  //           sx={{ cursor: "pointer", color: '#1A73E8' }}
+                  //           onClick={() => handleOpenFileUploaderModal(params)}
+                  //         />
+                  //       {/* </Link> */}
+                  //     </Tooltip>
+                  //   ),
+                  // },
                 ]}
                 rows={users?.map((row, index) => {
                   return {
@@ -737,6 +777,54 @@ const wareHouseLength = adminWarehouses.length;
                             }
                           } startIcon={<DeleteIcon />}>
                         Delete
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Box>
+              </Modal>
+
+              <Modal
+                open={openFileUploaderModal}
+                onClose={handleCloseFileUploaderModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 400,
+                  bgcolor: 'background.paper',
+                  border: '6px solid #000',
+                  borderRadius: '16px',
+                  boxShadow: "0px 2px 0px 0px #1A73E8,0px 2px 25px 5px #1A73E8",
+                  p: 4,
+                  borderColor: "#1A73E8",
+                }} >
+                  <CloudDownloadOutlinedIcon sx={{ display: 'flex', justifyContent: 'center', ml:15, fontSize: 80 }}/>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                      I am a file uploader, Your file sucks!
+                    </Typography>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <h3>{editedUser?.First} {editedUser.Last}</h3>
+                    </Typography>
+
+ 
+                    <Dropzone
+                      getUploadParams={getUploadParams}
+                      onChangeStatus={handleChangeStatus}
+                      onSubmit={handleSubmitFile}
+                      accept="image/*,application/pdf"
+                    />
+                
+
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                    <Stack direction="row" spacing={2}>
+                      <Button
+                        onClick={() =>   setOpenFileUploaderModal(false)}
+                      color='secondary' variant="outlined" startIcon={<CancelIcon />}>
+                        Cancel
                       </Button>
                     </Stack>
                   </Box>

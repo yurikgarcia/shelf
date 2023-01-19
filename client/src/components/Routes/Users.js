@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import UserTable from "../Tables/UserTable.js";
 import axios from 'axios';
 
+
 function Users() {
   const [users, setUsers] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
@@ -51,6 +52,8 @@ function Users() {
             <Box sx={{ml: 3 }}>
                 <h1>Users</h1>
             </Box>
+
+
 
             <Box sx={{display:"flex", justifyContent: 'flex-start'}}>
                 <AddUsers users={users} setUsers={setUsers} fetchInventory={fetchUsers}/>    

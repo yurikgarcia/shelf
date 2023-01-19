@@ -45,12 +45,12 @@ function UserDetails( ) {
   
         return (
           <main>  
-            <Box sx={{ml: 15, mt: 2}}>
+            <Box sx={{ml: 3, mt: 2}}>
               {/* <h1>{location.state.First} {location.state.Last}: Issued Items </h1> */}
                 <h1>{location.state.First} {location.state.Last}: Issued Items </h1>
             </Box>
 
-            <Box sx={{ ml: 7, mt: 1 }}>
+            <Box sx={{ ml: 2, mt: 1 }}>
               <UserItemsTable />
             </Box>
           </main>  

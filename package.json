@@ -9,8 +9,10 @@
   "dependencies": {
     "@mui/x-data-grid-generator": "^5.10.0",
     "@mui/x-data-grid-pro": "^5.10.0",
+    "@uploadcare/react-widget": "^2.4.1",
     "concurrently": "^7.6.0",
     "jsonwebtoken": "^8.5.1",
+    "react-dropzone-uploader": "^2.11.0",
     "webfontloader": "^1.6.28"
   },
   "engines": {

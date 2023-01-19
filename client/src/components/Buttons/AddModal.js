@@ -23,7 +23,7 @@ import { useLocation } from 'react-router-dom';
 
 
 
-export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory, fetchSFSCapeInventory  }) {
+export default function AddModal({ inventory, setInventory, fetchInventory, fetchSFSPatrickInventory, fetchSFSCapeInventory, SFSs6Inventory  }) {
   const [AddModalOpen, setAddModalOpen] = useState(false); //Event Handler for Add Modal 
   const [addedItem, setAddedItem] = useState({
     item_name: '',
@@ -169,15 +169,19 @@ const addItemToInventory = async () => {
   }
 
 
-  console.log("errorNAMEHandler", handleNameError)
+  // console.log("errorNAMEHandler", handleNameError)
 
 
 //   console.log("errorNSNHandler", handleNameError)
 
 
 // console.log('addedItem', addedItem.nsn)
-console.log('addedNAMEItem', addedItem.item_name.length)
+// console.log('addedNAMEItem', addedItem.item_name.length)
+// console.log('iventory inside add modal', inventory)
 
+console.log('s6', SFSs6Inventory)
+
+console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
 
   return (
     <div>
@@ -249,7 +253,6 @@ console.log('addedNAMEItem', addedItem.item_name.length)
               />
             </div>
             <div>
-           
               <TextField
                 id="outlined-error-helper-text"
                 label="NSN"
@@ -260,18 +263,28 @@ console.log('addedNAMEItem', addedItem.item_name.length)
                 label="Size"
                 onChange={(e) => setAddedItem({ ...addedItem, item_size: e.target.value })}
               />
+
+              {SFSs6Inventory.some(item => item.nsn === addedItem.nsn.toUpperCase()) ? (
+                <Typography sx= {{ ml:1, fontSize: 12, color: 'error.main' }}>NSN already exists!</Typography>
+              ) : null }
+
+              {location.state.warehouse === "45 SFS - S6" ? (
               <TextField
                 id="outlined-error-helper-text"
-                label="Gender"
+                label="Type"
                 onChange={(e) => setAddedItem({ ...addedItem, gender: e.target.value })}
-              />
+              />) : (              <TextField
+              id="outlined-error-helper-text"
+              label="Gender"
+              onChange={(e) => setAddedItem({ ...addedItem, gender: e.target.value })}
+            />)}
+
               {location.state.warehouse === "45 SFS - S6" ? (
                 <TextField
                 id="outlined-error-helper-text"
                 label="Area"
                 onChange={(e) => setAddedItem({ ...addedItem, courier: e.target.value })}
               />) : null}
-  
             </div>
             <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
             <div>

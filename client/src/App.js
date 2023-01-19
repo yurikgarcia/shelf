@@ -35,17 +35,16 @@ const customTheme = createTheme({
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
- 
-  const API = {
-    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
-  };
+
+  // const API = {
+  //   website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
+  // };
 
   // use for local developing
-  // const API = {
-  //   website: 'http://localhost:3000'
-  // };
+  const API = {
+    website: 'http://localhost:3000'
+  };
  
-
 
   useEffect(() => {
     //used to test and remove token and will be used in a logout button **wink wink**
@@ -54,15 +53,12 @@ function App() {
 
   const NavBarLayout = () => (
     <>
-   
       <NavDrawer shoppingCart={shoppingCart} setShoppingCart={setShoppingCart}  />
-
       <Outlet />
     </>
   );
 
   
-
   return (
       <AppContext.Provider value={{ API }}>
         <ThemeProvider theme={customTheme} >

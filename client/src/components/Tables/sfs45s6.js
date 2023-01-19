@@ -187,7 +187,7 @@ export default function RowsGrid({
     Bldg: "",
     Size: "-",
     Count: 0,
-    Gender: "-",
+    Type: "-",
     Aisle: "-",
     Initial: "",
     MinCount: 0,
@@ -208,7 +208,7 @@ export default function RowsGrid({
     Bldg: "",
     Size: "-",
     Count: 0,
-    Gender: "-",
+    Type: "-",
     Aisle: "-",
     Initial: '',
     MinCount: 0,
@@ -266,7 +266,7 @@ export default function RowsGrid({
         Bldg: newValue.Bldg,
         Size: newValue.Size,
         Count: newValue.Count,
-        Gender: newValue.Gender,
+        Gender: newValue.Type,
         Aisle: newValue.Aisle,
         Initial: newValue.Initial,
         MinCount: newValue.MinCount,
@@ -438,7 +438,7 @@ export default function RowsGrid({
                   { field: "NSN", width: 125, renderCell: renderCellExpand  },
                   { field: "Area", minWidth: 100, renderCell: renderCellExpand  },
                   // { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Type", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Bldg", width: 60, renderCell: renderCellExpand  },
                   { field: "Aisle", width: 55, renderCell: renderCellExpand  },
                   { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
@@ -524,7 +524,7 @@ export default function RowsGrid({
                     Bldg: row.building,
                     Size: row.item_size,
                     Count: row.item_count,
-                    Gender: row.gender,
+                    Type: row.gender,
                     Aisle: row.aisle,
                     Initial: row.intial_gear,
                     MinCount: row.minimum_count,
@@ -610,11 +610,11 @@ export default function RowsGrid({
                         <TextField
                           disabled={false}
                           id="outlined-error"  
-                          label="Gender"
-                          defaultValue={editedItem?.Gender}
+                          label="Type"
+                          defaultValue={editedItem?.Type}
                           sx={{ borerRadius: "5" }}
                           onChange={(e) =>
-                            setNewValue({ ...newValue, Gender: e.target.value })
+                            setNewValue({ ...newValue, Type: e.target.value })
                           }
                         />
                         <TextField

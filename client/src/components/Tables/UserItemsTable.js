@@ -7,10 +7,144 @@ import { ButtonGroup } from '@mui/material';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import {useLocation } from 'react-router-dom';
 import MuiAlert from '@mui/material/Alert';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import PropTypes from 'prop-types';
 import Slide from '@mui/material/Slide';
 import Snackbar from '@mui/material/Snackbar';
+import Typography from "@mui/material/Typography";
 import warehouse from "..//Images/warehouse.gif";
 
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+const GridCellExpand = React.memo(function GridCellExpand(props) {
+  const { width, value } = props;
+  const wrapper = React.useRef(null);
+  const cellDiv = React.useRef(null);
+  const cellValue = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showFullCell, setShowFullCell] = React.useState(false);
+  const [showPopper, setShowPopper] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    const isCurrentlyOverflown = isOverflown(cellValue.current);
+    setShowPopper(isCurrentlyOverflown);
+    setAnchorEl(cellDiv.current);
+    setShowFullCell(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowFullCell(false);
+  };
+
+  React.useEffect(() => {
+    if (!showFullCell) {
+      return undefined;
+    }
+
+    function handleKeyDown(nativeEvent) {
+      // IE11, Edge (prior to using Bink?) use 'Esc'
+      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+        setShowFullCell(false);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setShowFullCell, showFullCell]);
+
+  return (
+    <Box
+      ref={wrapper}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      sx={{
+        alignItems: 'center',
+        lineHeight: '24px',
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        display: 'flex',
+      }}
+    >
+      <Box
+        ref={cellDiv}
+        sx={{
+          height: '100%',
+          width,
+          display: 'block',
+          position: 'absolute',
+          top: 0,
+        }}
+      />
+      <Box
+        ref={cellValue}
+        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+      >
+        {value}
+      </Box>
+          {showPopper && (
+            <Popper
+      open={showFullCell && anchorEl !== null}
+      anchorEl={anchorEl}
+      style={{ width, marginLeft: -17 }}
+    >
+<Paper
+        elevation={1}
+        style={{
+          whiteSpace: 'normal',
+          display: 'inline-block',
+          width: '100%',
+          backgroundColor: '#f8f8f8',
+          border: '1px solid #ccc'
+        }}
+      >
+    <div style={{ whiteSpace: 'normal', display: 'inline-block', width: '100%' }}>
+      <Typography
+        variant="body2"
+        style={{ padding: 8, display: 'block', width: '100%' }}
+        overflow="auto"
+      >
+        {value}
+      </Typography>
+    </div>
+  </Paper>
+</Popper>
+      )}
+    </Box>
+  );
+});
+
+GridCellExpand.propTypes = {
+  value: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+};
+
+function renderCellExpand(params) {
+  return (
+    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+  );
+}
+
+renderCellExpand.propTypes = {
+  /**
+   * The column of the row that the current cell belongs to.
+   */
+  colDef: PropTypes.object.isRequired,
+  /**
+   * The cell value.
+   * If the column has `valueGetter`, use `params.row` to directly access the fields.
+   */
+  value: PropTypes.string,
+};
 
 export default function RowsGrid({ }) {
 
@@ -240,22 +374,13 @@ console.log('DAMN YOU',flatWarehouses.some(warehouse => warehouse.Table === 'sfs
   return (
     <div>
     {flatItems.length > 0 ? (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        width: "93%",
-        overflow: "hidden",
-        ml: 7,
-        boxShadow: 10
-      }}
-    >
+    <Box sx={{ width: "99%", boxShadow: 10 }} >
       {spinner ? (
         <div>
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", height: "75vh", width: "100%" }}>
+        <div style={{ height: "77vh", width: "100%"}}>
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
               <DataGrid
@@ -270,15 +395,15 @@ console.log('DAMN YOU',flatWarehouses.some(warehouse => warehouse.Table === 'sfs
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { field: "Name", minWidth: 150 },
-                  { field: "Brand", minWidth: 130 },
-                  { field: "NSN", minWidth: 100 },
-                  { field: "Size", minWidth: 100 },
-                  { field: "Gender", minWidth: 100 },
-                  { field: "Quantity", minWidth: 100 },
-                  { field: "Issued", minWidth: 100 },
-                  { field: "Returnable", minWidth: 100 },
-                  { field: "Original", minWidth: 150 },
+                  { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
+                  { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
+                  { field: "NSN", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Quantity", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Issued", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Returnable", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Original", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Return",
                   renderCell: (params) => (
                     <div>
