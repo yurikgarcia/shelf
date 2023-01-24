@@ -443,7 +443,11 @@ const wareHouseLength = adminWarehouses.length;
     allFiles.forEach(f => f.remove())
   }
 
+  console.log("localstorage", localStorage.admin_organization)
 
+
+
+  
   return (
     <Box
       sx={{
@@ -536,22 +540,22 @@ const wareHouseLength = adminWarehouses.length;
                       </Tooltip>
                     ),
                   },
-                  // {
-                  //   field: "Files",
-                  //   minWidth: 10,
-                  //   renderCell: (params) => (
-                  //     <Tooltip title='Files'>
-                  //       {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
-                  //         <AttachFileIcon
-                  //           sx={{ cursor: "pointer", color: '#1A73E8' }}
-                  //           onClick={() => handleOpenFileUploaderModal(params)}
-                  //         />
-                  //       {/* </Link> */}
-                  //     </Tooltip>
-                  //   ),
-                  // },
+                  {
+                    field: "Files",
+                    minWidth: 10,
+                    renderCell: (params) => (
+                      <Tooltip title='Files'>
+                        {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
+                          <AttachFileIcon
+                            sx={{ cursor: "pointer", color: '#1A73E8' }}
+                            onClick={() => handleOpenFileUploaderModal(params)}
+                          />
+                        {/* </Link> */}
+                      </Tooltip>
+                    ),
+                  },
                 ]}
-                rows={users?.map((row, index) => {
+                rows={users.filter(user => user.organization === localStorage.admin_organization).map((row, index) => {
                   return {
                     id: index,
                     Delete: row.dod_id,
@@ -747,7 +751,7 @@ const wareHouseLength = adminWarehouses.length;
                   transform: 'translate(-50%, -50%)',
                   width: 400,
                   bgcolor: 'background.paper',
-                  border: '6px solid #000',
+                  // border: '6px solid #000',
                   borderRadius: '16px',
                   boxShadow: "0px 2px 0px 0px #c62828,0px 2px 25px 5px #c62828",
                   p: 4,
@@ -796,7 +800,7 @@ const wareHouseLength = adminWarehouses.length;
                   transform: 'translate(-50%, -50%)',
                   width: 400,
                   bgcolor: 'background.paper',
-                  border: '6px solid #000',
+                  // border: '6px solid #000',
                   borderRadius: '16px',
                   boxShadow: "0px 2px 0px 0px #1A73E8,0px 2px 25px 5px #1A73E8",
                   p: 4,
