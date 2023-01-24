@@ -555,7 +555,8 @@ const wareHouseLength = adminWarehouses.length;
                     ),
                   },
                 ]}
-                rows={users.filter(user => user.organization === localStorage.admin_organization).map((row, index) => {
+                // rows={users.filter(user => user.organization === localStorage.admin_organization).map((row, index) => {
+                  rows={users?.map((row, index) => {
                   return {
                     id: index,
                     Delete: row.dod_id,
