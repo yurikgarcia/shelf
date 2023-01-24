@@ -36,7 +36,7 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
 
-  // const API = {
+  const API = {
     website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com'
   };
 
