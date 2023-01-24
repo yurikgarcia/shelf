@@ -37,7 +37,8 @@ function App() {
 
 
   const API = {
-    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/'
+    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/' ||
+            'http://shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/'
   };
 
   

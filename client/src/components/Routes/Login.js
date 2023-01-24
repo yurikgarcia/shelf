@@ -74,7 +74,7 @@ console.log("WEB", API.website)
       });
   };
 
-
+console.log("local storage", localStorage)
 
 
   return (
