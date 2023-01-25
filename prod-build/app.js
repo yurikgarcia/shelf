@@ -188,7 +188,6 @@ app.get('/getselecteduser/:dod', getSelectedUser)
 
 
 /*
-
 heroku git:remote -a postgres-apr
 git push heroku main:main
 */
@@ -200,20 +199,13 @@ git push heroku main:main
  To run the new playful items, cd into server, run the command gulp
  then run npm run dev
  navigate to the url of localhost:3000 and enjoy
-
  to test the build folder, youll need to install serve globally on your machine.
  in the client folder run npm run build
  the run serve build -p 3001
  click the link and test your build out.
       open the devtools and watch nertwrok traffic on login to see if its fetching correct data,
       same with viewing sources to see whats loaded. 
-
-
   you can also test the gulp build by cding into the prod-build/client and running serve build -p 3001
-
-
  to go to normal items, you can commewnt out the route of / and the static path. then just run nom run dev in the server, and npm start in the client.
-
-
  also try deleting the node_modules and the package-LOCKKKKKK file and running fresh installs to test changes
 */

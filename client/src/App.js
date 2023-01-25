@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import AppContext from './components/AppContext.js';
 import { createTheme } from "@mui/material/styles";
 import Home from ".//components/Routes/Home.js";
-
 import SignUp from ".//components/Routes/SignUp.js";
 import Inventory from ".//components/Routes/Inventory.js";
 import Login from ".//components/Routes/Login.js";
@@ -37,9 +36,12 @@ function App() {
 
 
   const API = {
-    website: 'http://Shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/' ||
-            'http://shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/'
+    website: 'http://shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com/' 
   };
+
+  // const API = {
+  //   website: 'http://shelfinventoryserver-env.eba-rywjtbhc.us-gov-west-1.elasticbeanstalk.com/' 
+  // };
 
   
 
