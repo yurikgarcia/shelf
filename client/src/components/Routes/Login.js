@@ -42,7 +42,7 @@ console.log("WEB", API.website)
   //check to see if user.user_warehouse is not undefined and console.log"admin" if it is
   //if user.user_warehouse is undefined then console.log "user"
     const loginUser = async () => {
-      console,og("LOGIN", user)
+      console.log("LOGIN", user)
     axios
     .post(`${API.website}/login`, {
         user_email: user.user_email,
