@@ -72,6 +72,7 @@ console.log("WEB", API.website)
       .catch((err) => {
         alert("Sorry! You are not authorized to access this page.");
         console.log("err", err);
+        console.log('error', err.response.data.message)
       });
   };
 

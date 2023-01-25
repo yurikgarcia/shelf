@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 require("dotenv").config();
 
-
 const pool = new Pool({
   user: "postgres",
   host: "shelfdatabase.ca4lcabxs5eo.us-gov-west-1.rds.amazonaws.com",
@@ -134,5 +133,3 @@ module.exports = {
   verifyToken,
   login
 };
-
-
