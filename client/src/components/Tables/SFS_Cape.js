@@ -302,7 +302,7 @@ export default function RowsGrid({
           }
         })
         .catch((err) => {
-          alert("Sorry! Something went wrong. Please try again.");
+          alert("Sorry! Something went wrong. Please try adding your item to the cart again.");
           console.log("err", err);
         });
       };

@@ -39,11 +39,6 @@ function App() {
     website: 'http://shelfapi-env.eba-phxch2is.us-gov-west-1.elasticbeanstalk.com' 
   };
 
-  // const API = {
-  //   website: 'http://shelfinventoryserver-env.eba-rywjtbhc.us-gov-west-1.elasticbeanstalk.com/' 
-  // };
-
-  
 
   // use for local developing
   // const API = {

@@ -331,6 +331,7 @@ console.log('users', users)
               />
             </div>
             <div>
+            <Box sx ={{display: 'flex', flexDirection: 'row', width: '100%'}}>
             { handleDODError.dod_id === false ? (
               <TextField
                 id="outlined-error-helper-text"
@@ -352,6 +353,23 @@ console.log('users', users)
                 required={true}
                 onChange={(e) => setAddedUsers({ ...addedUsers, email: e.target.value })}
               /> */}
+            
+          
+              <FormControl sx={{width: 135, mt: 1, ml: 1}}>
+                  <InputLabel id="demo-simple-select-label">Organization</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={addedUsers.organization}
+                    label="Organization"
+                    onChange={handleOrganization}
+                  >
+                    <MenuItem value={'45 SFS'}>45 SFS</MenuItem>
+                    <MenuItem value={'SLD 45'}>SLD 45</MenuItem>
+                  </Select>
+                </FormControl>
+       
+                </Box>
             </div>
 
             {users.some(user => user.dod_id === addedUsers.dod_id.toUpperCase()) ? (
@@ -374,7 +392,7 @@ console.log('users', users)
                   </Select>
                 </FormControl>
               </Box>
-              <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
+              {/* <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
               <FormControl sx={{width: 135, mt: 1}}>
                   <InputLabel id="demo-simple-select-label">Organization</InputLabel>
                   <Select
@@ -388,7 +406,7 @@ console.log('users', users)
                     <MenuItem value={'SLD 45'}>SLD 45</MenuItem>
                   </Select>
                 </FormControl>
-              </Box>
+              </Box> */}
             </Stack>
             </div>
           </Box>

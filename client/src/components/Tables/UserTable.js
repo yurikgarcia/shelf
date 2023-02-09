@@ -488,11 +488,11 @@ const wareHouseLength = adminWarehouses.length;
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
                   { field: "First", minWidth: 150, renderCell: renderCellExpand  },
-                  { field: "Last", minWidth: 130, renderCell: renderCellExpand  },
+                  { field: "Last", minWidth: 150, renderCell: renderCellExpand  },
                   // { field: "DoD", minWidth: 100 },
                   { field: "Email", minWidth: 200, renderCell: renderCellExpand  },
                   { field: "Organization", minWidth: 100 },
-                  { field: "IMA", minWidth: 170 },
+                  { field: "IMA", minWidth: 50 },
                   { field: "Warehouses", minWidth: 250, renderCell: renderCellExpand  },
                   // { field: "Password", minWidth: 170 },
                   // { field: "Admin", minWidth: 170 },
