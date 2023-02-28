@@ -97,6 +97,7 @@ const addItemToInventory = async () => {
             setInventory([...inventory, newInventory])
             // fetchSFSPatrickInventory()
             setAddModalOpen(false)
+            window.location.reload()
           }
         })
         .catch(err => {
@@ -383,14 +384,14 @@ console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
               >
                 Cancel
               </Button>
-              
+
               {addedItem.item_name.length > 0 ? (
                 <ButtonGroup>
                   {location.state.warehouse === "45 SFS - Patrick"  ? (
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addItemToSFSPatrickInventory()
-                        window.location.reload()
+                        // window.location.reload()
                       }}>
                       Submit
                     </Button>

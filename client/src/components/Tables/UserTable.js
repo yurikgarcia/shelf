@@ -540,20 +540,20 @@ const wareHouseLength = adminWarehouses.length;
                       </Tooltip>
                     ),
                   },
-                  {
-                    field: "Files",
-                    minWidth: 10,
-                    renderCell: (params) => (
-                      <Tooltip title='Files'>
-                        {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
-                          <AttachFileIcon
-                            sx={{ cursor: "pointer", color: '#1A73E8' }}
-                            onClick={() => handleOpenFileUploaderModal(params)}
-                          />
-                        {/* </Link> */}
-                      </Tooltip>
-                    ),
-                  },
+                  // {
+                  //   field: "Files",
+                  //   minWidth: 10,
+                  //   renderCell: (params) => (
+                  //     <Tooltip title='Files'>
+                  //       {/* <Link to={`/users/${params.row.First}${params.row.Last}/${params.row.Delete}`}  style={{ textDecoration: 'none', color: 'black' }}> */}
+                  //         <AttachFileIcon
+                  //           sx={{ cursor: "pointer", color: '#1A73E8' }}
+                  //           onClick={() => handleOpenFileUploaderModal(params)}
+                  //         />
+                  //       {/* </Link> */}
+                  //     </Tooltip>
+                  //   ),
+                  // },
                 ]}
                 // rows={users.filter(user => user.organization === localStorage.admin_organization).map((row, index) => {
                   rows={users?.map((row, index) => {
