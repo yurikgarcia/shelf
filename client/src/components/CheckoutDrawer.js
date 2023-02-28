@@ -203,10 +203,11 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
       .then((res) => {
         if (res.status === 200) {
           fetchNewShoppingCart();
+          window.location.reload()
         }
       }) 
       .catch((err) => {
-        alert("Sorry! Something went wrong. Please try again.");
+        alert("Sorry! Something went wrong. Please try Deleting Item again.");
         console.log("err", err);
       });
   };
@@ -476,6 +477,8 @@ const changeItemQuantity = async (items, index) => {
           })
         }
 
+  
+
   return (
     
     <div>
@@ -524,6 +527,8 @@ const changeItemQuantity = async (items, index) => {
               <Divider
                 sx={{ mt: 1.5, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
+
+          
 
             <ListItem>
               {newShoppingCart.map((item, index) => {
@@ -587,6 +592,8 @@ const changeItemQuantity = async (items, index) => {
                                               fetchCurrentItemCount()
                               }}
                             />
+
+                         
                               {window.location.href === `${API.website}/inventory` ? (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Count}
@@ -607,7 +614,7 @@ const changeItemQuantity = async (items, index) => {
                               <ClearIcon fontSize="x-small" 
                               onClick={() => {
                                 onDelete(items, index)
-                                window.location.reload()
+                                // window.location.reload()
                               }}
                               />
                             </Box>
