@@ -20,9 +20,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import shelfLogo from ".//Images/shelfLogo.png";
 import Slide from '@mui/material/Slide';
 import { styled } from '@mui/material/styles';
+import Swal from 'sweetalert2'
 import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 import { useLocation } from 'react-router-dom';
+import warehouse from ".//Images/warehouse.gif";
+
 
 
 export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventory, fetchInventory }) {
@@ -30,6 +33,7 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
   const [newShoppingCart, setNewShoppingCart] = useState([]); //shopping cart state
   const [users, setUsers] = useState([]); //users state for list of users in drop down
   const [value, setValue] = useState(''); //value state for users drop down
+  const [selectedUser, setSelectedUser] = useState(''); //value state for users drop down
   const [radioValue, setRadioValue] = React.useState('');//value state of radio button selection
   const [currentItemCount, setCurrentItemCount] = React.useState(0);//value of count for the current item
   const [cartItemCount, setCartItemCount] = React.useState(0);//value of count for the current item
@@ -57,6 +61,8 @@ export default function CheckoutDrawer({ shoppingCart, setShoppingCart, inventor
     }
     setState({ ...state, [anchor]: open });
   }; //drawer for the shopping cart
+
+
 
   const list = (anchor) => (
     <Box
@@ -429,6 +435,47 @@ const changeItemQuantity = async (items, index) => {
 
       const flatCart = cart.flat()
 
+      //path to warehouse image
+      const imagePath = require(`./Images/warehouse.gif`)
+
+
+      const fireSwal = () => {
+        let timerInterval
+          Swal.fire(
+            {
+            title: `Issuing items`,         
+            // html: 'I will close in <b></b> milliseconds.',
+            timer: 3000,
+            timerProgressBar: true,
+            iconUrl: imagePath,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+              Swal.fire({
+                icon: 'success',
+                title: `Issued items to ${selectedUser.first_name} ${selectedUser.last_name}'s Account!`,   
+                showConfirmButton: false,
+                timer: 1500
+                }
+              )
+              setTimeout(() => {
+                window.location.reload();
+              }, "1400")
+            }
+          })
+        }
+
   return (
     <div>
       {["right"].map((anchor) => (
@@ -602,6 +649,7 @@ const changeItemQuantity = async (items, index) => {
                     options={users}
                     onChange={(event, newValue) => {
                       setValue(newValue.dod_id);
+                      setSelectedUser(newValue)
                     }}
                     getOptionLabel={(option) => option.first_name + " " + option.last_name}
                     style={{ width: 300 }}
@@ -616,10 +664,13 @@ const changeItemQuantity = async (items, index) => {
                     size= "large"
                     onClick={(items, index) => {
                       addToIssuedItems();
-                      subtractFromInventory(items, index)      
-                      setTimeout(() => {
-                        window.location.reload();
-                      }, "1200")
+                      subtractFromInventory(items, index)  
+                      toggleDrawer(anchor, false)
+                      setState({ ...state, [anchor]: false })   
+                      // setTimeout(() => {
+                      //   window.location.reload();
+                      // }, "1200")
+                      fireSwal();
                       }
                     }
                   >

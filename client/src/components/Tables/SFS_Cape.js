@@ -391,7 +391,7 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
-console.log('iventory from capes', inventory)
+
 
     
     //   return (

@@ -184,9 +184,9 @@ const addItemToInventory = async () => {
 // console.log('addedNAMEItem', addedItem.item_name.length)
 // console.log('iventory inside add modal', inventory)
 
-console.log('s6', SFSs6Inventory)
+// console.log('s6', SFSs6Inventory)
 
-console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
+// console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
 
   return (
     <div>

@@ -4,10 +4,12 @@ import axios from "axios";
 import AddModal from "../Buttons/AddModal.js";
 import AppContext from "../AppContext.js";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import InventoryTable from "../Tables/InventoryTable.js";
 import SFS_Cape from "../Tables/SFS_Cape.js";
 import SFS_Patrick from "../Tables/SFS_Patrick.js";
 import SFS_S6 from "../Tables/sfs45s6.js";
+import Swal from 'sweetalert2'
 import { useLocation } from 'react-router-dom';
 import warehouse from "..//Images/warehouse.gif";
 
@@ -127,6 +129,31 @@ function Inventory({ shoppingCart, setShoppingCart }) {
 
   // console.log("LOCAL WAREHOUSE", localStorage.getItem("selected_Warehouse"))
 
+  const fireSwal = () => {
+        let timerInterval
+          Swal.fire({
+            title: 'Auto close alert!',
+            html: 'I will close in <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+          })
+        }
+
   return (
     <div>
       <div>
@@ -144,6 +171,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               SFSs6Inventory={SFSs6Inventory}
             /> ) : null}
           </Box>
+
           <Box>
             {location.state.warehouse  
             === "45 SFS - Patrick" ? (
@@ -173,6 +201,8 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             )}
           </Box>
         </Box>
+
+        
         </main>
       </div>
     </div>
