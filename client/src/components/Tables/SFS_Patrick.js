@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Checkbox from '@mui/material/Checkbox';
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -287,7 +288,7 @@ export default function RowsGrid({
       });
   };
 
-  console.log("newValue from patrick", newValue)
+ 
 
   /**
    * adds to shopping cart column in the users table
@@ -404,6 +405,41 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
+    const handleSelectionModelChange = (newSelection) => {
+      setSelectedRows(newSelection.selectionModel);
+    };
+
+    const [selectedRows, setSelectedRows] = useState([]);
+  
+    // const handleAddSelectedRows = () => {
+    //   // add selected rows to the array
+    //   console.log("INSIDE", selectedRows);
+    // };
+
+   
+    // const handleAddSelectedRows = (params) => {
+    //   setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params]);
+    //   console.log("INSIDE", selectedRows);
+    //   console.log("INSIDE PARAMS", params)
+    // };
+
+    // const handleAddSelectedRows = (params) => {
+    //   setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params]);
+    //   console.log("params:", params);
+    //   console.log("selectedRows:", selectedRows);
+    // };
+
+    // const handleAddSelectedRows = (selectionModel) => {
+    //   setSelectedRows(selectionModel.map((id) => {
+    //     const row = inventory.find((row) => row.item_id === id);
+    //     return { ...row };
+    //   }));
+    // };
+
+    const [selectionModel, setSelectionModel] = React.useState([]);
+
+    console.log(" OUTSIDE selectedRows", selectedRows)
+
   return (
     <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
@@ -414,8 +450,9 @@ export default function RowsGrid({
         <div style={{ height: "77vh", width: "100%"}}>
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
+
               <DataGrid
-                // checkboxSelection
+                // checkboxSelection={true}
                 disableSelectionOnClick
                 initialState={{
                   sorting: {
@@ -428,6 +465,21 @@ export default function RowsGrid({
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
+                  { width: 50, 
+                  renderCell: (params) => (    
+                      <Checkbox
+                        onChange={(event) => {
+                          if (event.target.checked) {
+                            setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params.row]);
+                          } else {
+                            setSelectedRows((prevSelectedRows) =>
+                              prevSelectedRows.filter((row) => row.UUID !== params.row.UUID)
+                            );
+                          }
+                        }}
+                      />
+                  ),
+                  },
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
                   { field: "NSN", minWidth: 150, renderCell: renderCellExpand  },
@@ -824,6 +876,8 @@ export default function RowsGrid({
                   </Box>
                 </Box>
               </Modal>
+
+          
 
               <Snackbar
                 open={openSnack} 

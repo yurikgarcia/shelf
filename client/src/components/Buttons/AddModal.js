@@ -100,7 +100,7 @@ const addItemToInventory = async () => {
           }
         })
         .catch(err => {
-          alert('Sorry! Something went wrong. Please try again.')
+          alert('The error is here.')
           console.log('err', err);
         })
     };
