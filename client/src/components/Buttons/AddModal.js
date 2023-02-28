@@ -383,7 +383,7 @@ console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
               >
                 Cancel
               </Button>
-
+              
               {addedItem.item_name.length > 0 ? (
                 <ButtonGroup>
                   {location.state.warehouse === "45 SFS - Patrick"  ? (
