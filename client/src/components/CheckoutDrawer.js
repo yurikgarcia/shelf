@@ -587,10 +587,10 @@ const changeItemQuantity = async (items, index) => {
                                               fetchCurrentItemCount()
                               }}
                             />
-                              {window.location.href === "http://localhost:3001/inventory" ? (
+                              {window.location.href === `${API.website}/inventory` ? (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Count}
-                            </Box>) : window.location.href === "http://localhost:3001/issueditems" && items.Quantity !== undefined ?  (
+                            </Box>) : window.location.href === `${API.website}/issueditems` && items.Quantity !== undefined ?  (
                             <Box sx={{ ml:2, fontStyle: 'italic', fontSize: '13px' }}> 
                                 Available: {items.Quantity}
                             </Box>
