@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import AppContext from "../AppContext.js";
+import AppContext2 from "../AppContext2.js";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -182,6 +183,7 @@ export default function RowsGrid({
   setOpenDeleteModal(true);
   };
   const { API } = useContext(AppContext);
+  
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const [editedItem, setEditedItem] = useState({
     Name: "",
@@ -442,7 +444,10 @@ export default function RowsGrid({
 
     console.log(" OUTSIDE selectedRows", selectedRows)
 
+
+
   return (
+    <AppContext2.Provider value={selectedRows}>
     <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
         <div>
@@ -470,21 +475,21 @@ export default function RowsGrid({
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
-                  { width: 50, 
-                  renderCell: (params) => (    
-                      <Checkbox
-                        onChange={(event) => {
-                          if (event.target.checked) {
-                            setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params.row]);
-                          } else {
-                            setSelectedRows((prevSelectedRows) =>
-                              prevSelectedRows.filter((row) => row.UUID !== params.row.UUID)
-                            );
-                          }
-                        }}
-                      />
-                  ),
-                  },
+                  // { width: 50, 
+                  // renderCell: (params) => (    
+                  //     <Checkbox
+                  //       onChange={(event) => {
+                  //         if (event.target.checked) {
+                  //           setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params.row]);
+                  //         } else {
+                  //           setSelectedRows((prevSelectedRows) =>
+                  //             prevSelectedRows.filter((row) => row.UUID !== params.row.UUID)
+                  //           );
+                  //         }
+                  //       }}
+                  //     />
+                  // ),
+                  // },
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
                   { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
                   { field: "NSN", minWidth: 150, renderCell: renderCellExpand  },
@@ -900,5 +905,6 @@ export default function RowsGrid({
         </div>
       )}
     </Box>
+    </AppContext2.Provider>
   );
 }

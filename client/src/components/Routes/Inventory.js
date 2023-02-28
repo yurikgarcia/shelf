@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AddModal from "../Buttons/AddModal.js";
 import AppContext from "../AppContext.js";
+import AppContext2 from "../AppContext2.js";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InventoryTable from "../Tables/InventoryTable.js";
@@ -22,6 +23,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
   const [spinner, setSpinner] = useState(false); //spinner state
 
   const { API } = useContext(AppContext);
+  const selectedRows = useContext(AppContext2);
+
+  // const { selectedRows} = useContext(AppContext);
+
+  console.log("SSSSelectedRows", AppContext2.selectedRows);
+
+ 
 
 
   //initial call to grab inventory from DB on load
@@ -158,6 +166,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     <div>
       <div>
         <main>
+          {selectedRows}
         <Box sx={{ display: 'flex', ml:1, flexDirection: 'column', width: '99%'}}>
           <Box sx={{ ml:3}}>
             <h1>{location.state.warehouse}</h1>

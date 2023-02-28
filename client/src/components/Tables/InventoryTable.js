@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import AppContext from "../AppContext.js";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -36,6 +37,7 @@ export default function RowsGrid({
   const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
   const handleOpenDeleteModal = () => setOpenDeleteModal(true);
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+  const { selectedRows } = useContext(AppContext);
   const [editedItem, setEditedItem] = useState({
     Name: "",
     Brand: "",
@@ -52,6 +54,8 @@ export default function RowsGrid({
     Courier: "-",
     Tracking: "-",
   });
+
+  console.log("ROWS GRID inventory", selectedRows);
 
   const [newValue, setNewValue] = useState({
     Delete: "",

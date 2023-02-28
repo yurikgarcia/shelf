@@ -477,6 +477,7 @@ const changeItemQuantity = async (items, index) => {
         }
 
   return (
+    
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
