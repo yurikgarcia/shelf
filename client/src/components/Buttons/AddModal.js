@@ -88,7 +88,9 @@ const addItemToInventory = async () => {
 
   /**
    * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
+   *
    */
+
     const addItemToSFSPatrickInventory = async () => {
       const newInventory = addedItem;
       axios.post(`${API.website}/45sfspatrickinventory`, { item: newInventory })
@@ -101,7 +103,7 @@ const addItemToInventory = async () => {
           }
         })
         .catch(err => {
-          alert('The error is here.')
+          alert('The error is here.', err)
           console.log('err', err);
         })
     };
@@ -117,6 +119,7 @@ const addItemToInventory = async () => {
                 setInventory([...inventory, newInventory])
                 // fetchSFSCapeInventory()
                 setAddModalOpen(false)
+                window.location.reload()
               }
             })
             .catch(err => {
@@ -137,6 +140,7 @@ const addItemToInventory = async () => {
               setInventory([...inventory, newInventory])
               // fetchSFSPatrickInventory()
               setAddModalOpen(false)
+              window.location.reload()
             }
           })
           .catch(err => {
@@ -399,7 +403,7 @@ console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addItemToSFSCapeInventory()
-                        window.location.reload()
+                        // window.location.reload()
                       }}>
                       Submit
                     </Button> 
@@ -407,7 +411,7 @@ console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
                     <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
                       onClick={() => {
                         addItemToSFSs6Inventory()
-                        window.location.reload()
+                        // window.location.reload()
                       }}>
                       Submit
                     </Button> 

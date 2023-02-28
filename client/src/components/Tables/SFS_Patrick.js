@@ -8,7 +8,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Checkbox from '@mui/material/Checkbox';
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridToolbarDensitySelector, } from "@mui/x-data-grid";
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -459,9 +459,12 @@ export default function RowsGrid({
                     sortModel: [{ field: "Name", sort: "asc" }],
                   },
                   pagination: {
-                    pageSize: 50,
+                    pageSize: 100,
                   },
+                  // density: { density: "compact"}
                 }}
+                // defaultDensity={GridDensity.COMPACT}
+                density="compact"
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
