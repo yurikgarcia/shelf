@@ -410,11 +410,11 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
-    const handleSelectionModelChange = (newSelection) => {
-      setSelectedRows(newSelection.selectionModel);
-    };
+    // const handleSelectionModelChange = (newSelection) => {
+    //   setSelectedRows(newSelection.selectionModel);
+    // };
 
-    const [selectedRows, setSelectedRows] = useState([]);
+    // const [selectedRows, setSelectedRows] = useState([]);
   
     // const handleAddSelectedRows = () => {
     //   // add selected rows to the array
@@ -443,12 +443,12 @@ export default function RowsGrid({
 
     const [selectionModel, setSelectionModel] = React.useState([]);
 
-    console.log(" OUTSIDE selectedRows", selectedRows)
+    // console.log(" OUTSIDE selectedRows", selectedRows)
 
 
 
   return (
-    <AppContext2.Provider value={selectedRows}>
+    // <AppContext2.Provider value={selectedRows}>
     <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
         <div>
@@ -906,6 +906,6 @@ export default function RowsGrid({
         </div>
       )}
     </Box>
-    </AppContext2.Provider>
+    // </AppContext2.Provider>
   );
 }
