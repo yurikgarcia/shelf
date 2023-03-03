@@ -303,6 +303,7 @@ export default function RowsGrid({
             setNewShoppingCart([...newShoppingCart, userShoppingCart]);
             // fetchInventory();
             fetchNewShoppingCart();
+            window.location.reload()
           }
         })
         .catch((err) => {
@@ -478,7 +479,7 @@ export default function RowsGrid({
                           sx={{ cursor: "pointer", color: "#4CAF50" }}
                             onClick={() => {
                               addToCart(params)
-                              window.location.reload()
+                              // window.location.reload()
                             }}
                           />
                       ),)}
