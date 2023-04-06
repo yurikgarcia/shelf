@@ -15,12 +15,13 @@ const pool = new Pool({
 });
 
 
-//////PATCH CALL THAT UPDATES THE USERS WAREHOUSE PERMISSIONS
-async function updateUserPermissionsNull(req, res) {
-  console.log("NULL PARASM", req.body)
+async function clearCart(req, res) {
+  console.log('==> Item ID to be deleted', req.params)
+  let dod_id = req.params.dod_id
+  console.log("DOD", dod_id)
   pool.query(
-    `UPDATE users SET warehouse_access = null
-      WHERE dod_id = '${req.body.DoD}'`,
+    `UPDATE users SET shopping_cart = null
+      WHERE dod_id = '${dod_id}'`,
       (error, results) => {
         if (error) {
           res.send("error" + error);
@@ -37,5 +38,5 @@ async function updateUserPermissionsNull(req, res) {
 
 
 module.exports = {
-  updateUserPermissionsNull,
+  clearCart,
 };

@@ -43,6 +43,7 @@ export default function AddModal({ inventory, setInventory, fetchInventory, fetc
     tracking: '-',
     contact: '-',
     initial: '-',
+    notes: '-',
   })
 
   const [handleNameError, setHandleNameError] = useState({
@@ -149,6 +150,28 @@ const addItemToInventory = async () => {
           })
       };
 
+        /**
+   * adds a new item to the 45 SFS PATRICK TABLE based on the state set from the textfields
+   */
+        const addItemToFSS45BowlingInventory = async () => {
+          const newInventory = addedItem;
+          console.log('newInventory', newInventory);
+          axios.post(`${API.website}/45fssbowlinginventory`, { item: newInventory })
+            .then(res => {
+              if (res.status === 200) {
+                setInventory([...inventory, newInventory])
+                // fetchSFSPatrickInventory()
+                setAddModalOpen(false)
+                console.log('fss hit')
+                window.location.reload()
+              }
+            })
+            .catch(err => {
+              alert('Sorry! Something went wrong. Please try again.')
+              console.log('err', err);
+            })
+        };
+
 
   const location = useLocation();//REact Router Hooked used to bring in the state of selected user and set the title of the page
 
@@ -185,7 +208,7 @@ const addItemToInventory = async () => {
 // console.log('iventory inside add modal', inventory)
 
 // console.log('s6', SFSs6Inventory)
-
+console.log("location add modal", location.state.warehouse)
 // console.log('.some',SFSs6Inventory.some(item => item.nsn === '41856427'))
 
   return (
@@ -340,8 +363,11 @@ const addItemToInventory = async () => {
                 onChange={(e) => setAddedItem({ ...addedItem, tracking: e.target.value })}
               />
             </div>
+            {location.state.warehouse !== "45 FSS - Bowling" ? (
             <Divider sx={{  bgcolor: "#155E9C", borderBottomWidth: 3 }}/> 
+            ) : null}
             <div>
+            { location.state.warehouse !== "45 FSS - Bowling" ? (
             <Stack direction="row" spacing={2}>
             <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
                   <FormControl sx={{width: 135}}>
@@ -374,7 +400,7 @@ const addItemToInventory = async () => {
                     </Select>
                   </FormControl>
             </Box>
-            </Stack>
+            </Stack>) : null}
             </div>
           </Box>
         
@@ -416,7 +442,16 @@ const addItemToInventory = async () => {
                       Submit
                     </Button> 
                   )
-                  : null}
+                  : location.state.warehouse === "45 FSS - Bowling" ? (
+                    <Button color='secondary' variant="contained" startIcon={<SaveIcon />} 
+                      onClick={() => {
+                        addItemToFSS45BowlingInventory()
+                        // window.location.reload()
+                      }}>
+                      Submit
+                    </Button> 
+                  ) :
+                  null}
                 </ButtonGroup>
               ) : (
                 <Button color='secondary' variant="contained" startIcon={<SaveIcon />}

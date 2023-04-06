@@ -66,9 +66,12 @@ pool.query(
                   user_last_name: results.rows[0].last_name,
                   user_dod_id: results.rows[0].dod_id,
                   USER_warehouses: results.rows[0].warehouse_access,
+                  admin_warehouses: results.rows[0].warehouse_access,
+                  admin_organization: results.rows[0].organization
                 }
               });
               console.log("TOKEN", user)
+              console.log("HIT")
             }
             );
           } else {
@@ -130,53 +133,3 @@ module.exports = {
   verifyToken,
   login
 };
-
-
-
-
-
- 
-
-
-//   query DB to verify user and password are correct
-//   pool.query(
-//     "SELECT * FROM users WHERE email = $1 AND user_password = $2",
-//     [user.email, user.password],
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//         res.status(500);
-//       } else {
-//         if (result.rows.length > 0) {
-//           //if user is found, create a token
-//           jwt.sign(
-//             { user },
-//             "secretkey",
-//             { expiresIn: "1hr" },
-//             (err, token) => {
-//               res.json({
-//                 token,
-//                 user: {
-//                   user_email: result.rows[0].email,
-//                   user_dod_id: result.rows[0].dod_id,
-//                   user_first_name: result.rows[0].first_name,
-//                   user_last_name: result.rows[0].last_name,
-//                   user_dod_id: result.rows[0].dod_id,
-//                   USER_warehouses: result.rows[0].warehouse_access,
-//                 }
-//               });
-//               // console.log("token in app.js", token);
-//               // console.log("user app.js", user);
-//             });
-//         }
-//       }
-//     }
-//   );
-// }
-
-module.exports = {
-  verifyToken,
-  login
-};
-
-

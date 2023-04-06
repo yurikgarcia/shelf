@@ -7,6 +7,7 @@ import AppContext2 from "../AppContext2.js";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InventoryTable from "../Tables/InventoryTable.js";
+import FSS45_Bowling from "../Tables/FSS45_Bowling.js";
 import SFS_Cape from "../Tables/SFS_Cape.js";
 import SFS_Patrick from "../Tables/SFS_Patrick.js";
 import SFS_S6 from "../Tables/sfs45s6.js";
@@ -20,6 +21,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
   const [SFSCapeInventory, setSFSCapeInventory] = useState([]); //inventory state
   const [SFSPatrickInventory, setSFSPatrickInventory] = useState([]); //inventory state
   const [SFSs6Inventory, setSFSs6Inventory] = useState([]); //inventory state
+  const [FSS45BowlingInventory, setFSS45BowlingInventory] = useState([]); //inventory state
   const [spinner, setSpinner] = useState(false); //spinner state
 
   const { API } = useContext(AppContext);
@@ -38,6 +40,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
     fetchSFSPatrickInventory();
     fetchSFSCapeInventory();
     fetchSFSs6Inventory();
+    fetchFSS45BowlingInventory();
     if (localStorage.getItem("authorization") === null)
       window.location.href = "/login";
   }, []);
@@ -133,6 +136,30 @@ function Inventory({ shoppingCart, setShoppingCart }) {
             });
         };
 
+        //fetches 45 FSS Bowling Inventory
+        const fetchFSS45BowlingInventory = async () => {
+          setSpinner(true);
+          axios
+            .get(
+              `${API.website}/45fssbowlinginventory`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+                },
+              }
+            )
+            .then((res) => {
+              setFSS45BowlingInventory (res.data);
+              setSpinner(false);
+            })
+            .catch((err) => {
+              console.log(err);
+              setSpinner(false);
+            });
+        };
+
+        console.log('from Inventory', FSS45BowlingInventory)
+
   const location = useLocation();//React Router Hook used to bring in the state of selected user and set the title of the page
 
   // console.log("LOCAL WAREHOUSE", localStorage.getItem("selected_Warehouse"))
@@ -162,6 +189,7 @@ function Inventory({ shoppingCart, setShoppingCart }) {
           })
         }
 
+        // console.log("location.state.warehouse", location.state.warehouse)
   return (
     <div>
       <div>
@@ -194,6 +222,13 @@ function Inventory({ shoppingCart, setShoppingCart }) {
               <SFS_Cape
               inventory={SFSCapeInventory}
               fetchSFSCapeInventory ={fetchSFSCapeInventory}
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+            />
+            ) : location.state.warehouse === "45 FSS - Bowling" ? (
+              <FSS45_Bowling
+              inventory={FSS45BowlingInventory}
+              fetchFSS45BowlingInventory ={fetchFSS45BowlingInventory}
               shoppingCart={shoppingCart}
               setShoppingCart={setShoppingCart}
             />

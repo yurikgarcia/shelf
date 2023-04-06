@@ -55,7 +55,7 @@ async function getCartColumn(req, res) {
 // based on the dod_id of the logged in user
 
 async function addToCart(req, res) {
-  console.log("ADD TO CART", req.body)
+  console.log("ADDED TO CART!!!!!!!", req.body)
   let params = {
     id: req.body.id,
     Delete: req.body.Delete,
@@ -166,7 +166,7 @@ async function addToCartFromUser(req, res) {
 async function deleteItemFromShoppingCart(req, res) {
   const item_id = req.params.id;
   let user_id = req.params.dod_id;
-  // console.log('==> Item ID to be deleted', item_id)
+  console.log('==> Item ID to be deleted', item_id)
   pool.query(
     `UPDATE users SET shopping_cart = shopping_cart - 
     Cast((SELECT position - 1 FROM users, jsonb_array_elements(shopping_cart) with 
@@ -184,10 +184,28 @@ async function deleteItemFromShoppingCart(req, res) {
   );
 }
 
+// //////Clears Shopping Cart
+// async function clearCart(req, res) {
+//   console.log("CLEAR CARTTTTTTTTTTTT", req.body)
+//     // pool.query(
+//   //   `UPDATE users SET shopping_cart = null
+//   //     WHERE dod_id = '${req.body.DoD}'`,
+//   //     (error, results) => {
+//   //       if (error) {
+//   //         res.send("error" + error);
+//   //       }
+//   //       console.log("updated warehouse permissions");
+//   //       res.status(200);
+//   //       res.send("Success")
+//   //     }
+//   //   );
+// }
+
 module.exports = {
   getCart,
   addToCart,
   deleteItemFromShoppingCart,
   addToCartFromUser,
-  getCartColumn
+  getCartColumn,
+  // clearCart
 };

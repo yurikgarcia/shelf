@@ -216,7 +216,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
   const [warehouseAccess, setWarehouseAccess] = useState({
     sfs45_patrick: false,
     sfs45_cape: false,
-    sfs45s6: false
+    sfs45s6: false, 
+    fss45bowling: false,
   });
   
 //function that checks for the users current warehouse access and sets the warehouseAccess state to true/false
@@ -225,7 +226,8 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     let access = {
       sfs45_patrick: false,
       sfs45_cape: false,
-      sfs45s6: false
+      sfs45s6: false,
+      fss45bowling: false,
     }
     if (editedUser.row.Warehouses.includes("45 SFS - Patrick")) {
       access.sfs45_patrick = true;
@@ -235,6 +237,9 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
     }
     if (editedUser.row.Warehouses.includes("45 SFS - S6")) {
       access.sfs45s6 = true;
+    }
+    if (editedUser.row.Warehouses.includes("45 FSS - Bowling")) {
+      access.fss45bowling = true;
     }
     setWarehouseAccess(access);  
   }
@@ -415,7 +420,7 @@ export default function RowsGrid({ users, fetchUsers, spinner}) {
 }
   
 
-const { sfs45_patrick, sfs45_cape, sfs45s6 } = warehouseAccess;
+const { sfs45_patrick, sfs45_cape, sfs45s6, fss45bowling } = warehouseAccess;
 
 const wareHouseLength = adminWarehouses.length;
 
@@ -669,7 +674,29 @@ const wareHouseLength = adminWarehouses.length;
                       >
                         <FormLabel component="legend">Warehouse Access:</FormLabel>
                           <FormGroup>
-                          
+                          {warehouseTables.some(house => house === 'sfs45s6') ? (
+                            <FormControlLabel
+                              control={
+                                <Checkbox 
+                                checked={sfs45s6} 
+                                onChange={handleCheckbox} 
+                                name="sfs45s6" 
+                                id="45 SFS - S6" />
+                              }
+                              label="45 SFS - S6"
+                            /> ) : null}
+                          {warehouseTables.some(house => house === 'sfs45_cape') ? (
+                            <FormControlLabel
+                              control={
+                                <Checkbox 
+                                checked={sfs45_cape} 
+                                onChange={handleCheckbox} 
+                                name="sfs45_cape" 
+                                id="45 SFS - Cape" />
+                              }
+                              label="45 SFS - Cape"
+                            />) : null}
+
                           {warehouseTables.some(house => house === 'sfs45_patrick') ? (
                             <FormControlLabel
                               control={
@@ -682,29 +709,17 @@ const wareHouseLength = adminWarehouses.length;
                                 label="45 SFS - Patrick"
                             />) : null}
 
-                            {warehouseTables.some(house => house === 'sfs45_cape') ? (
+                            {warehouseTables.some(house => house === 'fss45bowling') ? (
                             <FormControlLabel
                               control={
                                 <Checkbox 
-                                checked={sfs45_cape} 
+                                checked={fss45bowling} 
                                 onChange={handleCheckbox} 
-                                name="sfs45_cape" 
-                                id="45 SFS - Cape" />
+                                name="fss45bowling" 
+                                id="45 FSS - Bowling" />
                               }
-                              label="45 SFS - Cape"
+                              label="45 FSS - Bowling"
                             />) : null}
-
-                            {warehouseTables.some(house => house === 'sfs45s6') ? (
-                            <FormControlLabel
-                              control={
-                                <Checkbox 
-                                checked={sfs45s6} 
-                                onChange={handleCheckbox} 
-                                name="sfs45s6" 
-                                id="45 SFS - S6" />
-                              }
-                              label="45 SFS - S6"
-                            /> ) : null}
                           </FormGroup>
                         </FormControl>
                     </Box>

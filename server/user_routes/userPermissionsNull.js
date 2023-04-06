@@ -17,7 +17,6 @@ const pool = new Pool({
 
 //////PATCH CALL THAT UPDATES THE USERS WAREHOUSE PERMISSIONS
 async function updateUserPermissionsNull(req, res) {
-
   console.log("NULL PARASM", req.body)
   pool.query(
     `UPDATE users SET warehouse_access = null

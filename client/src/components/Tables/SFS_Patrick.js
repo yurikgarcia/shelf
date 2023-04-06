@@ -518,9 +518,9 @@ export default function RowsGrid({
                   },
                   { field: "Initial", minWidth: 100 },
                   { field: "Returnable", minWidth: 100 },
-                  { field: "Ordered", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Courier", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
+                  // { field: "Ordered", minWidth: 100, renderCell: renderCellExpand  },
+                  // { field: "Courier", minWidth: 100, renderCell: renderCellExpand  },
+                  // { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
 
                   {
                     field: "Issue",

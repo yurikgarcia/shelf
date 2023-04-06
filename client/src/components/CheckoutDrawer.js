@@ -25,6 +25,8 @@ import Tooltip from "@mui/material/Tooltip";
 import TextField from "@mui/material/TextField";
 import { useLocation } from 'react-router-dom';
 import warehouse from ".//Images/warehouse.gif";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
@@ -477,6 +479,23 @@ const changeItemQuantity = async (items, index) => {
           })
         }
 
+
+        const clearCart  = async () => {
+          console.log("user dod_id FROM THIS STUPID BUTTON", user_dod)
+          axios.patch(`${API.website}/clear-shopping-cart/${user_dod}`)
+            .then((res) => {
+              if (res.status === 200) {
+                fetchNewShoppingCart();
+                window.location.reload()
+              }
+            }) 
+            .catch((err) => {
+              alert("Sorry! Something went wrong. Please try Clearing Cart again.");
+              console.log("err", err);
+              console.error()
+            });
+        };
+
   
 
   return (
@@ -528,7 +547,25 @@ const changeItemQuantity = async (items, index) => {
                 sx={{ mt: 1.5, bgcolor: "#155E9C", borderBottomWidth: 3 }}
               />
 
-          
+
+            <Box sx={{ display: "flex", justifyContent:"flex-end", mt: 0.5, mr:10}}>
+            {cartLength >= 1 ? (
+              <Button 
+                variant="outlined"
+                // size="small"
+                color="primary"
+                sx={{width: 89, height: 20, fontSize:8.5}}
+                onClick={() => {
+                  clearCart()
+                  // window.location.reload()
+                }}
+                > Clear Cart</Button>
+            ) : null}
+
+{/* <IconButton aria-label="delete" size="small">
+        <DeleteIcon fontSize="inherit" />
+      </IconButton> */}
+          </Box>
 
             <ListItem>
               {newShoppingCart.map((item, index) => {
@@ -547,7 +584,7 @@ const changeItemQuantity = async (items, index) => {
                         <Box
                           sx={{
                             display: "flex",
-                            mt: 2,
+                            mt: 2.5,
                             ml: 3,
                             flexDirection: "column",
                             width: "1000",
@@ -618,6 +655,8 @@ const changeItemQuantity = async (items, index) => {
                               }}
                               />
                             </Box>
+
+                            
                           </Box>
                               <Divider sx={{ mt: 2, bgcolor: "#155E9C", borderBottomWidth: 3 }}/>
                             </Box>
@@ -628,6 +667,8 @@ const changeItemQuantity = async (items, index) => {
                         </div>  
                         )})}
             </ListItem>
+
+            
             <ListItem
             sx={{ display: "flex", flexDirection: "column"}}>
               {cartLength >= 1 ? (

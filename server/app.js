@@ -12,13 +12,14 @@ const jwt = require("jsonwebtoken");
 const { getSFSs6Inventory, addItemToSFSs6Inventory, updateItemInSFSs6Inventory, deleteItemFromSFSs6Inventory, } = require('./sfs_s6_inventory_routes/sfsS6_inventoryRoutes');
 const { getSFSCapeInventory, addItemToSFSCapeInventory, updateItemInSFSCapeInventory, deleteItemFromSFSCapeInventory, } = require('./sfs_cape_inventory_routes/sfsCape_inventoryRoutes');
 const { getSFSPatrickInventory, addItemToSFSPatrickInventory, updateItemInSFSPatrickInventory, deleteItemFromSFSPatrickInventory, } = require('./sfs_patrick_inventory_routes/sfsPatrick_inventoryRoutes');
+const { getFSS45BowlingInventory, addItemToFSS45BowlingInventory, updateItemInFSS45BowlingInventory, deleteItemFromFSS45BowlingInventory } = require('./fss45_bowling_inventory_routes/fss45Bowling_inventoryRoutes');
 const { getInventory, addItemToInventory, updateItemInInventory, deleteItemFromInventory } = require('./inventory_routes/inventoryRoutes');
 const { updateItemCount } = require('./inventory_routes/inventoryCount');
 const { removeItemFromCart } = require('./inventory_routes/removeItemFromCart');
 const { addToItemCount } = require('./inventory_routes/inventoryAddCount');
 const { addToSelectedWarehouse } = require('./inventory_routes/addToSelectedWarehouse');
 const { itemCurrentCount, cartItemCount } = require('./inventory_routes/inventoryItemCount');
-const { getUsers, addUser, deleteUser, updateUser,addAdmin} = require('./user_routes/userRoutes');
+const { getUsers, addUser, deleteUser, updateUser,addAdmin} = require('./user_routes/userRoutes'); 
 const { adminWarehouses } = require('./user_routes/admin_warehouses');
 const { updateUserPermissions } = require('./user_routes/userPermissions');
 const { updateUserPermissionsNull } = require('./user_routes/userPermissionsNull');
@@ -26,6 +27,7 @@ const { addToIssuedItems } = require('./user_routes/userInventory');
 const { getSelectedUser } = require('./issued_items_routes/issuedItemsRoutes');
 const { getCart, addToCart, deleteItemFromShoppingCart, addToCartFromUser, getCartColumn } = require('./shoppingcart_routes/shoppingcartRoutes');
 const { updateQuantity } = require('./shoppingcart_routes/shoppingCartQuantity');
+const { clearCart} = require('./shoppingcart_routes/clearCart');
 const { verifyToken, login } = require('./auth_routes/authRoutes');
 require("dotenv").config();
 
@@ -107,6 +109,12 @@ app.post('/45sfspatrickinventory', addItemToSFSPatrickInventory)
 app.patch('/45sfspatrickinventory', updateItemInSFSPatrickInventory)
 app.delete('/45sfspatrickinventory', deleteItemFromSFSPatrickInventory)
 
+//-------------------------------- 45 FSS Bowling INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
+
+app.get('/45fssbowlinginventory', getFSS45BowlingInventory)
+app.post('/45fssbowlinginventory', addItemToFSS45BowlingInventory)
+app.patch('/45fssbowlinginventory', updateItemInFSS45BowlingInventory)
+app.delete('/45fssbowlinginventory', deleteItemFromFSS45BowlingInventory)
 //-------------------------------- 45 SFS S6 INVENTORY TABLE----------------------------------------------------------------------------------------------------------------
 
 app.get('/45sfss6inventory', getSFSs6Inventory)
@@ -164,11 +172,16 @@ app.delete('/shopping-cart/:id/:dod_id', deleteItemFromShoppingCart)
 app.patch('/shopping-cart/:dod_id/:current_date', addToCart)
 app.patch('/shopping-cart/:dod_id', addToCartFromUser)
 
+//--------------------------------CLEAR SHOPPING CART ----------------------------------------------------------------------------------------------------------------
+app.patch('/clear-shopping-cart/:dod_id', clearCart)
+
+
 //--------------------------------SHOPPING CART - UPDATE QUANTITY----------------------------------------------------------------------------------------------------------------
 app.patch('/shopping-cart-quantity/:id/:user_dod/:ogWarehouse', updateQuantity)
 
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/currentItemCount/:uuid/:ogWarehouse', itemCurrentCount)
+
 
 //--------------------------------SHOPPING CART - CURRENT COUNT----------------------------------------------------------------------------------------------------------------
 app.get('/cartItemCount/:uuid/:ogWarehouse', cartItemCount)

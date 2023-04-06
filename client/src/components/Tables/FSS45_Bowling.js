@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import axios from "axios";
 import AppContext from "../AppContext.js";
+import AppContext2 from "../AppContext2.js";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import Checkbox from '@mui/material/Checkbox';
+import { DataGrid, GridToolbar, GridToolbarDensitySelector, } from "@mui/x-data-grid";
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -16,19 +18,21 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 import Modal from "@mui/material/Modal";
+import MuiAlert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import PropTypes from 'prop-types';
 import SaveIcon from "@mui/icons-material/Save";
 import Select from '@mui/material/Select';
+import Slide from '@mui/material/Slide';
+import Snackbar from '@mui/material/Snackbar';
 import Stack from "@mui/material/Stack";
+import Swal from 'sweetalert2'
 import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import warehouse from "..//Images/warehouse.gif";
-import MuiAlert from '@mui/material/Alert';
-import Slide from '@mui/material/Slide';
-import Snackbar from '@mui/material/Snackbar';
+
 
 function isOverflown(element) {
   return (
@@ -162,7 +166,7 @@ renderCellExpand.propTypes = {
 };
 
 export default function RowsGrid({
-  fetchSFSs6Inventory,
+  fetchFSS45BowlingInventory,
   inventory,
   fetchInventory,
   spinner,
@@ -179,6 +183,7 @@ export default function RowsGrid({
   setOpenDeleteModal(true);
   };
   const { API } = useContext(AppContext);
+  
   const handleCloseDeleteModal = () => setOpenDeleteModal(false);
   const [editedItem, setEditedItem] = useState({
     Name: "",
@@ -187,15 +192,15 @@ export default function RowsGrid({
     Bldg: "",
     Size: "-",
     Count: 0,
-    Type: "-",
+    Gender: "-",
     Aisle: "-",
-    Initial: "",
+    // Initial: "",
     MinCount: 0,
     Ordered: 0,
-    Returnable: false,
+    // Returnable: false,
     Courier: "-",
     Tracking: "-",
-    Notes: "",
+    Notes: "-",
   });
 
 
@@ -208,16 +213,16 @@ export default function RowsGrid({
     Bldg: "",
     Size: "-",
     Count: 0,
-    Type: "-",
+    Gender: "-",
     Aisle: "-",
-    Initial: '',
+    // Initial: '',
     MinCount: 0,
     Ordered: "",
-    Returnable: "",
+    // Returnable: "",
     Courier: "-",
     Tracking: "-",
     Original: "",
-    Notes: "",
+    Notes: "-",
   });
 
   const [open, setOpen] = useState(false);
@@ -228,14 +233,14 @@ export default function RowsGrid({
     axios({
       method: "delete",
       url:
-        `${API.website}/45sfss6inventory`,
+        `${API.website}/45fssbowlinginventory`,
       data: {
         id: id,
       },
     })
       .then((res) => {
         if (res.status === 200) {
-          fetchSFSs6Inventory();
+          fetchFSS45BowlingInventory();
         }
       })
       .catch((err) => {
@@ -243,6 +248,8 @@ export default function RowsGrid({
         console.log("err", err);
       });
   };
+
+  // console.log('patrick Inv', inventory)
 
   const onEditOpen = (params) => {
     setEditedItem(params.row);
@@ -253,11 +260,10 @@ export default function RowsGrid({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setOpen(false);
-    console.log("NEW VALUE", newValue)
     axios({
       method: "patch",
       url:
-        `${API.website}/45sfss6inventory`,
+        `${API.website}/45fssbowlinginventory`,
       data: {
         Delete: newValue.Delete,
         Name: newValue.Name,
@@ -266,27 +272,27 @@ export default function RowsGrid({
         Bldg: newValue.Bldg,
         Size: newValue.Size,
         Count: newValue.Count,
-        Gender: newValue.Type,
+        Gender: newValue.Gender,
         Aisle: newValue.Aisle,
         Initial: newValue.Initial,
         MinCount: newValue.MinCount,
         Ordered: newValue.Ordered,
         Returnable: newValue.Returnable,
-        Courier: newValue.Area,
+        Courier: newValue.Courier,
         Tracking: newValue.Tracking,
         Notes: newValue.Notes,
       },
     })
       .then(() => {
         console.log("success");
-        fetchSFSs6Inventory();
+        fetchFSS45BowlingInventory();
       })
       .catch((err) => {
         console.log("err", err);
       });
   };
 
-  // console.log('S6 Inv', inventory)
+ 
 
   /**
    * adds to shopping cart column in the users table
@@ -404,24 +410,57 @@ export default function RowsGrid({
   
     const [transition, setTransition] = React.useState(undefined)
 
+    // const handleSelectionModelChange = (newSelection) => {
+    //   setSelectedRows(newSelection.selectionModel);
+    // };
+
+    // const [selectedRows, setSelectedRows] = useState([]);
+  
+    // const handleAddSelectedRows = () => {
+    //   // add selected rows to the array
+    //   console.log("INSIDE", selectedRows);
+    // };
+
+   
+    // const handleAddSelectedRows = (params) => {
+    //   setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params]);
+    //   console.log("INSIDE", selectedRows);
+    //   console.log("INSIDE PARAMS", params)
+    // };
+
+    // const handleAddSelectedRows = (params) => {
+    //   setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params]);
+    //   console.log("params:", params);
+    //   console.log("selectedRows:", selectedRows);
+    // };
+
+    // const handleAddSelectedRows = (selectionModel) => {
+    //   setSelectedRows(selectionModel.map((id) => {
+    //     const row = inventory.find((row) => row.item_id === id);
+    //     return { ...row };
+    //   }));
+    // };
+
+    const [selectionModel, setSelectionModel] = React.useState([]);
+
+    // console.log(" OUTSIDE selectedRows", selectedRows)
+
+ console.log("FSS", inventory)
 
   return (
+    // <AppContext2.Provider value={selectedRows}>
     <Box sx={{ width: "100%", boxShadow: 10 }} >
       {spinner ? (
         <div>
           <img alt="warehouse" src={warehouse} width="900" />
         </div>
       ) : (
-        <div
-          style={{
-            height: "77vh",
-            width: "100%",
-          }}
-        >
+        <div style={{ height: "77vh", width: "100%"}}>
           <div style={{ display: "flex", height: "100%", width: "100%" }}>
             <div style={{ flexGrow: 1 }}>
+
               <DataGrid
-                // checkboxSelection
+                // checkboxSelection={true}
                 disableSelectionOnClick
                 initialState={{
                   sorting: {
@@ -430,22 +469,38 @@ export default function RowsGrid({
                   pagination: {
                     pageSize: 100,
                   },
+                  // density: { density: "compact"}
                 }}
+                // defaultDensity={GridDensity.COMPACT}
+                density="compact"
                 components={{ Toolbar: GridToolbar }}
                 stopColumnsSorts={[{ field: "Delete", sortable: false }]}
                 columns={[
+                  // { width: 50, 
+                  // renderCell: (params) => (    
+                  //     <Checkbox
+                  //       onChange={(event) => {
+                  //         if (event.target.checked) {
+                  //           setSelectedRows((prevSelectedRows) => [...prevSelectedRows, params.row]);
+                  //         } else {
+                  //           setSelectedRows((prevSelectedRows) =>
+                  //             prevSelectedRows.filter((row) => row.UUID !== params.row.UUID)
+                  //           );
+                  //         }
+                  //       }}
+                  //     />
+                  // ),
+                  // },
                   { field: "Name", minWidth: 150, renderCell: renderCellExpand  },
-                  { field: "Brand", minWidth: 120, renderCell: renderCellExpand  },
-                  { field: "NSN", width: 125, renderCell: renderCellExpand  },
-                  { field: "Area", minWidth: 100, renderCell: renderCellExpand  },
-                  // { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Type", minWidth: 100, renderCell: renderCellExpand  },
-                  { field: "Bldg", width: 60, renderCell: renderCellExpand  },
-                  { field: "Aisle", width: 55, renderCell: renderCellExpand  },
+                  { field: "Brand", minWidth: 130, renderCell: renderCellExpand  },
+                  { field: "NSN", minWidth: 125, renderCell: renderCellExpand  },
+                  { field: "Size", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Gender", minWidth: 100, renderCell: renderCellExpand  },
+                  // { field: "Bldg", minWidth: 100 },
+                  { field: "Aisle", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Count", minWidth: 100, renderCell: renderCellExpand  },
                   {
                     field: "Count Status",
-                    width: 95,
                     renderCell: (params) => (
                       <div>
                         {params.row.Count >
@@ -463,29 +518,31 @@ export default function RowsGrid({
                   },
                   // { field: "Initial", minWidth: 100 },
                   // { field: "Returnable", minWidth: 100 },
-                  { field: "Ordered", width: 70, renderCell: renderCellExpand  },
+                  { field: "Ordered", minWidth: 100, renderCell: renderCellExpand  },
+                  { field: "Courier", minWidth: 100, renderCell: renderCellExpand  },
                   { field: "Tracking", minWidth: 100, renderCell: renderCellExpand  },
-                  {
-                    field: "Issue",
-                    renderCell: (params) => (
-                      <div>
-                      {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
-                          <AddCircleIcon
-                          sx={{ cursor: "pointer", color: "#ff0000" }}
-                          onClick={handleClick(TransitionLeft)}
-                          />  
-                      ) : (
-                          <AddCircleIcon 
-                          sx={{ cursor: "pointer", color: "#4CAF50" }}
-                            onClick={() => {
-                              addToCart(params)
-                              // window.location.reload()
-                            }}
-                          />
-                      ),)}
-                      </div>
-                    ),
-                },
+
+                //   {
+                //     field: "Issue",
+                //     renderCell: (params) => (
+                //       <div>
+                //       {currentShoppingCart?.map((cart) => cart.shopping_cart?.some((item) => item.UUID === params.row.UUID ) ? (
+                //           <AddCircleIcon
+                //           sx={{ cursor: "pointer", color: "#ff0000" }}
+                //           onClick={handleClick(TransitionLeft)}
+                //           />  
+                //       ) : (
+                //           <AddCircleIcon 
+                //           sx={{ cursor: "pointer", color: "#4CAF50" }}
+                //             onClick={() => {
+                //               addToCart(params)
+                //               // window.location.reload()
+                //             }}
+                //           />
+                //       ),)}
+                //       </div>
+                //     ),
+                // },
                   {
                     field: "Edit",
                     minWidth: 10,
@@ -525,18 +582,18 @@ export default function RowsGrid({
                     Bldg: row.building,
                     Size: row.item_size,
                     Count: row.item_count,
-                    Type: row.gender,
+                    Gender: row.gender,
                     Aisle: row.aisle,
-                    Initial: row.intial_gear,
+                    // Initial: row.intial_gear,
                     MinCount: row.minimum_count,
+                    Notes: row.notes,
                     Ordered: row.ordered,
-                    Area: row.courier,
+                    Courier: row.courier,
                     Tracking: row.tracking,
-                    Returnable: row.returnable_item,
+                    // Returnable: row.returnable_item,
                     UUID: row.item_id,
                     Original: row.original_warehouse,
                     Original_UUID: row.original_uuid,
-                    Notes: row.notes,
                   };
                 })}
               />
@@ -547,7 +604,6 @@ export default function RowsGrid({
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-              
                 <Box
                   sx={{
                     position: "absolute",
@@ -564,7 +620,7 @@ export default function RowsGrid({
                 >
                   <CardContent>
                     <Box>
-                      <Box sx={{ mb: 1 }}>
+                      <Box sx={{ mb: 2 }}>
                         <Typography
                           sx={{ fontSize: 22 }}
                           color="text.primary"
@@ -580,7 +636,7 @@ export default function RowsGrid({
                       component="form"
                       sx={{
                         "& .MuiTextField-root": { m: 1, width: "15ch" },
-                        mt: 1, 
+                        mt: 2,
                         ml:2
                       }}
                       noValidate
@@ -608,23 +664,23 @@ export default function RowsGrid({
                         />
                       </div>
                       <div>
-                        <TextField
-                          disabled={false}
-                          id="outlined-error"  
-                          label="Type"
-                          defaultValue={editedItem?.Type}
-                          sx={{ borerRadius: "5" }}
-                          onChange={(e) =>
-                            setNewValue({ ...newValue, Type: e.target.value })
-                          }
-                        />
-                        <TextField
+                      <TextField
                           id="filled"
                           label="Brand"
                           defaultValue={editedItem?.Brand}
                           sx={{ borerRadius: "5" }}
                           onChange={(e) =>
                             setNewValue({ ...newValue, Brand: e.target.value })
+                          }
+                        />
+                        <TextField
+                          disabled={false}
+                          id="outlined-error"  
+                          label="Gender"
+                          defaultValue={editedItem?.Gender}
+                          sx={{ borerRadius: "5" }}
+                          onChange={(e) =>
+                            setNewValue({ ...newValue, Gender: e.target.value })
                           }
                         />
                       </div>
@@ -698,10 +754,10 @@ export default function RowsGrid({
                         />
                         <TextField
                           id="filled"
-                          label="Area"
-                          defaultValue={editedItem?.Area}
+                          label="Courier"
+                          defaultValue={editedItem?.Courier}
                           sx={{ borerRadius: "5" }}
-                          onChange={(e) => setNewValue({ ...newValue, Area: e.target.value })}
+                          onChange={(e) => setNewValue({ ...newValue, Courier: e.target.value })}
                         />
                         <TextField
                           id="filled"
@@ -710,8 +766,7 @@ export default function RowsGrid({
                           sx={{ borerRadius: "5" }}
                           onChange={(e) => setNewValue({ ...newValue, Tracking: e.target.value})}
                         /> 
-
-                      <Stack direction="row" spacing={2}>
+                      {/* <Stack direction="row" spacing={2}>
                         <Box sx={{ minWidth: 120, ml: 1, mt:1 }}>
                           <FormControl sx={{width: 135}}>
                             <InputLabel id="demo-simple-select-label">Initial Gear</InputLabel>
@@ -743,7 +798,7 @@ export default function RowsGrid({
                             </Select>
                           </FormControl>
                         </Box>
-                      </Stack>
+                      </Stack> */}
                       </div>
                     </Box>
                     <Box sx={{display: 'flex', justifyContent:"center",}}>
@@ -751,14 +806,12 @@ export default function RowsGrid({
                           id="filled"
                           label="Notes"
                           defaultValue={editedItem?.Notes}
-                          sx={{ borerRadius: "5", width: "80%", mt: 2 }}
+                          sx={{ borerRadius: "5", width: "85%", mt: 2 }}
                           onChange={(e) => setNewValue({ ...newValue, Notes: e.target.value})}
                         /> 
                     </Box>
                   </CardContent>
                 <CardActions>
-
-
                     <Box sx={{ ml: 4.7, mt: 1 }}>
                       <Stack direction="row" spacing={2}>
                         <Button
@@ -774,6 +827,7 @@ export default function RowsGrid({
                           variant="contained"
                           type="submit"
                           sx={{minWidth:"125px"}}
+                          
                           startIcon={<SaveIcon />}
                           onClick={(e) => handleSubmit(e)}
                         >
@@ -808,8 +862,11 @@ export default function RowsGrid({
                     <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                       Are You Sure You Want To Delete: 
                     </Typography>
-                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <h3>{editedItem?.Name} {editedItem.Brand} {editedItem.Size}</h3>
+                    <Typography id="modal-modal-title"  sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <h2>{editedItem?.Name} {editedItem.Brand}</h2>
+                    </Typography>
+                    <Typography sx={{ display: 'flex', justifyContent: 'center', fontSize: 20 }}>
+                     Size : {editedItem.Size} | NSN: {editedItem.NSN}
                     </Typography>
                     <Typography id="modal-modal-title" variant="h6" component="h2" align="center">
                       Data from this item will be PERMENENTLY DELETED!
@@ -834,6 +891,8 @@ export default function RowsGrid({
                 </Box>
               </Modal>
 
+          
+
               <Snackbar
                 open={openSnack} 
                 autoHideDuration={3250} 
@@ -850,5 +909,6 @@ export default function RowsGrid({
         </div>
       )}
     </Box>
+    // </AppContext2.Provider>
   );
 }
